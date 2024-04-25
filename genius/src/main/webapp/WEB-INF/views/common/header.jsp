@@ -12,17 +12,18 @@
         <nav class="navbar navbar-expand-lg navbar-light flex-column full_wrap">
             <div class="bg-geni full_wrap">
                 <div class="container text-white d-flex justify-content-end">
-                    <a class="p-2">로그인</a>
-                    <a class="p-2">회원가입</a>
-                    <a class="p-2">오시는길</a>
-                    <a class="p-2">로그아웃</a>
-                    <a class="p-2">마이페이지</a>
-                    <a class="p-2">관리자 사이트</a>
+                    <a href="/login/login" class="p-2 text-white">로그인</a>
+                    <a href="/member/join" class="p-2 text-white">회원가입</a>
+                    <a href="/company/map" class="p-2 text-white">오시는길</a>
+                    <a href="#" class="p-2 text-white">로그아웃</a>
+                    <a href="/member/mypage" class="p-2 text-white">마이페이지</a>
+                    <a href="/member/payment" class="p-2 text-white">결제내역</a>
+                    <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
                     <a></a>
                 </div>
             </div>
             <div class="container">
-                <a class="navbar-brand logo_h" href="#"><img class="mb-2" src="/resources/img/logo.png" alt="" width="150"></a>
+                <a class="navbar-brand logo_h" href="/"><img class="mb-2" src="/resources/img/logo1.png" alt="" width="150"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
@@ -32,35 +33,35 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
                         <li class="nav-item submenu dropdown active">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            <a href="/company/introduce" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">회사소개</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="#">인사말</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">연혁</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">오시는길</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/company/introduce">인사말</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/company/history">연혁</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/company/map">오시는길</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            <a href="/book/list" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">교재</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="#">교재</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/book/list">교재</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            <a href="/bbs/notice" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">QnA</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/notice">공지사항</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/qna">QnA</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/faq">FAQ</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            <a href="/bbs/board" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">자료실</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="#">자료실</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/board">자료실</a></li>
                             </ul>
                         </li>
 
