@@ -165,7 +165,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +191,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +217,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +243,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +269,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +295,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +321,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +347,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +373,13 @@
                                         <p>카테고리1 > 카테고리2</p>
                                         <h4 class="card-product__title"><a href="#">책 제목</a></h4>
                                         <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
-                                        <p class="card-product__rank">★★★★★</p>
+                                        <p class="card-product__rank">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

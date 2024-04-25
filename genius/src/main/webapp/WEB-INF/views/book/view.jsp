@@ -55,7 +55,7 @@
                 <div class="col-lg-6">
                     <div class="owl-carousel owl-theme s_Product_carousel">
                         <div class="single-prd-item">
-                            <img class="img-fluid" src="/resources/img/category/sample.jpg" alt="">
+                            <img class="img-fluid " src="/resources/img/category/sample.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -68,18 +68,23 @@
                             <li>저자 : 김저자</li>
                             <li>출판일 : 2024-04-25</li>
                             <li>출판사 : 지현문구</li>
+                            <li>ISBN : 9791156144304</li>
+                            <li>평점 :
+                                <span class="card-product__rank stars">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                            </li>
                         </ul>
-                        <p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-                            something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-                            during the winter.</p>
-                        <div class="product_count">
-                            <label for="qty">Quantity:</label>
-                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                    class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-                            <input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                    class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-
+                        <p>문제와 문제 사이의 연결고리, 연습과 실전 사이의 징검다리 <br>
+                            - 그동안 설맞이팀이 출제했던 모든 문항에, 최신 경향을 고려한 신규문항이 추가된 110문항 수록 <br>
+                            - 단순히 문제만 모아 두는 것을 넘어, 수학 학습에 도움이 되도록 설계된 든든한 길잡이</p>
+                        <div class="product_count pt-2">
+                            <label for="qty">수량 :</label>
+                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
                             <button class="button primary-outline-btn" type="button">바로 구매</button>
@@ -97,38 +102,39 @@
         <div class="container">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">소개 글</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                       aria-selected="false">Specification</a>
+                       aria-selected="false">목차</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                       aria-selected="false">Comments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-                       aria-selected="false">Reviews</a>
+                    <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+                       aria-selected="false">리뷰(00)</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                        and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                        Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                        London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                        officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                        job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                        showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                        child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                        half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                        named ‘Hangover’ by Beryl’s husband and</p>
-                    <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                        more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                        the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                        more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                        streamlined plan of cooking that is more efficient for one person creating less</p>
+                <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="p-4">
+                        <video src="/resources/video/welcomeboard%20(2).mp4" class="w-100" controls></video>
+                    </div>
+                    <div>
+                        <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
+                            and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
+                            Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
+                            London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
+                            officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
+                            job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
+                            showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
+                            child’s painting set for her birthday and it was with this that she produced her first significant work, a
+                            half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
+                            named ‘Hangover’ by Beryl’s husband and</p>
+                        <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
+                            more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
+                            the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
+                            more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
+                            streamlined plan of cooking that is more efficient for one person creating less</p>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
@@ -136,100 +142,132 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <h5>Width</h5>
+                                    <h5>Label 0.</h5>
                                 </td>
                                 <td>
-                                    <h5>128mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Height</h5>
-                                </td>
-                                <td>
-                                    <h5>508mm</h5>
+                                    <h5>수능 수학 학습 방법</h5>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Depth</h5>
+                                    <h5>Label 1.</h5>
                                 </td>
                                 <td>
-                                    <h5>85mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Weight</h5>
-                                </td>
-                                <td>
-                                    <h5>52gm</h5>
+                                    <h5>지수와 로그</h5>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Quality checking</h5>
+                                    <h5>Label 2.</h5>
                                 </td>
                                 <td>
-                                    <h5>yes</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Freshness Duration</h5>
-                                </td>
-                                <td>
-                                    <h5>03days</h5>
+                                    <h5>지수함수와 로그함수</h5>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>When packeting</h5>
+                                    <h5>Label 3.</h5>
                                 </td>
                                 <td>
-                                    <h5>Without touch of hand</h5>
+                                    <h5>삼각함수</h5>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Each Box contains</h5>
+                                    <h5>Label 4.</h5>
                                 </td>
                                 <td>
-                                    <h5>60pcs</h5>
+                                    <h5>사인법칙과 코사인법칙</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>Label 5.</h5>
+                                </td>
+                                <td>
+                                    <h5>등차수열과 등비수열</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>Label 6.</h5>
+                                </td>
+                                <td>
+                                    <h5>수열의 합</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>Label 7</h5>
+                                </td>
+                                <td>
+                                    <h5>수열의 귀납적 정의</h5>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade show" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="comment_list">
+                            <div class="row total_rate">
+                                <div class="col-6">
+                                    <div class="box_total">
+                                        <h5>평균 평점</h5>
+                                        <h4>4.0</h4>
+                                        <h6>(00명 참여)</h6>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="rating_list">
+                                        <h3>점수별 비율</h3>
+                                        <ul class="list">
+                                            <li><a href="#">5점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 00</a></li>
+                                            <li><a href="#">4점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                                    class="fa fa-star"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                            <li><a href="#">3점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                            <li><a href="#">2점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star text-secondary"></i><i
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                            <li><a href="#">1점 <i class="fa fa-star"></i><i class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i><i
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review_list">
                                 <div class="review_item">
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="img/product/review-1.png" alt="">
+                                            <img src="/resources/img/product/review-1.png" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                            <a class="reply_btn" href="#">Reply</a>
+                                            <h4>장지현</h4>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
                                         </div>
                                     </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                                         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                                         commodo</p>
                                 </div>
-                                <div class="review_item reply">
+                                <div class="review_item">
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="img/product/review-2.png" alt="">
+                                            <img src="/resources/img/product/review-2.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>Blake Ruiz</h4>
-                                            <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                            <a class="reply_btn" href="#">Reply</a>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
                                         </div>
                                     </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -243,156 +281,56 @@
                                         </div>
                                         <div class="media-body">
                                             <h4>Blake Ruiz</h4>
-                                            <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                            <a class="reply_btn" href="#">Reply</a>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
                                         </div>
                                     </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                                         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                                         commodo</p>
                                 </div>
+                                <nav class="blog-pagination justify-content-center d-flex">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">01</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">02</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">03</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">04</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">09</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="review_box">
-                                <h4>Post a comment</h4>
-                                <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-right">
-                                        <button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row total_rate">
-                                <div class="col-6">
-                                    <div class="box_total">
-                                        <h5>Overall</h5>
-                                        <h4>4.0</h4>
-                                        <h6>(03 Reviews)</h6>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="rating_list">
-                                        <h3>Based on 3 Reviews</h3>
-                                        <ul class="list">
-                                            <li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="review_list">
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-1.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-2.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-3.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="review_box">
-                                <h4>Add a Review</h4>
-                                <p>Your Rating:</p>
-                                <ul class="list">
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <h4>리뷰 작성</h4>
+                                <p>별점을 선택해주세요.</p><br>
+                                <ul class="list star-list">
+                                    <li><a href="#" data-score="1"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#" data-score="2"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#" data-score="3"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#" data-score="4"><i class="fa fa-star"></i></a></li>
+                                    <li><a href="#" data-score="5"><i class="fa fa-star"></i></a></li>
                                 </ul>
-                                <p>Outstanding</p>
                                 <form action="#/" class="form-contact form-review mt-3">
-                                    <div class="form-group">
-                                        <input class="form-control" name="name" type="text" placeholder="Enter your name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" name="email" type="email" placeholder="Enter email address" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" name="subject" type="text" placeholder="Enter Subject">
-                                    </div>
                                     <div class="form-group">
                                         <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
                                     </div>
@@ -419,7 +357,22 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
+<script>
+    let stars = document.querySelectorAll('.star-list li a');
+    for(let star of stars) {
+        star.addEventListener("click", (event)=>{
+            event.preventDefault();
+            let score = star.dataset.score;
+            for(let i = 1; i <= stars.length; i++) {
+                console.log(stars[i]);
+                stars[i].classList.remove('stars');
+            }
+            for(let i = 1; i <= score; i++) {
+                stars[i].classList.add('stars');
+            }
+        })
+    }
+</script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>
