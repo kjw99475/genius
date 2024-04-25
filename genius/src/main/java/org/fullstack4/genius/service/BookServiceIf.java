@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface BookServiceIf {
-    int regist(BookVO bbsVO);
+    int regist(BookDTO BookDTO);
 
     List<BookDTO> listAll();
     BookDTO view(int idx);

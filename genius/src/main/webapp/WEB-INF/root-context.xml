@@ -8,11 +8,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
-                           https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+                           https://www.springframework.org/schema/context/spring-context.xsd
+                           http://mybatis.org/schema/mybatis-spring
+                           http://mybatis.org/schema/mybatis-spring.xsd
                            http://www.springframework.org/schema/tx
                            https://www.springframework.org/schema/tx/spring-tx.xsd
                            http://www.springframework.org/schema/aop
-                           https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd"
+                           https://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/mvc
+                           https://www.springframework.org/schema/mvc/spring-mvc.xsd"
 >
     <!--    <bean class="org.fullstack4.springmvc.sample.SampleDAO" />-->
     <!--    <bean class="org.fullstack4.springmvc.sample.SampleService" />-->
@@ -78,5 +82,5 @@
     <context:component-scan base-package="org.fullstack4.genius.service"></context:component-scan>
     <context:component-scan base-package="org.fullstack4.genius.aop"></context:component-scan>
 
-    <mvc:resources location="resources/" mapping="/resources/**"/>
+<!--    <mvc:resources location="resources/" mapping="/resources/**"/>-->
 </beans>

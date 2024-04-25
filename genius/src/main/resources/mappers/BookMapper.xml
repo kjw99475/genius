@@ -3,5 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.BookMapper">
+    <insert id="regist">
+        INSERT INTO tbl_book(book_code, book_name, author, price, quantity, category_class_code, category_subject_code, publisher
+                            ,book_info, isbn, contents, publication_date)
+        VALUES(#{book_code}, #{book_name}, #{author}, #{price}, #{quantity}, #{category_class_code}, #{category_subject_code}, #{publisher},
+                            #{book_info}, #{isbn}, #{contents}, #{publication_date})
+    </insert>
 
+    <select id="listAll" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
+        sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
+        ,book_info, isbn, contents, publication_date
+        from tbl_book
+    </select>
+
+    <select id="view" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
+        sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
+        ,book_info, isbn, contents, publication_date
+        from tbl_book
+        where book_idx = ${idx}
+    </select>
+    <delete id="delete">
+        DELETE
+        FROM tbl_book
+        WHERE book_idx = #{idx}
+    </delete>
 </mapper>

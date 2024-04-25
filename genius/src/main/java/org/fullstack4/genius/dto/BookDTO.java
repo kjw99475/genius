@@ -1,12 +1,19 @@
 package org.fullstack4.genius.dto;
 
+import jdk.vm.ci.meta.Local;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import java.time.LocalDate;
 
-//@Log4j2
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Builder
+@Log4j2
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BookDTO {
     private int book_idx;
     private String book_code;
@@ -29,4 +36,5 @@ public class BookDTO {
     private String isbn;
     private String tags;
     private String contents;
+    private LocalDate publication_date;
 }
