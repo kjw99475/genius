@@ -7,10 +7,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-@Log4j2
-@Data
-@NoArgsConstructor
+import java.time.LocalDate;
+
+//@Log4j2
+//@Data
+//@NoArgsConstructor
 //@AllArgsConstructor
-@Builder
+//@Builder
 public class BbsDTO {
+    private int bbs_idx;
+    private String bbs_title;
+    private String category_code;
+    private String member_id;
+    private String fileYN;
+    private String replyYN;
+    private String bbs_contents;
+    private LocalDate reg_date;
+    private int read_cnt;
 }
