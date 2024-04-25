@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>genius</title>
-    <link rel="icon" href="/img/Fevicon.png" type="image/png">
+    <link rel="icon" href="/resources/img/Fevicon.png" type="image/png">
     <link rel="stylesheet" href="/resources/vendors/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/vendors/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/resources/vendors/themify-icons/themify-icons.css">
@@ -255,6 +255,9 @@
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                                         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                                         commodo</p>
+                                    <div class="pt-2 pb-2">
+                                        <button type="submit" class="btn btn-sm ">삭제</button>
+                                    </div>
                                 </div>
                                 <div class="review_item">
                                     <div class="media">
@@ -332,10 +335,10 @@
                                 </ul>
                                 <form action="#/" class="form-contact form-review mt-3">
                                     <div class="form-group">
-                                        <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                                        <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="리뷰를 작성해주세요"></textarea>
                                     </div>
                                     <div class="form-group text-center text-md-right mt-3">
-                                        <button type="submit" class="button button--active button-review">Submit Now</button>
+                                        <button type="submit" class="button button--active button-review">작성하기</button>
                                     </div>
                                 </form>
                             </div>
@@ -359,16 +362,18 @@
 <!--================ 푸터 End =================-->
 <script>
     let stars = document.querySelectorAll('.star-list li a');
+    let realStars =  document.querySelectorAll('.star-list li a i');
     for(let star of stars) {
         star.addEventListener("click", (event)=>{
             event.preventDefault();
-            let score = star.dataset.score;
-            for(let i = 1; i <= stars.length; i++) {
-                console.log(stars[i]);
-                stars[i].classList.remove('stars');
+            for(let i = 0; i < stars.length; i++) {
+                realStars[i].classList.remove('stars');
             }
-            for(let i = 1; i <= score; i++) {
-                stars[i].classList.add('stars');
+            let score = star.dataset.score;
+            console.log(star);
+            console.log(score);
+            for(let i = 0; i < score; i++) {
+                realStars[i].classList.add('stars');
             }
         })
     }
