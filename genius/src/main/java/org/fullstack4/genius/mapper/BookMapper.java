@@ -14,6 +14,6 @@ public interface BookMapper {
     BookVO view(int idx);
     int modify(BookVO bbsVO);
     int delete(int idx);
-    int bbsTotalCount(PageRequestDTO requestDTO);
-    List<BookVO> bbsListByPage(PageRequestDTO requestDTO);
+    int BookTotalCount(PageRequestDTO requestDTO);
+    List<BookVO> BookListByPage(PageRequestDTO requestDTO);
 }
