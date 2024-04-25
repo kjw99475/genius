@@ -48,96 +48,99 @@
     </section>
     <!-- ================ end banner area ================= -->
 
-
-    <!-- ================ category section start ================= -->
+    <!-- ================ 내용 section start ================= -->
     <section class="section-margin--small mb-5">
         <div class="container">
             <div class="row">
+                <!-- 카테고리 Bar -->
                 <div class="col-xl-3 col-lg-4 col-md-5">
                     <div class="sidebar-categories">
-                        <div class="head">Browse Categories</div>
+                        <div class="head">과목</div>
                         <ul class="main-categories">
                             <li class="common-filter">
                                 <form action="#">
                                     <ul>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li>
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li>
+                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="s01" name="category_subject_code"><label for="s01">국어</label></li>
+                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="s02" name="category_subject_code"><label for="s02">영어</label></li>
+
                                     </ul>
                                 </form>
                             </li>
                         </ul>
                     </div>
                     <div class="sidebar-filter">
-                        <div class="top-filter-head">Product Filters</div>
+                        <div class="top-filter-head">카테고리</div>
                         <div class="common-filter">
-                            <div class="head">Brands</div>
+                            <div class="head">초등</div>
                             <form action="#">
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c01" name="category_class_code"><label for="c01">초등 1학년</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c02" name="category_class_code"><label for="c02">초등 2학년</label></li>
                                 </ul>
                             </form>
                         </div>
                         <div class="common-filter">
-                            <div class="head">Color</div>
+                            <div class="head">중등</div>
                             <form action="#">
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black
-                                        Leather<span>(29)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black
-                                        with red<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c07" name="category_class_code"><label for="c07">중등 1학년</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c08" name="category_class_code"><label for="c08">중등 2학년</label></li>
                                 </ul>
                             </form>
                         </div>
                         <div class="common-filter">
-                            <div class="head">Price</div>
-                            <div class="price-range-area">
-                                <div id="price-range"></div>
-                                <div class="value-wrapper d-flex">
-                                    <div class="price">Price:</div>
-                                    <span>$</span>
-                                    <div id="lower-value"></div>
-                                    <div class="to">to</div>
-                                    <span>$</span>
-                                    <div id="upper-value"></div>
-                                </div>
-                            </div>
+                            <div class="head">고등</div>
+                            <form action="#">
+                                <ul>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c10" name="category_class_code"><label for="c10">고등 1학년</label></li>
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c11" name="category_class_code"><label for="c11">고등 2학년</label></li>
+                                </ul>
+                            </form>
                         </div>
                     </div>
                 </div>
+                <!-- 카테고리 Bar -->
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <!-- Start Filter Bar -->
-                    <div class="filter-bar d-flex flex-wrap align-items-center">
+                    <div class="pb-2 d-flex justify-content-between">
+                        <div class="d-flex justify-content-start">
+                            <div class="sorting">
+                                <select name="sort">
+                                    <option value="1">출판일 최신순</option>
+                                    <option value="2">판매량순</option>
+                                    <option value="3">낮은가격순</option>
+                                    <option value="4">높은가격순</option>
+                                </select>
+                            </div>
+                            <div class="sorting ">
+                                <select name="sales_status">
+                                    <option value="1">판매상태 전체</option>
+                                    <option value="2">판매중</option>
+                                    <option value="3">판매준비중</option>
+                                    <option value="4">판매종료</option>
+                                    <option value="5">품절</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="sorting">
-                            <select>
-                                <option value="1">Default sorting</option>
-                                <option value="1">Default sorting</option>
-                                <option value="1">Default sorting</option>
-                            </select>
+                            <button type="button" class="btn btn-success">장바구니에 담기</button>
                         </div>
-                        <div class="sorting mr-auto">
-                            <select>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div class="input-group filter-bar-search">
-                                <input type="text" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button type="button"><i class="ti-search"></i></button>
+                    </div>
+                    <!-- Start Filter Bar -->
+                    <div class="filter-bar">
+                        <div class="input-group d-flex justify-content-end">
+                            <div class="sorting d-flex">
+                                <select name="sales_status">
+                                    <option value="1">전체</option>
+                                    <option value="2">책이름</option>
+                                    <option value="3">저자</option>
+                                    <option value="4">출판사</option>
+                                </select>
+                                <div class="filter-bar-search">
+                                    <input type="text" placeholder="Search" style="width: 100%">
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-success">검색</button>
                                 </div>
                             </div>
                         </div>
@@ -148,154 +151,181 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product1.png" alt="">
+                                    <div class="card-product__img target" for="ch1">
+                                        <img class="card-img img-h350" src="/resources/img/product/product1.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch1">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Accessories</p>
-                                        <h4 class="card-product__title"><a href="#">Quartz Belt Watch</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product2.png" alt="">
+                                    <div class="card-product__img target" for="ch2">
+                                        <img class="card-img img-h350" src="/resources/img/product/product2.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch2">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Beauty</p>
-                                        <h4 class="card-product__title"><a href="#">Women Freshwash</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product3.png" alt="">
+                                    <div class="card-product__img target" for="ch3">
+                                        <img class="card-img img-h350" src="/resources/img/product/product3.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch3">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Decor</p>
-                                        <h4 class="card-product__title"><a href="#">Room Flash Light</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product4.png" alt="">
+                                    <div class="card-product__img target" for="ch4">
+                                        <img class="card-img img-h350" src="/resources/img/product/product4.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch4">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Decor</p>
-                                        <h4 class="card-product__title"><a href="#">Room Flash Light</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product5.png" alt="">
+                                    <div class="card-product__img target" for="ch5">
+                                        <img class="card-img img-h350" src="/resources/img/product/product5.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch5">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Accessories</p>
-                                        <h4 class="card-product__title"><a href="#">Man Office Bag</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product6.png" alt="">
+                                    <div class="card-product__img target" for="ch6">
+                                        <img class="card-img img-h350" src="/resources/img/product/product6.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch6">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Kids Toy</p>
-                                        <h4 class="card-product__title"><a href="#">Charging Car</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product7.png" alt="">
+                                    <div class="card-product__img target" for="ch7">
+                                        <img class="card-img img-h350" src="/resources/img/product/product7.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch7">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Accessories</p>
-                                        <h4 class="card-product__title"><a href="#">Blutooth Speaker</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product8.png" alt="">
+                                    <div class="card-product__img target" for="ch8">
+                                        <img class="card-img img-h350" src="/resources/img/product/product8.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch8">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Kids Toy</p>
-                                        <h4 class="card-product__title"><a href="#">Charging Car</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
-                                    <div class="card-product__img">
-                                        <img class="card-img" src="img/product/product1.png" alt="">
+                                    <div class="card-product__img target" for="ch9">
+                                        <img class="card-img img-h350" src="/resources/img/product/product1.jpg" alt="">
                                         <ul class="card-product__imgOverlay">
-                                            <li><button><i class="ti-search"></i></button></li>
+                                            <li><button><i class="ti-bag"></i></button></li>
                                             <li><button><i class="ti-shopping-cart"></i></button></li>
-                                            <li><button><i class="ti-heart"></i></button></li>
                                         </ul>
+                                        <div class="form-check targetTo z-100">
+                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch9">
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <p>Accessories</p>
-                                        <h4 class="card-product__title"><a href="#">Quartz Belt Watch</a></h4>
-                                        <p class="card-product__price">$150.00</p>
+                                        <p>카테고리1 > 카테고리2</p>
+                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>
+                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>
+                                        <p class="card-product__rank">★★★★★</p>
                                     </div>
                                 </div>
                             </div>
@@ -305,8 +335,35 @@
                 </div>
             </div>
         </div>
+        <!-- 페이징 영역 start -->
+        <nav class="blog-pagination justify-content-center d-flex">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">01</a>
+                </li>
+                <li class="page-item active">
+                    <a href="#" class="page-link">02</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">03</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">04</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">09</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- 페이징 영역 end -->
     </section>
-    <!-- ================ category section end ================= -->
+    <!-- ================ 내용 section end ================= -->
 </main>
 <!--================ 본문 END =================-->
 
@@ -319,11 +376,12 @@
 <!--================ 푸터 End =================-->
 <script src="/resources/js/swiper-bundle.min.js"></script>
 <script>
-    var swiper = new Swiper(".mySwiper", {
-        pagination: {
-            el: ".swiper-pagination",
-        },
-    });
+    let products = document.querySelectorAll('.card-product');
+    for (let product of products) {
+        product.addEventListener("click", ()=> {
+            location.href = "/book/view?idx=1";
+        })
+    }
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
