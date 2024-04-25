@@ -16,4 +16,8 @@ public class CommonUtil {
         String save = CookieUtil.getCookieValue(req,"save_id") ==null?"":CookieUtil.getCookieValue(req,"save_id");
         return save!= "";
     }
+
+    public static String parseString(Object obj) {
+        return (obj != null) ? (String)obj : "";
+    }
 }
