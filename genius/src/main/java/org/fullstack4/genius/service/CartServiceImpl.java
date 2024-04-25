@@ -1,14 +1,39 @@
 package org.fullstack4.genius.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.CartVO;
 import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
-
+import org.fullstack4.genius.mapper.CartMapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Log4j2
+@Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartServiceIf{
+
+    private final CartMapper cartMapper;
+    private final ModelMapper modelMapper;
+
     @Override
     public int regist(CartDTO cartDTO) {
-        return 0;
+
+        log.info("==============================");
+        log.info("CartDTO : "+ cartDTO.toString());
+        log.info("==============================");
+
+        CartVO vo = modelMapper.map(cartDTO, CartVO.class);
+        int result = cartMapper.regist(vo);
+
+        log.info("result : "+ result);
+        log.info("==============================");
+        log.info("==============================");
+
+        return result;
+
     }
 
     @Override

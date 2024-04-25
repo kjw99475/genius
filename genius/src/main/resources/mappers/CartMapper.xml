@@ -3,5 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.CartMapper">
-
+    <insert id="regist">
+        insert into tbl_delivery(member_id,book_code,quantity,reg_date,book_name) values (#{member_id},#{book_code},#{quantity},NOW(),#{book_name})
+    </insert>
 </mapper>
