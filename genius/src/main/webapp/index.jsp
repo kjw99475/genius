@@ -6,22 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>geinus</title>
-  <link rel="icon" href="WEB-INF/img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="/genius/webapp/WEB-INF/vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="/WEB-INF/vendors/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="/WEB-INF/vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="/WEB-INF/vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="/WEB-INF/vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="/WEB-INF/vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="icon" href="/img/Fevicon.png" type="image/png">
+  <link rel="stylesheet" href="resources/vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="resources/vendors/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="resources/vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="resources/vendors/nice-select/nice-select.css">
+  <link rel="stylesheet" href="resources/vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="resources/vendors/owl-carousel/owl.carousel.min.css">
 
-  <link rel="stylesheet" href="/WEB-INF/css/style.css">
-  <link rel="stylesheet" href="/WEB-INF/css/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="resources/css/style.css">
+  <link rel="stylesheet" href="resources/css/swiper-bundle.min.css"/>
 
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="WEB-INF/views/common/header.jsp" />
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -31,11 +31,11 @@
   <section>
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="WEB-INF/img/banner/banner1.jpg"></div>
-        <div class="swiper-slide"><img src="WEB-INF/img/banner/banner2.jpg"></div>
-        <div class="swiper-slide"><img src="WEB-INF/img/banner/banner3.jpg"></div>
-        <div class="swiper-slide"><img src="WEB-INF/img/banner/banner4.jpg"></div>
-        <div class="swiper-slide"><img src="WEB-INF//img/banner/banner5.jpg"></div>
+        <div class="swiper-slide"><img src="resources/img/banner/banner1.jpg"></div>
+        <div class="swiper-slide"><img src="resources/img/banner/banner2.jpg"></div>
+        <div class="swiper-slide"><img src="resources/img/banner/banner3.jpg"></div>
+        <div class="swiper-slide"><img src="resources/img/banner/banner4.jpg"></div>
+        <div class="swiper-slide"><img src="resources/img/banner/banner5.jpg"></div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
@@ -64,7 +64,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img bg-light">
-              <img class="card-img img-h350" src="WEB-INF/img/BestSeller/product1.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product1.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -81,7 +81,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product2.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product2.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -98,7 +98,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product3.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product3.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -115,7 +115,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product4.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product4.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -132,7 +132,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product5.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product5.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -149,7 +149,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product6.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product6.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -166,7 +166,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product7.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product7.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -183,7 +183,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="card-img img-h350" src="img/BestSeller/product8.jpg" alt="">
+              <img class="card-img img-h350" src="resources/img/BestSeller/product8.jpg" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -214,7 +214,7 @@
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
           <div class="card card-blog">
             <div class="card-blog__img">
-              <img class="card-img rounded-0" src="img/blog/blog1.png" alt="">
+              <img class="card-img rounded-0" src="resources/img/blog/blog1.png" alt="">
             </div>
             <div class="card-body">
               <ul class="card-blog__info">
@@ -231,7 +231,7 @@
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
           <div class="card card-blog">
             <div class="card-blog__img">
-              <img class="card-img rounded-0" src="img/blog/blog2.png" alt="">
+              <img class="card-img rounded-0" src="resources/img/blog/blog2.png" alt="">
             </div>
             <div class="card-body">
               <ul class="card-blog__info">
@@ -248,7 +248,7 @@
         <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
           <div class="card card-blog">
             <div class="card-blog__img">
-              <img class="card-img rounded-0" src="img/blog/blog3.png" alt="">
+              <img class="card-img rounded-0" src="resources/img/blog/blog3.png" alt="">
             </div>
             <div class="card-body">
               <ul class="card-blog__info">
@@ -294,7 +294,7 @@
       <div class="row section_gap">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="single-footer-widget tp_widgets">
-            <img src="./img/logo1.png" width="250px">
+            <img src="resources/img/logo1.png" width="250px">
           </div>
         </div>
         <div class="col-lg-7 col-md-6 col-sm-6">
@@ -314,7 +314,7 @@
   </div>
 </footer>
 <!--================ 푸터 Start =================-->
-<script src="./js/swiper-bundle.min.js"></script>
+<script src="resources/js/swiper-bundle.min.js"></script>
 <script>
   var swiper = new Swiper(".mySwiper", {
     pagination: {
@@ -323,13 +323,13 @@
   });
 </script>
 
-<script src="/WEB-INF/vendors/jquery/jquery-3.2.1.min.js"></script>
-<script src="/WEB-INF/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="/WEB-INF/vendors/skrollr.min.js"></script>
-<script src="/WEB-INF/vendors/owl-carousel/owl.carousel.min.js"></script>
-<script src="/WEB-INF/vendors/nice-select/jquery.nice-select.min.js"></script>
-<script src="/WEB-INF/vendors/jquery.ajaxchimp.min.js"></script>
-<script src="/WEB-INF/vendors/mail-script.js"></script>
-<script src="/WEB-INF/js/main.js"></script>
+<script src="resources/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="resources/vendors/skrollr.min.js"></script>
+<script src="resources/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="resources/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="resources/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="resources/vendors/mail-script.js"></script>
+<script src="resources/js/main.js"></script>
 </body>
 </html>
