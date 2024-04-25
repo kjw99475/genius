@@ -44,4 +44,15 @@ public class MypageController {
 
     }
 
+    @GetMapping("/cart")
+    public void GETCart(){
+
+    }
+
+    @PostMapping("/cart")
+    public void POSTCart(){
+
+    }
+
+
 }

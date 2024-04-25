@@ -18,7 +18,7 @@ public class MemberController {
 
     }
 
-    @PostMapping("/joinid")
+    @PostMapping("/join")
     public void POSTJoin(){
 
     }
