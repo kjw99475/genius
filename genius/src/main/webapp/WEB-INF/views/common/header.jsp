@@ -16,8 +16,8 @@
                     <a href="/member/join" class="p-2 text-white">회원가입</a>
                     <a href="/company/map" class="p-2 text-white">오시는길</a>
                     <a href="#" class="p-2 text-white">로그아웃</a>
-                    <a href="/member/mypage" class="p-2 text-white">마이페이지</a>
-                    <a href="/member/payment" class="p-2 text-white">결제내역</a>
+                    <a href="/mypage/mypage" class="p-2 text-white">마이페이지</a>
+                    <a href="/mypage/payment" class="p-2 text-white">결제내역</a>
                     <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
                     <a></a>
                 </div>
@@ -52,16 +52,16 @@
                             <a href="/bbs/notice" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">커뮤니티</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="/bbs/notice">공지사항</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/bbs/qna">QnA</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/bbs/faq">FAQ</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/noticeList">공지사항</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/qnaList">QnA</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/faqList">FAQ</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
-                            <a href="/bbs/board" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            <a href="/bbs/boardList" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">자료실</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="/bbs/board">자료실</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/bbs/boardList">자료실</a></li>
                             </ul>
                         </li>
 
