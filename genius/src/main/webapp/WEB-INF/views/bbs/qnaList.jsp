@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>커뮤니티 > QnA(리스트)</h1>
         </div>
     </section>
 </main>

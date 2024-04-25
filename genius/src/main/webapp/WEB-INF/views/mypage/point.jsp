@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>마이페이지 > 포인트 충전</h1>
         </div>
     </section>
 </main>

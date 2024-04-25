@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>회사소개 > 연혁</h1>
         </div>
     </section>
 </main>

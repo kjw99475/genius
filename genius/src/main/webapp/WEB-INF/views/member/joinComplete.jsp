@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>멤버 > 회원가입(완료)</h1>
         </div>
     </section>
 </main>
@@ -50,7 +50,6 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>

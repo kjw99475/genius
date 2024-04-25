@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>자료실 > 자료실(리스트)</h1>
         </div>
     </section>
 </main>

@@ -1,4 +1,4 @@
-<%--
+a<%--
   Created by IntelliJ IDEA.
   User: pc
   Date: 2024-04-25
@@ -37,7 +37,7 @@
 <main class="site-main">
     <section>
         <div class="container">
-            <h1>마이페이지 > 회원정보</h1>
+            <h1>커뮤니티 > QnA(뷰 - 답변)</h1>
         </div>
     </section>
 </main>
