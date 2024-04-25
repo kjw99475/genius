@@ -2,6 +2,7 @@ package mapper;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.mapper.BookMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +41,28 @@ public class YUNTEST {
         log.info("result : " +  result);
         log.info("======================");
     }
-
+    @Test
+    public void testTotalCount(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(10)
+                .build();
+        int total_count = bookMapper.BookTotalCount(pageRequestDTO);
+        log.info("=================================");
+        log.info("testBbsTotalCount : " + total_count);
+        log.info("=================================");
+    }
+    @Test
+    public void testBbsListByPage(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(2)
+                .build();
+        List<BookVO> bbsList = bookMapper.BookListByPage(pageRequestDTO);
+        log.info("=================================");
+        bbsList.forEach(list->log.info(list));
+        log.info("=================================");
+    }
     @Test
     public void testListBook(){
         List<BookVO> list = bookMapper.listAll();
