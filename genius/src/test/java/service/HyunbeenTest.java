@@ -25,6 +25,6 @@ public class HyunbeenTest {
                 .quantity(2)
                 .build();
 
-        cart.regist(dto);
+        int result = cart.regist(dto);
     }
 }
