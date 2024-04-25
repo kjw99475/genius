@@ -1,14 +1,13 @@
-package org.fullstack4.genius.domain;
+package org.fullstack4.genius.dto;
 
 import java.time.LocalDate;
 
-//@Log4j2///실제 배포시에 넣지마
-//@ToString
-//@Getter
-//@AllArgsConstructor
-////@NoArgsConstructor
+//@Log4j2
+//@Data
+//@NoArgsConstructor
+////@AllArgsConstructor
 //@Builder
-public class OrderVO {
+public class OrderDTO {
     private int order_idx;
     private String order_num;
     private String member_id;
