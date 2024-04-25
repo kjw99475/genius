@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 @Log4j2
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
@@ -35,6 +37,9 @@ public class HyunbeenTest {
 
     @Test
     public void viewCart(){
-
+        List<CartDTO> dto = cart.listAll();
+        log.info("================================");
+        log.info("CartDTO() : " + dto.toString());
+        log.info("================================");
     }
 }

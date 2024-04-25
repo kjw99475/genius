@@ -9,6 +9,7 @@ import org.fullstack4.genius.mapper.CartMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -38,7 +39,11 @@ public class CartServiceImpl implements CartServiceIf{
 
     @Override
     public List<CartDTO> listAll() {
-        return null;
+        List<CartVO> volist = cartMapper.listAll();
+        List<CartDTO> dtolist = volist.stream()
+                .map(vo->modelMapper.map(vo,CartDTO.class))
+                .collect(Collectors.toList());
+        return dtolist;
     }
 
     @Override
