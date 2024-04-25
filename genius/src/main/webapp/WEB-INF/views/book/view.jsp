@@ -64,8 +64,10 @@
                         <h3>상품명 입니다.</h3>
                         <h2><s class="text-muted h6">10,000원</s> 15,000원</h2>
                         <ul class="list">
-                            <li><a class="active" href="#"><span>Category</span> : Household</a></li>
-                            <li><a href="#"><span>Availibility</span> : In Stock</a></li>
+                            <li>카테고리 : 카테고리1 > 카테고리2</li>
+                            <li>저자 : 김저자</li>
+                            <li>출판일 : 2024-04-25</li>
+                            <li>출판사 : 지현문구</li>
                         </ul>
                         <p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
                             something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
