@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.mapper.BookMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -63,11 +64,28 @@ public class BookServiceImpl implements BookServiceIf {
 
     @Override
     public int BookTotalCount(PageRequestDTO requestDTO) {
-        return 0;
+        int total_count = bookMapper.BookTotalCount(requestDTO);
+
+        return total_count;
     }
 
     @Override
-    public List<BookDTO> BookListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO) {
+        List<BookVO> voList = bookMapper.BookListByPage(requestDTO);
+        log.info("========================");
+        log.info("voList : " + voList);
+        log.info("========================");
+        List<BookDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,BookDTO.class))
+                .collect(Collectors.toList());
+        int total_count = bookMapper.BookTotalCount(requestDTO);
+
+        PageResponseDTO<BookDTO> responseDTO = PageResponseDTO.<BookDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

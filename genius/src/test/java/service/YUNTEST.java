@@ -3,6 +3,8 @@ package service;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.BookDTO;
+import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,6 +57,22 @@ public class YUNTEST {
         List<BookDTO> list = bookServiceIf.listAll();
         log.info(list);
         log.info("BookServiceIfTest >> testBookList END");
+        log.info("=================================");
+    }
+
+    @Test
+    public void testBookListByPage(){
+        log.info("=================================");
+        log.info("BookServiceTests >> testBookListByPage START");
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(10)
+                .build();
+        PageResponseDTO<BookDTO> responseDTO = bookServiceIf.BookListByPage(pageRequestDTO);
+        responseDTO.getDtoList().forEach(
+                vo->log.info(vo)
+        );
+        log.info("BookServiceTests >> testBookListByPage END");
         log.info("=================================");
     }
 

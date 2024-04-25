@@ -29,4 +29,15 @@
         FROM tbl_book
         WHERE book_idx = #{idx}
     </delete>
+    <select id="BookTotalCount" resultType="int">
+        SELECT COUNT(*) FROM tbl_book
+    </select>
+    <select id="BookListByPage" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
+        sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
+        ,book_info, isbn, contents, publication_date
+        FROM tbl_book
+        ORDER BY book_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 </mapper>
