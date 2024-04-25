@@ -82,5 +82,6 @@
     <context:component-scan base-package="org.fullstack4.genius.service"></context:component-scan>
     <context:component-scan base-package="org.fullstack4.genius.aop"></context:component-scan>
 
-<!--    <mvc:resources location="resources/" mapping="/resources/**"/>-->
+    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+
 </beans>
