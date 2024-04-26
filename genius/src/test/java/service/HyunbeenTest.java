@@ -2,8 +2,10 @@ package service;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.CartDTO;
+import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.service.CartServiceIf;
 import org.fullstack4.genius.service.CartServiceImpl;
+import org.fullstack4.genius.service.MemberServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class HyunbeenTest {
 
     @Autowired
     private CartServiceIf cart;
+
+    @Autowired
+    private MemberServiceIf member;
 
     @Test
     public void insertCart(){
@@ -58,5 +63,15 @@ public class HyunbeenTest {
         log.info("==============================");
         log.info("result : "+ result);
         log.info("==============================");
+    }
+
+    @Test
+    public void viewMember(){
+        String Member_id = "test";
+        MemberDTO dto = member.view(Member_id);
+
+        log.info("===================================");
+        log.info("memberDTO: " + dto.toString());
+        log.info("===================================");
     }
 }
