@@ -28,7 +28,7 @@ public class BannerController {
 
     }
 
-    @GetMapping("/bannerModfiy")
+    @GetMapping("/bannerModify")
     public void GETBannerModify(){
 
     }

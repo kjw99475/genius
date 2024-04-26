@@ -139,8 +139,8 @@
 
 <script>
     const frm_delete = document.querySelector("#frm_book_delete");
-    let flag_delete = confirm("정말 삭제하시겠습니까?");
     function book_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
         if (flag_delete) {
             frm_delete.submit();
         }
