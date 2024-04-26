@@ -68,7 +68,7 @@
                     <tbody>
                     <c:forEach items="bookDTOlist" var="bookDTO">
 
-                    <tr onclick="location.href='admin-product-detail.html'">
+                    <tr onclick="location.href='/admin/book/bookView'">
                         <th scope="row">${bookDTO.book_code}</th>
                         <td>${bookDTO.book_name}</td>
                         <td>${bookDTO.price}</td>
