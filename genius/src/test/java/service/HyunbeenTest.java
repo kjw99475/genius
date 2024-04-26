@@ -37,9 +37,26 @@ public class HyunbeenTest {
 
     @Test
     public void viewCart(){
-        List<CartDTO> dto = cart.listAll();
+        List<CartDTO> dto = cart.listAll("test");
         log.info("================================");
         log.info("CartDTO() : " + dto.toString());
         log.info("================================");
+    }
+
+    @Test
+    public void deleteCart(){
+        CartDTO cartdto = CartDTO.builder()
+                .member_id("test")
+                .cart_idx(1)
+                .build();
+
+        log.info("==============================");
+        log.info("CartDTO() : " + cartdto.toString());
+        log.info("==============================");
+
+        int result = cart.delete(cartdto);
+        log.info("==============================");
+        log.info("result : "+ result);
+        log.info("==============================");
     }
 }

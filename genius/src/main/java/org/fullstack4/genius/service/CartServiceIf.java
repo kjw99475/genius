@@ -9,7 +9,7 @@ import java.util.List;
 public interface CartServiceIf {
 
     int regist(CartDTO cartDTO);
-    List<CartDTO> listAll();
+    List<CartDTO> listAll(String member_id);
     CartDTO view(String user_id);
     int modify(CartDTO cartDTO);
     int delete(CartDTO cartDTO);

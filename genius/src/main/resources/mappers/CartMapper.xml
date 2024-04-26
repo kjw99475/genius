@@ -9,6 +9,14 @@
     <select id="listAll" resultType="org.fullstack4.genius.domain.CartVO">
         select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name
         from tbl_cart as A
-        INNER JOIN tbl_book AS B where B.book_code=A.book_code
+        INNER JOIN tbl_book AS B on B.book_code=A.book_code
+        where member_id=#{member_id}
     </select>
+
+    <delete id="delete">
+        delete from tbl_cart
+        where cart_idx=#{cart_idx} AND member_id=#{member_id}
+    </delete>
+
+
 </mapper>

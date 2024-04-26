@@ -38,8 +38,8 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
-    public List<CartDTO> listAll() {
-        List<CartVO> volist = cartMapper.listAll();
+    public List<CartDTO> listAll(String member_id) {
+        List<CartVO> volist = cartMapper.listAll(member_id);
         List<CartDTO> dtolist = volist.stream()
                 .map(vo->modelMapper.map(vo,CartDTO.class))
                 .collect(Collectors.toList());
@@ -58,7 +58,10 @@ public class CartServiceImpl implements CartServiceIf{
 
     @Override
     public int delete(CartDTO cartDTO) {
-        return 0;
+
+        CartVO vo = modelMapper.map(cartDTO, CartVO.class);
+        int result = cartMapper.delete(vo);
+        return result;
     }
 
     @Override
