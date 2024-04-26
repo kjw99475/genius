@@ -54,5 +54,14 @@ public class MypageController {
 
     }
 
+    @GetMapping("/point")
+    public void GETPoint(){
+
+    }
+
+    @PostMapping("/point")
+    public void POSTPoint(){
+
+    }
 
 }
