@@ -83,7 +83,7 @@
                             - 그동안 설맞이팀이 출제했던 모든 문항에, 최신 경향을 고려한 신규문항이 추가된 110문항 수록 <br>
                             - 단순히 문제만 모아 두는 것을 넘어, 수학 학습에 도움이 되도록 설계된 든든한 길잡이</p>
                         <div class="product_count pt-2">
-                            <label for="qty">수량 :</label>
+                            <label for="sst">수량 :</label>
                             <input type="number" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
