@@ -71,20 +71,13 @@
                         </div>
                     </div>
                 </div>
-<%--                <div class="row justify-content-end align-items-center pb-3">--%>
-<%--                    <div class="col-auto">--%>
-<%--                        <input type="date" class="form-control" id="startDay" name="startDay">--%>
-<%--                    </div>--%>
-<%--                    <div>~</div>--%>
-<%--                    <div class="col-auto">--%>
-<%--                        <input type="date" class="form-control" id="endDay" name="endDay">--%>
-<%--                    </div>--%>
-<%--                    <div>--%>
-<%--                        <button class="btn btn-success" type="button">조회</button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
             </div>
-            <table class="table table-hover">
+
+
+
+
+
+            <table class="table table-hover accordion">
                 <thead class="filter-bar">
                 <tr>
                     <th scope="col">번호</th>
@@ -94,14 +87,18 @@
                     <th scope="col">조회</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="accordionExample">
                 <tr>
                     <th scope="row">6</th>
-                    <td>Mark<span class="ti-file"></span></td>
+                    <td><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Mark</button><span class="ti-file"></span></td>
                     <td>Otto</td>
                     <td>@mdo</td>
                     <td>12</td>
                 </tr>
+                <tr>
+                    <td colspan="4" id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"><div>test</div></td>
+                </tr>
+                </tbody>
                 <tr>
                     <th scope="row">5</th>
                     <td>Jacob<span class="ti-file"></span></td>
@@ -139,7 +136,8 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
                 <li class="page-item">

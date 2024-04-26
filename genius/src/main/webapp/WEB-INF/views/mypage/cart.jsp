@@ -52,175 +52,123 @@
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
+                    <div class="d-flex align-items-center justify-content-end pb-2" style="gap: 10px">
+                        <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
+                        <button class="btn btn-success rounded purchase">구매하기</button>
+                    </div>
                     <table class="table">
+                        <colgroup>
+                            <col width="65%" style="width: 65% !important; box-sizing: border-box" />
+                            <col span="3" width="10%" style="width: 10% !important; box-sizing: border-box"  />
+                            <col width="5%" style="width: 5% !important; box-sizing: border-box; text-align: center;"  />
+                        </colgroup>
                         <thead class="bg-geni-ft">
-                        <tr>
-                            <th scope="col">상품명</th>
-                            <th scope="col">단가</th>
-                            <th scope="col">수량</th>
-                            <th scope="col">합계</th>
-                        </tr>
+                            <tr>
+                                <th scope="col" >상품명</th>
+                                <th scope="col" >단가</th>
+                                <th scope="col" >수량</th>
+                                <th scope="col" >합계</th>
+                                <th scope="col" style="text-align: center;">
+                                    <input id="chooseAll" type="checkbox" checked id="checkAll" onchange="chooseAllOrNothing(this)">
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img class="img-w150" src="/resources/img/product/product1.jpg" alt="">
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img class="img-w150" src="/resources/img/product/product1.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>중학 보건</p>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <p>중학 보건</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="price" data-idx="1">10,000</span>원</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="10,000"></h5>
+                                </td>
+                                <td>
                                     <div class="product_count">
-                                        <input type="number" name="qty" id="quantity2" maxlength="12" value="1" title="Quantity:"
-                                               class="input-text qty">
+                                        <div class="product_count">
+                                            <input type="number" name="qty" id="quantity1" maxlength="12" value="1" title="Quantity:"
+                                                   class="input-text qty" onchange="calculateSubTotal(this, 10000)" min="0">
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="total" data-idx="1">10,000</span>원</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img class="img-w150" src="/resources/img/product/product2.jpg" alt="">
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 text-right subtotal p-0 w-100px" data-idx="1" type="text" name="subtotal2" value="0"></h5>
+                                </td>
+                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check1" checked></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img class="img-w150" src="/resources/img/product/product2.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>고등학교 기본 수학</p>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <p>고등학교 기본 수학</p>
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 text-right price p-0 w-100px" data-idx="2" type="text" name="price2" value="20,000"></h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <div class="product_count">
+                                            <input type="number" name="qty" id="quantity2" maxlength="12" value="1" title="Quantity:"
+                                                   class="input-text qty" onchange="calculateSubTotal(this, 20000)" min="0">
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="price" data-idx="2">10,000</span>원</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="number" name="qty" id="quantity1" maxlength="12" value="1" title="Quantity:"
-                                           class="input-text qty">
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="total" data-idx="2">10,000</span>원</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img class="img-w150" src="/resources/img/product/product3.jpg" alt="">
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 subtotal text-right p-0 w-100px" data-idx="2" type="text" name="subtotal2" value="0"></h5>
+                                </td>
+                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check2" checked></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img class="img-w150" src="/resources/img/product/product3.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>고등학교 기술가정</p>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <p>고등학교 기술가정</p>
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 price text-right p-0 w-100px" data-idx="3" type="text" name="price3" value="55,000"></h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <div class="product_count">
+                                            <input type="number" name="qty" id="quantity3" maxlength="12" value="1" title="Quantity:"
+                                                   class="input-text qty" onchange="calculateSubTotal(this, 55000)" min="0">
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="price" data-idx="3">10,000</span>원</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="quantity2" maxlength="12" value="1" title="Quantity:"
-                                           class="input-text qty">
-                                </div>
-                            </td>
-                            <td>
-                                <h5><span class="total" data-idx="3">10,000</span>원</h5>
-                            </td>
-                        </tr>
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="button" href="#">Update Cart</a>
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <a class="primary-btn" href="#">Apply</a>
-                                    <a class="button" href="#">Have a Coupon?</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <h5>Subtotal</h5>
-                            </td>
-                            <td>
-                                <h5>$2160.00</h5>
-                            </td>
-                        </tr>
-                        <tr class="shipping_area">
-                            <td class="d-none d-md-block">
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <h5>Shipping</h5>
-                            </td>
-                            <td>
-                                <div class="shipping_box">
-                                    <ul class="list">
-                                        <li><a href="#">Flat Rate: $5.00</a></li>
-                                        <li><a href="#">Free Shipping</a></li>
-                                        <li><a href="#">Flat Rate: $10.00</a></li>
-                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li>
-                                    </ul>
-                                    <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                    <select class="shipping_select">
-                                        <option value="1">Bangladesh</option>
-                                        <option value="2">India</option>
-                                        <option value="4">Pakistan</option>
-                                    </select>
-                                    <select class="shipping_select">
-                                        <option value="1">Select a State</option>
-                                        <option value="2">Select a State</option>
-                                        <option value="4">Select a State</option>
-                                    </select>
-                                    <input type="text" placeholder="Postcode/Zipcode">
-                                    <a class="gray_btn" href="#">Update Details</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="out_button_area">
-                            <td class="d-none-l">
-
-                            </td>
-                            <td class="">
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn ml-2" href="#">Proceed to checkout</a>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <h5><input readonly class="border-0 subtotal text-right p-0 w-50px" data-idx="3" type="text" name="subtotal3" value="0"></h5>
+                                </td>
+                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check3" checked></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <h5>총계</h5>
+                                </td>
+                                <td>
+                                    <h5><input id="total" readonly class="border-0 text-right p-0 w-100px" type="text" name="total" value="0"></h5>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
+                        <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
+                        <button type="button"  class="btn btn-success rounded purchase">구매하기</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,6 +185,108 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 
+<script>
+    /* 테스트 용 */
+    let purchase = document.querySelectorAll('.purchase');
+    for(let pur of purchase) {
+        pur.addEventListener('click', ()=> {
+            location.href = "/order/payment1";
+        })
+    }
+
+
+    /* 부분합계, 총계 계산 관련! */
+    // 페이지 로딩 시 기본적으로 합계(부분), 총계(전체) 계산하는 부분
+    window.onload = (()=>{
+        let subTotals = document.querySelectorAll('.subtotal');
+        let allTotal = document.querySelector('#total');
+        for(let subtotal of subTotals) {
+            let price = subtotal.parentElement.parentElement.parentElement.querySelector('.price').value;
+            let qty = subtotal.parentElement.parentElement.parentElement.querySelector('.qty').value;
+            let total = parseInt(uncomma(price)) * parseInt(qty);
+            subtotal.value = comma(total);
+        }
+        allTotal.value = calculateTotal();
+    })
+    // 수량 변경 시 계산하는 로직
+    let qtyies = document.querySelectorAll('.qty');
+    for(let qty of qtyies) {
+        qty.addEventListener('change', ()=>{
+            let total = document.querySelector('#total');
+            total.value = calculateTotal();
+        })
+    }
+    // 선택 사항 변경 시 체크하는 로직
+    let chooses = document.querySelectorAll('.choose');
+    for (let choose of chooses) {
+        choose.addEventListener('change', ()=> {
+            let total = document.querySelector('#total');
+            total.value = calculateTotal();
+        })
+    }
+    // 총계 계산하는 로직
+    function calculateTotal() {
+        let subTotals = document.querySelectorAll('.subtotal');
+        let total = 0;
+        for(let subTotal of subTotals) {
+            let choose = subTotal.parentElement.parentElement.parentElement.querySelector('.choose');
+            if (choose.checked) {
+                total += parseInt(uncomma(subTotal.value));
+            }
+        }
+        return comma(total);
+    }
+    // 부분 합계 업데이트 하는 로직
+    function calculateSubTotal(element, price) {
+        // 인자로 단가를 넣어주면 수량으로 알아서 계산 하는 로직
+        let qty = parseInt(element.value);
+        let total = price * qty;
+        let target = element.parentElement.parentElement.parentElement.parentElement.querySelector('input.subtotal');
+        target.value = comma(total);
+    }
+    // 콤마 추가하는 로직
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+    // 콤마 삭제하는 로직
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    }
+</script>
+<script>
+    /* 체크박스 전체 선택 및 기본 전체 선택 로직 */
+    function chooseAllOrNothing(element) {
+        let chooses = document.querySelectorAll('.choose');
+        if(element.checked) {
+            for(let choice of chooses) {
+                choice.checked = true;
+            }
+            let total = document.querySelector('#total');
+            total.value = calculateTotal();
+        } else {
+            for(let choice of chooses) {
+                choice.checked = false;
+            }
+            let total = document.querySelector('#total');
+            total.value = calculateTotal();
+        }
+    }
+
+    /* 선택삭제 로직 */
+    function deleteChoices() {
+        let chooses = document.querySelectorAll('.choose');
+        for(let choice of chooses) {
+            if(choice.checked) {
+                let parent = choice.parentElement.parentElement;
+                parent.parentElement.removeChild(parent);
+            }
+        }
+        let total = document.querySelector('#total');
+        total.value = calculateTotal();
+    }
+</script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>

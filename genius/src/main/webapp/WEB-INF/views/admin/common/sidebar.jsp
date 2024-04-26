@@ -13,7 +13,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="index.html">
+            <a class="nav-link collapsed" href="/admin/admin">
                 <i class="bi bi-grid"></i>
                 <span>메인</span>
             </a>
@@ -21,7 +21,7 @@
         <!-- End 메인 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="admin-member.html">
+            <a class="nav-link collapsed" href="/admin/member/memberList">
                 <i class="bi bi-person"></i>
                 <span>회원 관리</span>
             </a>

@@ -25,8 +25,15 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -35,11 +42,29 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
-        <div class="container">
-            <h1>자료실 > 자료실(등록)</h1>
+    <!-- ================ start banner area ================= -->
+    <section class="bg-img4 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">글쓰기</h1>
+                    <span class=" text-white">Board Write</span>
+                </div>
+            </div>
         </div>
     </section>
+    <!-- ================ End banner area ================= -->
+
+    <!-- ================ 내용 Start ================= -->
+    <section class="section-margin--small mb-5">
+        <div class="container">
+            <form method="post">
+                <textarea id="summernote" name="editordata"></textarea>
+            </form>
+            <button type="button" class="btn btn-success">목록</button>
+        </div>
+    </section>
+    <!-- ================ 내용 End ================= -->
 </main>
 <!--================ 본문 END =================-->
 
@@ -50,6 +75,44 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    function imageUploader(file, el) {
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            data : formData,
+            type : "POST",
+            //아래 url 수정 필요
+            url : '/',
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',
+            success : function(data) {
+                $(el).summernote('insertImage', "${pageContext.request.contextPath}/assets/images/upload/"+data, function($image) {
+                    $image.css('width', "100%");
+                });
+                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                console.log(data);
+            }
+        });
+    }
+
+</script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
@@ -59,5 +122,6 @@
 <script src="/resources/vendors/jquery.ajaxchimp.min.js"></script>
 <script src="/resources/vendors/mail-script.js"></script>
 <script src="/resources/js/main.js"></script>
+
 </body>
 
