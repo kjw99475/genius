@@ -127,7 +127,7 @@
                             <tbody>
                             <c:if test="${bbsDTOlist ne null}">
                                 <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                    <tr onclick="location.href='admin-bbs-announce-modify.html'">
+                                    <tr onclick="location.href='/admin/announce/view'">
                                         <td>${bbsDTO.bbs_idx}</td>
                                         <td>${bbsDTO.bbs_title}</td>
                                         <td>${bbsDTO.member_id}</td>
@@ -136,6 +136,14 @@
                                     </tr>
                                 </c:forEach>
                             </c:if>
+
+                            <tr onclick="location.href='/admin/announce/view'">
+                                <td>31</td>
+                                <td>글제목입니당</td>
+                                <td>작성자아이디입니다</td>
+                                <td>작성일입니다</td>
+                                <td>99</td>
+                            </tr>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
