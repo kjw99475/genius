@@ -10,10 +10,11 @@
 <nav class="sidenav rounded shadow">
     <h4 class="bg-geni p-1 text-white text-center">menu</h4>
     <ul class="text-center ">
-        <li><a class="text-dark pt-1 pb-1" href="/member/cart">장바구니</a></li>
-        <li><a class="text-dark pt-1 pb-1" href="/member/payment">결제내역</a></li>
-        <li><a class="text-dark pt-1 pb-1" href="/bbs/notice">공지사항</a></li>
-        <li><a class="text-dark pt-1 pb-1" href="/bbs/qna">QnA</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/mypage/point">포인트 충전</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/mypage/cart">장바구니</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/mypage/payhistory">결제내역</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/bbs/noticeList">공지사항</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/bbs/qnaList">QnA</a></li>
         <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">top ▲</a></li>
         <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">bottom ▼</a></li>
     </ul>

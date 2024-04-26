@@ -22,7 +22,7 @@ public class HyunbeenTest {
 
     @Test
     public void ViewCart(){
-        List<CartVO> voList = cart.listAll();
+        List<CartVO> voList = cart.listAll("test");
         log.info(voList);
 
     }

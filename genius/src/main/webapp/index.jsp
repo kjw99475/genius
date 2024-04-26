@@ -66,9 +66,8 @@
             <div class="card-product__img bg-light">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product1.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -83,9 +82,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product2.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -100,9 +98,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product3.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -117,9 +114,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product4.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -134,9 +130,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product5.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -151,9 +146,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product6.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -168,9 +162,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product7.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -185,9 +178,8 @@
             <div class="card-product__img">
               <img class="card-img img-h350" src="/resources/img/BestSeller/product8.jpg" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
+                <li><button><i class="ti-bag"></i></button></li>
                 <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -214,9 +206,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product1.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -228,9 +219,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product2.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -242,9 +232,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product3.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -256,9 +245,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product4.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -270,9 +258,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product1.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -284,9 +271,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product2.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -298,9 +284,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product3.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -312,9 +297,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product4.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -326,9 +310,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product1.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -340,9 +323,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product2.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -354,9 +336,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product3.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -368,9 +349,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product4.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -382,9 +362,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product1.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -396,9 +375,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product2.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -410,9 +388,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product3.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -424,9 +401,8 @@
           <div class="card-product__img">
             <img class="img-fluid img-h350" src="/resources/img/BestSeller/product4.jpg" alt="">
             <ul class="card-product__imgOverlay">
-              <li><button><i class="ti-search"></i></button></li>
+              <li><button><i class="ti-bag"></i></button></li>
               <li><button><i class="ti-shopping-cart"></i></button></li>
-              <li><button><i class="ti-heart"></i></button></li>
             </ul>
           </div>
           <div class="card-body">
@@ -452,7 +428,13 @@
               <a href="#" class="list-group-item list-group-item-action d-flex">
                 <img class="rounded-circle shadow-sm align-self-center" src="/resources/img/gallery/r2.jpg" width="70px" height="70px">
                 <div class="d-flex flex-column ml-4 align-self-center">
-                  <span>★★★★★</span>
+                  <span class="card-product__rank stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
                   <span>제 인생 최고이 책 입니다.</span>
                   <small>작성자 : 어쩌고</small>
                   <small>책 이름 : 이 세상 최고의 책</small>
@@ -461,7 +443,13 @@
               <a href="#" class="list-group-item list-group-item-action d-flex">
                 <img class="rounded-circle shadow-sm align-self-center" src="/resources/img/gallery/r2.jpg" width="70px" height="70px">
                 <div class="d-flex flex-column ml-4 align-self-center">
-                  <span>★★★★★</span>
+                  <span class="card-product__rank stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
                   <span>제 인생 최고이 책 입니다.</span>
                   <small>작성자 : 어쩌고</small>
                   <small>책 이름 : 이 세상 최고의 책</small>
@@ -470,7 +458,13 @@
               <a href="#" class="list-group-item list-group-item-action d-flex">
                 <img class="rounded-circle shadow-sm align-self-center" src="/resources/img/gallery/r3.jpg" width="70px" height="70px">
                 <div class="d-flex flex-column ml-4 align-self-center">
-                  <span>★★★★★</span>
+                  <span class="card-product__rank stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
                   <span>제 인생 최고이 책 입니다.</span>
                   <small>작성자 : 어쩌고</small>
                   <small>책 이름 : 이 세상 최고의 책</small>
@@ -479,7 +473,13 @@
               <a href="#" class="list-group-item list-group-item-action d-flex">
                 <img class="rounded-circle shadow-sm align-self-center" src="/resources/img/gallery/r5.jpg" width="70px" height="70px">
                 <div class="d-flex flex-column ml-4 align-self-center">
-                  <span>★★★★★</span>
+                  <span class="card-product__rank stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
                   <span>제 인생 최고이 책 입니다.</span>
                   <small>작성자 : 어쩌고</small>
                   <small>책 이름 : 이 세상 최고의 책</small>

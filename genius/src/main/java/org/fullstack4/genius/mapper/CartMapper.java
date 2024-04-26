@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
     int regist(CartVO cartVO);
-    List<CartVO> listAll();
+    List<CartVO> listAll(String member_id);
     CartVO view(String user_id);
     int modify(CartVO cartVO);
     int delete(CartVO cartVO);
