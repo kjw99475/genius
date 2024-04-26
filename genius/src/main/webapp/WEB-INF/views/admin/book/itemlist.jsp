@@ -109,7 +109,7 @@
                     </form>
                 </div>
 
-                <table class="table">
+                <table class="table datatable">
                     <thead>
                     <tr>
                         <th scope="col">상품번호</th>
@@ -119,32 +119,44 @@
                         <th scope="col">할인가</th>
                         <th scope="col">저자</th>
                         <th scope="col">출판사</th>
-                        <th scope="col">카테고리</th>
+                        <th scope="col">카테고리1</th>
+                        <th scope="col">카테고리2</th>
                         <th scope="col">판매상태</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:if test="${bookDTOlist ne null}">
-                    <c:forEach items="${bookDTOlist}" var="bookDTO">
-
                     <tr onclick="location.href='/admin/book/bookView'">
-                        <th scope="row">${bookDTO.book_code}</th>
-                        <td>${bookDTO.book_name}</td>
-                        <td>${bookDTO.price}</td>
-                        <td>${bookDTO.discount_per}</td>
-                        <td>${bookDTO.discount_price}</td>
-                        <td>${bookDTO.author}</td>
-                        <td>${bookDTO.publisher}</td>
-                        <td>${bookDTO.category_code}</td>
-                        <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td> <!--상태에 따라 bg-수정 -->
+                        <th scope="row">b0001</th>
+                        <td>책이름</td>
+                        <td>3000</td>
+                        <td>10</td>
+                        <td>2500</td>
+                        <td>저자</td>
+                        <td>천재교육</td>
+                        <td>c01</td>
+                        <td>s01</td>
+                        <td><span class="badge bg-warning">판매중</span></td> <!--상태에 따라 bg-수정 -->
                     </tr>
-                    </c:forEach>
-                    </c:if>
+                        <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
+                            <tr onclick="location.href='/admin/book/bookView'">
+                                <th scope="row">${bookDTO.book_code}</th>
+                                <td>${bookDTO.book_name}</td>
+                                <td>${bookDTO.price}</td>
+                                <td>${bookDTO.discount_per}</td>
+                                <td>${bookDTO.discount_price}</td>
+                                <td>${bookDTO.author}</td>
+                                <td>${bookDTO.publisher}</td>
+                                <td>${bookDTO.category_class_code}</td>
+                                <td>${bookDTO.category_subject_code}</td>
+                                <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td> <!--상태에 따라 bg-수정 -->
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
     </div><!-- End 상품 리스트 -->
+    ${responseDTO.dtoList}
 </main>
 <!--================ 본문 END =================-->
 
