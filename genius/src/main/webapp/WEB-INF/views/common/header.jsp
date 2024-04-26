@@ -17,7 +17,7 @@
                     <a href="/company/map" class="p-2 text-white">오시는길</a>
                     <a href="#" class="p-2 text-white">로그아웃</a>
                     <a href="/mypage/mypage" class="p-2 text-white">마이페이지</a>
-                    <a href="/mypage/payment" class="p-2 text-white">결제내역</a>
+                    <a href="/mypage/payhistory" class="p-2 text-white">결제내역</a>
                     <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
                     <a></a>
                 </div>
