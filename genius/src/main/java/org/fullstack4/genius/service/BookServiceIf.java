@@ -8,6 +8,7 @@ import org.fullstack4.genius.dto.PageResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookServiceIf {
     int regist(BookDTO BookDTO);
@@ -18,4 +19,6 @@ public interface BookServiceIf {
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO);
+    List<Map<String, String>> bookSubjectCategoryList();
+    List<Map<String, String>> bookClassCategoryList();
 }

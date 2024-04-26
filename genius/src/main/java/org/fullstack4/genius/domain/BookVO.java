@@ -35,4 +35,6 @@ public class BookVO {
     private String isbn;
     private String tags;
     private String contents;
+    private String class_name;
+    private String subject_name;
 }

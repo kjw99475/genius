@@ -13,8 +13,12 @@
     <select id="listAll" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
         sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
-        ,book_info, isbn, contents, publication_date
-        from tbl_book
+        ,book_info, isbn, contents, publication_date, tcc.name AS class_name, tsc.name AS subject_name
+        FROM tbl_book AS tb INNER JOIN tbl_class_category AS tcc
+        ON tb.category_class_code = tcc.category_code
+        INNER JOIN tbl_subject_category AS tsc
+        ON tb.category_subject_code = tsc.category_code
+        ORDER BY book_idx DESC
     </select>
 
     <select id="view" resultType="org.fullstack4.genius.domain.BookVO">
@@ -35,9 +39,21 @@
     <select id="BookListByPage" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
         sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
-        ,book_info, isbn, contents, publication_date
-        FROM tbl_book
+        ,book_info, isbn, contents, publication_date, tcc.name AS class_name, tsc.name AS subject_name
+        FROM tbl_book AS tb INNER JOIN tbl_class_category AS tcc
+        ON tb.category_class_code = tcc.category_code
+        INNER JOIN tbl_subject_category AS tsc
+        ON tb.category_subject_code = tsc.category_code
         ORDER BY book_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
+    </select>
+    <select id="bookSubjectCategoryList" resultType="java.util.HashMap">
+        SELECT category_code, name
+        FROM tbl_subject_category
+    </select>
+
+    <select id="bookClassCategoryList" resultType="java.util.HashMap">
+        SELECT category_code, name
+        FROM tbl_class_category
     </select>
 </mapper>

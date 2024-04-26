@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.print.Book;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -87,5 +88,15 @@ public class BookServiceImpl implements BookServiceIf {
                 .build();
 
         return responseDTO;
+    }
+
+    @Override
+    public List<Map<String, String>> bookSubjectCategoryList() {
+        return bookMapper.bookSubjectCategoryList();
+    }
+
+    @Override
+    public List<Map<String, String>> bookClassCategoryList() {
+        return bookMapper.bookClassCategoryList();
     }
 }
