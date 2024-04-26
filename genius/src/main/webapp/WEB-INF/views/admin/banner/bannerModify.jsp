@@ -112,6 +112,7 @@
 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success">수정 완료</button>
+                                    <button type="button" class="btn btn-success" onclick="banner_delete()">삭제</button>
                                 </div>
                             </form><!-- End Edit Form -->
 
@@ -132,6 +133,15 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    function banner_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
