@@ -11,6 +11,7 @@ import org.fullstack4.genius.mapper.BookMapper;
 import org.fullstack4.genius.mapper.ReviewMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +23,14 @@ public class ReviewServiceImpl implements ReviewServiceIf{
     private final ReviewMapper reviewMapper;
     private final ModelMapper modelMapper;
     @Override
+    @Transactional
     public int regist(ReviewDTO reviewDTO) {
         ReviewVO reviewVO = modelMapper.map(reviewDTO, ReviewVO.class);
         log.info("==========================");
         int result = reviewMapper.regist(reviewVO);
+        int result1 = reviewMapper.updateAvg(reviewVO.getBook_code());
         log.info("ReviewServiceImpl reviewRegist>> result : " + result);
+        log.info("ReviewServiceImpl updateAvg>> result : " + result1);
         log.info("==========================");
         return result;
     }
@@ -42,6 +46,15 @@ public class ReviewServiceImpl implements ReviewServiceIf{
     @Override
     public int delete(int idx) {
         int result = reviewMapper.delete(idx);
+        return result;
+    }
+
+    @Override
+    public int updateAvg(String book_code) {
+        log.info("==============================");
+        int result = reviewMapper.updateAvg(book_code);
+        log.info("ReviewServiceImpl >> updateAvg : result " + result);
+        log.info("==============================");
         return result;
     }
 

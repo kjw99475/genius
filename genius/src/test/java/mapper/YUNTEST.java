@@ -136,5 +136,12 @@ public class YUNTEST {
         log.info("result : " + result);
         log.info("================================");
     }
+    @Test
+    public void testReviewRankAvg(){
+        log.info("================================");
+        int result = reviewMapper.updateAvg("b0001");
+        log.info("result : " + result);
+        log.info("================================");
+    }
 
 }

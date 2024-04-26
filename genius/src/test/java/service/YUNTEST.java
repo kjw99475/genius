@@ -90,10 +90,10 @@ public class YUNTEST {
     @Test
     public void testReviewRegist(){
         ReviewDTO reviewDTO = ReviewDTO.builder()
-                .book_code("b0002")
-                .rank(3)
-                .member_id("test1")
-                .review_contents("리뷰 테스트2").build();
+                .book_code("b0001")
+                .rank(5)
+                .member_id("test")
+                .review_contents("리뷰 테스트4").build();
         int result = reviewServiceIf.regist(reviewDTO);
         log.info("==========================");
         log.info("result : " + result);
@@ -112,6 +112,13 @@ public class YUNTEST {
         List<ReviewDTO> list = reviewServiceIf.listAll("b0001");
         log.info("=========================");
         log.info(list);
+        log.info("=========================");
+    }
+    @Test
+    public void updateRankAvg(){
+        int result = reviewServiceIf.updateAvg("b0001");
+        log.info("=========================");
+        log.info(result);
         log.info("=========================");
     }
     @Test

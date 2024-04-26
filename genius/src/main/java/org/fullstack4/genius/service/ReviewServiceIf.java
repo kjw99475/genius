@@ -11,6 +11,7 @@ public interface ReviewServiceIf {
 
     List<ReviewDTO> listAll(String book_code);
     int delete(int idx);
+    int updateAvg(String book_code);
     int reviewTotalCount(PageRequestDTO requestDTO);
     List<ReviewDTO> reviewListByPage(PageRequestDTO requestDTO);
 }

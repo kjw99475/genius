@@ -12,6 +12,7 @@ public interface ReviewMapper {
 
     List<ReviewVO> listAll(String book_code);
     int delete(int idx);
+    int updateAvg(String book_code);
     int reviewTotalCount(PageRequestDTO requestDTO);
     List<ReviewVO> reviewListByPage(PageRequestDTO requestDTO);
 }

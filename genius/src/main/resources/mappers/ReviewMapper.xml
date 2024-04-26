@@ -18,4 +18,14 @@
         FROM tbl_review
         WHERE review_idx = #{idx}
     </delete>
+    <update id="updateAvg">
+        UPDATE tbl_book
+        set rank_avg = (
+        SELECT AVG(rank)
+        FROM tbl_review
+        WHERE book_code = #{book_code}
+        GROUP BY book_code
+        )
+        WHERE book_code = #{book_code}
+    </update>
 </mapper>
