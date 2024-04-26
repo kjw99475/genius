@@ -3,5 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.ReviewMapper">
-
+    <select id="listAll" resultType="org.fullstack4.genius.domain.ReviewVO">
+        SELECT review_idx, member_id, book_code, reg_date, rank, review_contents
+        FROM tbl_review
+        WHERE book_code = #{book_code}
+        ORDER BY review_idx DESC
+    </select>
+    <insert id="regist">
+        INSERT INTO tbl_review(member_id, book_code, reg_date, rank, review_contents)
+        VALUES(#{member_id}, #{book_code}, now(), #{rank}, #{review_contents})
+    </insert>
+    <delete id="delete">
+        DELETE
+        FROM tbl_review
+        WHERE review_idx = #{idx}
+    </delete>
 </mapper>

@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,36 +56,32 @@
                 <div class="col-lg-6">
                     <div class="owl-carousel owl-theme s_Product_carousel">
                         <div class="single-prd-item">
-                            <img class="img-fluid " src="/resources/img/category/sample.jpg" alt="">
+                            <img class="img-fluid " src="${bookDTO.book_img}" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
-                        <h3>상품명 입니다.</h3>
-                        <h2><s class="text-muted h6">10,000원</s> 15,000원</h2>
+                        <h3>${bookDTO.book_name}</h3>
+                        <h2><s class="text-muted h6">${bookDTO.price}원</s> ${bookDTO.discount_price}원</h2>
                         <ul class="list">
-                            <li>카테고리 : 카테고리1 > 카테고리2</li>
-                            <li>저자 : 김저자</li>
-                            <li>출판일 : 2024-04-25</li>
-                            <li>출판사 : 지현문구</li>
-                            <li>ISBN : 9791156144304</li>
+                            <li>카테고리 : ${bookDTO.class_name} > ${bookDTO.subject_name}</li>
+                            <li>저자 : ${bookDTO.author}</li>
+                            <li>출판일 : ${bookDTO.publication_date}</li>
+                            <li>출판사 : ${bookDTO.publisher}</li>
+                            <li>ISBN : ${bookDTO.isbn}</li>
                             <li>평점 :
                                 <span class="card-product__rank stars">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <c:forEach begin="1" end="${bookDTO.rank_avg}" step="1">
+                                        <i class="fa fa-star"></i>
+                                    </c:forEach>
                                 </span>
                             </li>
                         </ul>
-                        <p>문제와 문제 사이의 연결고리, 연습과 실전 사이의 징검다리 <br>
-                            - 그동안 설맞이팀이 출제했던 모든 문항에, 최신 경향을 고려한 신규문항이 추가된 110문항 수록 <br>
-                            - 단순히 문제만 모아 두는 것을 넘어, 수학 학습에 도움이 되도록 설계된 든든한 길잡이</p>
+                        <p>${bookDTO.book_info}</p>
                         <div class="product_count pt-2">
                             <label for="sst">수량 :</label>
-                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="${bookDTO.quantity}" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
                             <button class="button primary-outline-btn" type="button">바로 구매</button>
@@ -110,100 +107,90 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-                       aria-selected="false">리뷰(00)</a>
+                       aria-selected="false">리뷰(${reviewList.size()})</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="p-4">
-                        <video src="/resources/video/welcomeboard%20(2).mp4" class="w-100" controls></video>
+                        <video src="${bookDTO.video}" class="w-100" controls></video>
                     </div>
                     <div>
-                        <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                            and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                            Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                            London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                            officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                            job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                            showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                            child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                            half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                            named ‘Hangover’ by Beryl’s husband and</p>
-                        <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                            more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                            the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                            more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                            streamlined plan of cooking that is more efficient for one person creating less</p>
+                        <p>${bookDTO.book_info}</p>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <tr>
-                                <td>
-                                    <h5>Label 0.</h5>
-                                </td>
-                                <td>
-                                    <h5>수능 수학 학습 방법</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 1.</h5>
-                                </td>
-                                <td>
-                                    <h5>지수와 로그</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 2.</h5>
-                                </td>
-                                <td>
-                                    <h5>지수함수와 로그함수</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 3.</h5>
-                                </td>
-                                <td>
-                                    <h5>삼각함수</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 4.</h5>
-                                </td>
-                                <td>
-                                    <h5>사인법칙과 코사인법칙</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 5.</h5>
-                                </td>
-                                <td>
-                                    <h5>등차수열과 등비수열</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 6.</h5>
-                                </td>
-                                <td>
-                                    <h5>수열의 합</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Label 7</h5>
-                                </td>
-                                <td>
-                                    <h5>수열의 귀납적 정의</h5>
-                                </td>
-                            </tr>
+                                <c:set var="contents" value="${fn:split(bookDTO.contents,'|' )}"/>
+                                <c:forEach items="${contents}" var="content" varStatus="i">
+                                    <tr>
+                                        <td>
+                                            <h5>Label ${i.index}.</h5>
+                                        </td>
+                                        <td>
+                                            <h5>${content}</h5>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 1.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>지수와 로그</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 2.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>지수함수와 로그함수</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 3.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>삼각함수</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 4.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>사인법칙과 코사인법칙</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 5.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>등차수열과 등비수열</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 6.</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>수열의 합</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <h5>Label 7</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>수열의 귀납적 정의</h5>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
                             </tbody>
                         </table>
                     </div>
@@ -215,8 +202,8 @@
                                 <div class="col-6">
                                     <div class="box_total">
                                         <h5>평균 평점</h5>
-                                        <h4>4.0</h4>
-                                        <h6>(00명 참여)</h6>
+                                        <h4>${bookDTO.rank_avg}</h4>
+                                        <h6>(${reviewList.size()}명 참여)</h6>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -224,77 +211,58 @@
                                         <h3>점수별 비율</h3>
                                         <ul class="list">
                                             <li><a href="#">5점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star"></i> 00</a></li>
+                                                    class="fa fa-star"></i><i class="fa fa-star"></i> ${rank_arr[5]}</a></li>
                                             <li><a href="#">4점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                                    class="fa fa-star"></i><i class="fa fa-star text-secondary"></i> ${rank_arr[4]}</a></li>
                                             <li><a href="#">3점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> ${rank_arr[3]}</a></li>
                                             <li><a href="#">2점 <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star text-secondary"></i><i
-                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> ${rank_arr[2]}</a></li>
                                             <li><a href="#">1점 <i class="fa fa-star"></i><i class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i><i
-                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> 00</a></li>
+                                                    class="fa fa-star text-secondary"></i><i class="fa fa-star text-secondary"></i> ${rank_arr[1]}</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="review_list">
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="/resources/img/product/review-1.png" alt="">
+                                <c:forEach items="${reviewList}" var="review">
+                                    <div class="review_item">
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="/resources/img/product/review-1.png" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>${review.member_id}</h4>
+                                                <c:forEach begin="1" end="${review.rank}" step="1">
+                                                    <i class="fa fa-star"></i>
+                                                </c:forEach>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <h4>장지현</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                    <div class="pt-2 pb-2">
-                                        <button type="submit" class="btn btn-sm ">삭제</button>
-                                    </div>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="/resources/img/product/review-2.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                        <p>${review.review_contents}</p>
+                                        <div class="pt-2 pb-2">
+                                            <button type="submit" class="btn btn-sm ">삭제</button>
                                         </div>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="/resources/img/product/review-3.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
+                                </c:forEach>
+
+<%--                                <div class="review_item">--%>
+<%--                                    <div class="media">--%>
+<%--                                        <div class="d-flex">--%>
+<%--                                            <img src="/resources/img/product/review-2.png" alt="">--%>
+<%--                                        </div>--%>
+<%--                                        <div class="media-body">--%>
+<%--                                            <h4>Blake Ruiz</h4>--%>
+<%--                                            <i class="fa fa-star"></i>--%>
+<%--                                            <i class="fa fa-star"></i>--%>
+<%--                                            <i class="fa fa-star"></i>--%>
+<%--                                            <i class="fa fa-star"></i>--%>
+<%--                                            <i class="fa fa-star"></i>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et--%>
+<%--                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea--%>
+<%--                                        commodo</p>--%>
+<%--                                </div>--%>
                                 <nav class="blog-pagination justify-content-center d-flex">
                                     <ul class="pagination">
                                         <li class="page-item">
@@ -349,7 +317,6 @@
         </div>
     </section>
     <!--================End Product Description Area =================-->
-
 </main>
 <!--================ 본문 END =================-->
 
