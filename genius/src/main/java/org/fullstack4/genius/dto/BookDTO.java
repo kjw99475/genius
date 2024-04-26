@@ -37,4 +37,6 @@ public class BookDTO {
     private String tags;
     private String contents;
     private LocalDate publication_date;
+    private String class_name;
+    private String subject_name;
 }

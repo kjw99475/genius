@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -75,5 +76,14 @@ public class YUNTEST {
         log.info("BookServiceTests >> testBookListByPage END");
         log.info("=================================");
     }
+    @Test
+    public void testClassCategoryList(){
+        log.info(bookServiceIf.bookClassCategoryList());
+    }
+    @Test
+    public void testSubjectCategoryList(){
+        log.info(bookServiceIf.bookSubjectCategoryList());
+    }
+
 
 }

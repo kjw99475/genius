@@ -1,6 +1,7 @@
 package mapper;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.mapper.BookMapper;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -55,8 +57,8 @@ public class YUNTEST {
     @Test
     public void testBbsListByPage(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(1)
-                .page_size(2)
+                .page(2)
+                .page_size(4)
                 .build();
         List<BookVO> bbsList = bookMapper.BookListByPage(pageRequestDTO);
         log.info("=================================");
@@ -84,6 +86,24 @@ public class YUNTEST {
         log.info("============================");
         log.info("result : " + result);
         log.info("============================");
+    }
+    @Test
+    public void testsubjectCategory(){
+        log.info("=================================");
+        log.info("BookMapperTests >> testsubjectCategory START");
+        List<Map<String, String>> subjectList =  bookMapper.bookSubjectCategoryList();
+        log.info(subjectList);
+        log.info("BookMapperTests >> testsubjectCategory END");
+        log.info("=================================");
+    }
+    @Test
+    public void testclassCategory(){
+        log.info("=================================");
+        log.info("BookMapperTests >> testclassCategory START");
+        List<Map<String, String>> classList =  bookMapper.bookClassCategoryList();
+        log.info(classList);
+        log.info("BookMapperTests >> testclassCategory END");
+        log.info("=================================");
     }
 
 }

@@ -5,6 +5,7 @@ import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BookMapper {
@@ -16,4 +17,6 @@ public interface BookMapper {
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);
     List<BookVO> BookListByPage(PageRequestDTO requestDTO);
+    List<Map<String, String>> bookSubjectCategoryList();
+    List<Map<String, String>> bookClassCategoryList();
 }

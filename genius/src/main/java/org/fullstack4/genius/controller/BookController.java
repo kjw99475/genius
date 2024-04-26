@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -33,7 +34,13 @@ public class BookController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
+        pageRequestDTO.setPage_size(6);
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.BookListByPage(pageRequestDTO);
+        responseDTO.setPage_block_size(5);
+        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
+        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
+        model.addAttribute("subjectList",subjectList);
+        model.addAttribute("classList",classList);
         model.addAttribute("responseDTO", responseDTO);
     }
 
