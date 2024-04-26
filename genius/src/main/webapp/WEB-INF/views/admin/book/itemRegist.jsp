@@ -45,12 +45,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>상품 수정</h1>
+        <h1>상품 등록</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">메인</a></li>
                 <li class="breadcrumb-item">상품관리</li>
-                <li class="breadcrumb-item active">수정</li>
+                <li class="breadcrumb-item active">등록</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -182,7 +182,7 @@
                                     <label for="contents" class="col-md-4 col-lg-3 col-form-label">목차</label>
                                     <div class="col-md-8 col-lg-9">
                                             <textarea name="contents" class="form-control" id="contents"
-                                                      style="height: 100px">${bookDTO.contents}</textarea>
+                                                      style="height: 100px; resize: none;">${bookDTO.contents}</textarea>
                                     </div>
                                 </div>
 
@@ -190,14 +190,14 @@
                                     <label for="book_info" class="col-md-4 col-lg-3 col-form-label">소개글</label>
                                     <div class="col-md-8 col-lg-9">
                                             <textarea name="book_info" class="form-control" id="book_info"
-                                                      style="height: 100px">${bookDTO.book_info}</textarea>
+                                                      style="height: 100px; resize: none;"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="isbn" class="col-md-4 col-lg-3 col-form-label">ISBN</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="isbn" type="text" class="form-control" id="isbn" value="${bookDTO.isbn}"
+                                        <input name="isbn" type="text" class="form-control" id="isbn" value=""
                                                maxlength="13">
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">수정 완료</button>
+                                    <button type="submit" class="btn btn-success">등록 완료</button>
                                 </div>
                             </form><!-- End Profile Edit Form -->
 
