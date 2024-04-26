@@ -56,8 +56,11 @@
     <select id="view" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
         sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
-        ,book_info, isbn, contents, publication_date
-        from tbl_book
+        ,book_info, isbn, contents, publication_date, tcc.name AS class_name, tsc.name AS subject_name
+        FROM tbl_book AS tb INNER JOIN tbl_class_category AS tcc
+        ON tb.category_class_code = tcc.category_code
+        INNER JOIN tbl_subject_category AS tsc
+        ON tb.category_subject_code = tsc.category_code
         where book_idx = ${idx}
     </select>
     <delete id="delete">

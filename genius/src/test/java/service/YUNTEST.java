@@ -5,7 +5,9 @@ import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.ReviewDTO;
 import org.fullstack4.genius.service.BookServiceIf;
+import org.fullstack4.genius.service.ReviewServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class YUNTEST {
 
     @Autowired
     private BookServiceIf bookServiceIf;
+
+    @Autowired
+    private ReviewServiceIf reviewServiceIf;
 
     @Test
     public void testBookRegist(){
@@ -77,6 +82,44 @@ public class YUNTEST {
         );
         log.info("BookServiceTests >> testBookListByPage END");
         log.info("=================================");
+    }
+    @Test
+    public void testView(){
+        log.info(bookServiceIf.view(1));
+    }
+    @Test
+    public void testReviewRegist(){
+        ReviewDTO reviewDTO = ReviewDTO.builder()
+                .book_code("b0001")
+                .rank(5)
+                .member_id("test")
+                .review_contents("리뷰 테스트4").build();
+        int result = reviewServiceIf.regist(reviewDTO);
+        log.info("==========================");
+        log.info("result : " + result);
+        log.info("==========================");
+    }
+    @Test
+    public void reviewDelete(){
+        int result = reviewServiceIf.delete(4);
+        log.info("======================");
+        log.info("reviewDelete result : " + result);
+        log.info("======================");
+    }
+
+    @Test
+    public void reviewList(){
+        List<ReviewDTO> list = reviewServiceIf.listAll("b0001");
+        log.info("=========================");
+        log.info(list);
+        log.info("=========================");
+    }
+    @Test
+    public void updateRankAvg(){
+        int result = reviewServiceIf.updateAvg("b0001");
+        log.info("=========================");
+        log.info(result);
+        log.info("=========================");
     }
     @Test
     public void testClassCategoryList(){

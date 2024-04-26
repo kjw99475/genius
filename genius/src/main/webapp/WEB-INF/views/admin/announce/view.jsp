@@ -1,19 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
-  User: pc
-  Date: 2024-04-25
-  Time: 오후 5:27
+  User: kjw
+  Date: 2024-04-26
+  Time: 오후 7:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / book</title>
+    <title>Title</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -40,51 +42,9 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main id="main" class="main">
-    <!-- 상품 리스트 -->
-    <div class="col-12">
-        <div class="card recent-sales overflow-auto">
-            <div class="card-body">
-                <h5 class="card-title">상품 관리 <span>| 리스트 </span></h5>
-                <div class="row mb-3">
-                    <div class="col-sm-10">
-                        <button type="button" class="btn btn-success" onclick="location.href='admin-product-regist.html'">등록</button>
-                    </div>
-                </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">상품번호</th>
-                        <th scope="col">책이름</th>
-                        <th scope="col">정가</th>
-                        <th scope="col">할인율</th>
-                        <th scope="col">할인가</th>
-                        <th scope="col">저자</th>
-                        <th scope="col">출판사</th>
-                        <th scope="col">카테고리</th>
-                        <th scope="col">판매상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="bookDTOlist" var="bookDTO">
+<main>
 
-                    <tr onclick="location.href='/admin/book/bookView'">
-                        <th scope="row">${bookDTO.book_code}</th>
-                        <td>${bookDTO.book_name}</td>
-                        <td>${bookDTO.price}</td>
-                        <td>${bookDTO.discount_per}</td>
-                        <td>${bookDTO.discount_price}</td>
-                        <td>${bookDTO.author}</td>
-                        <td>${bookDTO.publisher}</td>
-                        <td>${bookDTO.category_code}</td>
-                        <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td> <!--상태에 따라 bg-수정 -->
-                    </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div><!-- End 상품 리스트 -->
+
 </main>
 <!--================ 본문 END =================-->
 
