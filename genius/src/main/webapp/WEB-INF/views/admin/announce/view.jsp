@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / announce - view</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/announce/contentregist">
+                            <form method="post" id="frm_announce_delete" action="/admin/book/delete">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -112,7 +112,7 @@
 
                                 <div class="text-center">
                                     <button type="button" class="btn btn-success">수정</button>
-                                    <button type="button" class="btn btn-light">삭제</button>
+                                    <button type="button" class="btn btn-light" onclick="announce_delete()">삭제</button>
                                 </div>
                             </form><!-- EndForm -->
 
@@ -133,6 +133,16 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    const frm_delete = document.querySelector("#frm_announce_delete");
+    let flag_delete = confirm("정말 삭제하시겠습니까?");
+    function announce_delete() {
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

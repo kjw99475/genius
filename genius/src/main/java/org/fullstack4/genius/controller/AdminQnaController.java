@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping(value="/admin/bbs")
+@RequestMapping(value="/admin/qna")
 @RequiredArgsConstructor
-public class AdminBbsController {
+public class AdminQnaController {
 
-    @GetMapping("/bbsList")
+    @GetMapping("/list")
     public void GETList(){
+
+    }
+    @GetMapping("/contentQuestion")
+    public void GETContentQuestion(){
+
+    }
+
+    @PostMapping("/contentQuestion")
+    public void POSTContentQuestion(){
 
     }
 
@@ -29,6 +38,26 @@ public class AdminBbsController {
 
     }
 
+    @GetMapping("/view")
+    public void GETView(){
+
+    }
+
+    @PostMapping("/view")
+    public void POSTView(){
+
+    }
+
+
+    @GetMapping("/modifyQuestion")
+    public void GETModifyQuestion(){
+
+    }
+
+    @PostMapping("/modifyQuestion")
+    public void POSTModifyQuestion(){
+
+    }
     @GetMapping("/contentmodify")
     public void GETContentModify(){
 
@@ -39,14 +68,12 @@ public class AdminBbsController {
 
     }
 
-    @GetMapping("/view")
-    public void GETView(){
+
+    @GetMapping("/modify")
+    public void GETModify(){
 
     }
 
-    @PostMapping("/view")
-    public void POSTView(){
 
-    }
 
 }

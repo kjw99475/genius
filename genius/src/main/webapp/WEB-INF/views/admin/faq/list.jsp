@@ -64,21 +64,36 @@
                         <p>FAQ를 관리하는 페이지 입니다.</p>
                         <div class="row">
                             <form>
-                                <div class="col-3">
-                                    <input type="checkbox" class="form-check-input" name="search_type" id="member_id"><label
-                                        for="member_id" class="form-check-label">작성자</label>
-                                </div>
-                                <div class="col-3">
-                                    <input type="checkbox" class="form-check-input" name="search_type" id="bbs_title"><label
-                                        for="bbs_title" class="form-check-label">제목</label>
-                                </div>
-                                <div class="col-3">
-                                    <input type="checkbox" class="form-check-input" name="search_type" id="bbs_contents"><label
-                                        for="bbs_contents" class="form-check-label">내용</label>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" class="input" placeholder="검색어" name="search_word" id="search_word">
-                                    <button type="submit" class="bi bi-search">검색</button>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="row mb-3">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_start">
+                                            </div>
+                                            ~
+                                            <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_end">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-1">
+                                            <select name="search_category" id="search_category" class="form-select">
+                                                <option selected>전체</option>
+                                                <option value="banner_name">배너 이름</option>
+                                                <option value="banner_use">사용 여부</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <button type="button" class="btn btn-success"
+                                                    onclick="location.href='/admin/faq/contentmodify'">등록</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -117,6 +132,19 @@
 
                         </table>
                         <!-- End Table with stripped rows -->
+
+                        <!-- Basic Pagination -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <!-- End Basic Pagination -->
+
                     </div>
                 </div>
             </div>
