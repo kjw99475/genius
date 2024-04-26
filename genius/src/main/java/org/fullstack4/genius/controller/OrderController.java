@@ -13,23 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class OrderController {
 
-    @GetMapping("/payment1")
+    @GetMapping("/payment")
     public void GETpayment1() {
 
     }
 
-    @PostMapping("/payment1")
+    @PostMapping("/payment")
     public void POSTpayment1() {
 
     }
 
-    @GetMapping("/payment2")
-    public void GETpayment2() {
-
-    }
-
-    @PostMapping("/payment2")
-    public void POSTpayment2() {
-
-    }
 }
