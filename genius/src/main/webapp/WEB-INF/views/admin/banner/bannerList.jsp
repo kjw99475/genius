@@ -116,9 +116,30 @@
                                 <td>${bannerDTO.banner_use}</td>
                             </tr>
                             </c:forEach>
+
+                            <tr onclick="location.href='/admin/banner/bannerModify'">
+                                <td>봄</td>
+                                <td>2024-03-03 ~ 2024-04-04</td>
+                                <td>1</td>
+                                <td>사용</td>
+                            </tr>
+
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
+
+                        <!-- Basic Pagination -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <!-- End Basic Pagination -->
+
                     </div>
                 </div>
             </div>

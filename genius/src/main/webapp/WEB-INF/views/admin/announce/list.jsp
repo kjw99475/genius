@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / announce</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -74,28 +74,6 @@
                                             <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
                                             </div>
 
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col-2">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="bbs_title" checked>
-                                                        <label class="form-check-label" for="bbs_title">
-                                                            제목
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="bbs_contents">
-                                                        <label class="form-check-label" for="bbs_contents">
-                                                            내용
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id">
-                                                        <label class="form-check-label" for="member_id">
-                                                            작성자
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -148,6 +126,17 @@
                         </table>
                         <!-- End Table with stripped rows -->
 
+                        <!-- Basic Pagination -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <!-- End Basic Pagination -->
                     </div>
                 </div>
 
