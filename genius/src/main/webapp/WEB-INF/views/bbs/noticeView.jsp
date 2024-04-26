@@ -41,17 +41,19 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
+    <!-- ================ start banner area ================= -->
     <section class="bg-img4 p-6" id="category">
         <div class="container h-100 p-3">
             <div class="blog-banner pt-1 pb-1">
                 <div class="text-center ">
-                    <h1 class=" text-white">공지사항 상세</h1>
-                    <span class=" text-white">Board detail</span>
+                    <h1 class=" text-white">공지사항</h1>
+                    <span class=" text-white">notice</span>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section-margin--small mb-5">
+    <!-- ================ End banner area ================= -->
+    <section class="section section-margin--small">
         <div class="container">
             <table class="table border-gray">
                 <colgroup>
@@ -60,19 +62,19 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row">게시글 번호</th>
+                    <th class="bg-table text-center" scope="row">게시글 번호</th>
                     <td>1</td>
                 </tr>
                 <tr>
-                    <th scope="row">제목</th>
+                    <th class="bg-table text-center" scope="row">제목</th>
                     <td>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</td>
                 </tr>
                 <tr>
-                    <th scope="row">작성자</th>
+                    <th class="bg-table text-center" scope="row">작성자</th>
                     <td> 천재교과서 <span>(아이디)</span> </td>
                 </tr>
                 <tr>
-                    <th scope="row">작성일</th>
+                    <th class="bg-table text-center" scope="row">작성일</th>
                     <td>2023-10-06</td>
                 </tr>
                 <tr>
@@ -81,15 +83,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">첨부파일</th>
-                    <td class="ti-file"><a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
                 </tr>
                 <tr>
-                    <th scope="row">첨부파일</th>
-                    <td class="ti-files"><a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
                 </tr>
                 <tr>
-                    <th scope="row">조회수</th>
+                    <th class="bg-table text-center" scope="row">조회수</th>
                     <td><span>12</span>
                     </td>
                 </tr>
@@ -97,9 +99,7 @@
             </table>
             <button type="button" class="btn btn-success">목록</button>
         </div>
-    </section>
-    <section class="section-margin--small mb-5">
-        <div class="container">
+        <div class="container mt-3">
             <table class="table border-gray">
                 <colgroup>
                     <col style="width:130px;"/>
@@ -107,11 +107,11 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
+                    <th class="bg-table text-center"  scope="row"><strong>이전글</strong> <span class="ti-angle-up"></span></th>
                     <td class="card-product__title"><a href="#">이전글</a></td>
                 </tr>
                 <tr>
-                    <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
+                    <th class="bg-table text-center"  scope="row"><strong>다음글</strong> <span class="ti-angle-down"></span></th>
                     <td class="card-product__title"><a href="#">다음글</a></td>
                 </tr>
                 </tbody>
