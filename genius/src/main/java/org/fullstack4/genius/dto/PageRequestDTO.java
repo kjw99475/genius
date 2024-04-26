@@ -55,6 +55,12 @@ public class PageRequestDTO {
     private String search_word;
     private String search_data1;
     private String search_data2;
+    private String class_code;
+    private String subject_code;
+    private String sort;
+    private String status;
+    private String type;
+
     public void setTotal_count(int total_count) {
         this.total_count = total_count;
     }

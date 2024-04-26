@@ -28,6 +28,11 @@ public class PageResponseDTO<E> {
     private String search_data1;
     private String search_data2;
     private String linked_params;
+    private String class_code;
+    private String subject_code;
+    private String sort;
+    private String status;
+    private String type;
     List<E> dtoList;
     PageResponseDTO() {}
 
