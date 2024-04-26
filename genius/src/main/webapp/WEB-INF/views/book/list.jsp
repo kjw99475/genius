@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +62,7 @@
                                 <form action="#">
                                     <ul>
                                         <c:forEach items="${subjectList}" var="list">
-                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_subject_code"><label for="${list.category_code}">${list.name}</label></li>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="subject_code" value="${list.category_code}"><label for="${list.category_code}">${list.name}</label></li>
                                         </c:forEach>
                                     </ul>
                                 </form>
@@ -74,8 +75,11 @@
                             <div class="head">초등</div>
                             <form action="#">
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c01" name="category_class_code"><label for="c01">초등 1학년</label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c02" name="category_class_code"><label for="c02">초등 2학년</label></li>
+                                    <c:forEach items="${classList}" var="list">
+                                        <c:if test='${fn:contains(list.name, "초등")}'>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                             </form>
                         </div>
@@ -83,8 +87,11 @@
                             <div class="head">중등</div>
                             <form action="#">
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c07" name="category_class_code"><label for="c07">중등 1학년</label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c08" name="category_class_code"><label for="c08">중등 2학년</label></li>
+                                    <c:forEach items="${classList}" var="list">
+                                        <c:if test='${fn:contains(list.name, "중등")}'>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                             </form>
                         </div>
@@ -92,8 +99,11 @@
                             <div class="head">고등</div>
                             <form action="#">
                                 <ul>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c10" name="category_class_code"><label for="c10">고등 1학년</label></li>
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="c11" name="category_class_code"><label for="c11">고등 2학년</label></li>
+                                    <c:forEach items="${classList}" var="list">
+                                        <c:if test='${fn:contains(list.name, "고등")}'>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                             </form>
                         </div>
@@ -113,12 +123,12 @@
                                 </select>
                             </div>
                             <div class="sorting ">
-                                <select name="sales_status">
-                                    <option value="1">판매상태 전체</option>
-                                    <option value="2">판매중</option>
-                                    <option value="3">판매준비중</option>
-                                    <option value="4">판매종료</option>
-                                    <option value="5">품절</option>
+                                <select name="status">
+                                    <option value="0">판매상태 전체</option>
+                                    <option value="1">판매중</option>
+                                    <option value="2">판매준비중</option>
+                                    <option value="3">판매종료</option>
+                                    <option value="4">품절</option>
                                 </select>
                             </div>
                         </div>
@@ -130,11 +140,11 @@
                     <div class="filter-bar">
                         <div class="input-group d-flex justify-content-end">
                             <div class="sorting d-flex">
-                                <select name="sales_status">
-                                    <option value="1">전체</option>
-                                    <option value="2">책이름</option>
-                                    <option value="3">저자</option>
-                                    <option value="4">출판사</option>
+                                <select name="type">
+                                    <option value="0">전체</option>
+                                    <option value="1">책이름</option>
+                                    <option value="2">저자</option>
+                                    <option value="3">출판사</option>
                                 </select>
                                 <div class="filter-bar-search">
                                     <input type="text" placeholder="Search" style="width: 100%">
@@ -237,7 +247,7 @@
         </nav>
         <!-- 페이징 영역 end -->
     </section>
-    ${responseDTO}
+    ${classList}
     <!-- ================ 내용 section end ================= -->
 </main>
 <!--================ 본문 END =================-->
