@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / book - regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_modify" method="post" action="/admin/book/modify">
+                            <form id="frm_book_regist" method="post" action="/admin/book/regist">
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-3 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-9">
@@ -132,6 +132,7 @@
                                     <label for="category_class_code" class="col-md-4 col-lg-3 col-form-label">카테고리 - 학년</label>
                                     <div class="col-md-8 col-lg-9">
                                         <select name="category_class_code" class="form-control" id="category_class_code">
+                                            <option value="" selected hidden>학년</option>
                                             <option value="c01">초1</option>
                                             <option value="c02">초2</option>
                                             <option value="c03">초3</option>
@@ -152,6 +153,7 @@
                                     <label for="category_subject_code" class="col-md-4 col-lg-3 col-form-label">카테고리 - 과목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <select name="category_subject_code" class="form-control" id="category_subject_code">
+                                            <option value="" selected hidden>과목</option>
                                             <option value="s01">국어</option>
                                             <option value="s02">영어</option>
                                             <option value="s03">수학</option>

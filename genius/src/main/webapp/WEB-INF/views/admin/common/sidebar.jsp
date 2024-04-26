@@ -21,7 +21,7 @@
         <!-- End 메인 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/member/memberList">
+            <a class="nav-link collapsed" href="/admin/member/memberView">
                 <i class="bi bi-person"></i>
                 <span>회원 관리</span>
             </a>
@@ -39,22 +39,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/banner/list">
+                    <a href="/admin/announce/list">
                         <i class="bi bi-circle"></i><span>공지사항 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/banner/list">
+                    <a href="/admin/qna/list">
                         <i class="bi bi-circle"></i><span>QnA 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/banner/list">
+                    <a href="/admin/faq/list">
                         <i class="bi bi-circle"></i><span>F.A.Q 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/banner/list">
+                    <a href="/admin/bbs/bbsList">
                         <i class="bi bi-circle"></i><span>자료실 관리</span>
                     </a>
                 </li>
@@ -65,7 +65,7 @@
         <li class="nav-heading">상품</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/book/list">
+            <a class="nav-link collapsed" href="/admin/book/itemlist">
                 <i class="bi bi-gem"></i><span>상품 관리</span>
             </a>
         </li>

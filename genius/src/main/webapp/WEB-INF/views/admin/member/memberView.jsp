@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: pc
   Date: 2024-04-25
-  Time: 오후 5:26
+  Time: 오후 5:27
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / banner</title>
+    <title>Admin / member</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -43,12 +43,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>배너 관리</h1>
+        <h1>회원 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="admin/admin">메인</a></li>
-                <li class="breadcrumb-item">게시판 관리</li>
-                <li class="breadcrumb-item active">배너 관리</li>
+                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item active">회원</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -56,71 +55,70 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
+
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">배너 관리</h5>
-                        <p>배너를 관리하는 페이지 입니다.</p>
+                        <h5 class="card-title">회원 관리</h5>
+                        <p>회원을 관리하는 페이지 입니다.</p>
 
-                        <form>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="row mb-3">
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_start">
-                                        </div>
-                                        ~
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_end">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-1">
-                                        <select name="search_category" id="search_category" class="form-select">
-                                            <option selected>전체</option>
-                                            <option value="banner_name">배너 이름</option>
-                                            <option value="banner_use">사용 여부</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
-                                    </div>
+                        <div class="row">
+                            <form>
+                                <div class="row mb-3">
                                     <div class="col">
-                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success"
-                                                onclick="location.href='/admin/banner/bannerRegist'">등록</button>
+                                        <div class="row mb-3">
+
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id" checked>
+                                                        <label class="form-check-label" for="member_id">
+                                                            회원 ID
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_name" checked>
+                                                        <label class="form-check-label" for="member_name">
+                                                            회원 이름
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
-                        </form>
-
-
+                            </form>
+                        </div>
                         <!-- Table with stripped rows -->
-                        <table class="table " style="overflow: scroll;">
+                        <table class="table">
                             <thead>
                             <tr>
-                                <th>배너 이름</th>
-                                <th>게시 기간</th>
-                                <th>우선순위</th>
-                                <th>사용여부</th>
+                                <th>회원번호</th>
+                                <th>회원아이디</th>
+                                <th>회원이름</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${bammerDTOList}" var="bannerDTO">
-                            <tr onclick="location.href='/admin/banner/bannerModify'">
-                                <td>${bannerDTO.banner_name}</td>
-                                <td>${bannerDTO.banner_start} ~ ${bannerDTO.banner_end}</td>
-                                <td>${bannerDTO.banner_rank}</td>
-                                <td>${bannerDTO.banner_use}</td>
+                            <tr>
+                                <td>${memberDTO.member_idx}</td>
+                                <td>${memberDTO.member_id}</td>
+                                <td>${memberDTO.member_name}</td>
                             </tr>
-                            </c:forEach>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

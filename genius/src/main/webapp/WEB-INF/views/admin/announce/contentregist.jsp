@@ -1,19 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
-  User: pc
-  Date: 2024-04-25
-  Time: 오후 5:26
+  User: kjw
+  Date: 2024-04-26
+  Time: 오후 7:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / banner</title>
+    <title>Admin / announce - regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -43,84 +45,79 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>배너 관리</h1>
+        <h1>공지 등록</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="admin/admin">메인</a></li>
-                <li class="breadcrumb-item">게시판 관리</li>
-                <li class="breadcrumb-item active">배너 관리</li>
+                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item">공지</li>
+                <li class="breadcrumb-item active">공지 등록</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
+    <section class="section profile">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xl-8">
+
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">배너 관리</h5>
-                        <p>배너를 관리하는 페이지 입니다.</p>
+                    <div class="card-body pt-3">
 
-                        <form>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="row mb-3">
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_start">
-                                        </div>
-                                        ~
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_end">
-                                        </div>
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
-                                    </div>
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-1">
-                                        <select name="search_category" id="search_category" class="form-select">
-                                            <option selected>전체</option>
-                                            <option value="banner_name">배너 이름</option>
-                                            <option value="banner_use">사용 여부</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
-                                    </div>
-                                    <div class="col">
-                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success"
-                                                onclick="location.href='/admin/banner/bannerRegist'">등록</button>
+                            <!--Form -->
+                            <form method="post">
+                                <div class="row mb-3">
+                                    <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="category_code" type="text" class="form-control" id="category_code"
+                                               value="announce" readonly>
                                     </div>
                                 </div>
 
-                            </div>
-                        </form>
+                                <div class="row mb-3">
+                                    <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
+                                               value="${bbsDTO.bbs_title}">
+                                    </div>
+                                </div>
 
+                                <div class="row mb-3">
+                                    <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="member_id" type="text" class="form-control" id="member_id"
+                                               value="${bbsDTO.member_id}">
+                                    </div>
+                                </div>
 
-                        <!-- Table with stripped rows -->
-                        <table class="table " style="overflow: scroll;">
-                            <thead>
-                            <tr>
-                                <th>배너 이름</th>
-                                <th>게시 기간</th>
-                                <th>우선순위</th>
-                                <th>사용여부</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${bammerDTOList}" var="bannerDTO">
-                            <tr onclick="location.href='/admin/banner/bannerModify'">
-                                <td>${bannerDTO.banner_name}</td>
-                                <td>${bannerDTO.banner_start} ~ ${bannerDTO.banner_end}</td>
-                                <td>${bannerDTO.banner_rank}</td>
-                                <td>${bannerDTO.banner_use}</td>
-                            </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                <div class="row mb-3">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
+                                               value="${bbsDTO.bbs_contents}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
+                                               value="${bbsDTO.reg_date}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <input type="file">
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success">등록</button>
+                                </div>
+                            </form><!-- EndForm -->
+
+                        </div>
                     </div>
-                </div>
+                </div><!-- End Bordered Tabs -->
             </div>
         </div>
     </section>
