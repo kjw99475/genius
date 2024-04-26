@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / QnA - regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">

@@ -35,11 +35,18 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
-        <div class="container">
-            <h1>회사소개 > 인사말</h1>
+    <!-- ================ start banner area ================= -->
+    <section class="bg-img3 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">인사말</h1>
+                    <span class=" text-white">Introduce</span>
+                </div>
+            </div>
         </div>
     </section>
+    <!-- ================ End banner area ================= -->
 </main>
 <!--================ 본문 END =================-->
 
