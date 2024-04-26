@@ -88,42 +88,42 @@
                 <tbody>
                 <tr>
                     <th scope="row">6</th>
-                    <td>Mark<span class="ti-file"></span></td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Mark<span class="ti-file"></span></a></td>
                     <td>Otto</td>
                     <td>@mdo</td>
                     <td>12</td>
                 </tr>
                 <tr>
                     <th scope="row">5</th>
-                    <td>Jacob<span class="ti-file"></span></td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Jacob<span class="ti-file"></span></a></td>
                     <td>Thornton</td>
                     <td>@fat</td>
                     <td>12</td>
                 </tr>
                 <tr>
                     <th scope="row">4</th>
-                    <td>Larry the<span class="ti-file"></span></td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Larry the<span class="ti-file"></span></a></td>
                     <td>Thornton</td>
                     <td>@twitter</td>
                     <td>12</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td>Mark</td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Mark</a></td>
                     <td>Otto</td>
                     <td>@mdo</td>
                     <td>12</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>Jacob</td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Jacob</a></td>
                     <td>Thornton</td>
                     <td>@fat</td>
                     <td>12</td>
                 </tr>
                 <tr>
                     <th scope="row">1</th>
-                    <td>Larry the Bird</td>
+                    <td><a class="text-dark" href="/bbs/noticeView">Larry the Bird</a></td>
                     <td>Thornton</td>
                     <td>@twitter</td>
                     <td>12</td>

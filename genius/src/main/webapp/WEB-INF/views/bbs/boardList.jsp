@@ -85,7 +85,7 @@
                 </tr>
                 <tr>
                     <th scope="row">5</th>
-                    <td><a href="#" class="badge badge-success">답변</a>Jacob</td>
+                    <td><span class="badge badge-success">답변</span>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
                     <td>12</td>
@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td><a href="#" class="badge badge-success">답변</a>Mark</td>
+                    <td><span class="badge badge-success">답변</span>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
                     <td>12</td>
@@ -113,7 +113,7 @@
                 </tr>
                 <tr>
                     <th scope="row">1</th>
-                    <td><a href="#" class="badge badge-success">답변</a>Larry the Bird</td>
+                    <td><span class="badge badge-success">답변</span>Larry the Bird</td>
                     <td>Thornton</td>
                     <td>@twitter</td>
                     <td>12</td>

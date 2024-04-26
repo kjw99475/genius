@@ -25,8 +25,12 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/resources/js/summernote/summernote-lite.js"></script>
+    <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -35,9 +39,22 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+    <section class="bg-img4 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">글쓰기</h1>
+                    <span class=" text-white">Board Write</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-margin--small mb-5">
         <div class="container">
-            <h1>자료실 > 자료실(등록)</h1>
+            <form method="post">
+                <textarea id="summernote" name="editordata"></textarea>
+            </form>
+            <button type="button" class="btn btn-success">목록</button>
         </div>
     </section>
 </main>
@@ -59,5 +76,40 @@
 <script src="/resources/vendors/jquery.ajaxchimp.min.js"></script>
 <script src="/resources/vendors/mail-script.js"></script>
 <script src="/resources/js/main.js"></script>
+<script>
+    // $(document).ready(function() {
+    //     //여기 아래 부분
+    //     $('#summernote').summernote({
+    //         height: 300,                 // 에디터 높이
+    //         minHeight: null,             // 최소 높이
+    //         maxHeight: null,             // 최대 높이
+    //         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+    //         lang: "ko-KR",					// 한글 설정
+    //         placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+    //
+    //     });
+    // });
+
+    $('#BOARDCONT').summernote({
+        height: 300,                 // 에디터 높이
+        minHeight: null,             // 최소 높이
+        maxHeight: null,             // 최대 높이
+        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",					// 한글 설정
+        placeholder: '최대3000자까지 쓸 수 있습니다'	,//placeholder 설정
+        toolbar: [
+            // [groupName, [list of button]]
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+    });
+</script>
 </body>
 

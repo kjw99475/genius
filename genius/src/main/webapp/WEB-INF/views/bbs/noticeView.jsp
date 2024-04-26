@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <style>
+        th{
+            border-right:1px solid #d7d5d5;
+            background-color:#fbfafa;
+        }
+    </style>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -35,9 +41,81 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+    <section class="bg-img4 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">공지사항 상세</h1>
+                    <span class=" text-white">Board detail</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-margin--small mb-5">
         <div class="container">
-            <h1>커뮤니티 > 공지사항(뷰)</h1>
+            <table class="table border-gray">
+                <colgroup>
+                    <col style="width:130px;"/>
+                    <col style="width:auto;"/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">게시글 번호</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</td>
+                </tr>
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td> 천재교과서 <span>(아이디)</span> </td>
+                </tr>
+                <tr>
+                    <th scope="row">작성일</th>
+                    <td>2023-10-06</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div><div class=""><p>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</p><p><br></p></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">첨부파일</th>
+                    <td class="ti-file"><a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
+                </tr>
+                <tr>
+                    <th scope="row">첨부파일</th>
+                    <td class="ti-files"><a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
+                </tr>
+                <tr>
+                    <th scope="row">조회수</th>
+                    <td><span>12</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success">목록</button>
+        </div>
+    </section>
+    <section class="section-margin--small mb-5">
+        <div class="container">
+            <table class="table border-gray">
+                <colgroup>
+                    <col style="width:130px;"/>
+                    <col style="width:auto;"/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
+                    <td class="card-product__title"><a href="#">이전글</a></td>
+                </tr>
+                <tr>
+                    <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
+                    <td class="card-product__title"><a href="#">다음글</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 </main>
