@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post">
+                            <form method="post" action="/admin/announce/contentregist">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">

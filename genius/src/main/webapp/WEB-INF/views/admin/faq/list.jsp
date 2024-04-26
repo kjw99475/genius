@@ -42,10 +42,88 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main>
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>FAQ 관리</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item">게시판 관리</li>
+                <li class="breadcrumb-item active">FAQ 관리</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-</main>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">FAQ 관리</h5>
+                        <p>FAQ를 관리하는 페이지 입니다.</p>
+                        <div class="row">
+                            <form>
+                                <div class="col-3">
+                                    <input type="checkbox" class="form-check-input" name="search_type" id="member_id"><label
+                                        for="member_id" class="form-check-label">작성자</label>
+                                </div>
+                                <div class="col-3">
+                                    <input type="checkbox" class="form-check-input" name="search_type" id="bbs_title"><label
+                                        for="bbs_title" class="form-check-label">제목</label>
+                                </div>
+                                <div class="col-3">
+                                    <input type="checkbox" class="form-check-input" name="search_type" id="bbs_contents"><label
+                                        for="bbs_contents" class="form-check-label">내용</label>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="input" placeholder="검색어" name="search_word" id="search_word">
+                                    <button type="submit" class="bi bi-search">검색</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Table with stripped rows -->
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:if test="${bbsDTOlist ne null}">
+                                <c:forEach items="${bbsDTOlist}" var="bbsDTO">
+                                    <tr>
+                                        <td>${bbsDTO.bbs_idx}</td>
+                                        <td>${bbsDTO.bbs_title}</td>
+                                        <td>${bbsDTO.member_id}</td>
+                                        <td>${bbsDTO.reg_date}</td>
+                                        <td>${bbsDTO.read_cnt}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                            </tbody>
+                            <tr>
+                                <td>31</td>
+                                <td>글제목입니당</td>
+                                <td>작성자아이디입니다</td>
+                                <td>작성일입니다</td>
+                                <td>99</td>
+                            </tr>
+
+                        </table>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
