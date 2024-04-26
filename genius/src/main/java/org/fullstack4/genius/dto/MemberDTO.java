@@ -8,11 +8,11 @@ import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDate;
 
-//@Log4j2
-//@Data
-//@NoArgsConstructor
-////@AllArgsConstructor
-//@Builder
+@Log4j2
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MemberDTO {
     private int member_idx;
     private String member_id;

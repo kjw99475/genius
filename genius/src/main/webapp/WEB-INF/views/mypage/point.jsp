@@ -25,6 +25,10 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 </head>
 <body>
@@ -195,10 +199,10 @@
                 </button>
             </div>
             <div class="modal-body d-flex flex-column" style="gap:15px">
-                <form>
+                <form action="/mypage/point" method="post" name="frmCharge" id="frmCharge">
                     <div class="form-group">
                         <label for="target">충전 금액</label>
-                        <input type="text" class="form-control" id="target" aria-describedby="emailHelp" value="0">
+                        <input type="text" class="form-control" id="target" name="point" aria-describedby="emailHelp" value="0">
                         <small id="emailHelp" class="form-text text-muted">아래의 금액단위를 클릭해 충전금액을 입력해주세요</small>
                     </div>
                     <div class="d-flex justify-content-center pb-2" role="group" style="gap:5px">
@@ -209,7 +213,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-success">충전</button>
+                        <button type="button" class="btn btn-success" onclick="requestPay()">충전</button>
                     </div>
                 </form>
             </div>
@@ -228,14 +232,16 @@
 <!--================ 푸터 End =================-->
 <script>
     let buttons = document.querySelectorAll('.btn-price');
-    const  target = document.querySelector('#target');
+    const target = document.querySelector('#target');
     for (let button of buttons) {
-        button.addEventListener('click', ()=>{
-            if(target.value == null || target.value == '') {target.value = 0;}
+        button.addEventListener('click', () => {
+            if (target.value == null || target.value == '') {
+                target.value = 0;
+            }
             let price = parseInt(uncomma(button.dataset.price));
             let targetVal = parseInt(uncomma(target.value));
             console.log(targetVal);
-            let total =  targetVal + price;
+            let total = targetVal + price;
             target.value = comma(total);
         })
     }
@@ -244,18 +250,58 @@
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     }
+
     function uncomma(str) {
         str = String(str);
         return str.replace(/[^\d]+/g, '');
     }
 
     let closes = document.querySelectorAll('.closeModal');
-    for(let close of closes) {
-        close.addEventListener('click', ()=> {
+    for (let close of closes) {
+        close.addEventListener('click', () => {
             target.value = 0;
         })
     }
+    //////////////////////////////////////////결제 모듈////////////////////////////////////
 
+
+    $.ajax({
+        url:"/member/viewMember.dox",
+        dataType:"json",
+        type : "GET",
+        data : {
+            "member_id":"test"
+        },
+        success : function(data) {
+
+            console.log(data);
+        }
+    });
+
+
+
+    var IMP = window.IMP;
+        IMP.init("imp78587533");
+        function requestPay() {
+            let targetVal = parseInt(uncomma(target.value));
+        IMP.request_pay({
+            pg: 'html5_inicis',
+            pay_method: 'card',
+            merchant_uid: "57008833-33005",
+            name: '포인트 ' + targetVal + '원',
+            amount: targetVal,
+            buyer_email: 'Iamport@chai.finance',
+            buyer_name: '포트원 기술지원팀',
+            buyer_tel: '010-1234-5678',
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456'
+        }, function (rsp) { // callback
+
+            //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+        });
+    }
+
+    //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
