@@ -1,19 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
-  User: pc
-  Date: 2024-04-25
-  Time: 오후 5:27
+  User: kjw
+  Date: 2024-04-26
+  Time: 오후 7:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / member</title>
+    <title>Title</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -43,11 +45,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>회원 관리</h1>
+        <h1>공지사항 관리</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">메인</a></li>
-                <li class="breadcrumb-item active">회원</li>
+                <li class="breadcrumb-item">게시판 관리</li>
+                <li class="breadcrumb-item active">공지사항 관리</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -55,68 +58,84 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">회원 관리</h5>
-                        <p>회원을 관리하는 페이지 입니다.</p>
-
+                        <h5 class="card-title">공지사항 관리</h5>
+                        <p>공지사항을 관리하는 페이지 입니다.</p>
                         <div class="row">
+
                             <form>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            </div>
+                                            ~
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            </div>
 
                                             <div class="col">
                                                 <div class="row">
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id" checked>
-                                                        <label class="form-check-label" for="member_id">
-                                                            회원 ID
+                                                    <div class="col-2">
+                                                        <input class="form-check-input" type="checkbox" name="search_type" id="bbs_title" checked>
+                                                        <label class="form-check-label" for="bbs_title">
+                                                            제목
                                                         </label>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_name" checked>
-                                                        <label class="form-check-label" for="member_name">
-                                                            회원 이름
+                                                    <div class="col-2">
+                                                        <input class="form-check-input" type="checkbox" name="search_type" id="bbs_contents">
+                                                        <label class="form-check-label" for="bbs_contents">
+                                                            내용
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id">
+                                                        <label class="form-check-label" for="member_id">
+                                                            작성자
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
-                                            </div>
-                                            <div class="col">
-                                                <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                                <button type="button" class="btn btn-success"
-                                                        onclick="location.href='admin-bbs-announce-regist.html'">등록</button>
-                                            </div>
-                                        </div>
-
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <button type="button" class="btn btn-success"
+                                                    onclick="location.href='admin-bbs-announce-regist.html'">등록</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
-
                         </div>
+
                         <!-- Table with stripped rows -->
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>회원번호</th>
-                                <th>회원아이디</th>
-                                <th>회원이름</th>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회수</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>${memberDTO.member_idx}</td>
-                                <td>${memberDTO.member_id}</td>
-                                <td>${memberDTO.member_name}</td>
-                            </tr>
+                            <c:if test="${bbsDTOlist ne null}">
+                                <c:forEach items="${bbsDTOlist}" var="bbsDTO">
+                                    <tr onclick="location.href='admin-bbs-announce-modify.html'">
+                                        <td>${bbsDTO.bbs_idx}</td>
+                                        <td>${bbsDTO.bbs_title}</td>
+                                        <td>${bbsDTO.member_id}</td>
+                                        <td>${bbsDTO.reg_date}</td>
+                                        <td>${bbsDTO.read_cnt}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
