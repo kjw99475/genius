@@ -57,11 +57,45 @@
 
     <!-- ================ 내용 Start ================= -->
     <section class="section-margin--small mb-5">
-        <div class="container">
+        <div class="container ">
+            <div>
+                <div class="input-group d-flex justify-content-end mb-2">
+                    <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
+                    <button type="button" class="btn btn-success mt-3" onclick="location.href='/bbs/boardRegist'">등록</button>
+                </div>
+            </div>
+            <hr>
             <form method="post">
+                <div class="border-gray mb-5">
+                    <div class="form-row ml-5">
+                        <div class="form-group col-md-5">
+                            <label for="inputCity">제목</label>
+                            <input type="text" class="form-control" id="inputCity">
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="inputZip">아이디</label>
+                            <input type="text" class="form-control" id="inputZip" value="아이디" name="member_id" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row ml-5">
+                        <div class="form-group col-md-10 d-flex flex-column">
+                            <label for="inputState">게시판 종류를 선택하세요</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>자유 게시판</option>
+                                <option>QnA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <textarea id="summernote" name="editordata"></textarea>
+                <div>
+                    <div class="input-group d-flex justify-content-end mb-2">
+                        <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
+                        <button type="button" class="btn btn-success mt-3" onclick="location.href='/bbs/boardRegist'">등록</button>
+                    </div>
+                </div>
             </form>
-            <button type="button" class="btn btn-success">목록</button>
         </div>
     </section>
     <!-- ================ 내용 End ================= -->

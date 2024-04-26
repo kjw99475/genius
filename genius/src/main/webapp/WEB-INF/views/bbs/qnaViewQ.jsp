@@ -41,6 +41,7 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
+    <!-- ================ start banner area ================= -->
     <section class="bg-img4 p-6" id="category">
         <div class="container h-100 p-3">
             <div class="blog-banner pt-1 pb-1">
@@ -51,6 +52,7 @@
             </div>
         </div>
     </section>
+    <!-- ================ End banner area ================= -->
     <section class="section-margin--small mb-5">
         <div class="container">
             <table class="table border-gray">
@@ -81,12 +83,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">첨부파일</th>
-                    <td class="ti-file"><a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
                 </tr>
                 <tr>
-                    <th scope="row">첨부파일</th>
-                    <td class="ti-files"><a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
                 </tr>
                 <tr>
                     <th scope="row">조회수</th>
@@ -95,11 +97,9 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-success">목록</button>
+            <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaList'">목록</button>
         </div>
-    </section>
-    <section class="section-margin--small mb-5">
-        <div class="container">
+        <div class="container mt-3">
             <table class="table border-gray">
                 <colgroup>
                     <col style="width:130px;"/>

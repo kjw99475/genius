@@ -84,6 +84,21 @@
                     </tr>
                     </c:forEach>
                     </c:if>
+
+                    <tr>
+                        <th scope="row">12</th>
+                        <td>초등 음악4</td>
+                        <td>4000</td>
+                        <td>10</td>
+                        <td>3700</td>
+                        <td>김삿갓</td>
+                        <td>바른자세</td>
+                        <td>c04</td>
+                        <td><span class="badge bg-success">판매중</span></td><!--상태에 따라 bg-수정 -->
+                        <td>2000-01-01</td>
+                        <td>2099-12-31</td>
+                        <td>311</td>
+                    </tr>
                     </tbody>
                 </table>
 
