@@ -34,9 +34,10 @@ public class BookController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-        pageRequestDTO.setPage_size(6);
+        pageRequestDTO.setPage_size(9);
+        pageRequestDTO.setPage_block_size(10);
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.BookListByPage(pageRequestDTO);
-        responseDTO.setPage_block_size(5);
+
         List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
         List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
         model.addAttribute("subjectList",subjectList);

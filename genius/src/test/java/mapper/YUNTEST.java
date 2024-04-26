@@ -47,7 +47,7 @@ public class YUNTEST {
     public void testTotalCount(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
-                .page_size(10)
+                .page_size(4)
                 .build();
         int total_count = bookMapper.BookTotalCount(pageRequestDTO);
         log.info("=================================");
@@ -57,12 +57,12 @@ public class YUNTEST {
     @Test
     public void testBbsListByPage(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(2)
+                .page(9)
                 .page_size(4)
                 .build();
         List<BookVO> bbsList = bookMapper.BookListByPage(pageRequestDTO);
         log.info("=================================");
-        bbsList.forEach(list->log.info(list));
+        log.info(bbsList);
         log.info("=================================");
     }
     @Test

@@ -68,6 +68,8 @@ public class YUNTEST {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .page_size(10)
+                .type("0")
+                .search_word("천재")
                 .build();
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.BookListByPage(pageRequestDTO);
         responseDTO.getDtoList().forEach(
