@@ -59,6 +59,13 @@
                             <option value="3">제목</option>
                             <option value="4">내용</option>
                         </select>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="startDay" name="startDay">
+                        </div>
+                        <div>~</div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="endDay" name="endDay">
+                        </div>
                         <div class="filter-bar-search">
                             <input type="text" placeholder="Search" style="width: 100%">
                         </div>

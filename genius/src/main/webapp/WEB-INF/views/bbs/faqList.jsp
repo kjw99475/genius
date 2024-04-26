@@ -56,6 +56,13 @@
                             <option value="3">제목</option>
                             <option value="4">내용</option>
                         </select>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="startDay" name="startDay">
+                        </div>
+                        <div>~</div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="endDay" name="endDay">
+                        </div>
                         <div class="filter-bar-search">
                             <input type="text" placeholder="Search" style="width: 100%">
                         </div>
@@ -64,6 +71,18 @@
                         </div>
                     </div>
                 </div>
+<%--                <div class="row justify-content-end align-items-center pb-3">--%>
+<%--                    <div class="col-auto">--%>
+<%--                        <input type="date" class="form-control" id="startDay" name="startDay">--%>
+<%--                    </div>--%>
+<%--                    <div>~</div>--%>
+<%--                    <div class="col-auto">--%>
+<%--                        <input type="date" class="form-control" id="endDay" name="endDay">--%>
+<%--                    </div>--%>
+<%--                    <div>--%>
+<%--                        <button class="btn btn-success" type="button">조회</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
             <table class="table table-hover">
                 <thead class="filter-bar">
