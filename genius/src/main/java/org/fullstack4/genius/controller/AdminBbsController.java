@@ -14,64 +14,64 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class AdminBbsController {
 
-//    @GetMapping("/bbsList")
-//    public void GETList(){
-//
-//    }
-//
-//    @GetMapping("/contentRegist")
-//    public void GETContentRegist(){
-//
-//    }
-//
-//    @PostMapping("/contentRegist")
-//    public void POSTContentRegist(){
-//
-//    }
-//
-//    @GetMapping("/contentmodify")
-//    public void GETContentModify(){
-//
-//    }
-//
-//    @PostMapping("/contentmodify")
-//    public void POSTContentModify(){
-//
-//    }
-//
-//    @GetMapping("/questionRegist")
-//    public void GETQuestionRegist(){
-//
-//    }
-//
-//    @PostMapping("/questionRegist")
-//    public void POSTQuestionRegist(){
-//
-//    }
-//
-//    @GetMapping("/questionmodify")
-//    public void GETQuestionModify(){
-//
-//    }
-//
-//    @PostMapping("/questionmodify")
-//    public void POSTQuestionModify(){
-//
-//    }
-//
-//    @GetMapping("/modify")
-//    public void GETModify(){
-//
-//    }
-//
-//    @PostMapping("/view")
-//    public void GETView(){
-//
-//    }
-//
-//    @PostMapping("/view")
-//    public void POSTView(){
-//
-//    }
+    @GetMapping("/bbsList")
+    public void GETList(){
+
+    }
+
+    @GetMapping("/contentRegist")
+    public void GETContentRegist(){
+
+    }
+
+    @PostMapping("/contentRegist")
+    public void POSTContentRegist(){
+
+    }
+
+    @GetMapping("/contentmodify")
+    public void GETContentModify(){
+
+    }
+
+    @PostMapping("/contentmodify")
+    public void POSTContentModify(){
+
+    }
+
+    @GetMapping("/questionRegist")
+    public void GETQuestionRegist(){
+
+    }
+
+    @PostMapping("/questionRegist")
+    public void POSTQuestionRegist(){
+
+    }
+
+    @GetMapping("/questionmodify")
+    public void GETQuestionModify(){
+
+    }
+
+    @PostMapping("/questionmodify")
+    public void POSTQuestionModify(){
+
+    }
+
+    @GetMapping("/modify")
+    public void GETModify(){
+
+    }
+
+    @GetMapping("/view")
+    public void GETView(){
+
+    }
+
+    @PostMapping("/view")
+    public void POSTView(){
+
+    }
 
 }
