@@ -97,7 +97,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-success">목록</button>
+            <button type="button" class="btn btn-success" onclick="location.href='/bbs/noticeList'">목록</button>
         </div>
         <div class="container mt-3">
             <table class="table border-gray">

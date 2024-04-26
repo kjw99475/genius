@@ -128,7 +128,7 @@
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
-                <button type="button" class="btn btn-success">질문 글쓰기</button>
+                <button type="button" class="btn btn-success" onclick="location.href='/bbs/boardRegist'">질문 글쓰기</button>
             </div>
         </div>
 
