@@ -44,6 +44,7 @@
             <div class="blog-banner pt-1 pb-1">
                 <div class="text-center ">
                     <h1 class=" text-white">포인트 충전</h1>
+                    <h1>${dto.member_id}</h1>
                     <span class=" text-white">Point</span>
                 </div>
             </div>
@@ -265,6 +266,7 @@
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 
+    var list;
     $.ajax({
         url:"/member/viewMember.dox",
         dataType:"json",
@@ -273,8 +275,7 @@
             "member_id":"test"
         },
         success : function(data) {
-
-            console.log(data);
+            list = data.dto;
         }
     });
 
@@ -282,6 +283,7 @@
 
     var IMP = window.IMP;
         IMP.init("imp78587533");
+
         function requestPay() {
             let targetVal = parseInt(uncomma(target.value));
         IMP.request_pay({

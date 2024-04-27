@@ -1,5 +1,6 @@
 package org.fullstack4.genius.service;
 
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
@@ -9,6 +10,7 @@ public interface OrderServiceIf {
     int regist(OrderDTO orderDTO);
 
     List<OrderDTO> listAll(String user_id);
+    List<OrderDTO> orderDetail(String order_num);
     OrderDTO view(String user_id);
     int modify(OrderDTO orderDTO);
     int delete(OrderDTO orderDTO);

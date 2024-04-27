@@ -3,9 +3,9 @@ package service;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.service.CartServiceIf;
-import org.fullstack4.genius.service.CartServiceImpl;
-import org.fullstack4.genius.service.MemberServiceIf;
+import org.fullstack4.genius.dto.OrderDTO;
+import org.fullstack4.genius.dto.PaymentDTO;
+import org.fullstack4.genius.service.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,12 @@ public class HyunbeenTest {
 
     @Autowired
     private MemberServiceIf member;
+
+    @Autowired
+    private OrderServiceIf order;
+
+    @Autowired
+    private PaymentServiceIf payment;
 
     @Test
     public void insertCart(){
@@ -69,6 +75,30 @@ public class HyunbeenTest {
     public void viewMember(){
         String Member_id = "test";
         MemberDTO dto = member.view(Member_id);
+
+        log.info("===================================");
+        log.info("memberDTO: " + dto.toString());
+        log.info("===================================");
+    }
+
+    @Test
+    public void viewOrder(){
+        String Member_id = "test";
+        OrderDTO dto = order.view(Member_id);
+        List<OrderDTO> dtolist = order.listAll(Member_id);
+        List<OrderDTO> dtolist1 = order.orderDetail("o00001");
+
+        log.info("===================================");
+        log.info("memberDTO: " + dto.toString());
+        log.info("memberDTO: " + dtolist.toString());
+        log.info("memberDTO: " + dtolist1.toString());
+        log.info("===================================");
+    }
+
+    @Test
+    public void viewPayment(){
+        String Member_id = "test";
+        PaymentDTO dto = payment.view(Member_id);
 
         log.info("===================================");
         log.info("memberDTO: " + dto.toString());
