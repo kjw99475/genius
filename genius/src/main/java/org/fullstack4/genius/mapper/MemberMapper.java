@@ -3,6 +3,7 @@ package org.fullstack4.genius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.fullstack4.genius.domain.MemberVO;
+import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface MemberMapper {
     int delete(int idx);
     int MemberTotalCount(PageRequestDTO requestDTO);
     List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
+
+    MemberVO login(String member_id);
 }
