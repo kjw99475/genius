@@ -24,12 +24,12 @@ public class MypageController {
 
     }
 
-    @GetMapping("/question")
+    @GetMapping("/myquestions")
     public void GETQuestion(){
 
     }
 
-    @PostMapping("/question")
+    @PostMapping("/myquestions")
     public void POSTQuestion(){
 
     }
