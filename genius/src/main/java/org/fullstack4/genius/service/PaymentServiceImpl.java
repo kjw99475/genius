@@ -20,8 +20,11 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     private final PaymentMapper paymentMapper;
     private final ModelMapper modelMapper;
     @Override
-    public int charge(PaymentDTO PaymentDTO) {
-        PaymentVO vo = modelMapper.map(PaymentDTO, PaymentVO.class);
+    public int charge(PaymentDTO paymentDTO) {
+        PaymentVO vo = modelMapper.map(paymentDTO, PaymentVO.class);
+        log.info("=====================================================");
+        log.info("PaymentVO : " + vo);
+        log.info("=====================================================");
         int result = paymentMapper.charge(vo);
         return result;
     }
@@ -32,8 +35,10 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    public PaymentDTO view(String user_id) {
-        return null;
+    public PaymentDTO view(String member_id) {
+        PaymentVO vo = paymentMapper.view(member_id);
+        PaymentDTO paymentDTO = modelMapper.map(vo, PaymentDTO.class);
+        return paymentDTO;
     }
 
     @Override

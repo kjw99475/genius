@@ -10,9 +10,9 @@ public interface PaymentMapper {
     int charge(PaymentVO PaymentVO);
 
     List<PaymentVO> listAll(String user_id);
-    PaymentVO view(String user_id);
-    int modify(PaymentVO PaymentVO);
-    int delete(PaymentVO PaymentVO);
+    PaymentVO view(String member_id);
+    int modify(PaymentVO Paymentvo);
+    int delete(PaymentVO Paymentvo);
     int PaymentTotalCount(PageRequestDTO requestDTO);
     List<PaymentVO> PaymentListByPage(PageRequestDTO requestDTO);
 }

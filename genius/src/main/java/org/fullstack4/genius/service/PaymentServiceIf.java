@@ -6,10 +6,10 @@ import org.fullstack4.genius.dto.PageRequestDTO;
 import java.util.List;
 
 public interface PaymentServiceIf {
-    int charge(PaymentDTO PaymentDTO);
+    int charge(PaymentDTO paymentDTO);
 
-    List<PaymentDTO> listAll(String user_id);
-    PaymentDTO view(String user_id);
+    List<PaymentDTO> listAll(String member_id);
+    PaymentDTO view(String member_id);
     int modify(PaymentDTO PaymentDTO);
     int delete(PaymentDTO PaymentDTO);
     int PaymentTotalCount(PageRequestDTO requestDTO);

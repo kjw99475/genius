@@ -116,4 +116,26 @@ public class HyunbeenTest {
         log.info("memberDTO: " + dto.toString());
         log.info("===================================");
     }
+
+    @Test
+    public void InsertPayment(){
+        PaymentDTO dto = PaymentDTO.builder()
+                .payment_num("12121-12121")
+                .member_id("test")
+                .price(100)
+                .method("card")
+                .company("kg")
+                .build();
+
+        log.info("=====================================================");
+        log.info("PaymentDTO : " + dto);
+        log.info("=====================================================");
+
+        int result = payment.charge(dto);
+
+        log.info("=====================================================");
+        log.info("result : " + result);
+        log.info("=====================================================");
+
+    }
 }

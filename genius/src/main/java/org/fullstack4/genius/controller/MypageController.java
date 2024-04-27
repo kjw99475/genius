@@ -21,6 +21,7 @@ import java.util.HashMap;
 public class MypageController {
 
     private final PaymentServiceIf paymentService;
+
     @GetMapping("/mypage")
     public void GETMypage(){
 
@@ -75,20 +76,24 @@ public class MypageController {
     @ResponseBody
     public String ChargePoint(Model model , @RequestParam HashMap<String, Object> map){
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        PaymentDTO paymentDTO = PaymentDTO.builder()
-                
+        PaymentDTO dto = PaymentDTO.builder()
+                .payment_num(map.get("payment_num").toString())
+                .member_id(map.get("member_id").toString())
+                .price(Integer.parseInt(map.get("price").toString()))
+                .method(map.get("method").toString())
+                .company(map.get("company").toString())
                 .build();
         log.info("=====================================================");
-        log.info("PaymentDTO : " + map);
+        log.info("PaymentDTO : " + dto);
         log.info("=====================================================");
-//        int result = paymentService.charge(dto);
-//        if(result > 0) {
-//            resultMap.put("result", "success");
-//        }
-//        else{
-//            resultMap.put("result", "fail");
-//        }
-        // 갯수 세기
+        int result = paymentService.charge(dto);
+        if(result > 0) {
+            resultMap.put("result", "success");
+        }
+        else{
+            resultMap.put("result", "fail");
+        }
+
         return new Gson().toJson(resultMap);
     }
 

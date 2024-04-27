@@ -5,12 +5,12 @@
 <mapper namespace="org.fullstack4.genius.mapper.PaymentMapper">
     <select id="view" resultType="org.fullstack4.genius.domain.PaymentVO">
     select payment_idx,payment_num,member_id,price,method,company
-    from tbl_price
-    where member_id=#{member_id}
+    from tbl_payment
+    where member_id=#{param1}
     </select>
 
     <insert id="charge">
-        INSERT INTO payment_num,member_id,price,method,company
+        INSERT INTO tbl_payment(payment_num,member_id,price,method,company)
         VALUES (#{payment_num},#{member_id},#{price},#{method},#{company})
     </insert>
 </mapper>
