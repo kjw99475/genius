@@ -58,7 +58,7 @@
 
     <section class="section profile">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -68,51 +68,56 @@
                             <!-- Form -->
                             <form method="post">
                                 <div class="row mb-3">
-                                    <label for="banner_name" class="col-md-4 col-lg-3 col-form-label">배너 이름</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="banner_name" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="banner_name" type="text" class="form-control" id="banner_name"
                                                value="${bannerDTO.banner_name}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="banner_start" class="col-md-4 col-lg-3 col-form-label">게시 시작일</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="banner_start" class="col-md-4 col-lg-2 col-form-label">게시 시작일</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="banner_start" type="date" class="form-control" id="banner_start"
                                                value="${bannerDTO.banner_start}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="banner_end" class="col-md-4 col-lg-3 col-form-label">게시 종료일</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="banner_end" class="col-md-4 col-lg-2 col-form-label">게시 종료일</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="banner_end" type="date" class="form-control" id="banner_end"
                                                value="${bannerDTO.banner_end}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="banner_rank" class="col-md-4 col-lg-3 col-form-label">우선순위</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">우선순위</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="banner_rank" type="text" class="form-control" id="banner_rank"
                                                value="${bannerDTO.banner_rank}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="banner_use" class="col-md-4 col-lg-3 col-form-label">사용여부</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="banner_use" class="col-md-4 col-lg-2 col-form-label">사용여부</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="banner_use" type="text" class="form-control" id="banner_use"
                                                value="${bannerDTO.banner_use}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <input type="file">
+                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="file" type="file" class="form-control" id="file"
+                                               value="${bannerDTO.file}">
+                                    </div>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success">등록</button>
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-success me-2">등록</button>
+                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- End Form -->
 
