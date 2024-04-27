@@ -11,4 +11,5 @@ public interface MemberServiceIf {
     int idCheck(String user_id);
 
     MemberDTO login(String member_id, String pwd);
+    MemberDTO AutoLogin(String member_id);
 }

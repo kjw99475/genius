@@ -4,7 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
@@ -83,5 +84,16 @@
     <context:component-scan base-package="org.fullstack4.genius.service"></context:component-scan>
     <context:component-scan base-package="org.fullstack4.genius.aop"></context:component-scan>
 
+    <!-- 인터셉터 등록 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*" />
+            <bean id="autoLoginInterceptor" class="org.fullstack4.genius.interceptor.AutoLoginInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/*" />
+            <bean id="testInterceptor" class="org.fullstack4.genius.interceptor.TestInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
