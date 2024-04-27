@@ -35,11 +35,40 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section-margin">
         <div class="container">
-            <h1>로그인 > 로그인</h1>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="login_form_inner rounded">
+                        <h3 class="d-flex justify-content-center align-items-center flex-wrap"><img src="/resources/img/login.png" width="400px"></h3>
+                        <form class="row login_form mb-5" method="post" action="/login/login" id="frm" >
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="auto_login" name="auto_login">
+                                    <label for="auto_login">자동 로그인</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group d-flex flex-column" style="gap:10px">
+                                <button type="submit" class="btn btn-success w-100">로그인</button>
+                                <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
+                                <div class="d-flex justify-content-center" style="gap:10px">
+                                    <a href="/login/findId">아이디 찾기</a><a href="/login/findPwd">비밀번호 찾기</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+    <!--================End Login Box Area =================-->
 </main>
 <!--================ 본문 END =================-->
 
