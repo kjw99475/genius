@@ -98,6 +98,16 @@ public class HyunbeenTest {
     }
 
     @Test
+    public void orderCancel(){
+        int idx = 1;
+        int result = order.cancelOrder(idx);
+
+        log.info("===================================");
+        log.info("result: " + result);
+        log.info("===================================");
+    }
+
+    @Test
     public void viewPayment(){
         String Member_id = "test";
         PaymentDTO dto = payment.view(Member_id);
@@ -105,5 +115,27 @@ public class HyunbeenTest {
         log.info("===================================");
         log.info("memberDTO: " + dto.toString());
         log.info("===================================");
+    }
+
+    @Test
+    public void InsertPayment(){
+        PaymentDTO dto = PaymentDTO.builder()
+                .payment_num("12121-12121")
+                .member_id("test")
+                .price(100)
+                .method("card")
+                .company("kg")
+                .build();
+
+        log.info("=====================================================");
+        log.info("PaymentDTO : " + dto);
+        log.info("=====================================================");
+
+        int result = payment.charge(dto);
+
+        log.info("=====================================================");
+        log.info("result : " + result);
+        log.info("=====================================================");
+
     }
 }

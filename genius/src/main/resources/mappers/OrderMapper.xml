@@ -16,8 +16,9 @@
     </select>
 
     <select id="AdminlistAll" resultType="org.fullstack4.genius.domain.OrderVO">
-        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
-        FROM tbl_order
+        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
+        FROM tbl_order AS a
+        INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
     </select>
 
     <select id="orderDetail" resultType="org.fullstack4.genius.domain.OrderVO">
@@ -25,4 +26,9 @@
         FROM tbl_orderdetail
         where order_num=#{param1}
     </select>
+
+    <update id="cancelOrder">
+        UPDATE tbl_order SET cancel_YN = "Y" , cancel_date = NOW()
+        where order_idx =#{param1}
+    </update>
 </mapper>

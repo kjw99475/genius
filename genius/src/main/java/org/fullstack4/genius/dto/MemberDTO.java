@@ -35,4 +35,5 @@ public class MemberDTO {
     private String terms2;
     private String terms3;
     private String terms4;
+    private String email;
 }
