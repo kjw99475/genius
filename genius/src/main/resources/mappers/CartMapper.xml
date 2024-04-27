@@ -7,7 +7,7 @@
         INSERT INTO tbl_cart(member_id,book_code,quantity,reg_date) VALUES (#{member_id},#{book_code},#{quantity},NOW())
     </insert>
     <select id="listAll" resultType="org.fullstack4.genius.domain.CartVO">
-        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name
+        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.book_img
         from tbl_cart as A
         INNER JOIN tbl_book AS B on B.book_code=A.book_code
         where member_id=#{member_id}
