@@ -62,7 +62,6 @@
                         <h5 class="card-title">자료실 관리</h5>
                         <p>자료실을 관리하는 페이지 입니다.</p>
                         <div class="row">
-
                             <form>
                                 <div class="row mb-3">
                                     <div class="col">
@@ -78,11 +77,12 @@
 
                                     <div class="row">
 
-                                        <div class="col-1">
+                                        <div class="col-2">
                                             <select name="search_category" id="search_category" class="form-select">
-                                                <option selected>전체</option>
-                                                <option value="banner_name">배너 이름</option>
-                                                <option value="banner_use">사용 여부</option>
+                                                <option value="" selected>전체</option>
+                                                <option value="member_id">작성자</option>
+                                                <option value="bbs_title">제목</option>
+                                                <option value="bbs_content">내용</option>
                                             </select>
                                         </div>
 
@@ -91,60 +91,95 @@
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                            <button type="button" class="btn btn-success"
-                                                    onclick="location.href='/admin/bbs/contentregist'">등록</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
-                        <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${bbsDTOlist ne null}">
-                                <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                    <tr onclick="location.href='/admin/bbs/view'">
-                                        <td>${bbsDTO.bbs_idx}</td>
-                                        <td>${bbsDTO.bbs_title}</td>
-                                        <td>${bbsDTO.member_id}</td>
-                                        <td>${bbsDTO.reg_date}</td>
-                                        <td>${bbsDTO.read_cnt}</td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
+                        <div class="col-2 mb-2">
+                            <select class="form-select">
+                                <option value="5">5개씩 보기</option>
+                                <option value="10" selected>10개씩 보기</option>
+                                <option value="100">100개씩 보기</option>
+                            </select>
+                        </div>
 
-                            <tr onclick="location.href='/admin/bbs/view'">
-                                <td>31</td>
-                                <td>글제목입니당</td>
-                                <td>작성자아이디입니다</td>
-                                <td>작성일입니다</td>
-                                <td>99</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete">
+                            <!-- Table with stripped rows -->
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                        <!-- Basic Pagination -->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                        <!-- End Basic Pagination -->
+                                <c:if test="${bbsDTOlist ne null}">
+                                    <c:forEach items="${bbsDTOlist}" var="bbsDTO">
+                                        <tr onclick="location.href='/admin/bbs/view'">
+                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                            <td>${bbsDTO.bbs_title}</td>
+                                            <td>${bbsDTO.member_id}</td>
+                                            <td>${bbsDTO.reg_date}</td>
+                                            <td>${bbsDTO.read_cnt}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+
+                                <tr onclick="location.href='/admin/bbs/view'">
+                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 31</td>
+                                    <td>글제목입니당<span class="bi bi-paperclip"></span></td>
+                                    <td>작성자아이디입니다</td>
+                                    <td>작성일입니다</td>
+                                    <td>99</td>
+                                </tr>
+
+                                <tr onclick="location.href='/admin/bbs/view'">
+                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 33</td>
+                                    <td>글제목입니당</td>
+                                    <td>작성자아이디입니다</td>
+                                    <td>작성일입니다</td>
+                                    <td>199</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </form>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success me-2"
+                                    onclick="location.href='/admin/bbs/contentregist'">등록</button>
+                            <button type="button" class="btn btn-success"
+                                    onclick="bbs_delete()">삭제</button>
+                        </div>
+
+
+                        <div class="d-flex justify-content-center">
+                            <!-- Pagination with icons -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav><!-- End Pagination with icons -->
+                        </div>
                     </div>
                 </div>
 
@@ -162,6 +197,36 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+
+<script>
+    // 삭제 스크립트
+    const frm_delete = document.querySelector("#frm_bbs_delete");
+    function bbs_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+
+    // 체크박스 스크립트
+    const chk_all = document.querySelector("#chk_all");
+    const chk_group = document.querySelectorAll(".chk_del");
+
+    chk_all.addEventListener('click', (e)=> {
+        if ( chk_all.checked ) {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = true;
+            }
+        }
+        else {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = false;
+            }
+        }
+    })
+
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

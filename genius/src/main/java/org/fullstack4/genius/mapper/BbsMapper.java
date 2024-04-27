@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface BbsMapper {
     int regist(BbsVO bbsVO);
-
     List<BbsVO> listAll();
     BbsVO view(int idx);
     int modify(BbsVO bbsVO);
