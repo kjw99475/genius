@@ -99,19 +99,19 @@
         <div class="container">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">소개 글</a>
+                    <a class="nav-link active tab-a" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">소개 글</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                    <a class="nav-link tab-a" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
                        aria-selected="false">목차</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+                    <a class="nav-link tab-a" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
                        aria-selected="false">리뷰(${reviewList.size()})</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade active show tab-div" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="p-4">
                         <video src="${bookDTO.video}" class="w-100" controls></video>
                     </div>
@@ -119,7 +119,7 @@
                         <p>${bookDTO.book_info}</p>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade tab-div" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
@@ -195,7 +195,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="review" role="tabpanel" aria-labelledby="review-tab">
+                <div class="tab-pane fade show tab-div" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row total_rate">
@@ -239,8 +239,16 @@
                                             </div>
                                         </div>
                                         <p>${review.review_contents}</p>
+
                                         <div class="pt-2 pb-2">
-                                            <button type="submit" class="btn btn-sm ">삭제</button>
+                                            <form action="/review/delete" method="post" id="frmRegistReview" name="frmRegistReview">
+                                                <input type="hidden" value="${review.review_idx}" name="review_idx">
+                                                <input type="hidden" value="${review.book_code}" name="book_code">
+                                                <c:if test="${review.member_id == 'test'}">
+                                                    <button type="button" class="btn btn-sm btnRemove">삭제</button>
+                                                </c:if>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -294,19 +302,22 @@
                             <div class="review_box">
                                 <h4>리뷰 작성</h4>
                                 <p>별점을 선택해주세요.</p><br>
-                                <ul class="list star-list">
+                                <ul class="list star-list" id="star_ul">
                                     <li><a href="#" data-score="1"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="2"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="3"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="4"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="5"><i class="fa fa-star"></i></a></li>
                                 </ul>
-                                <form action="#/" class="form-contact form-review mt-3">
+                                <form action="/review/regist" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
+                                    <input type="hidden" value="${param.book_code}" name="book_code"/>
+                                    <input type="hidden" value="" name="rank" id="rank"/>
+                                    <input type="hidden" value="test" name="member_id"/>
                                     <div class="form-group">
-                                        <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="리뷰를 작성해주세요"></textarea>
+                                        <textarea class="form-control different-control w-100" name="review_contents" id="review_contents" cols="30" rows="5" placeholder="리뷰를 작성해주세요"></textarea>
                                     </div>
                                     <div class="form-group text-center text-md-right mt-3">
-                                        <button type="submit" class="button button--active button-review">작성하기</button>
+                                        <button type="submit" id="reviewBtn" class="button button--active button-review">작성하기</button>
                                     </div>
                                 </form>
                             </div>
@@ -328,15 +339,71 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    // $(document).ready(function() {
+    //     // 버튼 클릭 이벤트를 처리합니다.
+    //     $('#reviewBtn').click(function() {
+    //         // 폼 제출을 실행합니다.
+    //         $('#frmReviewRegist').submit();
+    //     });
+    //     $('#frmReviewRegist').submit(function(event){
+    //         event.preventDefault();
+    //         let formData = $(this).serialize();
+    //         $.ajax({
+    //             url: '/review/regist',
+    //             type:'POST',
+    //             data: formData,
+    //             success:function(response){
+    //                 let regist = response.registOK;
+    //                 if(regist == 1){
+    //                     $('#review').tab('show');
+    //                 }
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
+    //                 console.error(error);
+    //             }
+    //         });
+    //     });
+    // });
     let stars = document.querySelectorAll('.star-list li a');
     let realStars =  document.querySelectorAll('.star-list li a i');
+    let score=0;
+    let reviewBtn = document.querySelector('#reviewBtn');
+    let reviewTab = document.querySelector('#review-tab');
+    let reviewOK = "<c:out value='${param.registOK}'/>"
+    let btnRemove = document.querySelectorAll('.btnRemove');
+    let tabA = document.querySelectorAll('.tab-a');
+    let tabDiv = document.querySelectorAll('.tab-div');
+    console.log('reviewOK : ' + reviewOK);
+    if(reviewOK == 1){
+        for(let i=0;i<tabA.length;i++){
+            tabA[i].classList.remove('active');
+        }
+        tabA[2].classList.add('active');
+        for(let i=0;i<tabDiv.length;i++){
+            tabDiv[i].classList.remove('active', 'show');
+        }
+        tabDiv[2].classList.add('active');
+        tabDiv[2].classList.add('show');
+        // document.querySelector('#review-tab').click();
+    }
+    for(let i=0;i<btnRemove.length;i++){
+        btnRemove[i].addEventListener("click", function(e){
+            e.preventDefault();
+            if(confirm('해당 리뷰를 삭제 하시겠습니까?')){
+                document.querySelector('#frmRegistReview').submit();
+            }
+        });
+    }
+
     for(let star of stars) {
         star.addEventListener("click", (event)=>{
             event.preventDefault();
+            document.querySelector('#star_ul').style.border = 'none';
             for(let i = 0; i < stars.length; i++) {
                 realStars[i].classList.remove('stars');
             }
-            let score = star.dataset.score;
+            score = star.dataset.score;
             console.log(star);
             console.log(score);
             for(let i = 0; i < score; i++) {
@@ -344,6 +411,25 @@
             }
         })
     }
+    reviewBtn.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        let reviewText = document.querySelector('#review_contents');
+
+        if(score == 0){
+            console.log(1);
+            document.querySelector('#star_ul').style.border = '1px solid lightblue'
+            return;
+        }
+        document.getElementById("rank").value=score;
+        if(reviewText.value==""){
+            console.log(2);
+            reviewText.focus();
+            return;
+        }
+        document.querySelector('#frmReviewRegist').submit();
+
+    })
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>

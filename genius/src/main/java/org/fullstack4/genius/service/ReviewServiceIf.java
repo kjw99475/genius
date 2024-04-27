@@ -10,7 +10,7 @@ public interface ReviewServiceIf {
     int regist(ReviewDTO reviewDTO);
 
     List<ReviewDTO> listAll(String book_code);
-    int delete(int idx);
+    int delete(int idx, String book_code);
     int updateAvg(String book_code);
     int reviewTotalCount(PageRequestDTO requestDTO);
     List<ReviewDTO> reviewListByPage(PageRequestDTO requestDTO);
