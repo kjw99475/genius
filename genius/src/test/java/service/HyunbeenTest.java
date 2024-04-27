@@ -85,6 +85,7 @@ public class HyunbeenTest {
     public void viewOrder(){
         String Member_id = "test";
         OrderDTO dto = order.view(Member_id);
+        List<OrderDTO> dtolist2 = order.AdminlistAll();
         List<OrderDTO> dtolist = order.listAll(Member_id);
         List<OrderDTO> dtolist1 = order.orderDetail("o00001");
 
@@ -92,6 +93,7 @@ public class HyunbeenTest {
         log.info("memberDTO: " + dto.toString());
         log.info("memberDTO: " + dtolist.toString());
         log.info("memberDTO: " + dtolist1.toString());
+        log.info("memberDTO: " + dtolist2.toString());
         log.info("===================================");
     }
 
