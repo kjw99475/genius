@@ -190,7 +190,7 @@
     let purchase = document.querySelectorAll('.purchase');
     for(let pur of purchase) {
         pur.addEventListener('click', ()=> {
-            location.href = "/order/payment1";
+            location.href = "/order/payment";
         })
     }
 
