@@ -48,7 +48,7 @@
         <h1>공지사항 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item active">공지사항</li>
             </ol>
         </nav>

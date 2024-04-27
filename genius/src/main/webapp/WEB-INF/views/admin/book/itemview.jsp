@@ -48,7 +48,7 @@
         <h1>상품 상세</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item">상품관리</li>
                 <li class="breadcrumb-item active">상세</li>
             </ol>
@@ -64,7 +64,7 @@
                     <div class="card-body pt-3">
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                            <form name="frm_book_delete" id="frm_book_delete" action="/admin/book/bookDelete">
+                            <form name="frm_book_delete" id="frm_book_delete" action="/admin/book/delete">
                                 <!-- <h5 class="card-title">Profile Details</h5> -->
 
                                 <div class="row">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success" onclick="location.href='admin-product-modify.html'">수정</button>
+                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify'">수정</button>
                             <button type="button" class="btn btn-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
                         </div>
                     </div><!-- End Bordered Tabs -->
