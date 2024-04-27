@@ -49,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">상품관리</li>
+                <li class="breadcrumb-item"><a href="/admin/book/itemlist">상품관리</a></li>
                 <li class="breadcrumb-item active">상세</li>
             </ol>
         </nav>

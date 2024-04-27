@@ -22,7 +22,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/resources/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -51,14 +52,16 @@
                 <h5 class="card-title">주문 관리 <span>| 리스트</span></h5>
 
 
-                <form>
-                    <div class="row mb-3">
+                <div class="row mb-3">
+                    <form>
                         <div class="col">
                             <div class="row mb-3">
-                                <div class="col-3"><input class="form-control" type="date" name="delivery_start_date" id="delivery_start_date">
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_start_date"
+                                                          id="delivery_start_date">
                                 </div>
                                 ~
-                                <div class="col-3"><input class="form-control" type="date" name="delivery_end_date" id="delivery_end_date">
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_end_date"
+                                                          id="delivery_end_date">
                                 </div>
 
                             </div>
@@ -85,20 +88,28 @@
                             </div>
 
                             <div class="col-6">
-                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                <input type="text" class="form-control" placeholder="검색어" name="search_word"
+                                       id="search_word">
                             </div>
                             <div class="col">
                                 <button type="button" class="bi bi-search btn btn-success"> 검색</button>
                                 <button type="button" class="btn btn-success">적용</button>
                             </div>
                         </div>
+                    </form>
+                </div>
 
-                    </div>
-                </form>
 
+                <div class="col-2 mb-2">
+                    <select class="form-select">
+                        <option value="5">5개씩 보기</option>
+                        <option value="10" selected>10개씩 보기</option>
+                        <option value="100">100개씩 보기</option>
+                    </select>
+                </div>
 
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">주문번호</th>
@@ -144,6 +155,28 @@
                     </tbody>
                 </table>
                 <!-- END Table with stripped rows -->
+
+                <div class="d-flex justify-content-center">
+                    <!-- Pagination with icons -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav><!-- End Pagination with icons -->
+                </div>
+
             </div>
 
         </div>
@@ -152,11 +185,11 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
