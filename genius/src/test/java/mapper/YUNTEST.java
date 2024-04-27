@@ -137,6 +137,10 @@ public class YUNTEST {
         log.info("================================");
     }
     @Test
+    public void testModify(){
+        BookVO bookVO = bookMapper.view("test");
+    }
+    @Test
     public void testReviewRankAvg(){
         log.info("================================");
         int result = reviewMapper.updateAvg("b0001");

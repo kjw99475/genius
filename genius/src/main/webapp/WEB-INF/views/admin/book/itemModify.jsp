@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_regist" method="post" action="/admin/book/regist">
+                            <form id="frm_book_regist" method="post" action="/admin/book/itemRegist">
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-10">
@@ -124,20 +124,14 @@
                                 <div class="row mb-3">
                                     <label for="category_class_code" class="col-md-4 col-lg-2 col-form-label">카테고리 - 학년</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <select name="category_class_code" class="form-control" id="category_class_code">
-                                            <option value="" selected hidden>학년</option>
-                                            <option value="c01">초1</option>
-                                            <option value="c02">초2</option>
-                                            <option value="c03">초3</option>
-                                            <option value="c04">초4</option>
-                                            <option value="c05">초5</option>
-                                            <option value="c06">초6</option>
-                                            <option value="c07">중1</option>
-                                            <option value="c08">중2</option>
-                                            <option value="c09">중3</option>
-                                            <option value="c10">고1</option>
-                                            <option value="c11">고2</option>
-                                            <option value="c12">고3</option>
+                                        <select name="category_class_code" class="form-control" id="category_class_code" value="${bookDTO.category_class_code}">
+                                            <c:forEach items="${classList}" var="list">
+                                                <option value="${list.category_code}"
+                                                    <c:if test="${list.category_code eq bookDTO.category_class_code}">
+                                                        selected
+                                                    </c:if>
+                                                >${list.name}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -145,28 +139,14 @@
                                 <div class="row mb-3">
                                     <label for="category_subject_code" class="col-md-4 col-lg-2 col-form-label">카테고리 - 과목</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <select name="category_subject_code" class="form-control" id="category_subject_code">
-                                            <option value="" selected hidden>과목</option>
-                                            <option value="s01">국어</option>
-                                            <option value="s02">영어</option>
-                                            <option value="s03">수학</option>
-                                            <option value="s04">사회</option>
-                                            <option value="s05">역사</option>
-                                            <option value="s06">도덕</option>
-                                            <option value="s07">과학</option>
-                                            <option value="s08">체육</option>
-                                            <option value="s09">예술</option>
-                                            <option value="s10">제2외국어</option>
-                                            <option value="s11">기술가정</option>
-                                            <option value="s12">음악</option>
-                                            <option value="s13">정보</option>
-                                            <option value="s14">교양</option>
-                                            <option value="s15">전문교과</option>
-                                            <option value="s16">기타</option>
-                                            <option value="s17">선택</option>
-                                            <option value="s18">실과</option>
-                                            <option value="s19">한문</option>
-                                            <option value="s20">미술</option>
+                                        <select name="category_subject_code" class="form-control" id="category_subject_code" value="${bookDTO.category_subject_code}">
+                                            <c:forEach items="${subjectList}" var="list">
+                                                <option value="${list.category_code}"
+                                                        <c:if test="${list.category_code eq bookDTO.category_subject_code}">
+                                                            selected
+                                                        </c:if>
+                                                >${list.name}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -183,14 +163,14 @@
                                     <label for="book_info" class="col-md-4 col-lg-2 col-form-label">소개글</label>
                                     <div class="col-md-8 col-lg-10">
                                             <textarea name="book_info" class="form-control" id="book_info"
-                                                      style="height: 100px; resize: none;"></textarea>
+                                                      style="height: 100px; resize: none;">${bookDTO.book_info}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="isbn" class="col-md-4 col-lg-2 col-form-label">ISBN</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="isbn" type="text" class="form-control" id="isbn" value=""
+                                        <input name="isbn" type="text" class="form-control" id="isbn" value="${bookDTO.isbn}"
                                                maxlength="13">
                                     </div>
                                 </div>

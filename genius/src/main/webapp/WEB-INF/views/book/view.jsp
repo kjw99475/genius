@@ -309,7 +309,7 @@
                                     <li><a href="#" data-score="4"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="5"><i class="fa fa-star"></i></a></li>
                                 </ul>
-                                <form action="/review/regist.dox" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
+                                <form class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
                                     <input type="hidden" value="${param.book_code}" name="book_code"/>
                                     <input type="hidden" value="" name="rank" id="rank"/>
                                     <input type="hidden" value="test" name="member_id"/>
@@ -353,13 +353,17 @@
                 url: '/review/regist.dox',
                 type:'POST',
                 data: formData,
-                success:function(response){
-                    console.log(response)
+                success:function(data){
+                    console.log(data);
+                    console.log(formData);
+                    console.log(dto);
+                    // console.log(response)
                     // let regist = response.registOK;
                     // if(regist == 1){
                     //     $('#review').tab('show');
                     // }
-                    location.href=response;
+                    // $('#review').tab
+                    // location.href=response[0];
                 },
                 error: function(xhr, status, error) {
                     // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
