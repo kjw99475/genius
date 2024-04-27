@@ -40,13 +40,26 @@ public class ReviewController {
 //
 //            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
 //        }
-
-
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         int result = reviewServiceIf.regist(reviewDTO);
-        redirectAttributes.addAttribute("registOK", 1);
+        if(result > 0) {
+            resultMap.put("result", "success");
+            resultMap.put("dto",reviewDTO);
+        }
+        else{
+            resultMap.put("result", "fail");
+        }
 
-        return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
+        return new Gson().toJson(resultMap);
+
+
+
+
+//        //redirectAttributes.addAttribute("registOK", 1);
+//        resultMap.put("tab","review");
+//
+//        return "review";
     }
     @PostMapping("/delete")
     public String deletePOST(@RequestParam(name="review_idx", defaultValue = "0") int idx,

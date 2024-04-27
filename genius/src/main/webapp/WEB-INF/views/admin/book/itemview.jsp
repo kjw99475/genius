@@ -75,7 +75,7 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label ">이미지</div>
                                     <div class="col-lg-10 col-md-8">
-                                        <img src="" alt="이미지">
+                                        <img src="${bookDTO.book_img}" alt="이미지">
                                     </div>
                                 </div>
 
@@ -110,8 +110,12 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">카테고리</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.category_code}</div>
+                                    <div class="col-lg-2 col-md-4 label">학년 카테고리</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.category_class_code}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 label">과목 카테고리</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.category_subject_code}</div>
                                 </div>
 
                                 <div class="row">
@@ -123,7 +127,7 @@
                         </div>
 
                         <div class="text-center mt-5">
-                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify'">수정</button>
+                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_idx=' + ${bookDTO.book_idx}">수정</button>
                             <button type="button" class="btn btn-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
                         </div>
                     </div><!-- End Bordered Tabs -->
