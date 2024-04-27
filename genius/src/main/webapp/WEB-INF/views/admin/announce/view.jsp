@@ -45,12 +45,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>공지 등록</h1>
+        <h1>공지 상세</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item">공지</li>
-                <li class="breadcrumb-item active">공지 등록</li>
+                <li class="breadcrumb-item active">공지 상세</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -78,7 +78,7 @@
                                     <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}">
+                                               value="${bbsDTO.bbs_title}" readonly>
                                     </div>
                                 </div>
 
@@ -86,7 +86,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                               value="${bbsDTO.member_id}" readonly>
                                     </div>
                                 </div>
 
@@ -94,7 +94,7 @@
                                     <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}">
+                                               value="${bbsDTO.bbs_contents}" readonly>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@
                                     <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}">
+                                               value="${bbsDTO.reg_date}" readonly>
                                     </div>
                                 </div>
 
@@ -111,9 +111,10 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-success">수정</button>
-                                    <button type="button" class="btn btn-light" onclick="announce_delete()">삭제</button>
+                                    <button type="button" class="btn btn-success" onclick="location.href='/admin/announce/contentmodify'">수정</button>
+                                    <button type="button" class="btn btn-success" onclick="announce_delete()">삭제</button>
                                 </div>
+
                             </form><!-- EndForm -->
 
                         </div>

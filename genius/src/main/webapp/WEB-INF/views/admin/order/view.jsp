@@ -65,33 +65,33 @@
                         <h5 class="card-title">주문 정보</h5>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">주문 번호</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.order_num}</div>
+                            <div class="col-lg-4 col-md-4 label ">주문 번호</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_num}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">주문 상태</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.order_state}</div>
+                            <div class="col-lg-4 col-md-4 label">주문 상태</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_state}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">주문일시</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.order_date}</div>
+                            <div class="col-lg-4 col-md-4 label">주문일시</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_date}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">주문자 ID</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.member_id}</div>
+                            <div class="col-lg-4 col-md-4 label">주문자 ID</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.member_id}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">주문자 이름</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.idx}</div>
+                            <div class="col-lg-4 col-md-4 label">주문자 이름</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.idx}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">주문자 전화번호</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.idx}</div>
+                            <div class="col-lg-4 col-md-4 label">주문자 전화번호</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.idx}</div>
                         </div>
 
                     </div>
@@ -102,38 +102,38 @@
                         <h5 class="card-title">주문 상세정보</h5>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">상품 번호</div>
-                            <div class="col-lg-9 col-md-8">${bookDTO.book_code}</div>
+                            <div class="col-lg-4 col-md-4 label ">상품 번호</div>
+                            <div class="col-lg-8 col-md-8">${bookDTO.book_code}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">상품명</div>
-                            <div class="col-lg-9 col-md-8">${bookDTO.book_name}</div>
+                            <div class="col-lg-4 col-md-4 label ">상품명</div>
+                            <div class="col-lg-8 col-md-8">${bookDTO.book_name}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">수량</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.amount}</div>
+                            <div class="col-lg-4 col-md-4 label ">수량</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.amount}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">적용가</div>
-                            <div class="col-lg-9 col-md-8">${bookDTO.discount_price}</div>
+                            <div class="col-lg-4 col-md-4 label ">적용가</div>
+                            <div class="col-lg-8 col-md-8">${bookDTO.discount_price}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">개별 총계</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.price}</div>
+                            <div class="col-lg-4 col-md-4 label ">개별 총계</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.price}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">총수량</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.amount}</div>
+                            <div class="col-lg-4 col-md-4 label ">총수량</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.amount}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">총 합계</div>
-                            <div class="col-lg-9 col-md-8">${orderDTO.total_price}</div>
+                            <div class="col-lg-4 col-md-4 label ">총 합계</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.total_price}</div>
                         </div>
 
                     </div>
@@ -148,28 +148,28 @@
                         <h5 class="card-title">배송지 정보</h5>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">수신인</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-4 col-md-4 label ">수신인</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">우편번호</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-4 col-md-4 label ">우편번호</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">주소 1</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.delivery_addr1}</div>
+                            <div class="col-lg-4 col-md-4 label ">주소 1</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_addr1}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">주소 2</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.delivery_addr2}</div>
+                            <div class="col-lg-4 col-md-4 label ">주소 2</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_addr2}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">수신인 전화번호</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-4 col-md-4 label ">수신인 전화번호</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
                         </div>
 
                     </div>
@@ -180,19 +180,18 @@
                         <h5 class="card-title">배송정보</h5>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">배송회사</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.delivery_company}</div>
+                            <div class="col-lg-4 col-md-4 label ">배송회사</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_company}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">배송시작일</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.delivery_start_date}</div>
+                            <div class="col-lg-4 col-md-4 label ">배송시작일</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_start_date}</div>
                         </div>
 
-
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">배송종료일</div>
-                            <div class="col-lg-9 col-md-8">${deliveryDTO.delivery_end_date}</div>
+                            <div class="col-lg-4 col-md-4 label ">배송종료일</div>
+                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_end_date}</div>
                         </div>
 
                     </div>

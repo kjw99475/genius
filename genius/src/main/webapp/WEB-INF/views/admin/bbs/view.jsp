@@ -1,22 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: kjw
-  Date: 2024-04-26
-  Time: 오후 7:33
+  Date: 2024-04-27
+  Time: 오후 2:43
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / F.A.Q - modify</title>
+    <title>Admin / bbs - view</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -46,12 +44,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>F.A.Q 수정</h1>
+        <h1>자료실 상세</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
-                <li class="breadcrumb-item active">F.A.Q 수정</li>
+                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item active">자료실 상세</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -66,12 +64,12 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/faq/contentmodify">
+                            <form method="post" id="frm_bbs_delete" action="/admin/bbs/delete">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="faq" readonly>
+                                               value="bbs" readonly>
                                     </div>
                                 </div>
 
@@ -79,7 +77,7 @@
                                     <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}">
+                                               value="${bbsDTO.bbs_title}" readonly>
                                     </div>
                                 </div>
 
@@ -87,7 +85,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                               value="${bbsDTO.member_id}" readonly>
                                     </div>
                                 </div>
 
@@ -95,7 +93,7 @@
                                     <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}">
+                                               value="${bbsDTO.bbs_contents}" readonly>
                                     </div>
                                 </div>
 
@@ -103,7 +101,7 @@
                                     <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}">
+                                               value="${bbsDTO.reg_date}" readonly>
                                     </div>
                                 </div>
 
@@ -112,8 +110,10 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">수정</button>
+                                    <button type="button" class="btn btn-success" onclick="location.href='/admin/bbs/contentmodify'">수정</button>
+                                    <button type="button" class="btn btn-success" onclick="bbs_delete()">삭제</button>
                                 </div>
+
                             </form><!-- EndForm -->
 
                         </div>
@@ -133,6 +133,16 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    const frm_delete = document.querySelector("#frm_bbs_delete");
+    function bbs_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
