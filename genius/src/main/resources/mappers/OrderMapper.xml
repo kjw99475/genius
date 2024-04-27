@@ -15,6 +15,11 @@
         where member_id=#{param1}
     </select>
 
+    <select id="AdminlistAll" resultType="org.fullstack4.genius.domain.OrderVO">
+        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+    </select>
+
     <select id="orderDetail" resultType="org.fullstack4.genius.domain.OrderVO">
         select orderdetail_idx,order_num,book_code,category_class_code,category_subject_code,order_state,order_date,price,total_price,amount
         FROM tbl_orderdetail
