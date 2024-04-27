@@ -10,6 +10,7 @@ public interface OrderMapper {
     int regist(OrderVO orderVO);
 
     List<OrderVO> listAll(String user_id);
+    List<OrderVO> orderDetail(String order_num);
     OrderVO view(String user_id);
     int modify(OrderVO orderVO);
     int delete(OrderVO orderVO);
