@@ -14,7 +14,7 @@ public interface BookServiceIf {
     int regist(BookDTO BookDTO);
 
     List<BookDTO> listAll();
-    BookDTO view(int idx);
+    BookDTO view(String book_code);
     int modify(BookDTO bookDTO);
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);

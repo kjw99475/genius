@@ -51,10 +51,10 @@ public class BookController {
     }
 
     @GetMapping("/view")
-    public void GETView(@RequestParam(name="idx", defaultValue = "0") int idx,
+    public void GETView(@RequestParam(name="book_code", defaultValue = "b0001") String book_code,
             Model model){
         log.info("BookController >> view()");
-        BookDTO bookDTO = bookServiceIf.view(idx);
+        BookDTO bookDTO = bookServiceIf.view(book_code);
         List<ReviewDTO> reviewDTOList = reviewServiceIf.listAll(bookDTO.getBook_code());
         int[] rank_arr = {0,0,0,0,0,0};
         for(ReviewDTO dto :reviewDTOList){

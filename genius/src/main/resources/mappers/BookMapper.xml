@@ -61,7 +61,7 @@
         ON tb.category_class_code = tcc.category_code
         INNER JOIN tbl_subject_category AS tsc
         ON tb.category_subject_code = tsc.category_code
-        where book_idx = ${idx}
+        where book_code = #{book_code}
     </select>
     <delete id="delete">
         DELETE

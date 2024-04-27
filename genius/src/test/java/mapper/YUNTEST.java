@@ -80,7 +80,7 @@ public class YUNTEST {
     }
     @Test
     public void view(){
-        BookVO vo = bookMapper.view(1);
+        BookVO vo = bookMapper.view("b0001");
         log.info("============================");
         log.info(vo);
         log.info("============================");
