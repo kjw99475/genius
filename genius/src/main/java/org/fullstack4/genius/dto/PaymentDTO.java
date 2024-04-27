@@ -16,7 +16,6 @@ public class PaymentDTO {
     private int payment_idx;
     private String payment_num;
     private String member_id;
-    private String order_num;
     private int price;
     private String method;
     private String company;

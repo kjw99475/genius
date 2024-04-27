@@ -2,6 +2,7 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.PaymentVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.PaymentMapper;
@@ -19,8 +20,10 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     private final PaymentMapper paymentMapper;
     private final ModelMapper modelMapper;
     @Override
-    public int regist(PaymentDTO PaymentDTO) {
-        return 0;
+    public int charge(PaymentDTO PaymentDTO) {
+        PaymentVO vo = modelMapper.map(PaymentDTO, PaymentVO.class);
+        int result = paymentMapper.charge(vo);
+        return result;
     }
 
     @Override

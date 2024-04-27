@@ -207,6 +207,7 @@
                         <small id="emailHelp" class="form-text text-muted">아래의 금액단위를 클릭해 충전금액을 입력해주세요</small>
                     </div>
                     <div class="d-flex justify-content-center pb-2" role="group" style="gap:5px">
+                        <button type="button" class="btn btn-default btn-price" data-price="1">+1</button>
                         <button type="button" class="btn btn-default btn-price" data-price="10000">+1만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="50000">+5만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="100000">+10만</button>
@@ -286,22 +287,50 @@
 
         function requestPay() {
             let targetVal = parseInt(uncomma(target.value));
-        IMP.request_pay({
-            pg: 'html5_inicis',
-            pay_method: 'card',
-            merchant_uid: "57008833-33005",
-            name: '포인트 ' + targetVal + '원',
-            amount: targetVal,
-            buyer_email: 'Iamport@chai.finance',
-            buyer_name: '포트원 기술지원팀',
-            buyer_tel: '010-1234-5678',
-            buyer_addr: '서울특별시 강남구 삼성동',
-            buyer_postcode: '123-456'
-        }, function (rsp) { // callback
-
-            //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-        });
-    }
+            let today = new Date();
+            let rand = Math.floor(Math.random()*(1000000-0)+1);
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes();  // 분
+            let seconds = today.getSeconds();  // 초
+            let milliseconds = today.getMilliseconds();
+            let now = hours+minutes+seconds+milliseconds;
+            console.log(list);
+                IMP.request_pay({
+                    pg: 'html5_inicis',
+                    pay_method: 'card',
+                    merchant_uid: now+"-"+rand,
+                    name: '포인트',
+                    amount: targetVal,
+                    buyer_email: list.email,
+                    buyer_name: list.member_name,
+                    buyer_tel: list.phone,
+                    buyer_addr: list.addr1 +" " +list.addr2,
+                    buyer_postcode: list.zipcode
+                }, function (rsp) { // callback
+                    if(rsp.success){
+                        console.log(rsp.amount);
+                        $.ajax({
+                            url:"/mypage/point.dox",
+                            dataType:"json",
+                            type : "POST",
+                            data : {
+                                "payment_num":rsp.merchant_uid
+                                ,"member_id":"test"
+                                ,"price":rsp.paid_amount
+                                ,"method":rsp.pay_method
+                                ,"company":rsp.pg_provider
+                            },
+                            success : function(data) {
+                                alert("결제 성공");
+                            }
+                        });
+                        console.log(rsp);
+                    }else {
+                        console.log(rsp);
+                    }
+                    //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+                });
+        }
 
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 

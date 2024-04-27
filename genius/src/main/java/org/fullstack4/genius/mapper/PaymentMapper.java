@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PaymentMapper {
 
-    int regist(PaymentVO PaymentVO);
+    int charge(PaymentVO PaymentVO);
 
     List<PaymentVO> listAll(String user_id);
     PaymentVO view(String user_id);

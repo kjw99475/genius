@@ -6,7 +6,7 @@ import org.fullstack4.genius.dto.PageRequestDTO;
 import java.util.List;
 
 public interface PaymentServiceIf {
-    int regist(PaymentDTO PaymentDTO);
+    int charge(PaymentDTO PaymentDTO);
 
     List<PaymentDTO> listAll(String user_id);
     PaymentDTO view(String user_id);

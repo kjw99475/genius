@@ -98,6 +98,16 @@ public class HyunbeenTest {
     }
 
     @Test
+    public void orderCancel(){
+        int idx = 1;
+        int result = order.cancelOrder(idx);
+
+        log.info("===================================");
+        log.info("result: " + result);
+        log.info("===================================");
+    }
+
+    @Test
     public void viewPayment(){
         String Member_id = "test";
         PaymentDTO dto = payment.view(Member_id);

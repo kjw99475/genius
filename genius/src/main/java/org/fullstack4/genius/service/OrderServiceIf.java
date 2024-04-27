@@ -13,7 +13,7 @@ public interface OrderServiceIf {
     List<OrderDTO> listAll(String user_id);
     List<OrderDTO> orderDetail(String order_num);
     OrderDTO view(String user_id);
-    int modify(OrderDTO orderDTO);
+    int cancelOrder(int order_idx);
     int delete(OrderDTO orderDTO);
     int OrderTotalCount(PageRequestDTO requestDTO);
     List<OrderDTO> OrderListByPage(PageRequestDTO requestDTO);
