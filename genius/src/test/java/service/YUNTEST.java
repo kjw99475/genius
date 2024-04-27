@@ -101,13 +101,13 @@ public class YUNTEST {
         log.info("result : " + result);
         log.info("==========================");
     }
-    @Test
-    public void reviewDelete(){
-        int result = reviewServiceIf.delete(4);
-        log.info("======================");
-        log.info("reviewDelete result : " + result);
-        log.info("======================");
-    }
+//    @Test
+//    public void reviewDelete(){
+//        int result = reviewServiceIf.delete(4);
+//        log.info("======================");
+//        log.info("reviewDelete result : " + result);
+//        log.info("======================");
+//    }
 
     @Test
     public void reviewList(){

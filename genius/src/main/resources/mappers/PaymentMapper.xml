@@ -13,4 +13,5 @@
         INSERT INTO tbl_payment(payment_num,member_id,price,method,company)
         VALUES (#{payment_num},#{member_id},#{price},#{method},#{company})
     </insert>
+
 </mapper>
