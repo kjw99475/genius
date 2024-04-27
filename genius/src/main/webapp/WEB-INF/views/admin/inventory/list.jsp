@@ -48,7 +48,80 @@
             <div class="card-body">
                 <h5 class="card-title">재고 관리 <span>| 리스트</span></h5>
 
-                <table class="table">
+                <div class="row">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-1">
+                                <select name="category_class_code" class="form-select" id="category_class_code">
+                                    <option value="" selected hidden>학년</option>
+                                    <option value="">전체</option>
+                                    <option value="c01">초1</option>
+                                    <option value="c02">초2</option>
+                                    <option value="c03">초3</option>
+                                    <option value="c04">초4</option>
+                                    <option value="c05">초5</option>
+                                    <option value="c06">초6</option>
+                                    <option value="c07">중1</option>
+                                    <option value="c08">중2</option>
+                                    <option value="c09">중3</option>
+                                    <option value="c10">고1</option>
+                                    <option value="c11">고2</option>
+                                    <option value="c12">고3</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <select name="category_subject_code" class="form-select" id="category_subject_code">
+                                    <option value="" selected hidden>과목</option>
+                                    <option value="">전체</option>
+                                    <option value="s01">국어</option>
+                                    <option value="s02">영어</option>
+                                    <option value="s03">수학</option>
+                                    <option value="s04">사회</option>
+                                    <option value="s05">역사</option>
+                                    <option value="s06">도덕</option>
+                                    <option value="s07">과학</option>
+                                    <option value="s08">체육</option>
+                                    <option value="s09">예술</option>
+                                    <option value="s10">제2외국어</option>
+                                    <option value="s11">기술가정</option>
+                                    <option value="s12">음악</option>
+                                    <option value="s13">정보</option>
+                                    <option value="s14">교양</option>
+                                    <option value="s15">전문교과</option>
+                                    <option value="s16">기타</option>
+                                    <option value="s17">선택</option>
+                                    <option value="s18">실과</option>
+                                    <option value="s19">한문</option>
+                                    <option value="s20">미술</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <select name="search_category" class="form-select" id="search_category">
+                                    <option value="" selected hidden>검색 옵션</option>
+                                    <option value="">전체</option>
+                                    <option value="book_name">책이름</option>
+                                    <option value="author">저자</option>
+                                    <option value="publisher">출판사</option>
+                                    <option value="book_code">상품번호</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                        <button type="button" class="btn btn-success" onclick="location.href='/admin/book/itemRegist'">등록</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
                     <thead>
                     <tr>
                         <th scope="col">상품번호</th>
@@ -101,7 +174,7 @@
                     </tr>
                     </tbody>
                 </table>
-
+                <!-- END Table with stripped rows -->
             </div>
 
         </div>

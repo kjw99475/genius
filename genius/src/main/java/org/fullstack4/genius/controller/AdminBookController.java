@@ -90,4 +90,14 @@ public class AdminBookController {
     public void POSTItemModify(){
 
     }
+
+    @GetMapping("/delete")
+    public void GETDelete(){
+
+    }
+
+    @PostMapping("/delete")
+    public void POSTDelete(){
+
+    }
 }

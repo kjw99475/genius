@@ -9,7 +9,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -42,10 +41,89 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main>
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>QnA 상세</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item">QnA</li>
+                <li class="breadcrumb-item active">QnA 상세</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-</main>
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                            <!--Form -->
+                            <form method="post" id="frm_qna_delete" action="/admin/qna/delete">
+                                <div class="row mb-3">
+                                    <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="category_code" type="text" class="form-control" id="category_code"
+                                               value="qna" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
+                                               value="${bbsDTO.bbs_title}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="member_id" type="text" class="form-control" id="member_id"
+                                               value="${bbsDTO.member_id}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
+                                               value="${bbsDTO.bbs_contents}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
+                                               value="${bbsDTO.reg_date}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <input type="file">
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-success" onclick="location.href='/admin/qna/contentmodify'">수정</button>
+                                    <button type="button" class="btn btn-success" onclick="qna_delete()">삭제</button>
+                                </div>
+
+                            </form><!-- EndForm -->
+
+                        </div>
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
@@ -55,6 +133,16 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    const frm_delete = document.querySelector("#frm_qna_delete");
+    function qna_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

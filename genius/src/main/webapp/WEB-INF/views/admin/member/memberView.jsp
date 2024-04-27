@@ -46,7 +46,7 @@
         <h1>회원 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item active">회원</li>
             </ol>
         </nav>
@@ -66,27 +66,16 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id" checked>
-                                                        <label class="form-check-label" for="member_id">
-                                                            회원 ID
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_name" checked>
-                                                        <label class="form-check-label" for="member_name">
-                                                            회원 이름
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            <div class="col-1">
+                                                <select name="search_category" id="search_category" class="form-select">
+                                                    <option value="" hidden>검색 옵션</option>
+                                                    <option value="" >전체</option>
+                                                    <option value="member_id">회원 ID</option>
+                                                    <option value="member_name">회원 이름</option>
+                                                </select>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
                                             </div>
                                             <div class="col">
@@ -107,10 +96,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <c:if test="${memberDTOlist ne null}">
+                                <c:forEach items="${memberDTOlist}" var="memberDTO">
                             <tr>
                                 <td>${memberDTO.member_idx}</td>
                                 <td>${memberDTO.member_id}</td>
                                 <td>${memberDTO.member_name}</td>
+                            </tr>
+                                </c:forEach>
+                            </c:if>
+                            <tr>
+                                <td>22</td>
+                                <td>memidasdf</td>
+                                <td>김인증</td>
                             </tr>
                             </tbody>
                         </table>

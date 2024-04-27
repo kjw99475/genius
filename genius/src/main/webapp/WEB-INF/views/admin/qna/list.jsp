@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / QnA</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -42,10 +42,117 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main>
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>QnA 관리</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item active">QnA</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-</main>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">QnA 관리</h5>
+                        <p>QnA를 관리하는 페이지 입니다.</p>
+                        <div class="row">
+
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="row mb-3">
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            </div>
+                                            ~
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-1">
+                                            <select name="search_category" id="search_category" class="form-select">
+                                                <option selected>전체</option>
+                                                <option value="banner_name">배너 이름</option>
+                                                <option value="banner_use">사용 여부</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <button type="button" class="btn btn-success"
+                                                    onclick="location.href='/admin/qna/contentregist'">등록</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:if test="${bbsDTOlist ne null}">
+                                <c:forEach items="${bbsDTOlist}" var="bbsDTO">
+                                    <tr onclick="location.href='/admin/qna/view'">
+                                        <td>${bbsDTO.bbs_idx}</td>
+                                        <td>${bbsDTO.bbs_title}</td>
+                                        <td>${bbsDTO.member_id}</td>
+                                        <td>${bbsDTO.reg_date}</td>
+                                        <td>${bbsDTO.read_cnt}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+
+                            <tr onclick="location.href='/admin/qna/view'">
+                                <td>31</td>
+                                <td>글제목입니당</td>
+                                <td>작성자아이디입니다</td>
+                                <td>작성일입니다</td>
+                                <td>99</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                        <!-- Basic Pagination -->
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                        <!-- End Basic Pagination -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->

@@ -50,7 +50,55 @@
             <div class="card-body">
                 <h5 class="card-title">주문 관리 <span>| 리스트</span></h5>
 
-                <table class="table">
+
+                <form>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="row mb-3">
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_start_date" id="delivery_start_date">
+                                </div>
+                                ~
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_end_date" id="delivery_end_date">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-1">
+                                <select name="category_class_code" class="form-select" id="category_class_code">
+                                    <option value="" selected hidden>주문상태</option>
+                                    <option value="">전체</option>
+                                    <option value="state_1">주문상태 1</option>
+                                    <option value="state_2">주문상태 2</option>
+                                </select>
+                            </div>
+
+                            <div class="col-1">
+                                <select name="search_category" class="form-select" id="search_category">
+                                    <option value="" selected hidden>검색 옵션</option>
+                                    <option value="">전체</option>
+                                    <option value="order_num">주문번호</option>
+                                    <option value="member_id">주문자 ID</option>
+                                    <option value="delivery_company">배송회사</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="bi bi-search btn btn-success"> 검색</button>
+                                <button type="button" class="btn btn-success">적용</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
                     <thead>
                     <tr>
                         <th scope="col">주문번호</th>
@@ -67,23 +115,35 @@
                     </thead>
                     <tbody>
                     <c:if test="${orderDTOlist ne null}">
-                    <c:forEach items="${orderDTOlist}" var="orderDTO">
-                    <tr onclick="location.href = 'admin-order-detail.html'">
-                        <th scope="row">${orderDTO.order_num}</th>
-                        <td>${orderDTO.member_id}</td>
-                        <td>${orderDTO.order_date}</td>
-                        <td>${orderDTO.total_price}</td>
-                        <td>${orderDTO.amount}</td>
-                        <td>${deliveryDTO.delivery_company}</td>
-                        <td>${deliveryDTO.start_date}</td>
-                        <td>${deliveryDTO.end_date}</td>
-                        <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
-                    </tr>
-                    </c:forEach>
+                        <c:forEach items="${orderDTOlist}" var="orderDTO">
+                            <tr onclick="location.href = '/admin/order/view'">
+                                <th scope="row">${orderDTO.order_num}</th>
+                                <td>${orderDTO.member_id}</td>
+                                <td>${orderDTO.order_date}</td>
+                                <td>${orderDTO.total_price}</td>
+                                <td>${orderDTO.amount}</td>
+                                <td>${deliveryDTO.delivery_company}</td>
+                                <td>${deliveryDTO.start_date}</td>
+                                <td>${deliveryDTO.end_date}</td>
+                                <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
+                            </tr>
+                        </c:forEach>
                     </c:if>
+
+                    <tr onclick="location.href = '/admin/order/view'">
+                        <th scope="row">8665</th>
+                        <td>testid331</td>
+                        <td>2024-05-01</td>
+                        <td>336000</td>
+                        <td>19</td>
+                        <td>로젠택배</td>
+                        <td>2024-05-17</td>
+                        <td>2024-05-21</td>
+                        <td><span class="badge bg-warning">배송전</span></td>
+                    </tr>
                     </tbody>
                 </table>
-
+                <!-- END Table with stripped rows -->
             </div>
 
         </div>

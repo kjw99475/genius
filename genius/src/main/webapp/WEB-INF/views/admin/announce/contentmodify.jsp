@@ -45,7 +45,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>공지 등록</h1>
+        <h1>공지 수정</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>

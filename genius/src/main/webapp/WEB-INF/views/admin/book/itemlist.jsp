@@ -94,6 +94,16 @@
                                     <option value="s20">미술</option>
                                 </select>
                             </div>
+                            <div class="col-1">
+                                <select name="search_category" class="form-select" id="search_category">
+                                    <option value="" selected hidden>검색 옵션</option>
+                                    <option value="">전체</option>
+                                    <option value="book_name">책이름</option>
+                                    <option value="author">저자</option>
+                                    <option value="publisher">출판사</option>
+                                    <option value="book_code">상품번호</option>
+                                </select>
+                            </div>
                             <div class="col">
                                 <div class="row">
                                     <div class="col-6">
@@ -125,7 +135,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr onclick="location.href='/admin/book/bookView'">
+                    <tr onclick="location.href='/admin/book/itemview'">
                         <th scope="row">b0001</th>
                         <td>책이름</td>
                         <td>3000</td>
@@ -138,7 +148,7 @@
                         <td><span class="badge bg-warning">판매중</span></td> <!--상태에 따라 bg-수정 -->
                     </tr>
                         <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
-                            <tr onclick="location.href='/admin/book/bookView'">
+                            <tr onclick="location.href='/admin/book/itemview'">
                                 <th scope="row">${bookDTO.book_code}</th>
                                 <td>${bookDTO.book_name}</td>
                                 <td>${bookDTO.price}</td>
