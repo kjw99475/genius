@@ -35,11 +35,60 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
-        <div class="container">
-            <h1>회사소개 > 오시는길</h1>
+    <!-- ================ start banner area ================= -->
+    <section class="bg-img3 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">오시는 길</h1>
+                    <span class=" text-white">Map</span>
+                </div>
+            </div>
         </div>
     </section>
+    <!-- ================ End banner area ================= -->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area single-post-area py-80px section-margin--small">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 posts-list">
+                    <div class="single-post row">
+                        <div class="col-12 blog_details">
+                            <h2 class="text-geni">찾아오시는 길</h2>
+                            <br>
+                            <div class="feature-img">
+                                <img class="img-fluid w-100" src="/resources/img/company/map.png" alt="">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="m-2 w-25">
+                                    <h2>주소 <small>| Address</small></h2>
+                                    <p class="display-5">
+                                        서울시 금천구 가산로 9길 54<br>
+                                        (가산디지털단지 6번 출구 도보 15분 이내)
+                                    </p>
+                                </div>
+                                <div class="m-2 w-25">
+                                    <h2>연락처 <small>| Tel</small></h2>
+                                    <p class="display-5">
+                                        1577-0902
+                                    </p>
+                                </div>
+                                <div class="m-2 w-25">
+                                    <h2>팩스 <small>| Fax</small></h2>
+                                    <p class="display-5">
+                                        1577-0902
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
 </main>
 <!--================ 본문 END =================-->
 

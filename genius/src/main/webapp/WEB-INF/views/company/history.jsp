@@ -78,72 +78,92 @@
             </ul>
             <div class="tab-content w-75 border-0 bg-white" id="myTabContent">
                 <div class="tab-pane fade active show" id="y2020" role="tabpanel" aria-labelledby="y2020-tab">
-                    <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                        and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                        Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                        London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                        officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                        job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                        showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                        child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                        half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                        named ‘Hangover’ by Beryl’s husband and</p>
-                    <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                        more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                        the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                        more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                        streamlined plan of cooking that is more efficient for one person creating less</p>
+                    <div>
+                        <h4 class="text-geni">12</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        초등 교사 매거진 계간 &lt;-talk&gt; 창간
+                    </div>
+                    <div>
+                        <h4 class="text-geni">11</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        2015 개정 교육과정 고등학교 인정 교과용 도서 2책 합격
+                    </div>
+                    <div>
+                        <h4 class="text-geni">08</h4>
+                        '해법영어교실' 제2회 SPEECH CONTEST 개최<br>
+                        'e해법수학·셀파수학교실' 제 2회 개념말하기 UCC 콘테스트 개최
+                    </div>
+                    <div>
+                        <h4 class="text-geni">07</h4>
+                        HME 해법수학 학력평가 실시<br>
+                        'e해법수학' 4년 연속 '매경 100대 프랜차이즈' 선정
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="y2021" role="tabpanel" aria-labelledby="y2021-tab">
-                    <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                        and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                        Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                        London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                        officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                        job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                        showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                        child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                        half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                        named ‘Hangover’ by Beryl’s husband and</p>
-                    <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                        more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                        the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                        more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                        streamlined plan of cooking that is more efficient for one person creating less</p>
+                    <div>
+                        <h4 class="text-geni">12</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        초등 교사 매거진 계간 &lt;-talk&gt; 창간
+                    </div>
+                    <div>
+                        <h4 class="text-geni">11</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        2015 개정 교육과정 고등학교 인정 교과용 도서 2책 합격
+                    </div>
+                    <div>
+                        <h4 class="text-geni">08</h4>
+                        '해법영어교실' 제2회 SPEECH CONTEST 개최<br>
+                        'e해법수학·셀파수학교실' 제 2회 개념말하기 UCC 콘테스트 개최
+                    </div>
+                    <div>
+                        <h4 class="text-geni">07</h4>
+                        HME 해법수학 학력평가 실시<br>
+                        'e해법수학' 4년 연속 '매경 100대 프랜차이즈' 선정
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="y2022" role="tabpanel" aria-labelledby="y2022-tab">
-                    <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                        and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                        Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                        London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                        officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                        job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                        showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                        child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                        half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                        named ‘Hangover’ by Beryl’s husband and</p>
-                    <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                        more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                        the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                        more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                        streamlined plan of cooking that is more efficient for one person creating less</p>
+                    <div>
+                        <h4 class="text-geni">12</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        초등 교사 매거진 계간 &lt;-talk&gt; 창간
+                    </div>
+                    <div>
+                        <h4 class="text-geni">11</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        2015 개정 교육과정 고등학교 인정 교과용 도서 2책 합격
+                    </div>
+                    <div>
+                        <h4 class="text-geni">08</h4>
+                        '해법영어교실' 제2회 SPEECH CONTEST 개최<br>
+                        'e해법수학·셀파수학교실' 제 2회 개념말하기 UCC 콘테스트 개최
+                    </div>
+                    <div>
+                        <h4 class="text-geni">07</h4>
+                        HME 해법수학 학력평가 실시<br>
+                        'e해법수학' 4년 연속 '매경 100대 프랜차이즈' 선정
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="y2023" role="tabpanel" aria-labelledby="y2023-tab">
-                    <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                        and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                        Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                        London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                        officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                        job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                        showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                        child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                        half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                        named ‘Hangover’ by Beryl’s husband and</p>
-                    <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                        more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                        the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                        more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                        streamlined plan of cooking that is more efficient for one person creating less</p>
+                    <div>
+                        <h4 class="text-geni">12</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        초등 교사 매거진 계간 &lt;-talk&gt; 창간
+                    </div>
+                    <div>
+                        <h4 class="text-geni">11</h4>
+                        2015 개정 교육과정 인정 교과서 고등 2책 합격<br>
+                        2015 개정 교육과정 고등학교 인정 교과용 도서 2책 합격
+                    </div>
+                    <div>
+                        <h4 class="text-geni">08</h4>
+                        '해법영어교실' 제2회 SPEECH CONTEST 개최<br>
+                        'e해법수학·셀파수학교실' 제 2회 개념말하기 UCC 콘테스트 개최
+                    </div>
+                    <div>
+                        <h4 class="text-geni">07</h4>
+                        HME 해법수학 학력평가 실시<br>
+                        'e해법수학' 4년 연속 '매경 100대 프랜차이즈' 선정
+                    </div>
                 </div>
             </div>
         </div>
