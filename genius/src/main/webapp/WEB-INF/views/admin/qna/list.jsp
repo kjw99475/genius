@@ -105,13 +105,21 @@
                             </form>
                         </div>
 
+                        <div class="col-2 mb-2">
+                            <select class="form-select">
+                                <option value="5">5개씩 보기</option>
+                                <option value="10" selected>10개씩 보기</option>
+                                <option value="100">100개씩 보기</option>
+                            </select>
+                        </div>
+
                         <form id="frm_qna_delete" method="post" action="/admin/qna/delete">
                             <!-- Table with stripped rows -->
-                            <table class="table datatable">
+                            <table class="table">
                                 <thead>
-                                <input id="chk_all" type="checkbox">
+
                                 <tr>
-                                    <th>번호</th>
+                                    <th><input id="chk_all" type="checkbox">번호</th>
                                     <th>구분</th>
                                     <th>제목</th>
                                     <th>작성자</th>
@@ -125,7 +133,7 @@
                                 <c:if test="${bbsDTOlist ne null}">
                                     <c:forEach items="${bbsDTOlist}" var="bbsDTO">
                                         <tr onclick="location.href='/admin/qna/view'">
-                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" >${bbsDTO.bbs_idx}</td>
                                             <td>${bbsDTO.bbs_title}</td>
                                             <td>${bbsDTO.bbs_title}</td>
                                             <td>${bbsDTO.member_id}</td>
