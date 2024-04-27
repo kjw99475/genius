@@ -84,16 +84,5 @@
     <context:component-scan base-package="org.fullstack4.genius.service"></context:component-scan>
     <context:component-scan base-package="org.fullstack4.genius.aop"></context:component-scan>
 
-    <!-- 인터셉터 등록 -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/*" />
-            <bean id="autoLoginInterceptor" class="org.fullstack4.genius.interceptor.AutoLoginInterceptor" />
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/*" />
-            <bean id="testInterceptor" class="org.fullstack4.genius.interceptor.TestInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
 
 </beans>
