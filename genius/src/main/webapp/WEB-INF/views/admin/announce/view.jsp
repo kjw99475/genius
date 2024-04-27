@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" id="frm_announce_delete" action="/admin/book/delete">
+                            <form method="post" id="frm_announce_delete" action="/admin/announce/delete">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -136,8 +136,8 @@
 
 <script>
     const frm_delete = document.querySelector("#frm_announce_delete");
-    let flag_delete = confirm("정말 삭제하시겠습니까?");
     function announce_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
         if (flag_delete) {
             frm_delete.submit();
         }

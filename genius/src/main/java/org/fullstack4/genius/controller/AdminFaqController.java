@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping(value="/admin/bbs")
+@RequestMapping(value="/admin/faq")
 @RequiredArgsConstructor
-public class AdminBbsController {
+public class AdminFaqController {
 
-    @GetMapping("/bbsList")
+    @GetMapping("/list")
     public void GETList(){
 
     }

@@ -57,7 +57,22 @@ public class AdminBookController {
     }
 
     @PostMapping("/itemRegist")
-    public void POSTItemRegist(){
+    public String POSTItemRegist(@Valid BookDTO bookDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()){
+            log.info("Errors");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
+
+            return "redirect:/admin/book/itemRegist";
+        }
+        int result = bookServiceIf.regist(bookDTO);
+        if(result > 0){
+            return "redirect:/admin/book/itemlist";
+        } else {
+            return "/admin/book/itemRegist";
+        }
 
     }
 

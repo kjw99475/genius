@@ -78,13 +78,22 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-8">
+
+                                        <div class="col-1">
+                                            <select name="search_category" id="search_category" class="form-select">
+                                                <option selected>전체</option>
+                                                <option value="banner_name">배너 이름</option>
+                                                <option value="banner_use">사용 여부</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
                                             <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
                                             <button type="button" class="btn btn-success"
-                                                    onclick="location.href='admin-bbs-announce-regist.html'">등록</button>
+                                                    onclick="location.href='/admin/banner/bannerRegist'">등록</button>
                                         </div>
                                     </div>
                                 </div>
