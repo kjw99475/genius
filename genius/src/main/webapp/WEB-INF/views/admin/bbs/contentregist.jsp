@@ -48,7 +48,7 @@
         <h1>자료실 등록</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item">자료실</li>
                 <li class="breadcrumb-item active">자료실 등록</li>
             </ol>

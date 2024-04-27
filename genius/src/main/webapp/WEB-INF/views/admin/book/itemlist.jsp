@@ -135,7 +135,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr onclick="location.href='/admin/book/bookView'">
+                    <tr onclick="location.href='/admin/book/itemview'">
                         <th scope="row">b0001</th>
                         <td>책이름</td>
                         <td>3000</td>
@@ -148,7 +148,7 @@
                         <td><span class="badge bg-warning">판매중</span></td> <!--상태에 따라 bg-수정 -->
                     </tr>
                         <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
-                            <tr onclick="location.href='/admin/book/bookView'">
+                            <tr onclick="location.href='/admin/book/itemview'">
                                 <th scope="row">${bookDTO.book_code}</th>
                                 <td>${bookDTO.book_name}</td>
                                 <td>${bookDTO.price}</td>

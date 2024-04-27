@@ -48,7 +48,7 @@
         <h1>상품 수정</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item">상품관리</li>
                 <li class="breadcrumb-item active">수정</li>
             </ol>
@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_modify" method="post" action="/admin/book/modify">
+                            <form id="frm_book_modify" method="post" action="/admin/book/itemModify">
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-3 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-9">
@@ -117,8 +117,8 @@
                                     <label for="book_img" class="col-md-4 col-lg-3 col-form-label">책 이미지</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input type="file" name="book_img" id="book_img">
-                                        <img src="https://mall.chunjaetext.co.kr/web/product/small/202402/ec403c214546c9879a3ba8cc4119e817.jpg"
-                                             alt="Profile">
+                                        <img src=""
+                                             alt="이미지 미리보기">
                                         <div class="pt-2">
                                             <a href="#" class="btn btn-primary btn-sm"
                                                title="Upload new profile image"><i class="bi bi-upload"></i></a>
