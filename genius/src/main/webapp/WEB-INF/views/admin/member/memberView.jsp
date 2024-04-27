@@ -66,7 +66,7 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-1">
+                                            <div class="col-2">
                                                 <select name="search_category" id="search_category" class="form-select">
                                                     <option value="" hidden>검색 옵션</option>
                                                     <option value="" >전체</option>
@@ -87,12 +87,13 @@
                             </form>
                         </div>
                         <!-- Table with stripped rows -->
-                        <table class="table">
+                        <table class="table lh-lg">
                             <thead>
                             <tr>
                                 <th>회원번호</th>
                                 <th>회원아이디</th>
                                 <th>회원이름</th>
+                                <th class="col-2"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -102,17 +103,57 @@
                                 <td>${memberDTO.member_idx}</td>
                                 <td>${memberDTO.member_id}</td>
                                 <td>${memberDTO.member_name}</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
                             </tr>
                                 </c:forEach>
                             </c:if>
-                            <tr>
+                            <tr onclick="">
                                 <td>22</td>
                                 <td>memidasdf</td>
                                 <td>김인증</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                            <tr onclick="">
+                                <td>23</td>
+                                <td>memidqwer</td>
+                                <td>원산지</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
+
+
+                        <div class="d-flex justify-content-center">
+                            <!-- Pagination with icons -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav><!-- End Pagination with icons -->
+
+                        </div>
 
                     </div>
                 </div>
