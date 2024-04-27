@@ -1,11 +1,10 @@
 <%--
   Created by IntelliJ IDEA.
   User: kjw
-  Date: 2024-04-26
-  Time: 오후 7:33
+  Date: 2024-04-27
+  Time: 오후 2:46
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / F.A.Q - modify</title>
+    <title>Admin / bbs - regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -46,12 +45,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>F.A.Q 수정</h1>
+        <h1>자료실 등록</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
-                <li class="breadcrumb-item active">F.A.Q 수정</li>
+                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item active">자료실 등록</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -66,12 +65,12 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/faq/contentmodify">
+                            <form method="post" action="/admin/bbs/contentregist">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="faq" readonly>
+                                               value="bbs" readonly>
                                     </div>
                                 </div>
 
@@ -112,7 +111,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">수정</button>
+                                    <button type="submit" class="btn btn-success">등록</button>
                                 </div>
                             </form><!-- EndForm -->
 

@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / bbs - regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -42,10 +42,87 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main>
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>자료실 등록</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item">F.A.Q</li>
+                <li class="breadcrumb-item active">F.A.Q 등록</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-</main>
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+
+                        <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                            <!--Form -->
+                            <form method="post" action="/admin/faq/contentregist">
+                                <div class="row mb-3">
+                                    <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="category_code" type="text" class="form-control" id="category_code"
+                                               value="announce" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
+                                               value="${bbsDTO.bbs_title}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="member_id" type="text" class="form-control" id="member_id"
+                                               value="${bbsDTO.member_id}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
+                                               value="${bbsDTO.bbs_contents}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
+                                               value="${bbsDTO.reg_date}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <input type="file">
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success">등록</button>
+                                </div>
+                            </form><!-- EndForm -->
+
+                        </div>
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
