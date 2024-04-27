@@ -161,7 +161,7 @@
                         <div class="row">
                             <c:forEach items="${responseDTO.dtoList}" var="list">
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card text-center card-product">
+                                    <div class="card text-center card-product" data-code ="${list.book_code}">
                                         <div class="card-product__img target" for="ch1">
                                             <img class="card-img img-h350" src="${list.book_img}" alt="">
                                             <ul class="card-product__imgOverlay">
@@ -263,7 +263,7 @@
     let products = document.querySelectorAll('.card-product');
     for (let product of products) {
         product.addEventListener("click", ()=> {
-            location.href = "/book/view?idx=1";
+            location.href = "/book/view?book_code=" + product.dataset.code;
         })
     }
 </script>

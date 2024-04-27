@@ -85,14 +85,16 @@ public class YUNTEST {
     }
     @Test
     public void testView(){
-        log.info(bookServiceIf.view(1));
+        log.info(bookServiceIf.view("b0001"));
     }
     @Test
     public void testReviewRegist(){
         ReviewDTO reviewDTO = ReviewDTO.builder()
+                .review_idx(0)
                 .book_code("b0001")
-                .rank(5)
+                .rank(4)
                 .member_id("test")
+                .reg_date(null)
                 .review_contents("리뷰 테스트4").build();
         int result = reviewServiceIf.regist(reviewDTO);
         log.info("==========================");
