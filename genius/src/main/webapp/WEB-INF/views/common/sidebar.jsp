@@ -15,6 +15,7 @@
         <li><a class="text-dark pt-1 pb-1" href="/mypage/payhistory">결제내역</a></li>
         <li><a class="text-dark pt-1 pb-1" href="/bbs/noticeList">공지사항</a></li>
         <li><a class="text-dark pt-1 pb-1" href="/bbs/qnaList">QnA</a></li>
+        <li><a class="text-dark pt-1 pb-1" href="/bbs/qnaList">나의 문의내역</a></li>
         <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">top ▲</a></li>
         <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">bottom ▼</a></li>
     </ul>
