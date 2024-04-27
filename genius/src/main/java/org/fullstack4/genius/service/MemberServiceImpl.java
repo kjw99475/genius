@@ -57,4 +57,16 @@ public class MemberServiceImpl implements MemberServiceIf {
         }
         return memberDTO;
     }
+
+    @Override
+    public MemberDTO AutoLogin(String member_id) {
+        MemberVO memberVO = memberMapper.login(member_id);
+        System.out.println("memberVO : " + memberVO);
+        MemberDTO memberDTO = null;
+        if(memberVO != null) {
+            memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+            System.out.println("memberDTO : " + memberDTO);
+        }
+        return memberDTO;
+    }
 }
