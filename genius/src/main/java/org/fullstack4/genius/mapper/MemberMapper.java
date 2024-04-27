@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface MemberMapper {
-    int regist(MemberVO MemberVO);
+    int join(MemberVO MemberVO);
     List<MemberVO> listAll();
     MemberVO view(String member_id);
     int modify(MemberVO MemberVO);

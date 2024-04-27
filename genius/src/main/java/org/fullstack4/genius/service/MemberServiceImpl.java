@@ -18,7 +18,9 @@ public class MemberServiceImpl implements MemberServiceIf {
 
     @Override
     public int join(MemberDTO memberDTO) {
-        return 0;
+        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        int result = memberMapper.join(memberVO);
+        return result;
     }
 
     @Override
