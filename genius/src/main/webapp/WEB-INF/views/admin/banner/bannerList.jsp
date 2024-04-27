@@ -98,8 +98,16 @@
                             </div>
                         </form>
 
+                        <div class="col-2 mb-2">
+                            <select class="form-select">
+                                <option value="5">5개씩 보기</option>
+                                <option value="10" selected>10개씩 보기</option>
+                                <option value="100">100개씩 보기</option>
+                            </select>
+                        </div>
+
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
+                        <table class="table">
                             <thead>
                             <tr>
                                 <th>배너 이름</th>
