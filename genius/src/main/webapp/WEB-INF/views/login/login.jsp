@@ -43,6 +43,7 @@
                     <div class="login_form_inner rounded">
                         <h3 class="d-flex justify-content-center align-items-center flex-wrap"><img src="/resources/img/login.png" width="400px"></h3>
                         <form class="row login_form mb-5" method="post" action="/login/login" id="frm" >
+                            <input type="hidden" name="acc_url" value="/">
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
                             </div>
@@ -79,6 +80,11 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    if(${!empty loginErr}) {
+        alert("${loginErr}");
+    }
+</script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>

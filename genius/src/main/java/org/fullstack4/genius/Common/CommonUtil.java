@@ -5,19 +5,27 @@ import javax.servlet.http.HttpSession;
 
 public class CommonUtil {
 
-    public static boolean Login(HttpSession session) {
-        return session.getAttribute("userId") != null;
-    }
-    public static boolean AutoLogin(HttpServletRequest req) {
-        String id = CookieUtil.getCookieValue(req, "user_id") ==null?"":CookieUtil.getCookieValue(req, "user_id");
-        return id != "";
-    }
-    public static boolean saveId(HttpServletRequest req){
-        String save = CookieUtil.getCookieValue(req,"save_id") ==null?"":CookieUtil.getCookieValue(req,"save_id");
-        return save!= "";
-    }
-
     public static String parseString(Object obj) {
         return (obj != null) ? (String)obj : "";
+    }
+
+    public static boolean nullCheck(String str) {
+        if (str.equals("")){
+            return false;
+        } else if (str.trim().equals("")) {
+            return false;
+        }
+        return true;
+    }
+
+    public static int parseInt(String str) {
+        int result = 0;
+        try {
+            str = parseString(str);
+            result = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            System.out.println("숫자가 아닌 값 들어옴.");
+        }
+        return result;
     }
 }
