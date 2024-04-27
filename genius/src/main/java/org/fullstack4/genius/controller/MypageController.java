@@ -4,15 +4,20 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
+import org.fullstack4.genius.service.CartServiceIf;
 import org.fullstack4.genius.service.PaymentServiceIf;
 import org.fullstack4.genius.service.PaymentServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -21,7 +26,7 @@ import java.util.HashMap;
 public class MypageController {
 
     private final PaymentServiceIf paymentService;
-
+    private final CartServiceIf cartService;
     @GetMapping("/mypage")
     public void GETMypage(){
 
@@ -53,8 +58,13 @@ public class MypageController {
     }
 
     @GetMapping("/cart")
-    public void GETCart(){
+    public void GETCart(Model model, HttpServletRequest req){
+        HttpSession session = req.getSession();
+        String member_id = (String) session.getAttribute("member_id");
 
+        List<CartDTO> dto =cartService.listAll(member_id);
+        log.info("###################"+dto.toString());
+        model.addAttribute("list",dto);
     }
 
     @PostMapping("/cart")
@@ -62,6 +72,16 @@ public class MypageController {
 
     }
 
+    @RequestMapping(value = "/cartdelete.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public void DeleteCart(@RequestParam HashMap<String,Object> map){
+        CartDTO cartDTO = CartDTO.builder()
+                .cart_idx(Integer.parseInt(map.get("cart_idx").toString()))
+                .member_id(map.get("member_id").toString())
+                .build();
+        cartService.delete(cartDTO);
+        log.info("###################"+map.toString());
+    }
     @GetMapping("/point")
     public void GETPoint(){
 
