@@ -309,7 +309,7 @@
                                     <li><a href="#" data-score="4"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="5"><i class="fa fa-star"></i></a></li>
                                 </ul>
-                                <form action="/review/regist" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
+                                <form action="/review/regist.dox" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
                                     <input type="hidden" value="${param.book_code}" name="book_code"/>
                                     <input type="hidden" value="" name="rank" id="rank"/>
                                     <input type="hidden" value="test" name="member_id"/>
@@ -339,32 +339,48 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
-    // $(document).ready(function() {
-    //     // 버튼 클릭 이벤트를 처리합니다.
-    //     $('#reviewBtn').click(function() {
-    //         // 폼 제출을 실행합니다.
-    //         $('#frmReviewRegist').submit();
+
+    $(document).ready(function() {
+        // 버튼 클릭 이벤트를 처리합니다.
+        $('#reviewBtn').click(function() {
+            // 폼 제출을 실행합니다.
+            $('#frmReviewRegist').submit();
+        });
+        $('#frmReviewRegist').submit(function(event){
+            event.preventDefault();
+            let formData = $(this).serialize();
+            $.ajax({
+                url: '/review/regist.dox',
+                type:'POST',
+                data: formData,
+                success:function(response){
+                    console.log(response)
+                    // let regist = response.registOK;
+                    // if(regist == 1){
+                    //     $('#review').tab('show');
+                    // }
+                    location.href=response;
+                },
+                error: function(xhr, status, error) {
+                    // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
+                    console.error(error);
+                }
+            });
+        });
+    });
+    // function reviewregist(){
+    //     $.ajax({
+    //         url:"/review/regist.dox",
+    //         dataType:"json",
+    //         type : "POST",
+    //         data : {
+    //             "member_id":"test"
+    //         },
+    //         success : function(data) {
+    //             list = data.dto;
+    //         }
     //     });
-    //     $('#frmReviewRegist').submit(function(event){
-    //         event.preventDefault();
-    //         let formData = $(this).serialize();
-    //         $.ajax({
-    //             url: '/review/regist',
-    //             type:'POST',
-    //             data: formData,
-    //             success:function(response){
-    //                 let regist = response.registOK;
-    //                 if(regist == 1){
-    //                     $('#review').tab('show');
-    //                 }
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
-    //                 console.error(error);
-    //             }
-    //         });
-    //     });
-    // });
+    // }
     let stars = document.querySelectorAll('.star-list li a');
     let realStars =  document.querySelectorAll('.star-list li a i');
     let score=0;

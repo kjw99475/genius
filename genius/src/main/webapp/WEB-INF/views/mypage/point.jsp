@@ -273,10 +273,11 @@
         dataType:"json",
         type : "GET",
         data : {
-            "member_id":"test"
+            "member_id":"${sessionScope['member_id']}"
         },
         success : function(data) {
             list = data.dto;
+            console.log(list);
         }
     });
 
