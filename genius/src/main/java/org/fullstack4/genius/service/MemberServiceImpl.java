@@ -47,4 +47,14 @@ public class MemberServiceImpl implements MemberServiceIf {
     public int idCheck(String user_id) {
         return 0;
     }
+
+    @Override
+    public MemberDTO login(String member_id, String pwd) {
+        MemberVO memberVO = memberMapper.login(member_id);
+        MemberDTO memberDTO = null;
+        if(memberVO != null && pwd.equals(memberVO.getPwd())) {
+            memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+        }
+        return memberDTO;
+    }
 }
