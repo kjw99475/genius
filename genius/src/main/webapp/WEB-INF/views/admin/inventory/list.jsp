@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success" onclick="location.href='/admin/book/itemRegist'">등록</button>
+                                        <button type="button" class="btn btn-success" >적용</button>
                                     </div>
                                 </div>
                             </div>

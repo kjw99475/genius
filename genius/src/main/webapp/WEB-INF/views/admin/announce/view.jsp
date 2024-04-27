@@ -57,7 +57,7 @@
 
     <section class="section profile">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -67,56 +67,93 @@
                             <!--Form -->
                             <form method="post" id="frm_announce_delete" action="/admin/announce/delete">
                                 <div class="row mb-3">
-                                    <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
                                                value="announce" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
                                                value="${bbsDTO.bbs_title}" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
                                                value="${bbsDTO.member_id}" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
                                                value="${bbsDTO.reg_date}" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <input type="file">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
+                                               value="${bbsDTO.bbs_contents}" readonly>
+                                    </div>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-success" onclick="location.href='/admin/announce/contentmodify'">수정</button>
-                                    <button type="button" class="btn btn-success" onclick="announce_delete()">삭제</button>
+                                <div class="row mb-3">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="file" type="file" class="form-control" id="file"
+                                               value="${bbsDTO.file}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5">
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <div class="text-center d-flex justify-content-center">
+                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/announce/list'">
+                                                목록
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center d-flex justify-content-end">
+                                            <button type="button" class="btn btn-success me-2"
+                                                    onclick="location.href='/admin/announce/contentmodify'">수정
+                                            </button>
+                                            <button type="button" class="btn btn-success" onclick="announce_delete()">
+                                                삭제
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </form><!-- EndForm -->
 
+                            <div class="mt-5">
+                                <table class="table">
+                                    <tr onclick="location.href='/admin/announce/view'">
+                                        <td class="col-2">다음글</td>
+                                        <td class="col-1">34${postbbsDTO.bbs_idx}</td>
+                                        <td class="col-6">담글제목${postbbsDTO.bbs_title}</td>
+                                        <td class="col-3">2024-07-06${postbbsDTO.reg_date}</td>
+                                    </tr>
+
+                                    <tr onclick="location.href='/admin/announce/view'">
+                                        <td class="col-2">이전글</td>
+                                        <td class="col-1">32${prebbsDTO.bbs_idx}</td>
+                                        <td class="col-6">전글제목${prebbsDTO.bbs_title}</td>
+                                        <td class="col-3">2024-02-01${prebbsDTO.reg_date}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div><!-- End Bordered Tabs -->

@@ -57,7 +57,7 @@
 
     <section class="section profile">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -67,70 +67,63 @@
                             <!-- Profile Edit Form -->
                             <form id="frm_book_regist" method="post" action="/admin/book/regist">
                                 <div class="row mb-3">
-                                    <label for="book_name" class="col-md-4 col-lg-3 col-form-label">책 이름</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="book_name" type="text" class="form-control" id="book_name"
                                                value="${bookDTO.book_name}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="price" class="col-md-4 col-lg-3 col-form-label">정가</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="price" class="col-md-4 col-lg-2 col-form-label">정가</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="price" type="text" class="form-control" id="price"
                                                value="${bookDTO.price}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="discount_per" class="col-md-4 col-lg-3 col-form-label">할인율</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="discount_per" class="col-md-4 col-lg-2 col-form-label">할인율</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="discount_per" type="text" class="form-control" id="discount_per" value="${bookDTO.discount_per}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="author" class="col-md-4 col-lg-3 col-form-label">저자</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="author" class="col-md-4 col-lg-2 col-form-label">저자</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="author" type="text" class="form-control" id="author"
                                                value="${bookDTO.author}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="publication_date" class="col-md-4 col-lg-3 col-form-label">출판일</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="publication_date" class="col-md-4 col-lg-2 col-form-label">출판일</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="publication_date" type="date" class="form-control" id="publication_date"
                                                value="${bookDTO.publication_date}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="publisher" class="col-md-4 col-lg-3 col-form-label">출판사</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="publisher" class="col-md-4 col-lg-2 col-form-label">출판사</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="publisher" type="text" class="form-control" id="publisher"
                                                value="${bookDTO.publisher}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="book_img" class="col-md-4 col-lg-3 col-form-label">책 이미지</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="file" name="book_img" id="book_img">
-                                        <img src="https://mall.chunjaetext.co.kr/web/product/small/202402/ec403c214546c9879a3ba8cc4119e817.jpg"
-                                             alt="Profile">
-                                        <div class="pt-2">
-                                            <a href="#" class="btn btn-primary btn-sm"
-                                               title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm"
-                                               title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                        </div>
+                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">책 이미지</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="file" type="file" class="form-control" id="file"
+                                               value="${bookDTO.book_img}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="category_class_code" class="col-md-4 col-lg-3 col-form-label">카테고리 - 학년</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="category_class_code" class="col-md-4 col-lg-2 col-form-label">카테고리 - 학년</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <select name="category_class_code" class="form-control" id="category_class_code">
                                             <option value="" selected hidden>학년</option>
                                             <option value="c01">초1</option>
@@ -150,8 +143,8 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="category_subject_code" class="col-md-4 col-lg-3 col-form-label">카테고리 - 과목</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="category_subject_code" class="col-md-4 col-lg-2 col-form-label">카테고리 - 과목</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <select name="category_subject_code" class="form-control" id="category_subject_code">
                                             <option value="" selected hidden>과목</option>
                                             <option value="s01">국어</option>
@@ -179,39 +172,40 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="contents" class="col-md-4 col-lg-3 col-form-label">목차</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="contents" class="col-md-4 col-lg-2 col-form-label">목차</label>
+                                    <div class="col-md-8 col-lg-10">
                                             <textarea name="contents" class="form-control" id="contents"
                                                       style="height: 100px; resize: none;">${bookDTO.contents}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="book_info" class="col-md-4 col-lg-3 col-form-label">소개글</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="book_info" class="col-md-4 col-lg-2 col-form-label">소개글</label>
+                                    <div class="col-md-8 col-lg-10">
                                             <textarea name="book_info" class="form-control" id="book_info"
                                                       style="height: 100px; resize: none;"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="isbn" class="col-md-4 col-lg-3 col-form-label">ISBN</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="isbn" class="col-md-4 col-lg-2 col-form-label">ISBN</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="isbn" type="text" class="form-control" id="isbn" value=""
                                                maxlength="13">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">상품소개영상</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label class="col-md-4 col-lg-2 col-form-label">상품소개영상</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="video" type="file" class="form-control" id="Phone" value="video"
                                                maxlength="13">
                                     </div>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success">등록 완료</button>
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-success me-2">등록</button>
+                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- End Profile Edit Form -->
 

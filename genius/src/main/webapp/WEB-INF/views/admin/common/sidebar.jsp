@@ -35,7 +35,7 @@
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/admin/banner/bannerList">
-                        <i class="bi bi-circle"></i><span>베너 관리</span>
+                        <i class="bi bi-circle"></i><span>배너 관리</span>
                     </a>
                 </li>
                 <li>
