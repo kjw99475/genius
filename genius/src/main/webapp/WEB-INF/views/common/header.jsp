@@ -90,7 +90,11 @@
                     </ul>
 
                     <ul class="nav-shop">
-                        <li class="nav-item" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+                        <li class="nav-item" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i>
+                            <c:if test="${!empty sessionScope['member_id']}">
+                                <span class="nav-shop__circle">3</span>
+                            </c:if>
+                        </button> </li>
                     </ul>
                 </div>
             </div>
