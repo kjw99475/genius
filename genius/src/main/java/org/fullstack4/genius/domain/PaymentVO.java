@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class PaymentVO {
+    private int total_count;
     private int payment_idx;
     private String payment_num;
     private String member_id;
@@ -23,4 +24,5 @@ public class PaymentVO {
     private String company;
     private LocalDate reg_date;
     private String use_type;
+    private String title;
 }

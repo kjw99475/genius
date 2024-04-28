@@ -85,12 +85,15 @@ public class MypageController {
         cartService.delete(cartDTO);
         log.info("###################"+map.toString());
     }
+
     @GetMapping("/point")
     public void GETPoint(Model model,HttpServletRequest req){
         HttpSession session = req.getSession();
         String member_id = (String) session.getAttribute("member_id");
         int mypoint = paymentService.pointview(member_id);
         List<PaymentDTO> mypayment = paymentService.listAll(member_id);
+        int total_count = paymentService.totalCount(member_id);
+        model.addAttribute("total_count",total_count);
         model.addAttribute("point",mypoint);
         model.addAttribute("mypaymentlist",mypayment);
 
@@ -120,7 +123,13 @@ public class MypageController {
         log.info("=====================================================");
         int result = paymentService.charge(dto);
         if(result > 0) {
-            resultMap.put("result", "success");
+            int result2 = paymentService.memberPay(dto);
+            if(result2 > 0) {
+                resultMap.put("result", "success");
+            }
+            else{
+                resultMap.put("result", "fail");
+            }
         }
         else{
             resultMap.put("result", "fail");

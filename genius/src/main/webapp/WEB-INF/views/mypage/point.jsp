@@ -90,22 +90,25 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">총 00건</th>
+                                <th scope="col">총 0${total_count}건</th>
+                                <th scope="col">종류</th>
+                                <th scope="col">결제 일자</th>
+                                <th scope="col">금액</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items= "${mypaymentlist}" var="list">
                             <tr>
-                                <td>
-                                    <p>울지마 톰즈 도서 구매</p>
+                                <td class="border-0">
+                                    <p>${list.use_type}</p>
                                 </td>
-                                <td>
-                                    <h5>사용</h5>
+                                <td class="border-0">
+                                    <h5>${list.use_type}</h5>
                                 </td>
-                                <td>
+                                <td class="border-0">
                                     <p>${list.reg_date}</p>
                                 </td>
-                                <td>
+                                <td class="border-0">
                                     <p class="text-geni">+${list.price}</p>
                                 </td>
                             </tr>
@@ -326,7 +329,8 @@
                                 ,"company":rsp.pg_provider
                             },
                             success : function(data) {
-                                alert("결제 성공");
+                                alert("포인트 충전 성공");
+                                location.href="/mypage/point";
                             }
                         });
                         console.log(rsp);
