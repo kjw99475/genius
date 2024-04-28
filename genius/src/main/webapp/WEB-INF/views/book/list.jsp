@@ -266,6 +266,12 @@
             location.href = "/book/view?book_code=" + product.dataset.code;
         })
     }
+    let checkboxes = document.querySelectorAll('input[type=checkbox]');
+    for (let checkbox of checkboxes) {
+        checkbox.addEventListener('click', (e)=> {
+            e.stopPropagation();
+        })
+    }
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
