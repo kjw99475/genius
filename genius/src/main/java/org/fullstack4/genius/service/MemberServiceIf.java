@@ -12,4 +12,7 @@ public interface MemberServiceIf {
 
     MemberDTO login(String member_id, String pwd);
     MemberDTO AutoLogin(String member_id);
+    String findId(MemberDTO memberDTO);
+    String findPwd(MemberDTO memberDTO);
+    int changePwd(MemberDTO memberDTO);
 }

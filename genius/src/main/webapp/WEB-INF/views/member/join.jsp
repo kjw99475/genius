@@ -78,6 +78,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group">
+                                        <label for="phone">이메일</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                    </div>
+                                    <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
                                     </div>
