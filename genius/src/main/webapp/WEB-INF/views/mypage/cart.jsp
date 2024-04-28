@@ -93,7 +93,7 @@
                             <td>
                                 <div class="product_count">
                                     <div class="product_count">
-                                        <input type="number" name="qty" id="quantity1" maxlength="12" value="1" title="Quantity:"
+                                        <input type="number" name="qty" id="quantity1" maxlength="12" value="${list.quantity}" title="Quantity:"
                                                class="input-text qty" onchange="calculateSubTotal(this, ${list.price})" min="0">
                                     </div>
                                 </div>
