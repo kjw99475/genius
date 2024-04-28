@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDate;
 
 @Log4j2
 @Data
@@ -55,6 +56,8 @@ public class PageRequestDTO {
     private String search_word;
     private String search_data1;
     private String search_data2;
+    private LocalDate search_date1;
+    private LocalDate search_date2;
     private String class_code;
     private String subject_code;
     private String sort;
