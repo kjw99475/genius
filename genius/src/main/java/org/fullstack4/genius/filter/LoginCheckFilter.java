@@ -30,8 +30,11 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        HttpSession session = req.getSession();
-        String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
+        HttpSession session = req.getSession(false);
+        String member_id = "";
+        if(session != null) {
+            member_id = CommonUtil.parseString(session.getAttribute("member_id"));
+        }
 
         if (member_id.equals("")) {
             log.info("---------------------");
