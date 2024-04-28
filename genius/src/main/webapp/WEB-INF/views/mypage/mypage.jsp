@@ -54,13 +54,13 @@
                 <div class="col-lg-10 col-md-12 col-sm-12">
                     <div class="login_form_inner rounded pt-3">
                         <div class="container text-left pt-5 pb-5 p-lg-5">
-                            <form action="/mypage/mypage" method="post" id="frm">
+                            <form enctype="multipart/form-data" action="/mypage/mypage" method="post" id="frm">
                                 <div class="myProfile d-flex flex-column align-items-center form-group">
                                     <div class="target w-200px h-200px ">
                                         <label for="profile" class="myPhoto rounded-circle border-gray w-200px h-200px flow-hidden">
                                             <img class="w-200px h-200px" id="profile_img" src="/resources/upload/profile/${memberDTO.profile}" alt="내 프로필 이미지"/></label>
                                         <div class="custom-file targetToOrg" style="bottom:0 !important; right: -5px !important;">
-                                            <input type="file" class="d-none" id="profile" name="profile" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)">
+                                            <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)">
                                             <label class="bg-geni text-white rounded-circle shadow-sm icon_geni middle d-flex align-items-center justify-content-center" for="profile"><i class="ti-settings"></i></label>
                                         </div>
                                     </div>

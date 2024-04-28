@@ -46,7 +46,8 @@
             gender = #{gender},
             zip_code = #{zip_code},
             addr1 = #{addr1},
-            addr2 = #{addr2}
+            addr2 = #{addr2},
+            profile = #{profile}
         WHERE member_id = #{member_id}
     </update>
 </mapper>

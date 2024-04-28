@@ -1,6 +1,8 @@
 package org.fullstack4.genius.service;
 
+import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberServiceIf {
 
@@ -15,4 +17,5 @@ public interface MemberServiceIf {
     String findId(MemberDTO memberDTO);
     String findPwd(MemberDTO memberDTO);
     int changePwd(MemberDTO memberDTO);
+    int modifyInfo(MemberDTO memberDTO, FileDTO fileDTO);
 }

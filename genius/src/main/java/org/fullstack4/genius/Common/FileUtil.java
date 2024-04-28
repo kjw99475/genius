@@ -1,6 +1,7 @@
 package org.fullstack4.genius.Common;
 
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.dto.FileDTO;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -10,9 +11,10 @@ import java.util.*;
 @Log4j2
 public class FileUtil {
 
-    public static Map<String, String> FileUpload(MultipartFile file, String directory) {
+    public static Map<String, String> FileUpload(FileDTO fileDTO) {
         Map<String, String> map = new HashMap<>();
-
+        String directory = fileDTO.getUploadFolder();
+        MultipartFile file = fileDTO.getFile();
 
         String result = "fail";
         String uploadFolder = directory;
@@ -49,7 +51,7 @@ public class FileUtil {
             e.printStackTrace();
         }
         map.put("orgName", fileRealName);
-        map.put("newName", newName);
+        map.put("newName", newName+fileExt);
         map.put("result", result);
 
         log.info("============================");
@@ -98,7 +100,7 @@ public class FileUtil {
                 e.printStackTrace();
             }
             map.put("orgName", fileRealName);
-            map.put("newName", newName);
+            map.put("newName", newName+fileExt);
             map.put("result", result);
             resultList.add(map);
             log.info("============================");
