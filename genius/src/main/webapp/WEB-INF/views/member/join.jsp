@@ -44,7 +44,7 @@
                         <h2 class="d-flex justify-content-center align-items-center flex-wrap pb-5">회원가입</h2>
                         <img src="/resources/img/join1.png" width="100%" />
                         <div class="container text-left pt-5 pb-5 p-lg-5">
-                            <form>
+                            <form action="/member/join" method="post" id="frm">
                                 <div class="mb-5">
                                     <h3 class="p-0 mb-4">
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
@@ -71,6 +71,13 @@
                                         <input type="date" class="form-control" id="birthday" name="birthday" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
                                     </div>
                                     <div class="col-md-12 form-group">
+                                        <label>성별</label>
+                                        <div class="d-flex" style="gap: 20px">
+                                            <label for="female"><input type="radio" class="pixel-radio" id="female" name="gender" value="여">여</label>
+                                            <label for="male"><input type="radio" class="pixel-radio" id="male" name="gender" value="남">남</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
                                     </div>
@@ -78,16 +85,16 @@
                                         <label>주소</label>
                                         <div>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                <input type="text" name="zip_code" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <input type="text" name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                <input type="text" name="addr2" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
@@ -109,7 +116,7 @@
                                                     [필수] 이용약관
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms1" name="terms1" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms1" name="terms1" value="Y" onclick="event.stopPropagation();">
                                                     <label class="m-0" for="terms1" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>
@@ -312,7 +319,7 @@
                                                     [필수] 개인정보 수집 및 이용 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms2" name="terms2" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms2" name="terms2" value="Y" onclick="event.stopPropagation();">
                                                     <label class="m-0" for="terms2" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>
@@ -433,7 +440,7 @@
                                                     [선택] 쇼핑정보 수신 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms3" name="terms3" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms3" name="terms3" value="Y" onclick="event.stopPropagation();">
                                                     <label class="m-0" for="terms3" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>
@@ -451,7 +458,7 @@
                                                     [선택] SMS 및 이메일 수신 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms4" name="terms4" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms4" name="terms4" value="Y" onclick="event.stopPropagation();">
                                                     <label class="m-0" for="terms4" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>

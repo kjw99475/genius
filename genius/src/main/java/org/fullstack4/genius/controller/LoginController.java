@@ -25,7 +25,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public void GETLogin(){
-
     }
 
     @PostMapping("/login")

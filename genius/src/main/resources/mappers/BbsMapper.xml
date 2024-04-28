@@ -4,4 +4,12 @@
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.BbsMapper">
 
+
+
+    <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, replyYN, bbs_contents, reg_date, read_cnt
+        FROM tbl_bbs
+        ORDER BY bbs_idx DESC
+    </select>
+
 </mapper>

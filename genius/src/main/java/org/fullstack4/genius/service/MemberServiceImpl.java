@@ -18,7 +18,9 @@ public class MemberServiceImpl implements MemberServiceIf {
 
     @Override
     public int join(MemberDTO memberDTO) {
-        return 0;
+        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        int result = memberMapper.join(memberVO);
+        return result;
     }
 
     @Override
@@ -54,6 +56,18 @@ public class MemberServiceImpl implements MemberServiceIf {
         MemberDTO memberDTO = null;
         if(memberVO != null && pwd.equals(memberVO.getPwd())) {
             memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+        }
+        return memberDTO;
+    }
+
+    @Override
+    public MemberDTO AutoLogin(String member_id) {
+        MemberVO memberVO = memberMapper.login(member_id);
+        System.out.println("memberVO : " + memberVO);
+        MemberDTO memberDTO = null;
+        if(memberVO != null) {
+            memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+            System.out.println("memberDTO : " + memberDTO);
         }
         return memberDTO;
     }

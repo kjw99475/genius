@@ -72,6 +72,14 @@
         SELECT COUNT(*) FROM tbl_book
         <include refid="whereCondition"></include>
     </select>
+    <update id="modify">
+        UPDATE tbl_book SET
+                price = #{price},
+                discount_per = #{discount_per},
+                book_img = #{book_img},
+                video = #{video}
+        WHERE book_idx = #{book_idx}
+    </update>
     <select id="BookListByPage" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
         sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags
