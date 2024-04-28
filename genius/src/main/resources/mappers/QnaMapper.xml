@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.genius.mapper.QnaMapper">
+    
+<!--    <select id="view" resultType="org.fullstack4.genius.domain.QnaVO">-->
+<!--        SELECT bbs.bbs_idx, bbs_title, bbs.category_code, member_id, fileYN, replyYN, bbs_contents, bbs.reg_date, read_cnt-->
+<!--&lt;!&ndash;            , reply_idx, reply_contents, reply.reg_date, modify_date, ref_idx&ndash;&gt;-->
+<!--        FROM tbl_bbs AS bbs-->
+<!--&lt;!&ndash;        INNER JOIN tbl_bbs_reply AS reply&ndash;&gt;&lt;!&ndash;WHERE replyYN = "Y" 조건..&ndash;&gt;-->
+<!--&lt;!&ndash;        ON reply.bbs_idx = bbs.bbs_idx&ndash;&gt;-->
+<!--        WHERE bbs.bbs_idx = #{idx}-->
+<!--    </select>-->
+    <select id="view" resultType="org.fullstack4.genius.domain.QnaVO">
+        SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date
+        FROM tbl_qna
+        WHERE qna_idx = #{idx}
+    </select>
+
+    <select id="listAll" resultType="org.fullstack4.genius.domain.QnaVO">
+        SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date
+        FROM tbl_qna
+<!--        WHERE category_code = #{category_code}-->
+        ORDER BY ref_idx, qna_idx
+    </select>
+
+    <insert id="regist">
+        INSERT INTO tbl_qna (ref_idx, category_code, answerYN, title, contents, reg_date, read_cnt, member_id)
+        VALUES(#{ref_idx}, 'bc02', 'N', #{title}, #{contents}, NOW(), 0, #{member_id})
+    </insert>
+    <update id="refModify">
+        UPDATE tbl_qna SET
+            ref_idx = #{qna_idx}
+        WHERE qna_idx = #{qna_idx}
+    </update>
+
+    <update id="modify">
+        UPDATE tbl_bbs SET
+            bbs_title = #{bbs_title}
+            , reg_date = #{reg_date}
+            , fileYN = #{fileYN}
+            , bbs_contents = #{bbs_contents}
+        WHERE bbs_idx = #{bbs_idx}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM tbl_bbs
+        WHERE bbs_idx = #{bbs_idx}
+    </delete>
+
+</mapper>

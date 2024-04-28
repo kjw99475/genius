@@ -83,53 +83,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">6</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Mark</a></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Jacob</a></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Larry the</a></td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Mark</a></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Jacob</a></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Larry the bird</a></td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
+                <c:forEach items="${qnaDTOList}" var="qnaDTO">
+                    <c:if test="${qnaDTO.answerYN == 'N'}">
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewQ">${qnaDTO.title}</a></td>
+                            <td>${qnaDTO.member_id}</td>
+                            <td>${qnaDTO.reg_date}</td>
+                            <td>${qnaDTO.read_cnt}</td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${qnaDTO.answerYN == 'Y'}">
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                            <td>${qnaDTO.member_id}</td>
+                            <td>${qnaDTO.reg_date}</td>
+                            <td>${qnaDTO.read_cnt}</td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+
+
+
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
                 <button type="button" class="btn btn-success mr-3" onclick="location.href='/mypage/myquestions'">나의 문의내역</button>
-                <button type="button" class="btn btn-success" onclick="location.href='/bbs/boardRegist'">질문 글쓰기</button>
+                <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaRegistQ'">질문 글쓰기</button>
             </div>
         </div>
 
@@ -160,6 +141,7 @@
             </ul>
         </nav>
     </section>
+    ${sessionScope.member_id}
 </main>
 <!--================ 본문 END =================-->
 

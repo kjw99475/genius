@@ -8,10 +8,22 @@ import org.fullstack4.genius.domain.MemberVO;
 import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.mapper.MemberMapper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 @Log4j2
@@ -124,5 +136,121 @@ public class MemberServiceImpl implements MemberServiceIf {
             result = memberMapper.modifyInfo(memberVO);
         }
         return result;
+    }
+
+    @Override
+    public MemberDTO naver(HttpServletRequest request) {
+        MemberDTO memberDTO = null;
+
+        //로그인 요청에서 받아온 파라미터
+        String code = CommonUtil.parseString(request.getParameter("code")); // 토큰 받기 요청에 필요한 인가 코드
+        String error = CommonUtil.parseString(request.getParameter("error")); // 인증 실패 시 반환되는 에러 코드
+        String error_description = CommonUtil.parseString(request.getParameter("error_description")); // 인증 실패 시 반환되는 에러 메시지
+        String state = CommonUtil.parseString(request.getParameter("state")); //요청 시 전달한 state 값과 동일한 값
+
+        // 값 셋팅
+        String url = "https://nid.naver.com/oauth2.0/token"; // 로그인 토큰 획득 url
+        String client_id = "9GW7lkN31ckPUUZa1KsK"; // 네이버 client id 키
+        String client_secret = "R7SUBhiXia";
+        String getUserInfoUrl = "https://openapi.naver.com/v1/nid/me"; // (기본)네이버 토큰으로 유저 정보 가져오기
+        String getUserInfoUrl2 = "https://openapi.naver.com/v1/nid/payaddress"; // (네이버 페이 - 배송지 주소)네이버 토큰으로 유저 정보 가져오기
+
+        //기타 파라미터 셋팅
+        String grant_type = "authorization_code"; // 인증 과정에 대한 구분값 1) 발급:'authorization_code'    2) 갱신:'refresh_token'    3) 삭제: 'delete'
+
+        //파라미터 셋팅
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("code", code);
+        paramMap.put("state", state);
+        paramMap.put("client_id", client_id);
+        paramMap.put("client_secret", client_secret);
+        paramMap.put("grant_type", grant_type);
+
+        try {
+            String responseStr = CommonUtil.postConnection(url, paramMap); // POST요청으로 로그인 토큰 획득
+//            String responseStr2 = CommonUtil.getConnection(url, paramMap); // GET요청으로 로그인 토큰 획득 (네이버 페이용)
+
+            // JSON 파싱
+            if(!CommonUtil.parseString(responseStr).isEmpty()){
+                JSONParser jsonParser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
+//                JSONObject jsonObject2 = (JSONObject) jsonParser.parse(responseStr2);
+                String access_token = (String) jsonObject.get("access_token");
+//                String access_token2 = (String) jsonObject2.get("access_token2");
+
+                //HttpHeader 생성
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Authorization", "Bearer " + access_token);
+                headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//                HttpHeaders headers2 = new HttpHeaders();
+//                headers2.add("Authorization", "Bearer " + access_token2);
+//                headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+                //HttpHeader 담기 (기본 네이버)
+                RestTemplate rt = new RestTemplate();
+                HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+//                HttpEntity<MultiValueMap<String, String>> httpEntity2 = new HttpEntity<>(headers2);
+                ResponseEntity<String> response = rt.exchange(
+                        getUserInfoUrl,
+                        HttpMethod.POST,
+                        httpEntity,
+                        String.class
+                );
+                //HttpHeader 담기 (네이버 페이)
+//                ResponseEntity<String> response2 = rt.exchange(
+//                        getUserInfoUrl2,
+//                        HttpMethod.GET,
+//                        httpEntity2,
+//                        String.class
+//                );
+                //Response 데이터 파싱
+                // 기본 네이버
+                JSONParser infoJsonParser = new JSONParser();
+                JSONObject jsonObj    = (JSONObject) infoJsonParser.parse(response.getBody());
+                JSONObject responseObj = (JSONObject) jsonObj.get("response");
+                // 네이버 페이
+//                JSONObject jsonObj2    = (JSONObject) infoJsonParser.parse(response2.getBody());
+//                JSONObject responseObj2 = (JSONObject) jsonObj2.get("data");
+
+                String member_id = String.valueOf(responseObj.get("id"));
+                String member_name = String.valueOf(responseObj.get("name"));
+                String email = String.valueOf(responseObj.get("email"));
+                String phone = String.valueOf(responseObj.get("mobile"));
+                String gender = String.valueOf(responseObj.get("gender"));
+                String birthyear = String.valueOf(CommonUtil.parseString(responseObj.get("birthyear")));
+                String birthday = String.valueOf(CommonUtil.parseString(responseObj.get("birthday")));
+                LocalDate birthdayToLocalDate = null;
+                if(!birthday.equals("") && !birthyear.equals("")) {birthdayToLocalDate = LocalDate.parse(birthyear + birthday);}
+//                String zip_code = CommonUtil.parseString(responseObj2.get("zipCode"));
+//                String addr1 = CommonUtil.parseString(responseObj2.get("baseAddress"));
+//                String addr2 = CommonUtil.parseString(responseObj2.get("detailAddress"));
+                // 받아온 정보로 회원가입 및 로그인 구현
+                MemberVO memberVO = memberMapper.naver(member_id);
+                System.out.println("-------------------- member_id : " + member_id);
+                if(memberVO != null) {
+                    // 이미 존재하는 회원일 경우
+                    memberDTO = modelMapper.map(memberVO, MemberDTO.class);
+                } else {
+                    MemberDTO newMemberDTO = MemberDTO.builder()
+                            .pwd("")
+                            .member_id(member_id)
+                            .member_name(member_name)
+                            .email(email)
+                            .phone(phone)
+                            .gender(gender)
+                            .birthday(birthdayToLocalDate)
+                            .social_type("naver")
+                            .build();
+                    MemberVO newMemberVO = modelMapper.map(newMemberDTO, MemberVO.class);
+                    int result = memberMapper.join(newMemberVO);
+                    if (result > 0) {
+                        memberDTO = newMemberDTO;
+                    }
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return memberDTO;
     }
 }

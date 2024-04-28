@@ -2,11 +2,9 @@ package service;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
-import org.fullstack4.genius.dto.ReviewDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
+import org.fullstack4.genius.service.QnaServiceIf;
 import org.fullstack4.genius.service.ReviewServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +26,8 @@ public class YUNTEST {
 
     @Autowired
     private ReviewServiceIf reviewServiceIf;
+    @Autowired
+    private QnaServiceIf qnaServiceIf;
 
     @Test
     public void testBookRegist(){
@@ -130,6 +130,13 @@ public class YUNTEST {
         int result = reviewServiceIf.updateAvg("b0001");
         log.info("=========================");
         log.info(result);
+        log.info("=========================");
+    }
+    @Test
+    public void testQnaList(){
+        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
+        log.info("=========================");
+        log.info(qnaDTOList);
         log.info("=========================");
     }
     @Test

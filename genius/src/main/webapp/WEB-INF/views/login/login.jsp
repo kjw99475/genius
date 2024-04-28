@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +59,11 @@
                             </div>
                             <div class="col-md-12 form-group d-flex flex-column" style="gap:10px">
                                 <button type="submit" class="btn btn-success w-100">로그인</button>
+                                <c:set var="client_id">9GW7lkN31ckPUUZa1KsK</c:set>
+                                <c:set var="redirect_uri">http://localhost:8080/login/naver</c:set>
+                                <c:set var="state">genius</c:set>
+                                <button type="button" class="btn btn-success w-100"
+                                        onclick="location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&state=${state}&redirect_uri=${redirect_uri}'">네이버 로그인</button>
                                 <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
                                 <div class="d-flex justify-content-center" style="gap:10px">
                                     <a href="/login/findId">아이디 찾기</a><a href="/login/findPwd">비밀번호 찾기</a>
