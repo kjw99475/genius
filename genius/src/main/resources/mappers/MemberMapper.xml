@@ -11,7 +11,7 @@
     <select id="login" resultType="org.fullstack4.genius.domain.MemberVO">
         SELECT member_idx,member_id,member_name,pwd,birthday,phone,gender,zip_code,addr1,addr2,point,profile,reg_date,admin_YN,modify_date,leave_date,status
         FROM tbl_member
-        WHERE member_id = #{member_id}
+        WHERE member_id = #{member_id} AND status = ''
     </select>
 
     <update id="pointcharge">
