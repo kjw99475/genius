@@ -245,6 +245,7 @@
             let total = document.querySelector('#total');
             total.value = calculateTotal();
         })
+
     }
     // 선택 사항 변경 시 체크하는 로직
     let chooses = document.querySelectorAll('.choose');
