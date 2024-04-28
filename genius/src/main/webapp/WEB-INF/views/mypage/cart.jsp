@@ -204,6 +204,35 @@
         </div>
     </section>
     <!--================End Cart Area =================-->
+
+    <!--================페이징 내역 Start =================-->
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">01</a>
+            </li>
+            <li class="page-item active">
+                <a href="#" class="page-link">02</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">03</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">04</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">09</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--================페이징 내역 End =================-->
 </main>
 <!--================ 본문 END =================-->
 
