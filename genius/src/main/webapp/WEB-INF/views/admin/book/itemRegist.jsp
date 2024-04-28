@@ -180,12 +180,22 @@
 
                                 <div class="row mb-3" id="contentsBox">
                                     <label class="col-md-4 col-lg-2 col-form-label">목차</label>
-                                    <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
-                                    <input type="hidden" id="contents" name="contents" value="">
-                                    <div class="col-md-8 col-lg-10">
-                                        <input type="text" class="form-control contentsList" id=""
-                                               value="">
-                                        <button type="button" class="btn btn-success me-2 contentsDelBtn">삭제</button>
+                                    <div class="col-lg-10 row">
+                                        <div class="col-lg-9"></div>
+                                        <div class="col-lg-3">
+                                            <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
+                                        </div>
+                                        <input type="hidden" id="contents" name="contents" value="">
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-md-8 col-lg-10 row">
+                                        <div class="col-9">
+                                            <input type="text" class="form-control contentsList" id=""
+                                                   value="">
+                                        </div>
+                                        <div class="col-3">
+                                            <button type="button" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this)">삭제</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <%--                                        <textarea name="contents" class="form-control" id="contents"--%>
@@ -237,8 +247,14 @@
     let id=1;
     let bookRegistBtn = document.getElementById("bookRegistBtn");
     function delContents(element){
-        let div = element.parentNode.parentNode;
-        div.removeChild(element.parentNode);
+        let div = element.parentNode.parentNode.parentNode;
+        if(div.childElementCount ==4){
+            alert("개수가 하나일 때는 삭제할 수 없습니다.");
+            return false;
+        }
+
+        div.removeChild(element.parentNode.parentNode.previousElementSibling);
+        div.removeChild(element.parentNode.parentNode);
     }
     bookRegistBtn.addEventListener("click", function(e){
         e.preventDefault();
@@ -265,12 +281,22 @@
         div.classList.add("col-md-8");
         div.classList.add("col-lg-10");
         div.classList.add("contents-box");
+        div.classList.add("row");
         let innerText = "";
-        innerText += '<input type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<div class="col-9">'
+        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '</div>';
+        innerText += '<div class="col-3">';
         innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';
+        innerText += '</div>';
         div.innerHTML = innerText;
+
+        let div2 = document.createElement("div");
+        div2.classList.add("col-lg-2");
+        div2.classList.add("col-9");
+
+        contentsBox.append(div2);
         contentsBox.append(div);
-        id = id+1;
 
 
         innerText += ""
