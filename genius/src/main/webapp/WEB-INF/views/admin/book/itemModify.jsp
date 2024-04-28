@@ -226,26 +226,41 @@
     let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
     let id=1;
     function delContents(element){
-        let div = element.parentNode.parentNode;
+        let div = element.parentNode.parentNode.parentNode;
         console.log(div.childElementCount);
         if(div.childElementCount ==4){
             alert("개수가 하나일 때는 삭제할 수 없습니다.");
             return false;
         }
-        div.removeChild(element.parentNode);
+
+        div.removeChild(element.parentNode.parentNode.previousElementSibling);
+        div.removeChild(element.parentNode.parentNode);
     }
     contentsAddBtn.addEventListener("click", function(e){
         e.preventDefault();
+
         let div = document.createElement("div");
         div.classList.add("col-md-8");
         div.classList.add("col-lg-10");
         div.classList.add("contents-box");
+        div.classList.add("row");
         let innerText = "";
+        innerText += '<div class="col-9">'
         innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '</div>';
+        innerText += '<div class="col-3">';
         innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';
+        innerText += '</div>';
         div.innerHTML = innerText;
+
+        let div2 = document.createElement("div");
+        div2.classList.add("col-lg-2");
+        div2.classList.add("col-9");
+
+        contentsBox.append(div2);
         contentsBox.append(div);
-        id = id+1;
+
+
 
 
         innerText += ""
