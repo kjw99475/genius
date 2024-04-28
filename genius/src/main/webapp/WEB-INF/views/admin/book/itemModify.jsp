@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <html>
@@ -150,14 +151,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <c:set value="${fn:split(bookDTO.contents,'|')}" var="contents"></c:set>
 
-                                <div class="row mb-3">
-                                    <label for="contents" class="col-md-4 col-lg-2 col-form-label">목차</label>
+                                <div class="row mb-3" id="contentsBox">
+                                    <label class="col-md-4 col-lg-2 col-form-label">목차</label>
+                                    <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
+                                    <input type="hidden" id="contents" name="contents" value="">
+                                    <c:forEach items="${contents}" var="content">
                                     <div class="col-md-8 col-lg-10">
-                                            <textarea name="contents" class="form-control" id="contents"
-                                                      style="height: 100px; resize: none;">${bookDTO.contents}</textarea>
+                                        <input name="contents" type="text" class="form-control contentsList" id=""
+                                               value="${content}">
+                                        <button type="button" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this)">삭제</button>
                                     </div>
+                                    </c:forEach>
                                 </div>
+
+
 
                                 <div class="row mb-3">
                                     <label for="book_info" class="col-md-4 col-lg-2 col-form-label">소개글</label>
@@ -198,7 +207,37 @@
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
+<script>
+    let contentsAddBtn = document.getElementById("contentsAddBtn");
+    let contentsBox = document.getElementById("contentsBox");
+    let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
+    let id=1;
+    function delContents(element){
+        let div = element.parentNode.parentNode;
+        console.log(div.childElementCount);
+        if(div.childElementCount ==4){
+            alert("개수가 하나일 때는 삭제할 수 없습니다.");
+            return false;
+        }
+        div.removeChild(element.parentNode);
+    }
+    contentsAddBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        let div = document.createElement("div");
+        div.classList.add("col-md-8");
+        div.classList.add("col-lg-10");
+        div.classList.add("contents-box");
+        let innerText = "";
+        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';
+        div.innerHTML = innerText;
+        contentsBox.append(div);
+        id = id+1;
 
+
+        innerText += ""
+    });
+</script>
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

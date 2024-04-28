@@ -84,7 +84,7 @@
                             <input type="number" name="qty" id="sst" size="2" maxlength="12" value="${bookDTO.quantity}" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
-                            <button class="button primary-outline-btn" type="button">바로 구매</button>
+                            <button id="scrollTarget" class="button primary-outline-btn" type="button">바로 구매</button>
                             <button class="button primary-outline-btn" type="button">장바구니에 담기</button>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                                     <li><a href="#" data-score="4"><i class="fa fa-star"></i></a></li>
                                     <li><a href="#" data-score="5"><i class="fa fa-star"></i></a></li>
                                 </ul>
-                                <form class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
+                                <form action="/review/regist.dox" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
                                     <input type="hidden" value="${param.book_code}" name="book_code"/>
                                     <input type="hidden" value="" name="rank" id="rank"/>
                                     <input type="hidden" value="test" name="member_id"/>
@@ -339,6 +339,12 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    window.onload = function() {
+        // 특정 조건 확인
+        if (${param.registOK == '1'} || ${param.deleteOK == '1'}) {
+            reviewTAB()
+        }
+    };
     let stars = document.querySelectorAll('.star-list li a');
     let realStars =  document.querySelectorAll('.star-list li a i');
     let score=0;
@@ -358,40 +364,46 @@
             }
             tabDiv[2].classList.add('active');
             tabDiv[2].classList.add('show');
+            var targetElement = document.getElementById('scrollTarget');
+            var targetRect = targetElement.getBoundingClientRect();
+
+            window.scrollTo({
+                top: window.scrollY + targetRect.top
+            });
             // document.querySelector('#review-tab').click();
     }
 
-    $(document).ready(function() {
-        // 버튼 클릭 이벤트를 처리합니다.
-        $('#reviewBtn').click(function() {
-            // 폼 제출을 실행합니다.
-            //$('#frmReviewRegist').submit();
-        });
-
-            $('#frmReviewRegist').submit(function(event){
-                event.preventDefault();
-                let formData = $(this).serialize();
-                console.log(formData);
-                $.ajax({
-                    url: '/review/regist.dox',
-                    type:'POST',
-                    data: formData,
-                    success:function(data){
-                        console.log('data : ' + data);
-                        // console.log(response)
-                        // let regist = response.registOK;
-                        if(data == 1){
-                            console.log('dddd');
-                        }
-
-                    },
-                    error: function(xhr, status, error) {
-                        // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
-                        console.error(error);
-                    }
-                });
-            });
-    });
+    // $(document).ready(function() {
+    //     // 버튼 클릭 이벤트를 처리합니다.
+    //     $('#reviewBtn').click(function() {
+    //         // 폼 제출을 실행합니다.
+    //         //$('#frmReviewRegist').submit();
+    //     });
+    //
+    //         $('#frmReviewRegist').submit(function(event){
+    //             event.preventDefault();
+    //             let formData = $(this).serialize();
+    //             console.log(formData);
+    //             $.ajax({
+    //                 url: '/review/regist.dox',
+    //                 type:'POST',
+    //                 data: formData,
+    //                 success:function(data){
+    //                     console.log('data : ' + data);
+    //                     // console.log(response)
+    //                     // let regist = response.registOK;
+    //                     if(data == 1){
+    //                         console.log('dddd');
+    //                     }
+    //
+    //                 },
+    //                 error: function(xhr, status, error) {
+    //                     // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
+    //                     console.error(error);
+    //                 }
+    //             });
+    //         });
+    // });
     // function reviewregist(){
     //     $.ajax({
     //         url:"/review/regist.dox",
@@ -406,7 +418,7 @@
     //     });
     // }
 
-    // console.log('reviewOK : ' + reviewOK);
+    console.log('reviewOK : ' + reviewOK);
     // if(reviewOK == 1){
     //     for(let i=0;i<tabA.length;i++){
     //         tabA[i].classList.remove('active');
@@ -417,7 +429,8 @@
     //     }
     //     tabDiv[2].classList.add('active');
     //     tabDiv[2].classList.add('show');
-    //     // document.querySelector('#review-tab').click();
+    //
+    //     document.querySelector('#review-tab').click();
     // }
     for(let i=0;i<btnRemove.length;i++){
         btnRemove[i].addEventListener("click", function(e){
