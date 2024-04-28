@@ -66,7 +66,12 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_modify" method="post" action="/admin/book/itemModify">
+                            <form id="frm_book_modify" name="frm_book_modify" method="post" action="/admin/book/itemModify">
+                                <input type="hidden" name="book_idx" value="${bookDTO.book_idx}">
+                                <input type="hidden" name="sales_start_date" value="${bookDTO.sales_start_date}">
+                                <input type="hidden" name="sales_end_date" value="${bookDTO.sales_end_date}">
+                                <input type="hidden" name="sales_status" value="${bookDTO.sales_status}">
+
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-10">
@@ -206,7 +211,7 @@
                                 </div>
 
                                 <div class="text-center mt-5">
-                                    <button type="submit" class="btn btn-success me-2">수정 완료</button>
+                                    <button type="submit" id="modifyBtn" class="btn btn-success me-2">수정 완료</button>
                                     <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- End Profile Edit Form -->
@@ -224,6 +229,7 @@
     let contentsAddBtn = document.getElementById("contentsAddBtn");
     let contentsBox = document.getElementById("contentsBox");
     let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
+    let modifyBtn = document.getElementById("modifyBtn");
     let id=1;
     function delContents(element){
         let div = element.parentNode.parentNode.parentNode;
@@ -236,6 +242,10 @@
         div.removeChild(element.parentNode.parentNode.previousElementSibling);
         div.removeChild(element.parentNode.parentNode);
     }
+    modifyBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        document.getElementById("frm_book_modify").submit();
+    });
     contentsAddBtn.addEventListener("click", function(e){
         e.preventDefault();
 

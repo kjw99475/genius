@@ -47,7 +47,14 @@
             zip_code = #{zip_code},
             addr1 = #{addr1},
             addr2 = #{addr2},
-            profile = #{profile}
+            profile = #{profile},
+            modify_date = now()
+        WHERE member_id = #{member_id}
+    </update>
+    <update id="leave">
+        UPDATE tbl_member
+        SET status = 'N',
+            leave_date = now()
         WHERE member_id = #{member_id}
     </update>
 </mapper>

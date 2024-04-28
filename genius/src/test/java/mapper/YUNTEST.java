@@ -125,6 +125,15 @@ public class YUNTEST {
         log.info("======================");
     }
     @Test
+    public void bookModify(){
+        BookVO bookVO = bookMapper.view("b0001");
+        bookVO.setBook_idx(17);
+        int result = bookMapper.modify(bookVO);
+        log.info("======================");
+        log.info("BookMapperTest : bookModify result : " + result);
+        log.info("======================");
+    }
+    @Test
     public void testReviewRegist(){
         log.info("================================");
         ReviewVO reviewVO = ReviewVO.builder()

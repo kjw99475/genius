@@ -117,6 +117,15 @@ public class YUNTEST {
         log.info("=========================");
     }
     @Test
+    public void testModifyBook(){
+        BookDTO bookDTO = bookServiceIf.view("b0002");
+        bookDTO.setBook_idx(17);
+        int result = bookServiceIf.modify(bookDTO);
+        log.info("======================");
+        log.info("BookMapperTest : bookModify result : " + result);
+        log.info("======================");
+    }
+    @Test
     public void updateRankAvg(){
         int result = reviewServiceIf.updateAvg("b0001");
         log.info("=========================");
