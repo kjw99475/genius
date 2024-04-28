@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_regist" method="post" action="/admin/book/itemRegist">
+                            <form id="frm_book_modify" method="post" action="/admin/book/itemModify">
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-10">
