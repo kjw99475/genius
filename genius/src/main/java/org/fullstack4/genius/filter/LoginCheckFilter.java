@@ -26,7 +26,6 @@ public class LoginCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
-       log.info("Login Check Filter");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
@@ -37,9 +36,6 @@ public class LoginCheckFilter implements Filter {
         }
 
         if (member_id.equals("")) {
-            log.info("---------------------");
-            log.info("로그인 정보 없음");
-            log.info("---------------------");
             resp.sendRedirect("/login/login");
             return;
         }

@@ -28,4 +28,9 @@ public class CommonUtil {
         }
         return result;
     }
+    public static String getUploadFolder(HttpServletRequest request, String target) {
+        // target 인자에는 upload폴더 하위 폴더 명을 넣으시오
+        String realPath = request.getServletContext().getRealPath("");
+        return realPath.substring(0,realPath.indexOf("build")) + "src\\main\\webapp\\resources\\upload\\" + target;
+    }
 }

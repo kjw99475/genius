@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.dto.CartDTO;
+import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.service.CartServiceIf;
@@ -15,12 +17,15 @@ import org.fullstack4.genius.service.PaymentServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -44,8 +49,34 @@ public class MypageController {
     }
 
     @PostMapping("/mypage")
-    public void POSTMypage(){
-
+    public String POSTMypage(MemberDTO newMemberDTO,
+                           HttpServletRequest request,
+                           RedirectAttributes redirectAttributes,
+                           @RequestParam("file") MultipartFile file){
+        log.info("===========================================");
+        log.info("MypageController >>>>>>>>>>>>>>>>> POSTMypage");
+        HttpSession session = request.getSession();
+        String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
+        MemberDTO orgMemberDTO = memberService.view(member_id);
+        newMemberDTO.setMember_id(member_id);
+        FileDTO fileDTO = null;
+        if(file != null) {
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "profile");
+            fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+        } else {
+            newMemberDTO.setProfile(orgMemberDTO.getProfile());
+        }
+        int result = memberService.modifyInfo(newMemberDTO, fileDTO);
+        if(result > 0 ){
+            log.info("정보 수정 성공");
+        } else {
+            redirectAttributes.addFlashAttribute("err", "정보 수정 실패");
+            log.info("정보 수정 실패");
+        }
+        return "redirect:/mypage/mypage";
     }
 
     @GetMapping("/myquestions")
