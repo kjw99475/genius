@@ -183,7 +183,7 @@
                                     <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
                                     <input type="hidden" id="contents" name="contents" value="">
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="contents" type="text" class="form-control contentsList" id=""
+                                        <input type="text" class="form-control contentsList" id=""
                                                value="">
                                         <button type="button" class="btn btn-success me-2 contentsDelBtn">삭제</button>
                                     </div>
@@ -216,7 +216,7 @@
                                 </div>
 
                                 <div class="text-center mt-5">
-                                    <button type="submit" class="btn btn-success me-2">등록</button>
+                                    <button type="submit" id="bookRegistBtn" class="btn btn-success me-2">등록</button>
                                     <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- End Profile Edit Form -->
@@ -235,10 +235,30 @@
     let contentsBox = document.getElementById("contentsBox");
     let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
     let id=1;
+    let bookRegistBtn = document.getElementById("bookRegistBtn");
     function delContents(element){
         let div = element.parentNode.parentNode;
         div.removeChild(element.parentNode);
     }
+    bookRegistBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        let contentsStr = "";
+        let contentsList = document.getElementsByClassName("contentsList");
+        for(i=0;i<contentsList.length;i++){
+            if (contentsList[i].value==""){
+                alert("목차를 입력해주세요");
+                return;
+            }
+            contentsStr += contentsList[i].value + "|";
+        }
+        document.getElementById("contents").value = contentsStr.substring(0,contentsStr.length -1);
+
+        console.log(contentsStr);
+        console.log(document.getElementById("contents").value);
+        document.getElementById("frm_book_regist").submit();
+
+
+    });
     contentsAddBtn.addEventListener("click", function(e){
         e.preventDefault();
         let div = document.createElement("div");
@@ -246,7 +266,7 @@
         div.classList.add("col-lg-10");
         div.classList.add("contents-box");
         let innerText = "";
-        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<input type="text" class="form-control contentsList" id=`${id}` value="">';
         innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';
         div.innerHTML = innerText;
         contentsBox.append(div);

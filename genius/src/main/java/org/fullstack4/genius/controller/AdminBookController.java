@@ -68,6 +68,7 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
+        log.info("adminBookController : contents :" + bookDTO.getContents());
         int result = bookServiceIf.regist(bookDTO);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
