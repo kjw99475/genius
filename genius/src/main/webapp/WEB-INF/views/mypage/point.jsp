@@ -44,7 +44,6 @@
             <div class="blog-banner pt-1 pb-1">
                 <div class="text-center ">
                     <h1 class=" text-white">포인트 충전</h1>
-                    <h1>${dto.member_id}</h1>
                     <span class=" text-white">Point</span>
                 </div>
             </div>
@@ -59,7 +58,7 @@
                 <div>
                     <div class="confirmation-card text-center">
                         <h4 class="h4">나의 포인트</h4>
-                        <h3 class="h3">100,000,000 원</h3>
+                        <h3 class="h3">${point} 포인트</h3>
                         <div class="d-grid mt-4">
                             <button type="button" class="btn btn-success w-50 closeModal" data-toggle="modal" data-target="#exampleModalCenter">
                                 충전하기
@@ -84,98 +83,106 @@
                         <button class="btn btn-success" type="button">조회</button>
                     </div>
                 </div>
+                <c:forEach items="${mypaymentlist}" var="list">
+                    ${list.price}
+                </c:forEach>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">총 00건</th>
+                                <th scope="col">총 0${total_count}건</th>
+                                <th scope="col">종류</th>
+                                <th scope="col">결제 일자</th>
+                                <th scope="col">금액</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <p>울지마 톰즈 도서 구매</p>
-                                </td>
-                                <td>
-                                    <h5>사용</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-27 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p>-10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
+                            <c:forEach items= "${mypaymentlist}" var="list">
                             <tr>
                                 <td class="border-0">
-                                    <p>포인트 충전</p>
+                                    <p>${list.use_type}</p>
                                 </td>
                                 <td class="border-0">
-                                    <h5>충전</h5>
+                                    <h5>${list.use_type}</h5>
                                 </td>
                                 <td class="border-0">
-                                    <p>2024-04-26 00:00:00</p>
+                                    <p>${list.reg_date}</p>
                                 </td>
                                 <td class="border-0">
-                                    <p class="text-geni">+10,000</p>
+                                    <p class="text-geni">+${list.price}</p>
                                 </td>
                             </tr>
+                            </c:forEach>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
                         </tbody>
                     </table>
                 </div>
@@ -322,7 +329,8 @@
                                 ,"company":rsp.pg_provider
                             },
                             success : function(data) {
-                                alert("결제 성공");
+                                alert("포인트 충전 성공");
+                                location.href="/mypage/point";
                             }
                         });
                         console.log(rsp);

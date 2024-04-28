@@ -8,6 +8,7 @@ import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.service.CartServiceIf;
+import org.fullstack4.genius.service.MemberServiceIf;
 import org.fullstack4.genius.service.PaymentServiceIf;
 import org.fullstack4.genius.service.PaymentServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class MypageController {
 
     private final PaymentServiceIf paymentService;
     private final CartServiceIf cartService;
+    private final MemberServiceIf memberService;
+
     @GetMapping("/mypage")
     public void GETMypage(){
 
@@ -82,9 +85,21 @@ public class MypageController {
         cartService.delete(cartDTO);
         log.info("###################"+map.toString());
     }
-    @GetMapping("/point")
-    public void GETPoint(){
 
+    @GetMapping("/point")
+    public void GETPoint(Model model,HttpServletRequest req){
+        HttpSession session = req.getSession();
+        String member_id = (String) session.getAttribute("member_id");
+        int mypoint = paymentService.pointview(member_id);
+        List<PaymentDTO> mypayment = paymentService.listAll(member_id);
+        int total_count = paymentService.totalCount(member_id);
+        model.addAttribute("total_count",total_count);
+        model.addAttribute("point",mypoint);
+        model.addAttribute("mypaymentlist",mypayment);
+
+        log.info("================================================");
+        log.info("mypayment: " + mypayment);
+        log.info("================================================");
     }
 
     @PostMapping("/point")
@@ -108,7 +123,13 @@ public class MypageController {
         log.info("=====================================================");
         int result = paymentService.charge(dto);
         if(result > 0) {
-            resultMap.put("result", "success");
+            int result2 = paymentService.memberPay(dto);
+            if(result2 > 0) {
+                resultMap.put("result", "success");
+            }
+            else{
+                resultMap.put("result", "fail");
+            }
         }
         else{
             resultMap.put("result", "fail");

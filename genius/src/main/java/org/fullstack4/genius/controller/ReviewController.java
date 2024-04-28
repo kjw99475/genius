@@ -22,8 +22,7 @@ import java.util.HashMap;
 public class ReviewController {
     private final ReviewServiceIf reviewServiceIf;
     @RequestMapping(value = "/regist.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String registPOST(@Valid ReviewDTO reviewDTO,
+    public @ResponseBody int registPOST(@Valid ReviewDTO reviewDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              Model model){
@@ -51,7 +50,7 @@ public class ReviewController {
             resultMap.put("result", "fail");
         }
 
-        return new Gson().toJson(resultMap);
+        return result;
 
 
 

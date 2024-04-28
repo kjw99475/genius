@@ -97,7 +97,7 @@ public class AdminBookController {
     }
 
     @PostMapping("/itemModify")
-    public String POSTItemModify(BookDTO bookDTO, Model model){
+    public String POSTItemModify(@Valid BookDTO bookDTO, Model model){
         int result = bookServiceIf.modify(bookDTO);
         if(result >0){
             return "redirect:/admin/book/itemview?book_code="+bookDTO.getBook_code();

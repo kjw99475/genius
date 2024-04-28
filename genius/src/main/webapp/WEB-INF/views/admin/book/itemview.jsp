@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="text-center mt-5">
-                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_idx=' + ${bookDTO.book_idx}">수정</button>
+                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
                             <button type="button" class="btn btn-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
                         </div>
                     </div><!-- End Bordered Tabs -->

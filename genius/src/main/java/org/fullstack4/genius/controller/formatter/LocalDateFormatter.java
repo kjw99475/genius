@@ -15,6 +15,6 @@ public class LocalDateFormatter implements Formatter<LocalDate> {
 
     @Override
     public String print(LocalDate object, Locale locale) {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(object);
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(object);
     }
 }

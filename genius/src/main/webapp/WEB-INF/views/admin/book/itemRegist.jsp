@@ -65,7 +65,14 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_regist" method="post" action="/admin/book/regist">
+                            <form id="frm_book_regist" method="post" action="/admin/book/itemRegist">
+                                <div class="row mb-3">
+                                    <label for="book_name" class="col-md-4 col-lg-2 col-form-label">상품 코드</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="book_code" type="text" class="form-control" id="book_code"
+                                               value="${bookDTO.book_code}">
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-10">
@@ -171,13 +178,18 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="contents" class="col-md-4 col-lg-2 col-form-label">목차</label>
+                                <div class="row mb-3" id="contentsBox">
+                                    <label class="col-md-4 col-lg-2 col-form-label">목차</label>
+                                    <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
+                                    <input type="hidden" id="contents" name="contents" value="">
                                     <div class="col-md-8 col-lg-10">
-                                            <textarea name="contents" class="form-control" id="contents"
-                                                      style="height: 100px; resize: none;">${bookDTO.contents}</textarea>
+                                        <input name="contents" type="text" class="form-control contentsList" id=""
+                                               value="">
+                                        <button type="button" class="btn btn-success me-2 contentsDelBtn">삭제</button>
                                     </div>
                                 </div>
+                                <%--                                        <textarea name="contents" class="form-control" id="contents"--%>
+                                <%--                                                  style="height: 100px; resize: none;">${bookDTO.contents}</textarea>--%>
 
                                 <div class="row mb-3">
                                     <label for="book_info" class="col-md-4 col-lg-2 col-form-label">소개글</label>
@@ -218,7 +230,32 @@
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
+<script>
+    let contentsAddBtn = document.getElementById("contentsAddBtn");
+    let contentsBox = document.getElementById("contentsBox");
+    let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
+    let id=1;
+    function delContents(element){
+        let div = element.parentNode.parentNode;
+        div.removeChild(element.parentNode);
+    }
+    contentsAddBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        let div = document.createElement("div");
+        div.classList.add("col-md-8");
+        div.classList.add("col-lg-10");
+        div.classList.add("contents-box");
+        let innerText = "";
+        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';
+        div.innerHTML = innerText;
+        contentsBox.append(div);
+        id = id+1;
 
+
+        innerText += ""
+    });
+</script>
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

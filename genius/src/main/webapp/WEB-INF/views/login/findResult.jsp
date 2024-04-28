@@ -41,29 +41,35 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <div class="login_form_inner rounded">
-                        <h3 class="d-flex justify-content-center align-items-center flex-wrap"><img src="/resources/img/login.png" width="400px"></h3>
-                        <form class="row login_form mb-5" method="post" action="/login/login" id="frm" >
-                            <input type="hidden" name="acc_url" value="/">
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+                        <c:if test="${param.type == 'findId'}">
+                            <div class="mb-4">
+                                <h3 class="d-flex justify-content-center align-items-center flex-wrap m-0 pb-1">
+                                    아이디 찾기 결과
+                                </h3>
+                                <small class="font-weight-light pt-1">앞으로 아이디 잃어버리지말기로 약속‍🫲🏻</small>
                             </div>
-                            <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                            <div class="p-5 ml-4 mr-4 mb-4 rounded bg-light d-flex justify-content-center align-items-center flex-wrap">
+                                <h4 class="text-geni">${param['member_id']}</h4>
                             </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="auto_login" name="auto_login">
-                                    <label for="auto_login">자동 로그인</label>
-                                </div>
+                            <div class="col-md-12 form-group d-flex flex-column" style="gap:5px">
+                                <button type="button" class="btn btn-success w-100" onclick="location.href = '/login/login'">로그인 하러 가기</button>
+                                <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/login/findPwd'">비밀번호 찾기</button>
                             </div>
-                            <div class="col-md-12 form-group d-flex flex-column" style="gap:10px">
-                                <button type="submit" class="btn btn-success w-100">로그인</button>
-                                <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
-                                <div class="d-flex justify-content-center" style="gap:10px">
-                                    <a href="/login/findId">아이디 찾기</a><a href="/login/findPwd">비밀번호 찾기</a>
-                                </div>
+                        </c:if>
+                        <c:if test="${param.type == 'findPwd'}">
+                            <div class="mb-4">
+                                <h3 class="d-flex justify-content-center align-items-center flex-wrap m-0 pb-1">
+                                    비밀번호 찾기 결과
+                                </h3>
+                                <small class="font-weight-light pt-1">앞으로 비밀번호 잃어버리지말기로 약속‍🫲🏻</small>
                             </div>
-                        </form>
+                            <div class="p-5 ml-4 mr-4 mb-4 rounded bg-light d-flex justify-content-center align-items-center flex-wrap">
+                                비밀번호가 정상 변경 되었습니다.
+                            </div>
+                            <div class="col-md-12 form-group d-flex flex-column" style="gap:5px">
+                                <button type="button" class="btn btn-success w-100" onclick="location.href = '/login/login'">로그인 하러 가기</button>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -80,11 +86,6 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-<script>
-    if(${!empty loginErr}) {
-        alert("${loginErr}");
-    }
-</script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
