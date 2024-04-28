@@ -4,6 +4,7 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +33,14 @@ public class MypageController {
     private final MemberServiceIf memberService;
 
     @GetMapping("/mypage")
-    public void GETMypage(){
-
+    public String GETMypage(HttpServletRequest request,
+                          HttpServletResponse response,
+                          Model model){
+        HttpSession session = request.getSession();
+        String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
+        MemberDTO memberDTO = memberService.view(member_id);
+        model.addAttribute("memberDTO", memberDTO);
+        return "/mypage/mypage";
     }
 
     @PostMapping("/mypage")
