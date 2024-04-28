@@ -114,8 +114,8 @@ public class MypageController {
     @ResponseBody
     public String AddCart(@RequestParam HashMap<String,Object> map){
         log.info("###################"+map.get("book_code").toString());
-        int exist = cartService.exist(map.get("book_code").toString());
-        log.info("###################"+exist);
+        int exist = cartService.exist(map.get("book_code").toString(),map.get("member_id").toString());
+        log.info("###################exist:"+exist);
         int result = 0;
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         if(exist != 0){
@@ -131,7 +131,7 @@ public class MypageController {
                 resultMap.put("result", "fail");
             }
         }
-        else {
+        else if(exist == 0) {
             CartDTO cartDTO = CartDTO.builder()
                     .book_code(map.get("book_code").toString())
                     .member_id(map.get("member_id").toString())

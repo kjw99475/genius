@@ -38,11 +38,11 @@
     </insert>
 
     <insert id="detailregist">
-        INSERT INTO tbl_orderdetail(order_num,book_code,category_class,category_subject,order_state,order_date,price,total_price,amount)
+        INSERT INTO tbl_orderdetail(order_num,book_code,category_class_code,category_subject_code,order_state,order_date,price,total_price,amount)
         VALUES(#{order_num}
         ,#{book_code}
-        ,#{category_class}
-        ,#{category_subject}
+        ,#{category_class_code}
+        ,#{category_subject_code}
         ,#{order_state}
         ,NOW()
         ,#{price}

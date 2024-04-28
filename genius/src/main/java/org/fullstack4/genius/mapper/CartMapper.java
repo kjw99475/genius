@@ -12,7 +12,7 @@ public interface CartMapper {
     int regist(CartVO cartVO);
     int updateCart(CartVO cartVO);
     int updateCart1(CartVO cartVO);
-    int exist(String book_code);
+    int exist(String book_code,String member_id);
     List<CartVO> listAll(String member_id);
     CartVO view(int cart_idx);
     int modify(CartVO cartVO);

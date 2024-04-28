@@ -22,4 +22,6 @@ public class CartDTO {
     private int quantity;
     private LocalDate reg_date;
     private String book_name;
+    private String category_class_code;
+    private String category_subject_code;
 }

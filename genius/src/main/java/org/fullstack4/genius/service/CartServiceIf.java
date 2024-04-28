@@ -9,7 +9,7 @@ import java.util.List;
 public interface CartServiceIf {
 
     int regist(CartDTO cartDTO);
-    int exist(String book_code);
+    int exist(String book_code,String member_id);
     int updateCart(CartDTO cartDTO);
     int updateCart1(CartDTO cartDTO);
     List<CartDTO> listAll(String member_id);

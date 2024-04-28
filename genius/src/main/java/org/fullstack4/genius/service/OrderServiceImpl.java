@@ -30,6 +30,14 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
+    public int detailregist(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.detailregist(orderVO);
+
+        return result;
+    }
+
+    @Override
     public List<OrderDTO> AdminlistAll() {
         List<OrderVO> orders = orderMapper.AdminlistAll();
         List<OrderDTO> dtolist = orders.stream()

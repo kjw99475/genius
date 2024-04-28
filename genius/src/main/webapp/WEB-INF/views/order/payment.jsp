@@ -208,6 +208,10 @@
     }
 
     function purchase(){
+        var cart_idx = [];
+        <c:forEach items="${dtolist}" var="list">
+            cart_idx.push(${list.cart_idx});
+        </c:forEach>
         $.ajax({
             url:"/order/payment.dox",
             dataType:"json",
@@ -215,11 +219,15 @@
             data : {
                 "member_id":"${sessionScope['member_id']}",
                 "price":"${totalprice}",
-                "dtolist": "${dtolist}",
+                "cart_idx": JSON.stringify(cart_idx)
                 
             },
             success : function(data) {
-
+                if(data.result == "success"){
+                    alert("성공");
+                }else{
+                    alert("포인트가 모자랍니다");
+                }
             },
             fail : function (data){
 
