@@ -23,7 +23,10 @@ public class OrderServiceImpl  implements OrderServiceIf {
 
     @Override
     public int regist(OrderDTO orderDTO) {
-        return 0;
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.regist(orderVO);
+
+        return result;
     }
 
     @Override

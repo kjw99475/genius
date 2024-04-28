@@ -2,11 +2,17 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.domain.MemberVO;
+import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.mapper.MemberMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @Log4j2
 @Service
@@ -29,9 +35,9 @@ public class MemberServiceImpl implements MemberServiceIf {
         MemberVO memberVO = memberMapper.view(member_id);
         MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
 
-        log.info("===================================");
-        log.info("memberDTO: " + memberDTO.toString());
-        log.info("===================================");
+//        log.info("===================================");
+//        log.info("memberDTO: " + memberDTO.toString());
+//        log.info("===================================");
         return memberDTO;
     }
 
@@ -63,11 +69,9 @@ public class MemberServiceImpl implements MemberServiceIf {
     @Override
     public MemberDTO AutoLogin(String member_id) {
         MemberVO memberVO = memberMapper.login(member_id);
-        System.out.println("memberVO : " + memberVO);
         MemberDTO memberDTO = null;
         if(memberVO != null) {
             memberDTO = modelMapper.map(memberVO, MemberDTO.class);
-            System.out.println("memberDTO : " + memberDTO);
         }
         return memberDTO;
     }
@@ -105,6 +109,23 @@ public class MemberServiceImpl implements MemberServiceIf {
         int result = memberMapper.changePwd(memberVO);
         log.info("MemberServiceImpl >>>>> changePwd ");
         log.info("result : " + result);
+        return result;
+    }
+
+    @Override
+    public int modifyInfo(MemberDTO memberDTO, FileDTO fileDTO) {
+        int result = 0;
+        if(fileDTO != null) {
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            if(map.get("result").equals("success")) {
+                memberDTO.setProfile(map.get("newName"));
+                MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
+                result = memberMapper.modifyInfo(memberVO);
+            }
+        } else {
+            MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
+            result = memberMapper.modifyInfo(memberVO);
+        }
         return result;
     }
 }

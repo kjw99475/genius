@@ -53,6 +53,7 @@ public class LoginController {
                 cookie.setMaxAge(999999);
                 response.addCookie(cookie);
             }
+            log.info("loginDTO" + loginDTO);
             HttpSession session = request.getSession();
             session.setAttribute("member_id", loginDTO.getMember_id());
             session.setAttribute("admin_YN", loginDTO.getAdmin_YN());

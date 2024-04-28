@@ -14,7 +14,7 @@ public interface CartMapper {
     int updateCart1(CartVO cartVO);
     int exist(String book_code);
     List<CartVO> listAll(String member_id);
-    CartVO view(String user_id);
+    CartVO view(int cart_idx);
     int modify(CartVO cartVO);
     int delete(CartVO cartVO);
     int CartTotalCount(String user_id,PageRequestDTO requestDTO);
