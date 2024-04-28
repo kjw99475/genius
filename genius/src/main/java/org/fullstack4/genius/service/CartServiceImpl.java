@@ -67,8 +67,11 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
-    public CartDTO view(String user_id) {
-        return null;
+    public CartDTO view(int cart_idx) {
+        CartVO vo = cartMapper.view(cart_idx);
+        CartDTO dto = modelMapper.map(vo,CartDTO.class);
+
+        return dto;
     }
 
     @Override
