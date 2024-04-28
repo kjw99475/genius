@@ -155,15 +155,28 @@
 
                                 <div class="row mb-3" id="contentsBox">
                                     <label class="col-md-4 col-lg-2 col-form-label">목차</label>
-                                    <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
+                                    <div class="col-lg-10 row">
+                                        <div class="col-lg-9"></div>
+                                        <div class="col-lg-3">
+                                            <button type="button" id="contentsAddBtn" class="btn btn-success me-2">추가</button>
+                                        </div>
                                     <input type="hidden" id="contents" name="contents" value="">
-                                    <c:forEach items="${contents}" var="content">
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="contents" type="text" class="form-control contentsList" id=""
-                                               value="${content}">
-                                        <button type="button" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this)">삭제</button>
                                     </div>
+                                    <c:forEach items="${contents}" var="content">
+                                        <div class="col-lg-2"></div>
+                                        <div class="col-md-8 col-lg-10 row">
+                                            <div class="col-9">
+                                                <input name="contents" type="text" class="form-control contentsList" id=""
+                                                       value="${content}">
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="button" class="btn btn-success me-2 contentsDelBtn"
+                                                        onclick="delContents(this)">삭제
+                                                </button>
+                                            </div>
+                                        </div>
                                     </c:forEach>
+
                                 </div>
 
 
