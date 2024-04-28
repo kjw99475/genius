@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.time.LocalDate;
+
 @Log4j2
 @Data
 @NoArgsConstructor
@@ -19,4 +21,6 @@ public class PaymentDTO {
     private int price;
     private String method;
     private String company;
+    private LocalDate reg_date;
+    private String use_type;
 }

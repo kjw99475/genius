@@ -9,7 +9,9 @@ import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Log4j2
@@ -31,7 +33,18 @@ public class PaymentServiceImpl implements PaymentServiceIf{
 
     @Override
     public List<PaymentDTO> listAll(String user_id) {
-        return null;
+        List<PaymentVO> vos = paymentMapper.listAll(user_id);
+        List<PaymentDTO> dtos = vos.stream()
+                .map(vo->modelMapper.map(vo,PaymentDTO.class))
+                .collect(Collectors.toList());
+        return dtos;
+    }
+
+    @Override
+    public int pointview(String member_id) {
+        int mypoint = paymentMapper.pointview(member_id);
+        return mypoint;
+
     }
 
     @Override
