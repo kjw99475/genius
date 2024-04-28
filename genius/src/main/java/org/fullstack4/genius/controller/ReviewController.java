@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class ReviewController {
     private final ReviewServiceIf reviewServiceIf;
     @RequestMapping(value = "/regist.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public @ResponseBody int registPOST(@Valid ReviewDTO reviewDTO,
+    public String registPOST(@Valid ReviewDTO reviewDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              Model model){
@@ -39,26 +39,26 @@ public class ReviewController {
 //
 //            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
 //        }
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//        log.info("================================");
+//        log.info("v >> registPOST()");
+//        log.info("v : " + reviewDTO.toString());
+//        log.info("================================");
+
+        if(bindingResult.hasErrors()){
+            log.info("Errors");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("reviewDTO",reviewDTO);
+
+
+            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
+        }
+
 
         int result = reviewServiceIf.regist(reviewDTO);
-        if(result > 0) {
-            resultMap.put("result", "success");
-            resultMap.put("dto",reviewDTO);
-        }
-        else{
-            resultMap.put("result", "fail");
-        }
+        redirectAttributes.addAttribute("registOK", 1);
 
-        return result;
+        return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
 
-
-
-
-//        //redirectAttributes.addAttribute("registOK", 1);
-//        resultMap.put("tab","review");
-//
-//        return "review";
     }
     @PostMapping("/delete")
     public String deletePOST(@RequestParam(name="review_idx", defaultValue = "0") int idx,
@@ -69,7 +69,7 @@ public class ReviewController {
         int result = reviewServiceIf.delete(idx, book_code);
         if(result >0){
             redirectAttributes.addAttribute("deleteOK",1);
-            return "redirect:/book/view?book_code=" + book_code + "#review-tab";
+            return "redirect:/book/view?book_code=" + book_code;
         }
         else{
             redirectAttributes.addAttribute("deleteOK",0);
