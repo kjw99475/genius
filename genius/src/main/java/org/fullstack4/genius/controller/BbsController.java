@@ -3,11 +3,21 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.dto.BookDTO;
+import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.QnaDTO;
+import org.fullstack4.genius.service.BookServiceIf;
+import org.fullstack4.genius.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +27,7 @@ import java.util.UUID;
 @RequestMapping(value="/bbs")
 @RequiredArgsConstructor
 public class BbsController {
+    private final QnaServiceIf qnaServiceIf;
 
     @GetMapping("/noticeList")
     public void GETNoticeList() {
@@ -30,8 +41,25 @@ public class BbsController {
     }
 
     @GetMapping("/qnaList")
-    public void GETQnaList() {
+    public void GETQnaList(@Valid PageRequestDTO pageRequestDTO,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes,
+                           Model model) {
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
+        log.info(qnaDTOList);
+//        pageRequestDTO.setPage_size(6);
+//        pageRequestDTO.setPage_block_size(10);
+//        PageResponseDTO<BookDTO> responseDTO = qnaServiceIf.BookListByPage(pageRequestDTO);
 
+//        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
+//        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
+//        model.addAttribute("subjectList",subjectList);
+//        model.addAttribute("classList",classList);
+        model.addAttribute("qnaDTOList", qnaDTOList);
     }
 
     @GetMapping("/qnaViewQ")
