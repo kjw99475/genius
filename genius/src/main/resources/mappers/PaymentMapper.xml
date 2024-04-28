@@ -14,6 +14,16 @@
         VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),'충전','포인트 충전')
     </insert>
 
+    <insert id="usepoint">
+        INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
+        VALUES (#{payment_num},#{member_id},#{price},#{method},'사이트 거래',NOW(),'사용','포인트 사용')
+    </insert>
+
+    <insert id="refund">
+        INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
+        VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),'환불','포인트 환불')
+    </insert>
+
     <select id="pointview" resultType="int">
         select point
         from tbl_member
