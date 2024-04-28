@@ -158,7 +158,7 @@
                         <td><span class="badge bg-warning">판매중</span></td> <!--상태에 따라 bg-수정 -->
                     </tr>
                     <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
-                        <tr onclick="location.href='/admin/book/itemview?book_idx='+${bookDTO.book_idx}">
+                        <tr onclick="location.href='/admin/book/itemview?book_code=${bookDTO.book_code}'">
                             <th scope="row">${bookDTO.book_code}</th>
                             <td>${bookDTO.book_name}</td>
                             <td>${bookDTO.price}</td>

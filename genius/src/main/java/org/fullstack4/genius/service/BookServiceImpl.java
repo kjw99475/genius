@@ -46,6 +46,7 @@ public class BookServiceImpl implements BookServiceIf {
     @Override
     public BookDTO view(String book_code) {
         BookVO bookvo = bookMapper.view(book_code);
+        log.info(bookvo);
         BookDTO bookDTO = modelMapper.map(bookvo, BookDTO.class);
 
         return bookDTO;

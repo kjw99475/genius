@@ -344,33 +344,35 @@
         // 버튼 클릭 이벤트를 처리합니다.
         $('#reviewBtn').click(function() {
             // 폼 제출을 실행합니다.
-            $('#frmReviewRegist').submit();
+            //$('#frmReviewRegist').submit();
         });
-        $('#frmReviewRegist').submit(function(event){
-            event.preventDefault();
-            let formData = $(this).serialize();
-            $.ajax({
-                url: '/review/regist.dox',
-                type:'POST',
-                data: formData,
-                success:function(data){
-                    console.log(data);
-                    console.log(formData);
-                    console.log(dto);
-                    // console.log(response)
-                    // let regist = response.registOK;
-                    // if(regist == 1){
-                    //     $('#review').tab('show');
-                    // }
-                    // $('#review').tab
-                    // location.href=response[0];
-                },
-                error: function(xhr, status, error) {
-                    // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
-                    console.error(error);
-                }
+
+            $('#frmReviewRegist').submit(function(event){
+                event.preventDefault();
+                let formData = $(this).serialize();
+                console.log(formData);
+                $.ajax({
+                    url: '/review/regist.dox',
+                    type:'POST',
+                    data: formData,
+                    success:function(data){
+                        console.log('data : ' + data);
+                        // console.log(response)
+                        // let regist = response.registOK;
+                        if(data == 1){
+                            console.log('dddd');
+                            $('#review-tab').tab('show');
+                        }
+                        // $('#review').tab
+                        // location.href=response[0];
+                    },
+                    error: function(xhr, status, error) {
+                        // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
+                        console.error(error);
+                    }
+                });
             });
-        });
+
     });
     // function reviewregist(){
     //     $.ajax({
@@ -394,19 +396,19 @@
     let btnRemove = document.querySelectorAll('.btnRemove');
     let tabA = document.querySelectorAll('.tab-a');
     let tabDiv = document.querySelectorAll('.tab-div');
-    console.log('reviewOK : ' + reviewOK);
-    if(reviewOK == 1){
-        for(let i=0;i<tabA.length;i++){
-            tabA[i].classList.remove('active');
-        }
-        tabA[2].classList.add('active');
-        for(let i=0;i<tabDiv.length;i++){
-            tabDiv[i].classList.remove('active', 'show');
-        }
-        tabDiv[2].classList.add('active');
-        tabDiv[2].classList.add('show');
-        // document.querySelector('#review-tab').click();
-    }
+    // console.log('reviewOK : ' + reviewOK);
+    // if(reviewOK == 1){
+    //     for(let i=0;i<tabA.length;i++){
+    //         tabA[i].classList.remove('active');
+    //     }
+    //     tabA[2].classList.add('active');
+    //     for(let i=0;i<tabDiv.length;i++){
+    //         tabDiv[i].classList.remove('active', 'show');
+    //     }
+    //     tabDiv[2].classList.add('active');
+    //     tabDiv[2].classList.add('show');
+    //     // document.querySelector('#review-tab').click();
+    // }
     for(let i=0;i<btnRemove.length;i++){
         btnRemove[i].addEventListener("click", function(e){
             e.preventDefault();
@@ -431,25 +433,25 @@
             }
         })
     }
-    reviewBtn.addEventListener("click",function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        let reviewText = document.querySelector('#review_contents');
-
-        if(score == 0){
-            console.log(1);
-            document.querySelector('#star_ul').style.border = '1px solid lightblue'
-            return;
-        }
-        document.getElementById("rank").value=score;
-        if(reviewText.value==""){
-            console.log(2);
-            reviewText.focus();
-            return;
-        }
-        document.querySelector('#frmReviewRegist').submit();
-
-    })
+    // reviewBtn.addEventListener("click",function(e){
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     let reviewText = document.querySelector('#review_contents');
+    //
+    //     if(score == 0){
+    //         console.log(1);
+    //         document.querySelector('#star_ul').style.border = '1px solid lightblue'
+    //         return;
+    //     }
+    //     document.getElementById("rank").value=score;
+    //     if(reviewText.value==""){
+    //         console.log(2);
+    //         reviewText.focus();
+    //         return;
+    //     }
+    //     document.querySelector('#frmReviewRegist').submit();
+    //
+    // })
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
