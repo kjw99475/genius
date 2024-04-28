@@ -11,6 +11,7 @@ import java.util.List;
 public interface CartMapper {
     int regist(CartVO cartVO);
     int updateCart(CartVO cartVO);
+    int updateCart1(CartVO cartVO);
     int exist(String book_code);
     List<CartVO> listAll(String member_id);
     CartVO view(String user_id);

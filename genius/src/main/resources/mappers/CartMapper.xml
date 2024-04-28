@@ -29,4 +29,9 @@
         where book_code = #{book_code} and member_id=#{member_id}
     </update>
 
+    <update id="updateCart1">
+        UPDATE tbl_cart SET quantity = #{quantity}
+        where book_code = #{book_code} and member_id=#{member_id}
+    </update>
+
 </mapper>

@@ -81,7 +81,7 @@
                         <p>${bookDTO.book_info}</p>
                         <div class="product_count pt-2">
                             <label for="sst">수량 :</label>
-                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="${bookDTO.quantity}" title="Quantity:" class="input-text qty">
+                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="0" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
                             <button id="scrollTarget" class="button primary-outline-btn" type="button">바로 구매</button>

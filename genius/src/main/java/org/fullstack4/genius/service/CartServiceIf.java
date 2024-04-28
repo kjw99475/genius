@@ -11,6 +11,7 @@ public interface CartServiceIf {
     int regist(CartDTO cartDTO);
     int exist(String book_code);
     int updateCart(CartDTO cartDTO);
+    int updateCart1(CartDTO cartDTO);
     List<CartDTO> listAll(String member_id);
     CartDTO view(String user_id);
     int modify(CartDTO cartDTO);
