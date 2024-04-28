@@ -56,6 +56,7 @@
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button class="btn btn-success rounded purchase">구매하기</button>
                     </div>
+                    <form id="cartfrm" action="/order/payment">
                     <table class="table">
                         <colgroup>
                             <col width="65%" style="width: 65% !important; box-sizing: border-box" />
@@ -114,6 +115,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </form>
                     <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button type="button"  class="btn btn-success rounded purchase">구매하기</button>
@@ -168,7 +170,8 @@
     let purchase = document.querySelectorAll('.purchase');
     for(let pur of purchase) {
         pur.addEventListener('click', ()=> {
-            location.href = "/order/payment";
+            document.querySelector("#cartfrm").submit();
+            // location.href = "/order/payment";
         })
     }
 
@@ -215,10 +218,29 @@
         }
         return comma(total);
     }
-    // 부분 합계 업데이트 하는 로직
+    // 부분 합계 업데이트 및 db 실시간 업데이트하는 로직
     function calculateSubTotal(element, price) {
         // 인자로 단가를 넣어주면 수량으로 알아서 계산 하는 로직
+
+
         let qty = parseInt(element.value);
+        $.ajax({
+            url:"/mypage/addcart1.dox",
+            dataType:"json",
+            type : "POST",
+            data : {
+                "member_id":"${sessionScope['member_id']}",
+                "book_code":choice.value,
+                "quantity" :qty
+            },
+            success : function(data) {
+
+            },
+            fail : function (data){
+
+           }
+
+        });
         let total = price * qty;
         let target = element.parentElement.parentElement.parentElement.parentElement.querySelector('input.subtotal');
         target.value = comma(total);

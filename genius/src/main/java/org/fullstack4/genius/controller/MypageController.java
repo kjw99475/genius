@@ -117,6 +117,26 @@ public class MypageController {
 
         return new Gson().toJson(resultMap);
     }
+
+    @RequestMapping(value = "/addcart1.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String AddCart1(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+            CartDTO cartDTO = CartDTO.builder()
+                    .book_code(map.get("book_code").toString())
+                    .member_id(map.get("member_id").toString())
+                    .quantity(Integer.parseInt(map.get("quantity").toString()))
+                    .build();
+            int result = cartService.updateCart1(cartDTO);
+            if (result > 0) {
+                resultMap.put("result", "success");
+            } else {
+                resultMap.put("result", "fail");
+            }
+
+
+        return new Gson().toJson(resultMap);
+    }
     @PostMapping("/cart")
     public void POSTCart(){
 
