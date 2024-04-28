@@ -66,6 +66,7 @@
 
                             <!--Form -->
                             <form method="post" action="/admin/bbs/contentmodify">
+                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
@@ -107,10 +108,12 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="${bbsDTO.file}">
+                                        <c:if test="${bbsDTO.fileYN ne null}">
+                                            <input name="file" type="file" class="form-control" id="file"
+                                                   value="${bbsDTO.fileYN}">
+                                        </c:if>
                                     </div>
                                 </div>
 

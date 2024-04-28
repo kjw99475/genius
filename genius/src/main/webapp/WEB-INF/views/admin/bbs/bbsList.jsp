@@ -119,34 +119,22 @@
                                 </thead>
                                 <tbody>
 
-                                <c:if test="${bbsDTOlist ne null}">
-                                    <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                        <tr onclick="location.href='/admin/bbs/view'">
-                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
-                                            <td>${bbsDTO.bbs_title}</td>
-                                            <td>${bbsDTO.member_id}</td>
-                                            <td>${bbsDTO.reg_date}</td>
-                                            <td>${bbsDTO.read_cnt}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
-
-                                <tr onclick="location.href='/admin/bbs/view'">
-                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 31</td>
-                                    <td>글제목입니당<span class="bi bi-paperclip"></span></td>
-                                    <td>작성자아이디입니다</td>
-                                    <td>작성일입니다</td>
-                                    <td>99</td>
-                                </tr>
-
-                                <tr onclick="location.href='/admin/bbs/view'">
-                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 33</td>
-                                    <td>글제목입니당</td>
-                                    <td>작성자아이디입니다</td>
-                                    <td>작성일입니다</td>
-                                    <td>199</td>
-                                </tr>
-
+                                <c:choose>
+                                    <c:when test="${bbsDTOList ne null}">
+                                        <c:forEach items="${bbsDTOList}" var="bbsDTO">
+                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
+                                                <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                                <td>${bbsDTO.bbs_title}</td>
+                                                <td>${bbsDTO.member_id}</td>
+                                                <td>${bbsDTO.reg_date}</td>
+                                                <td>${bbsDTO.read_cnt}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr><td colspan="5">결과가 없습니다.</td></tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
