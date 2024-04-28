@@ -18,5 +18,15 @@
         where cart_idx=#{cart_idx} AND member_id=#{member_id}
     </delete>
 
+    <select id="exist" resultType="int">
+        SELECT COUNT(*)
+        from tbl_cart
+        where book_code=#{param1}
+    </select>
+
+    <update id="updateCart">
+        UPDATE tbl_cart SET quantity = quantity+#{quantity}
+        where book_code = #{book_code} and member_id=#{member_id}
+    </update>
 
 </mapper>

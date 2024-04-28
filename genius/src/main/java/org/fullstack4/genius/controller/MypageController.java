@@ -70,6 +70,45 @@ public class MypageController {
         model.addAttribute("list",dto);
     }
 
+
+    @RequestMapping(value = "/addcart.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String AddCart(@RequestParam HashMap<String,Object> map){
+        log.info("###################"+map.get("book_code").toString());
+        int exist = cartService.exist(map.get("book_code").toString());
+        log.info("###################"+exist);
+        int result = 0;
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        if(exist != 0){
+            CartDTO cartDTO = CartDTO.builder()
+                    .book_code(map.get("book_code").toString())
+                    .member_id(map.get("member_id").toString())
+                    .quantity(Integer.parseInt(map.get("quantity").toString()))
+                    .build();
+            result = cartService.updateCart(cartDTO);
+            if (result > 0) {
+                resultMap.put("result", "success");
+            } else {
+                resultMap.put("result", "fail");
+            }
+        }
+        else {
+            CartDTO cartDTO = CartDTO.builder()
+                    .book_code(map.get("book_code").toString())
+                    .member_id(map.get("member_id").toString())
+                    .quantity(Integer.parseInt(map.get("quantity").toString()))
+                    .build();
+            result = cartService.regist(cartDTO);
+            if (result > 0) {
+                resultMap.put("result", "success");
+            } else {
+                resultMap.put("result", "fail");
+            }
+        }
+        log.info("###################"+result);
+
+        return new Gson().toJson(resultMap);
+    }
     @PostMapping("/cart")
     public void POSTCart(){
 

@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="sorting">
-                            <button type="button" class="btn btn-success">장바구니에 담기</button>
+                            <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
                         </div>
                     </div>
                     <!-- Start Filter Bar -->
@@ -169,7 +169,7 @@
                                                 <li><button><i class="ti-shopping-cart"></i></button></li>
                                             </ul>
                                             <div class="form-check targetTo z-100">
-                                                <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch1">
+                                                <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -271,6 +271,35 @@
         checkbox.addEventListener('click', (e)=> {
             e.stopPropagation();
         })
+    }
+
+    /* 체크박스 장바구니 선택 로직*/
+    function cartChoices() {
+        let chooses = document.querySelectorAll('.choose');
+        for(let choice of chooses) {
+            if(choice.checked) {
+                    $.ajax({
+                        url:"/mypage/addcart.dox",
+                        dataType:"json",
+                        type : "POST",
+                        data : {
+                            "member_id":"${sessionScope['member_id']}",
+                            "book_code":choice.value,
+                            "quantity" :1
+                        },
+                        success : function(data) {
+                            alert("장바구니 성공");///문제가 있을수 있어용
+                        },
+                        fail : function (data){
+
+                        }
+
+                    });
+
+                console.log(choice.value);
+            }
+        }
+
     }
 </script>
 
