@@ -56,7 +56,6 @@
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button class="btn btn-success rounded purchase">구매하기</button>
                     </div>
-                    <form id="cartfrm" action="/order/payment">
                     <table class="table">
                         <colgroup>
                             <col width="65%" style="width: 65% !important; box-sizing: border-box" />
@@ -95,7 +94,7 @@
                                 <div class="product_count">
                                     <div class="product_count">
                                         <input type="number" name="qty" id="quantity1" maxlength="12" value="${list.quantity}" title="Quantity:"
-                                               class="input-text qty" onchange="calculateSubTotal(this, ${list.price})" min="0">
+                                               class="input-text qty" onchange="calculateSubTotal(this, ${list.price},'${list.book_code}')" min="0">
                                     </div>
                                 </div>
                             </td>
@@ -115,7 +114,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    </form>
                     <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button type="button"  class="btn btn-success rounded purchase">구매하기</button>
@@ -167,11 +165,22 @@
 
 <script>
     /* 테스트 용 */
+    let chooses = document.querySelectorAll('.choose');
     let purchase = document.querySelectorAll('.purchase');
     for(let pur of purchase) {
         pur.addEventListener('click', ()=> {
-            document.querySelector("#cartfrm").submit();
-            // location.href = "/order/payment";
+
+            let param = "?cart_idx=";
+            for(let choice of chooses) {
+
+                if(choice.checked) {
+                    console.log(choice.value);
+                    param = param+choice.value+"&cart_idx=";
+
+                }
+            }
+            console.log(param);
+            location.href = "/order/payment" +param;
         })
     }
 
@@ -199,7 +208,7 @@
 
     }
     // 선택 사항 변경 시 체크하는 로직
-    let chooses = document.querySelectorAll('.choose');
+    // let chooses = document.querySelectorAll('.choose');
     for (let choose of chooses) {
         choose.addEventListener('change', ()=> {
             let total = document.querySelector('#total');
@@ -219,7 +228,7 @@
         return comma(total);
     }
     // 부분 합계 업데이트 및 db 실시간 업데이트하는 로직
-    function calculateSubTotal(element, price) {
+    function calculateSubTotal(element, price,book_code) {
         // 인자로 단가를 넣어주면 수량으로 알아서 계산 하는 로직
 
 
@@ -230,7 +239,7 @@
             type : "POST",
             data : {
                 "member_id":"${sessionScope['member_id']}",
-                "book_code":choice.value,
+                "book_code":book_code,
                 "quantity" :qty
             },
             success : function(data) {

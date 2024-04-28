@@ -26,7 +26,6 @@ public class LogoutCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
-       log.info("Logout Check Filter");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
@@ -34,9 +33,7 @@ public class LogoutCheckFilter implements Filter {
         String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
 
         if (!member_id.equals("")) {
-            log.info("---------------------");
-            log.info("로그인 정보 있음");
-            log.info("---------------------");
+
             resp.sendRedirect("/");
             return;
         }

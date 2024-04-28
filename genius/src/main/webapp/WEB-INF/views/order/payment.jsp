@@ -67,8 +67,8 @@
                                     <h3>나의 포인트</h3>
                                 </div>
                                 <div>
-                                    <p> 현재 포인트 : <span>100,000,000</span></p>
-                                    <p> 결제 후 포인트 : <span>100,000,000</span></p>
+                                    <p> 현재 포인트 : <span>${memberdto.point}</span></p>
+                                    <p> 결제 후 포인트 : <span id="total">${memberdto.point-totalprice}</span></p>
                                 </div>
                             </div>
                             <div class="col-md-12 form-group">
@@ -120,25 +120,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach items="${dtolist}" var="list">
                                     <tr>
-                                        <td><small>프로젝트 헤일메리</small></td>
-                                        <td><small>1개</small></td>
-                                        <td><small>24,000원</small></td>
+                                        <td><small>${list.book_name}</small></td>
+                                        <td><small>${list.quantity}</small></td>
+                                        <td><small>${list.price}원</small></td>
                                     </tr>
-                                    <tr>
-                                        <td><small>악의</small></td>
-                                        <td><small>2개</small></td>
-                                        <td><small>36,000원</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td><small>너의 췌장을 먹고싶어</small></td>
-                                        <td><small>1개</small></td>
-                                        <td><small>24,000원</small></td>
-                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                             <ul class="list list_2">
-                                <li>총합 <span>84,000원</span></li>
+                                <li>총합 <span>${totalprice}원</span></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
@@ -149,7 +141,8 @@
                                 <p>위 주문 내용을 확인하였으며, 회원 본인은 개인정보 이용 및 제공 및 결제에 동의합니다.</p>
                             </div>
                             <div class="text-center">
-                                <a class="button button-paypal" href="#">결제하기</a>
+                                <button class="button button-paypal" onclick="purchase()">결제하기</button>
+<%--                                <a class="button button-paypal" href="#">결제하기</a>--%>
                             </div>
                         </div>
                     </div>
@@ -212,6 +205,27 @@
                 }
             }
         }).open();
+    }
+
+    function purchase(){
+        $.ajax({
+            url:"/order/payment.dox",
+            dataType:"json",
+            type : "POST",
+            data : {
+                "member_id":"${sessionScope['member_id']}",
+                "price":"${totalprice}",
+                "dtolist": "${dtolist}",
+                
+            },
+            success : function(data) {
+
+            },
+            fail : function (data){
+
+            }
+
+        });
     }
 </script>
 

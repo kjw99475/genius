@@ -13,7 +13,7 @@ public interface CartServiceIf {
     int updateCart(CartDTO cartDTO);
     int updateCart1(CartDTO cartDTO);
     List<CartDTO> listAll(String member_id);
-    CartDTO view(String user_id);
+    CartDTO view(int cart_idx);
     int modify(CartDTO cartDTO);
     int delete(CartDTO cartDTO);
     int CartTotalCount(String user_id, PageRequestDTO requestDTO);
