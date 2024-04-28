@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.MemberDTO;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.service.CartServiceIf;
 import org.fullstack4.genius.service.MemberServiceIf;
@@ -62,16 +63,33 @@ public class OrderController {
 
         String member_id = map.get("member_id").toString();
         MemberDTO dto = memberService.view(member_id);
+
+        //////////////회원정보 포인트 빠져나가기//////////////////
         PaymentDTO paymentDTO = PaymentDTO.builder()
                 .member_id(map.get("member_id").toString())
                 .price(Integer.parseInt("-"+map.get("price").toString()))
                 .build();
 
-        int a = 0;
-        a = a+paymentDTO.getPrice();
-        log.info("이거슨 테스트:" + a);
         paymentServiceIf.memberPay(paymentDTO);
+
+        /////////////////장바구니에서 빠져나가기///////////////////
         String test = map.get("dtolist").toString();
+        /////////////////주문 정보랑 상세 정보 insert ////////////
+
+        String order_num="";
+        OrderDTO orderDTO = OrderDTO.builder()
+                .member_id(member_id)
+                .order_num(order_num)
+                .book_code("")
+                .category_class_code("")
+                .category_subject_code("")
+                .order_state("배송 전")
+                .price(0)
+                .total_price(Integer.parseInt(map.get("price").toString()))
+                .build();
+
+
+
         log.info("dtolist : " +test);
 
 //        if (result > 0) {
