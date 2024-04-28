@@ -30,7 +30,7 @@
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
 <!--        <property name="jdbcUrl" value="jdbc:mariadb://10.41.2.198/genius"></property>-->
-        <property name="jdbcUrl" value="jdbc:mariadb://192.168.0.11:3306/genius"></property>
+        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius"></property>
         <property name="username" value="genius"></property>
         <property name="password" value="1234"></property>
         <property name="dataSourceProperties">
@@ -84,16 +84,5 @@
     <context:component-scan base-package="org.fullstack4.genius.service"></context:component-scan>
     <context:component-scan base-package="org.fullstack4.genius.aop"></context:component-scan>
 
-    <!-- 인터셉터 등록 -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/*" />
-            <bean id="autoLoginInterceptor" class="org.fullstack4.genius.interceptor.AutoLoginInterceptor" />
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/*" />
-            <bean id="testInterceptor" class="org.fullstack4.genius.interceptor.TestInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
 
 </beans>

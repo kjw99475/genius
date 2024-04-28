@@ -17,4 +17,8 @@
     <update id="pointcharge">
         update SET tbl_member point=#{point} where member_id=#{member_id}
     </update>
+    <insert id="join">
+        INSERT INTO tbl_member (member_id, member_name, pwd, birthday, phone, gender, zip_code, addr1, addr2, admin_YN, terms1, terms2, terms3, terms4)
+        VALUES (#{member_id}, #{member_name}, #{pwd}, #{birthday}, #{phone}, #{gender}, #{zip_code}, #{addr1}, #{addr2}, 'N', #{terms1}, #{terms2}, #{terms3}, #{terms3})
+    </insert>
 </mapper>
