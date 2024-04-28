@@ -64,7 +64,6 @@
                                             <label class="bg-geni text-white rounded-circle shadow-sm icon_geni middle d-flex align-items-center justify-content-center" for="profile"><i class="ti-settings"></i></label>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="mb-5">
                                     <div class="col-md-12 form-group">
@@ -125,6 +124,10 @@
                                     <button type="submit" class="btn btn-success w-100">수정하기</button>
                                     <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/'">취소</button>
                                 </div>
+                                <div class="pt-3 d-flex flex-column mt-4 justify-content-center align-items-center" style="gap : 10px">
+                                    <small>설마 탈퇴는 아니겠죠...?😱</small>
+                                    <button type="button" class="btn btn-outline-dark w-100" onclick="leave()">탈퇴하기</button>
+                                </div>
                             </form>
                         </div>
 
@@ -152,6 +155,17 @@
             $('#profile_img').attr('src', e.target.result);
         }
         reader.readAsDataURL(files[0]);
+    }
+
+    function leave() {
+        if(confirm("정말로 탈퇴하실건가요?")) {
+            let frm = document.createElement('form');
+            frm.action = '/member/leave';
+            frm.method = 'post';
+            frm.id = 'leaveFrm';
+            document.body.append(frm);
+            document.querySelector('#leaveFrm').submit();
+        }
     }
 </script>
 <!-- 다음 주소 api -->

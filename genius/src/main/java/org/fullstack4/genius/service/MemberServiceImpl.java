@@ -41,14 +41,11 @@ public class MemberServiceImpl implements MemberServiceIf {
         return memberDTO;
     }
 
-    @Override
-    public int update(MemberDTO memberDTO) {
-        return 0;
-    }
 
     @Override
-    public int leave(String user_id) {
-        return 0;
+    public int leave(String member_id) {
+        int result = memberMapper.leave(member_id);
+        return result;
     }
 
     @Override

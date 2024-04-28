@@ -23,4 +23,5 @@ public interface MemberMapper {
     String findPwd(MemberVO memberVO);
     int changePwd(MemberVO memberVO);
     int modifyInfo(MemberVO memberVO);
+    int leave(String member_id);
 }

@@ -4,6 +4,8 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.CookieUtil;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @Log4j2
@@ -61,6 +66,22 @@ public class MemberController {
         return new Gson().toJson(resultMap);
     }
 
+    @PostMapping("/leave")
+    public String leave(HttpServletRequest request,
+                        HttpServletResponse response,
+                        RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
+        int result = memberService.leave(member_id);
+        if(result > 0) {
+            session.invalidate();
+            CookieUtil.setDeleteCookie(response, "auto_login");
+            return "redirect:/mypage/mypage";
+        } else {
+            redirectAttributes.addFlashAttribute("err", "회원 탈퇴 실패");
+            return "redirect:/mypage/mypage";
+        }
+    }
 
 
 }
