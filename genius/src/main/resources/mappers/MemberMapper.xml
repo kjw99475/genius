@@ -36,4 +36,17 @@
         SET pwd = #{pwd}
         WHERE member_id = #{member_id}
     </update>
+    <update id="modifyInfo">
+        UPDATE tbl_member
+        SET member_name = #{member_name},
+            pwd = #{pwd},
+            birthday = #{birthday},
+            email = #{email},
+            phone = #{phone},
+            gender = #{gender},
+            zip_code = #{zip_code},
+            addr1 = #{addr1},
+            addr2 = #{addr2}
+        WHERE member_id = #{member_id}
+    </update>
 </mapper>

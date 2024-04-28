@@ -57,10 +57,10 @@
                         <h3>주문자 정보</h3>
                         <form class="row contact_form" action="#" method="post" novalidate="novalidate">
                             <div class="col-md-12 form-group d-flex align-items-baseline">
-                                <label class="w-100px">이름 : </label><input value="장지현" type="text" class="form-control border-0" id="name" name="name" placeholder="이름을 입력해주세요" disabled>
+                                <label class="w-100px">이름 : </label><input value="${memberdto.member_id}" type="text" class="form-control border-0" id="name" name="name" placeholder="이름을 입력해주세요" disabled>
                             </div>
                             <div class="col-md-12 form-group d-flex align-items-baseline">
-                                <label class="w-100px">연락처 : </label><input value="010-8467-6191" type="tel" class="form-control border-0" id="phone" name="phone" placeholder="연락처를 입력해주세요" disabled>
+                                <label class="w-100px">연락처 : </label><input value="${memberdto.phone}" type="tel" class="form-control border-0" id="phone" name="phone" placeholder="연락처를 입력해주세요" disabled>
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">
@@ -75,25 +75,25 @@
                                 <div class="creat_account">
                                     <h3>배송지 정보</h3>
                                     <div class="col-md-12 form-group d-flex align-items-baseline">
-                                        <label class="w-100px">이름 : </label><input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해주세요">
+                                        <label class="w-100px">이름 : </label><input type="text" class="form-control" id="name1" name="name" value="${memberdto.member_id}">
                                     </div>
                                     <div class="col-md-12 form-group d-flex align-items-baseline">
-                                        <label class="w-100px">연락처 : </label><input type="tel" class="form-control" id="phone" name="phone" placeholder="연락처를 입력해주세요">
+                                        <label class="w-100px">연락처 : </label><input type="tel" class="form-control" id="phone1" name="phone" value="${memberdto.phone}">
                                     </div>
                                     <div  class="col-md-12 form-group d-flex w-100  align-items-baseline">
                                         <label class="w-100px">주소 : </label>
                                         <div class="form-control border-0 p-0">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                <input type="text" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()" value="${memberdto.zip_code}">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <input type="email" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" value="${memberdto.addr1}">
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                <input type="email" class="form-control" id="sample4_detailAddress"  placeholder="상세주소" value="${memberdto.addr2}">
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
