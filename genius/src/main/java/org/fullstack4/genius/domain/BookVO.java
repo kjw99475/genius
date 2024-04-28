@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Log4j2///실제 배포시에 넣지마
 @ToString
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
