@@ -43,6 +43,7 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
                 System.out.println("====================== memberServiceIf2222 : " + memberServiceIf);
                 System.out.println("autoLogin memberDTO : " + memberDTO);
                 if (memberDTO != null) {
+                    session = request.getSession();
                     session.setAttribute("member_id", memberDTO.getMember_id());
                     session.setAttribute("admin_YN", memberDTO.getAdmin_YN());
                     log.info("======================= Auto Login Interceptor : 자동 로그인 완료");

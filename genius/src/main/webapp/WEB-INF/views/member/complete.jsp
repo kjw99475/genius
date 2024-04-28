@@ -43,10 +43,10 @@
                     <div class="login_form_inner rounded">
                         <h2 class="d-flex justify-content-center align-items-center flex-wrap pb-5">회원가입</h2>
                         <img src="/resources/img/join2.png" width="100%" />
-                        <div class="container text-left pt-5 pb-5">
+                        <div class="container pt-5 pb-5">
                             <div>
-                                <p>환영합니다😍</p>
-                                <h1><span>장지현</span>님 가입이 완료되었습니다.</h1>
+                                <h3 class="p-1 m-0">환영합니다😍</h3>
+                                <h2 class="p-1 mb-3"><span>${param['member_name']}</span>님 가입이 완료되었습니다.</h2>
                                 <div class="rounded bg-light p-5">
                                     <p>앞으로 많은 활동 부탁드립니다.</p>
                                     <p>저희 genius에서 함께 성장해나가요⭐</p>
