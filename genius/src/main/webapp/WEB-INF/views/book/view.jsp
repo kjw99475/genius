@@ -195,7 +195,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show tab-div" id="review" role="tabpanel" aria-labelledby="review-tab">
+                <div class="tab-pane fade tab-div" id="review" role="tabpanel" aria-labelledby="review-tab">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row total_rate">
@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="review_list">
+                            <div class="review_list" id="review_list">
                                 <c:forEach items="${reviewList}" var="review">
                                     <div class="review_item">
                                         <div class="media">
@@ -241,11 +241,11 @@
                                         <p>${review.review_contents}</p>
 
                                         <div class="pt-2 pb-2">
-                                            <form action="/review/delete" method="post" id="frmRegistReview" name="frmRegistReview">
+                                            <form action="/review/delete" method="post" name="frmRegistReview">
                                                 <input type="hidden" value="${review.review_idx}" name="review_idx">
                                                 <input type="hidden" value="${review.book_code}" name="book_code">
                                                 <c:if test="${review.member_id == 'test'}">
-                                                    <button type="button" class="btn btn-sm btnRemove">삭제</button>
+                                                    <button type="submit" class="btn btn-sm btnRemove">삭제</button>
                                                 </c:if>
                                             </form>
 
@@ -339,6 +339,27 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    let stars = document.querySelectorAll('.star-list li a');
+    let realStars =  document.querySelectorAll('.star-list li a i');
+    let score=0;
+    let reviewBtn = document.querySelector('#reviewBtn');
+    let reviewTab = document.querySelector('#review-tab');
+    let reviewOK = "<c:out value='${param.registOK}'/>"
+    let btnRemove = document.querySelectorAll('.btnRemove');
+    let tabA = document.querySelectorAll('.tab-a');
+    let tabDiv = document.querySelectorAll('.tab-div');
+    function reviewTAB(){
+            for(let i=0;i<tabA.length;i++){
+                tabA[i].classList.remove('active');
+            }
+            tabA[2].classList.add('active');
+            for(let i=0;i<tabDiv.length;i++){
+                tabDiv[i].classList.remove('active', 'show');
+            }
+            tabDiv[2].classList.add('active');
+            tabDiv[2].classList.add('show');
+            // document.querySelector('#review-tab').click();
+    }
 
     $(document).ready(function() {
         // 버튼 클릭 이벤트를 처리합니다.
@@ -361,10 +382,8 @@
                         // let regist = response.registOK;
                         if(data == 1){
                             console.log('dddd');
-                            $('#review-tab').tab('show');
                         }
-                        // $('#review').tab
-                        // location.href=response[0];
+
                     },
                     error: function(xhr, status, error) {
                         // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
@@ -372,7 +391,6 @@
                     }
                 });
             });
-
     });
     // function reviewregist(){
     //     $.ajax({
@@ -387,15 +405,7 @@
     //         }
     //     });
     // }
-    let stars = document.querySelectorAll('.star-list li a');
-    let realStars =  document.querySelectorAll('.star-list li a i');
-    let score=0;
-    let reviewBtn = document.querySelector('#reviewBtn');
-    let reviewTab = document.querySelector('#review-tab');
-    let reviewOK = "<c:out value='${param.registOK}'/>"
-    let btnRemove = document.querySelectorAll('.btnRemove');
-    let tabA = document.querySelectorAll('.tab-a');
-    let tabDiv = document.querySelectorAll('.tab-div');
+
     // console.log('reviewOK : ' + reviewOK);
     // if(reviewOK == 1){
     //     for(let i=0;i<tabA.length;i++){
@@ -413,9 +423,13 @@
         btnRemove[i].addEventListener("click", function(e){
             e.preventDefault();
             if(confirm('해당 리뷰를 삭제 하시겠습니까?')){
-                document.querySelector('#frmRegistReview').submit();
+                this.parentNode.submit();
             }
         });
+    }
+    function reviewDel(event){
+        event.preventDefault();
+
     }
 
     for(let star of stars) {
@@ -426,6 +440,7 @@
                 realStars[i].classList.remove('stars');
             }
             score = star.dataset.score;
+            document.getElementById("rank").value = score;
             console.log(star);
             console.log(score);
             for(let i = 0; i < score; i++) {
