@@ -65,6 +65,7 @@
 
                             <!--Form -->
                             <form method="post" id="frm_bbs_delete" action="/admin/bbs/delete">
+                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
@@ -108,8 +109,10 @@
                                 <div class="row mb-3">
                                     <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="${bbsDTO.file}" readonly>
+                                        <c:if test="${bbsDTO.fileYN ne null}">
+                                            <input name="file" type="file" class="form-control" id="file"
+                                                   value="${bbsDTO.fileYN}" readonly>
+                                        </c:if>
                                     </div>
                                 </div>
 
@@ -125,7 +128,7 @@
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-end">
                                             <button type="button" class="btn btn-success me-2"
-                                                    onclick="location.href='/admin/bbs/contentmodify'">수정
+                                                    onclick="location.href='/admin/bbs/contentmodify?bbs_idx=${bbsDTO.bbs_idx}'">수정
                                             </button>
                                             <button type="button" class="btn btn-success" onclick="bbs_delete()">
                                                 삭제
@@ -138,14 +141,14 @@
 
                             <div class="mt-5">
                                 <table class="table">
-                                    <tr onclick="location.href='/admin/bbs/view'">
+                                    <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
                                         <td class="col-2">다음글</td>
                                         <td class="col-1">34${postbbsDTO.bbs_idx}</td>
                                         <td class="col-6">담글제목${postbbsDTO.bbs_title}</td>
                                         <td class="col-3">2024-07-06${postbbsDTO.reg_date}</td>
                                     </tr>
 
-                                    <tr onclick="location.href='/admin/bbs/view'">
+                                    <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
                                         <td class="col-2">이전글</td>
                                         <td class="col-1">32${prebbsDTO.bbs_idx}</td>
                                         <td class="col-6">전글제목${prebbsDTO.bbs_title}</td>

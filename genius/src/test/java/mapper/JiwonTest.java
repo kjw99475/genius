@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
@@ -22,30 +23,55 @@ import java.util.List;
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
 public class JiwonTest {
     @Autowired(required = false)
-    private BookMapper bookMapper;
-    @Autowired(required = false)
     private BbsMapper bbsMapper;
 
     @Autowired(required = false)
     private ReviewMapper reviewMapper;
 
     @Test
-    public void testTotalCount(){
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .page(1)
-                .page_size(4)
-                .build();
-        int total_count = bookMapper.BookTotalCount(pageRequestDTO);
+    public void testBbsList(){
+        List<BbsVO> list = bbsMapper.listAll();
         log.info("=================================");
-        log.info("testBbsTotalCount : " + total_count);
+        log.info(list.size());
         log.info("=================================");
     }
 
     @Test
-    public void testBookList(){
-        List<BbsVO> list = bbsMapper.listAll();
+    public void testBbs(){
+        int result = bbsMapper.regist(BbsVO.builder()
+                        .bbs_title("테스트 제목33")
+                        .category_code("bc01")
+                        .member_id("홍길동")
+                        .bbs_contents("테서터 내용")
+                        .reg_date(LocalDate.parse("2024-04-28"))
+                        .fileYN("N")
+                .build());
+        log.info("==================================");
+        log.info(result);
+    }
+
+    @Test
+    public void testBbsView(){
+        BbsVO bbsVO = bbsMapper.view(1);
         log.info("=================================");
-        log.info(list);
+        log.info(bbsVO.toString());
+    }
+
+    @Test
+    public void testBbsModify(){
+        int result = bbsMapper.modify(BbsVO.builder()
+                        .bbs_idx(4)
+                        .bbs_title("제목수정테스트")
+                        .bbs_contents("내용수정테스트")
+                        .fileYN("N")
+                        .reg_date(LocalDate.parse("2024-04-29"))
+                .build());
         log.info("=================================");
+        log.info(result);
+    }
+
+    @Test
+    public void testBbsDelete() {
+        int result = bbsMapper.delete(8);
     }
 }
