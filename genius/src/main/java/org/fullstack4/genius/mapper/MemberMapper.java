@@ -19,4 +19,7 @@ public interface MemberMapper {
     List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
 
     MemberVO login(String member_id);
+    String findId(MemberVO memberVO);
+    String findPwd(MemberVO memberVO);
+    int changePwd(MemberVO memberVO);
 }

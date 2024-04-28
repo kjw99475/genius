@@ -86,19 +86,70 @@ public class LoginController {
     }
 
     @PostMapping("/findId")
-    public void POSTFindId(){
-
+    public String POSTFindId(MemberDTO memberDTO,
+                          RedirectAttributes redirectAttributes){
+        log.info("---------------------");
+        log.info("LoginController => POSTFindId()");
+        String member_id = memberServiceIf.findId(memberDTO);
+        log.info("---------------------");
+        if (member_id != null) {
+            redirectAttributes.addAttribute("member_id", member_id);
+            redirectAttributes.addAttribute("type", "findId");
+            return "redirect:/login/findResult";
+        } else {
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+            redirectAttributes.addFlashAttribute("Err", "없는 회원 입니다.");
+            return "redirect:/login/findId";
+        }
     }
 
-    @GetMapping("/findPwd")
-    public void GETFindPwd(){
 
+
+    @GetMapping("/findPwd")
+    public String GETFindPwd(@RequestParam(name = "type", defaultValue = "1") String type){
+        if(type.equals("2")) {
+            return "/login/findPwd2";
+        } else {
+            return "/login/findPwd1";
+        }
     }
 
     @PostMapping("/findPwd")
-    public void POSTFindPwd(){
-
+    public String POSTFindPwd(MemberDTO memberDTO,
+                              RedirectAttributes redirectAttributes){
+        log.info("---------------------");
+        log.info("LoginController => POSTFindPwd()");
+        String member_id = memberServiceIf.findPwd(memberDTO);
+        log.info("---------------------");
+        if (member_id != null) {
+            redirectAttributes.addAttribute("member_id", member_id);
+            redirectAttributes.addAttribute("type", "2");
+            return "redirect:/login/findPwd";
+        } else {
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+            redirectAttributes.addFlashAttribute("Err", "없는 회원 입니다.");
+            return "redirect:/login/findPwd";
+        }
     }
 
+    @PostMapping("/changePwd")
+    public String POSTChangePwd(MemberDTO memberDTO,
+                              RedirectAttributes redirectAttributes){
+        log.info("---------------------");
+        log.info("LoginController => POSTChangePwd()");
+        int result = memberServiceIf.changePwd(memberDTO);
+        log.info("---------------------");
+        if (result > 0) {
+            redirectAttributes.addAttribute("type", "findPwd");
+            return "redirect:/login/findResult";
+        } else {
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+            redirectAttributes.addFlashAttribute("Err", "비밀번호 변경 실패");
+            return "redirect:/login/findPwd";
+        }
+    }
+
+    @GetMapping("/findResult")
+    public void GETFindResult() {}
 
 }

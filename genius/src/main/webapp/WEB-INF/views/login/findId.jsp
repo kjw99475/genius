@@ -35,11 +35,39 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section-margin">
         <div class="container">
-            <h1>로그인 > 아이디 찾기</h1>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="login_form_inner rounded">
+                        <h3 class="d-flex justify-content-center align-items-center flex-wrap">
+                            아이디 찾기
+                        </h3>
+                        <form class="row login_form mb-5" method="post" action="/login/findId" id="frm" >
+                            <div class="col-md-12 form-group text-left">
+                                <label>이름</label>
+                                <input type="text" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                            </div>
+                            <div class="col-md-12 form-group text-left">
+                                <label>이메일</label>
+                                <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                            </div>
+                            <div class="col-md-12 form-group d-flex flex-column" style="gap:50px">
+                                <button type="submit" class="btn btn-success w-100">아이디 찾기</button>
+                                <div>
+                                    <span class="mb-1">계정이 없으신가요?</span>
+                                    <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+    <!--================End Login Box Area =================-->
 </main>
 <!--================ 본문 END =================-->
 
@@ -50,7 +78,11 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
+<script>
+    if(${!empty Err}) {
+        alert('${Err}');
+    }
+</script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>

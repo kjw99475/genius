@@ -35,11 +35,40 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section-margin">
         <div class="container">
-            <h1>로그인 > 비밀번호 찾기</h1>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="login_form_inner rounded">
+                        <div class="mb-4">
+                            <h3 class="d-flex justify-content-center align-items-center flex-wrap m-0 pb-1">
+                                비밀번호 변경
+                            </h3>
+                        </div>
+                        <div class="p-4 ml-4 mr-4 mb-4 rounded bg-light d-flex justify-content-center align-items-center flex-wrap">
+                            <p class="p-0 m-0">확인된 계정 : ${param['member_id']}</p>
+                        </div>
+                        <form class="row login_form mb-5" method="post" action="/login/changePwd" id="frm" >
+                            <input type="hidden" name="member_id" value="${param['member_id']}">
+                            <div class="col-md-12 form-group text-left">
+                                <label>새 비밀번호</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                            </div>
+                            <div class="col-md-12 form-group text-left">
+                                <label>비밀번호 확인</label>
+                                <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                            </div>
+                            <div class="col-md-12 form-group d-flex flex-column" style="gap:50px">
+                                <button type="submit" class="btn btn-success w-100">비밀번호 변경</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+    <!--================End Login Box Area =================-->
 </main>
 <!--================ 본문 END =================-->
 
@@ -50,6 +79,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>

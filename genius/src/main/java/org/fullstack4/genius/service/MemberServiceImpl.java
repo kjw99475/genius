@@ -71,4 +71,40 @@ public class MemberServiceImpl implements MemberServiceIf {
         }
         return memberDTO;
     }
+
+    @Override
+    public String findId(MemberDTO memberDTO) {
+        MemberVO memberVO = null;
+        if (memberDTO != null) {
+            memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        }
+        String result = memberMapper.findId(memberVO);
+        log.info("MemberServiceImpl >>>>> findId ");
+        log.info("result : " + result);
+        return result;
+    }
+
+    @Override
+    public String findPwd(MemberDTO memberDTO) {
+        MemberVO memberVO = null;
+        if (memberDTO != null) {
+            memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        }
+        String result = memberMapper.findPwd(memberVO);
+        log.info("MemberServiceImpl >>>>> findPwd ");
+        log.info("result : " + result);
+        return result;
+    }
+
+    @Override
+    public int changePwd(MemberDTO memberDTO) {
+        MemberVO memberVO = null;
+        if (memberDTO != null) {
+            memberVO = modelMapper.map(memberDTO, MemberVO.class);
+        }
+        int result = memberMapper.changePwd(memberVO);
+        log.info("MemberServiceImpl >>>>> changePwd ");
+        log.info("result : " + result);
+        return result;
+    }
 }
