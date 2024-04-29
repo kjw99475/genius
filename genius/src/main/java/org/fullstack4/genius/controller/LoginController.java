@@ -156,7 +156,7 @@ public class LoginController {
     @GetMapping("/naver")
     public String GETNaverLogin(HttpServletRequest request,
                                 RedirectAttributes redirectAttributes) {
-        MemberDTO memberDTO = memberServiceIf.naver(request);
+        MemberDTO memberDTO = memberServiceIf.naverLogin(request);
         if (memberDTO != null) {
             HttpSession session = request.getSession();
             session.setAttribute("member_id", memberDTO.getMember_id());
