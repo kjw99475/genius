@@ -44,8 +44,11 @@ public class ReviewServiceImpl implements ReviewServiceIf{
     }
 
     @Override
-    public int delete(int idx) {
+    @Transactional
+    public int delete(int idx, String book_code) {
+        log.info("reviewDelete idx : " + idx);
         int result = reviewMapper.delete(idx);
+        int rank_result = reviewMapper.updateAvg(book_code);
         return result;
     }
 

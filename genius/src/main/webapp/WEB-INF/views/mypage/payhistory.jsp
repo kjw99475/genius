@@ -35,11 +35,370 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
-        <div class="container">
-            <h1>마이페이지 > 나의 결제내역</h1>
+    <!-- ================ start banner area ================= -->
+    <section class="bg-img2 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">결제 내역</h1>
+                    <span class=" text-white">My Order</span>
+                </div>
+            </div>
         </div>
     </section>
+    <!-- ================ End banner area ================= -->
+
+    <!-- ============= 결제 내역 Start ============= -->
+    <section class="section-margin--small">
+        <div class="container">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0 p-3 d-flex justify-content-between"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <div class="d-flex flex-column" style="gap:10px">
+                                <span><small>2024-04-27 15:09:00</small><small> | 총 3건</small></span>
+
+                                <span> 55,000원</span>
+                            </div>
+                            <div class="d-flex flex-column align-items-end" style="gap:10px">
+                                <small>주문완료</small>
+                                <button class="btn btn-success" type="button">주문취소</button>
+                            </div>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <table class="table">
+                                <colgroup>
+                                    <col width="55%" style="width: 55% !important; box-sizing: border-box" />
+                                    <col span="3" width="15%" style="width: 15% !important; box-sizing: border-box"  />
+                                </colgroup>
+                                <thead class="bg-geni-ft">
+                                <tr>
+                                    <th scope="col" >상품명</th>
+                                    <th scope="col" >단가</th>
+                                    <th scope="col" >수량</th>
+                                    <th scope="col" >합계</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product1.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>중학 보건</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>10,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>10,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product2.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>고등학교 기본 수학</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>20,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>20,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product3.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>고등학교 기술가정</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>55,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>55,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h5>총계</h5>
+                                    </td>
+                                    <td class="text-right" colspan="2">
+                                        <h5>85,000원</h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0 p-3 d-flex justify-content-between"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            <div class="d-flex flex-column" style="gap:10px">
+                                <span><small>2024-04-27 15:09:00</small><small> | 총 3건</small></span>
+
+                                <span> 55,000원</span>
+                            </div>
+                            <div class="d-flex flex-column align-items-end" style="gap:10px">
+                                <small>배송완료</small>
+                                <button class="btn btn-outline-success" type="button">환불</button>
+                            </div>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <table class="table">
+                                <colgroup>
+                                    <col width="55%" style="width: 55% !important; box-sizing: border-box" />
+                                    <col span="3" width="15%" style="width: 15% !important; box-sizing: border-box"  />
+                                </colgroup>
+                                <thead class="bg-geni-ft">
+                                <tr>
+                                    <th scope="col" >상품명</th>
+                                    <th scope="col" >단가</th>
+                                    <th scope="col" >수량</th>
+                                    <th scope="col" >합계</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product1.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>중학 보건</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>10,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>10,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product2.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>고등학교 기본 수학</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>20,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>20,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="d-flex">
+                                                <img class="img-w100" src="/resources/img/product/product3.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>고등학교 기술가정</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>55,000원</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>1</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p>55,000원</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h5>총계</h5>
+                                    </td>
+                                    <td class="text-right" colspan="2">
+                                        <h5>85,000원</h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0 p-3 d-flex justify-content-between"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <div class="d-flex flex-column" style="gap:10px">
+                            <span><small>2024-04-26 18:19:00</small><small> | 총 3건</small></span>
+
+                            <span> 55,000원</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-end" style="gap:10px">
+                            <small>주문취소</small>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <table class="table">
+                            <colgroup>
+                                <col width="55%" style="width: 55% !important; box-sizing: border-box" />
+                                <col span="3" width="15%" style="width: 15% !important; box-sizing: border-box"  />
+                            </colgroup>
+                            <thead class="bg-geni-ft">
+                            <tr>
+                                <th scope="col" >상품명</th>
+                                <th scope="col" >단가</th>
+                                <th scope="col" >수량</th>
+                                <th scope="col" >합계</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <td>
+                                    <div class="media align-items-center">
+                                        <div class="d-flex">
+                                            <img class="img-w100" src="/resources/img/product/product1.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>중학 보건</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <p>10,000원</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>1</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>10,000원</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="media align-items-center">
+                                        <div class="d-flex">
+                                            <img class="img-w100" src="/resources/img/product/product2.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>고등학교 기본 수학</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <p>20,000원</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>1</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>20,000원</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="media align-items-center">
+                                        <div class="d-flex">
+                                            <img class="img-w100" src="/resources/img/product/product3.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>고등학교 기술가정</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <p>55,000원</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>1</p>
+                                </td>
+                                <td class="align-middle">
+                                    <p>55,000원</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h5>총계</h5>
+                                </td>
+                                <td class="text-right" colspan="2">
+                                    <h5>85,000원</h5>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <!--================페이징 내역 Start =================-->
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">01</a>
+            </li>
+            <li class="page-item active">
+                <a href="#" class="page-link">02</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">03</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">04</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">09</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--================페이징 내역 End =================-->
+    <!--  ============= 결제 내역 End =============  -->
 </main>
 <!--================ 본문 END =================-->
 

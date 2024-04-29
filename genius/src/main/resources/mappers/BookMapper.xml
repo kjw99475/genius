@@ -61,7 +61,7 @@
         ON tb.category_class_code = tcc.category_code
         INNER JOIN tbl_subject_category AS tsc
         ON tb.category_subject_code = tsc.category_code
-        where book_idx = ${idx}
+        where book_code = #{book_code}
     </select>
     <delete id="delete">
         DELETE
@@ -72,6 +72,27 @@
         SELECT COUNT(*) FROM tbl_book
         <include refid="whereCondition"></include>
     </select>
+    <update id="modify">
+        UPDATE tbl_book SET
+                book_name = #{book_name},
+                author = #{author},
+                quantity = #{quantity},
+                sales_start_date = #{sales_start_date},
+                sales_end_date = #{sales_end_date},
+                sales_status = #{sales_status},
+                publisher = #{publisher},
+                book_info = #{book_info},
+                price = #{price},
+                category_class_code = #{category_class_code},
+                category_subject_code = #{category_subject_code},
+                contents = #{contents},
+                publication_date = #{publication_date},
+                discount_per = #{discount_per},
+                discount_price = #{discount_price},
+                book_img = #{book_img},
+                video = #{video}
+        WHERE book_idx = #{book_idx}
+    </update>
     <select id="BookListByPage" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT book_idx, book_code, book_name, author, price, quantity, category_class_code, category_subject_code, sales_start_date,
         sales_end_date, sales_status, book_img, publisher, discount_price, discount_per, rank_avg, video, tags

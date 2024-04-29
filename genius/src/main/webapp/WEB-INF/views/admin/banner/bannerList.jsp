@@ -20,7 +20,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/resources/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +37,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -46,7 +47,7 @@
         <h1>배너 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="admin/admin">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item">게시판 관리</li>
                 <li class="breadcrumb-item active">배너 관리</li>
             </ol>
@@ -65,17 +66,19 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <div class="row mb-3">
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_start">
+                                        <div class="col-3"><input class="form-control" type="date" name="search_type"
+                                                                  id="banner_start">
                                         </div>
                                         ~
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_end">
+                                        <div class="col-3"><input class="form-control" type="date" name="search_type"
+                                                                  id="banner_end">
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="row">
 
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <select name="search_category" id="search_category" class="form-select">
                                             <option selected>전체</option>
                                             <option value="banner_name">배너 이름</option>
@@ -84,21 +87,27 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                        <input type="text" class="form-control" placeholder="검색어" name="search_word"
+                                               id="search_word">
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success"
-                                                onclick="location.href='/admin/banner/bannerRegist'">등록</button>
                                     </div>
                                 </div>
 
                             </div>
                         </form>
 
+                        <div class="col-2 mb-2">
+                            <select class="form-select">
+                                <option value="5">5개씩 보기</option>
+                                <option value="10" selected>10개씩 보기</option>
+                                <option value="100">100개씩 보기</option>
+                            </select>
+                        </div>
 
                         <!-- Table with stripped rows -->
-                        <table class="table " style="overflow: scroll;">
+                        <table class="table">
                             <thead>
                             <tr>
                                 <th>배너 이름</th>
@@ -109,12 +118,12 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${bammerDTOList}" var="bannerDTO">
-                            <tr onclick="location.href='/admin/banner/bannerModify'">
-                                <td>${bannerDTO.banner_name}</td>
-                                <td>${bannerDTO.banner_start} ~ ${bannerDTO.banner_end}</td>
-                                <td>${bannerDTO.banner_rank}</td>
-                                <td>${bannerDTO.banner_use}</td>
-                            </tr>
+                                <tr onclick="location.href='/admin/banner/bannerModify'">
+                                    <td>${bannerDTO.banner_name}</td>
+                                    <td>${bannerDTO.banner_start} ~ ${bannerDTO.banner_end}</td>
+                                    <td>${bannerDTO.banner_rank}</td>
+                                    <td>${bannerDTO.banner_use}</td>
+                                </tr>
                             </c:forEach>
 
                             <tr onclick="location.href='/admin/banner/bannerModify'">
@@ -123,23 +132,38 @@
                                 <td>1</td>
                                 <td>사용</td>
                             </tr>
-
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
 
-                        <!-- Basic Pagination -->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                        <!-- End Basic Pagination -->
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success"
+                                    onclick="location.href='/admin/banner/bannerRegist'">등록
+                            </button>
+                        </div>
 
+
+                        <div class="d-flex justify-content-center">
+                            <!-- Pagination with icons -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav><!-- End Pagination with icons -->
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,11 +174,11 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->

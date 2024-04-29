@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wkdwl
@@ -12,14 +13,35 @@
         <nav class="navbar navbar-expand-lg navbar-light flex-column full_wrap">
             <div class="bg-geni full_wrap">
                 <div class="container text-white d-flex justify-content-end">
-                    <a href="/login/login" class="p-2 text-white">로그인</a>
-                    <a href="/member/join" class="p-2 text-white">회원가입</a>
+                    <c:choose>
+                        <c:when test="${!empty sessionScope['member_id']}">
+                            <a href="#" class="p-2 text-white" onclick="logout()">로그아웃</a>
+                            <a href="/mypage/mypage" class="p-2 text-white">마이페이지</a>
+                            <a href="/mypage/payhistory" class="p-2 text-white">결제내역</a>
+                            <c:if test="${sessionScope['admin_YN'] == 'Y'}">
+                                <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
+                            </c:if>
+                            <script>
+                                function logout() {
+                                    let frm = document.createElement('form');
+                                    let input = document.createElement('input');
+                                    frm.action = '/login/logout';
+                                    frm.method = 'post';
+                                    frm.id = 'frm';
+                                    input.name = 'member_id';
+                                    input.value = '${sessionScope['member_id']}';
+                                    frm.append(input);
+                                    document.body.append(frm);
+                                    document.getElementById('frm').submit();
+                                }
+                            </script>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/login/login" class="p-2 text-white">로그인</a>
+                            <a href="/member/join" class="p-2 text-white">회원가입</a>
+                        </c:otherwise>
+                    </c:choose>
                     <a href="/company/map" class="p-2 text-white">오시는길</a>
-                    <a href="#" class="p-2 text-white">로그아웃</a>
-                    <a href="/mypage/mypage" class="p-2 text-white">마이페이지</a>
-                    <a href="/mypage/payhistory" class="p-2 text-white">결제내역</a>
-                    <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
-                    <a></a>
                 </div>
             </div>
             <div class="container">
@@ -68,7 +90,11 @@
                     </ul>
 
                     <ul class="nav-shop">
-                        <li class="nav-item" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+                        <li class="nav-item" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i>
+                            <c:if test="${!empty sessionScope['member_id']}">
+                                <span class="nav-shop__circle">3</span>
+                            </c:if>
+                        </button> </li>
                     </ul>
                 </div>
             </div>

@@ -48,8 +48,8 @@
         <h1>상품 상세</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
-                <li class="breadcrumb-item">상품관리</li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/book/itemlist">상품관리</a></li>
                 <li class="breadcrumb-item active">상세</li>
             </ol>
         </nav>
@@ -58,64 +58,76 @@
     <section class="section profile">
         <div class="row">
 
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                            <form name="frm_book_delete" id="frm_book_delete" action="/admin/book/bookDelete">
+                            <form name="frm_book_delete" id="frm_book_delete" action="/admin/book/delete">
                                 <!-- <h5 class="card-title">Profile Details</h5> -->
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">상품번호</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.book_code}</div>
+                                    <div class="col-lg-2 col-md-4 label ">상품번호</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.book_code}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">책이름</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.book_name}</div>
+                                    <div class="col-lg-2 col-md-4 label ">이미지</div>
+                                    <div class="col-lg-10 col-md-8">
+                                        <img src="${bookDTO.book_img}" alt="이미지">
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">정가</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.price}</div>
+                                    <div class="col-lg-2 col-md-4 label">책이름</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.book_name}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">할인율</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.discount_per}</div>
+                                    <div class="col-lg-2 col-md-4 label">정가</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.price}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">할인가</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.discount_price}</div>
+                                    <div class="col-lg-2 col-md-4 label">할인율</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.discount_per}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">저자</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.author}</div>
+                                    <div class="col-lg-2 col-md-4 label">할인가</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.discount_price}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">출판사</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.publisher}</div>
+                                    <div class="col-lg-2 col-md-4 label">저자</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.author}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">카테고리</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.category_code}</div>
+                                    <div class="col-lg-2 col-md-4 label">출판사</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.publisher}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">판매상태</div>
-                                    <div class="col-lg-9 col-md-8">${bookDTO.sales_status}</div>
+                                    <div class="col-lg-2 col-md-4 label">학년 카테고리</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.category_class_code}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 label">과목 카테고리</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.category_subject_code}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 label">판매상태</div>
+                                    <div class="col-lg-10 col-md-8">${bookDTO.sales_status}</div>
                                 </div>
                             </form>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success" onclick="location.href='admin-product-modify.html'">수정</button>
+
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
                             <button type="button" class="btn btn-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
                         </div>
                     </div><!-- End Bordered Tabs -->

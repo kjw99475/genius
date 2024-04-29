@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / F.A.Q</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -48,8 +48,7 @@
         <h1>FAQ 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
-                <li class="breadcrumb-item">게시판 관리</li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item active">FAQ 관리</li>
             </ol>
         </nav>
@@ -91,7 +90,7 @@
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
                                             <button type="button" class="btn btn-success"
-                                                    onclick="location.href='/admin/faq/contentmodify'">등록</button>
+                                                    onclick="location.href='/admin/faq/contentregist'">등록</button>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +111,7 @@
                             <tbody>
                             <c:if test="${bbsDTOlist ne null}">
                                 <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                    <tr>
+                                    <tr onclick="location.href='/admin/faq/view'">
                                         <td>${bbsDTO.bbs_idx}</td>
                                         <td>${bbsDTO.bbs_title}</td>
                                         <td>${bbsDTO.member_id}</td>
@@ -122,7 +121,7 @@
                                 </c:forEach>
                             </c:if>
                             </tbody>
-                            <tr>
+                            <tr onclick="location.href='/admin/faq/view'">
                                 <td>31</td>
                                 <td>글제목입니당</td>
                                 <td>작성자아이디입니다</td>

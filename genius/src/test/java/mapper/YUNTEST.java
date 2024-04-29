@@ -3,9 +3,11 @@ package mapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.domain.ReviewVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.mapper.BookMapper;
+import org.fullstack4.genius.mapper.QnaMapper;
 import org.fullstack4.genius.mapper.ReviewMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +29,9 @@ public class YUNTEST {
 
     @Autowired(required = false)
     private ReviewMapper reviewMapper;
+
+    @Autowired(required = false)
+    private QnaMapper qnaMapper;
 
     @Test
     public void testRegistBook(){
@@ -80,7 +85,7 @@ public class YUNTEST {
     }
     @Test
     public void view(){
-        BookVO vo = bookMapper.view(1);
+        BookVO vo = bookMapper.view("b0001");
         log.info("============================");
         log.info(vo);
         log.info("============================");
@@ -125,6 +130,15 @@ public class YUNTEST {
         log.info("======================");
     }
     @Test
+    public void bookModify(){
+        BookVO bookVO = bookMapper.view("b0001");
+        bookVO.setBook_idx(17);
+        int result = bookMapper.modify(bookVO);
+        log.info("======================");
+        log.info("BookMapperTest : bookModify result : " + result);
+        log.info("======================");
+    }
+    @Test
     public void testReviewRegist(){
         log.info("================================");
         ReviewVO reviewVO = ReviewVO.builder()
@@ -137,10 +151,50 @@ public class YUNTEST {
         log.info("================================");
     }
     @Test
+    public void testModify(){
+        BookVO bookVO = bookMapper.view("test");
+    }
+    @Test
     public void testReviewRankAvg(){
         log.info("================================");
         int result = reviewMapper.updateAvg("b0001");
         log.info("result : " + result);
+        log.info("================================");
+    }
+    @Test
+    public void testUpdateRef(){
+
+        int result = qnaMapper.refModify(9);
+        log.info("result : " + result);
+        log.info("===============================");
+    }
+
+    @Test
+    public void testViewQna(){
+        QnaVO qnaVO = qnaMapper.view(1);
+        log.info("================================");
+        log.info("qnaMapperTest >> testViewQna >> qnaVO : " +qnaVO);
+        log.info("================================");
+    }
+    @Test
+    public void testQnaList(){
+        List<QnaVO> volist = qnaMapper.listAll();
+        log.info("================================");
+        log.info("qnaMapperTest >> testQnaList >> volist : " +volist);
+        log.info("================================");
+    }
+    @Test
+    public void testQnaRegist(){
+        QnaVO qnaVO = QnaVO.builder()
+                .title("질문test")
+                .contents("질문test")
+                .member_id("test1")
+                .ref_idx(7)
+                .build();
+        log.info("================================");
+        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
+        int result = qnaMapper.regist(qnaVO);
+        log.info("qnaMapperTest >> testQnaRegist >> result : " + result);
         log.info("================================");
     }
 

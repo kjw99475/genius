@@ -9,8 +9,11 @@ import java.util.List;
 public interface CartServiceIf {
 
     int regist(CartDTO cartDTO);
+    int exist(String book_code,String member_id);
+    int updateCart(CartDTO cartDTO);
+    int updateCart1(CartDTO cartDTO);
     List<CartDTO> listAll(String member_id);
-    CartDTO view(String user_id);
+    CartDTO view(int cart_idx);
     int modify(CartDTO cartDTO);
     int delete(CartDTO cartDTO);
     int CartTotalCount(String user_id, PageRequestDTO requestDTO);

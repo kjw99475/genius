@@ -35,10 +35,130 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
-        <div class="container">
-            <h1>마이페이지 > 나의 문의내역</h1>
+    <section class="bg-img4 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">나의 문의내역</h1>
+                    <span class=" text-white">My QnA</span>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section class="section-margin--small mb-5">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="input-group d-flex justify-content-end">
+                    <div class="sorting d-flex">
+                        <select name="sales_status">
+                            <option value="1">전체</option>
+                            <option value="2">작성자</option>
+                            <option value="3">제목</option>
+                            <option value="4">내용</option>
+                        </select>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="startDay" name="startDay">
+                        </div>
+                        <div>~</div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="endDay" name="endDay">
+                        </div>
+                        <div class="filter-bar-search">
+                            <input type="text" placeholder="Search" style="width: 100%">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-success">검색</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead class="filter-bar">
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col" style="width:50%">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">조회</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">6</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewQ">Mark</a></td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Jacob</a></td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewQ">Larry the</a></td>
+                    <td>Thornton</td>
+                    <td>@twitter</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Mark</a></td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewQ">Jacob</a></td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Larry the bird</a></td>
+                    <td>Thornton</td>
+                    <td>@twitter</td>
+                    <td>12</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="input-group d-flex justify-content-end">
+                <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaList'">QnA 전체보기</button>
+            </div>
+        </div>
+
+
+        <nav class="blog-pagination justify-content-center d-flex">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">01</a>
+                </li>
+                <li class="page-item active">
+                    <a href="#" class="page-link">02</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">03</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">04</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">09</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                </li>
+            </ul>
+        </nav>
     </section>
 </main>
 <!--================ 본문 END =================-->

@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / QnA</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -42,10 +42,169 @@
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
-<main>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>QnA 관리</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item active">QnA</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">QnA 관리</h5>
+                        <p>QnA를 관리하는 페이지 입니다.</p>
+                        <div class="row">
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="row mb-3">
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            </div>
+                                            ~
+                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-1">
+                                            <select name="answerYN" id="answerYN" class="form-select">
+                                                <option value="" selected>답변상태</option>
+                                                <option value="N">대기중</option>
+                                                <option value="Y">답변완료</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-1">
+                                            <select name="search_category" id="search_category" class="form-select">
+                                                <option value="" selected>전체</option>
+                                                <option value="member_id">작성자</option>
+                                                <option value="bbs_title">제목</option>
+                                                <option value="bbs_content">내용</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-2 mb-2">
+                            <select class="form-select">
+                                <option value="5">5개씩 보기</option>
+                                <option value="10" selected>10개씩 보기</option>
+                                <option value="100">100개씩 보기</option>
+                            </select>
+                        </div>
+
+                        <form id="frm_qna_delete" method="post" action="/admin/qna/delete">
+                            <!-- Table with stripped rows -->
+                            <table class="table">
+                                <thead>
+
+                                <tr>
+                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th>구분</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
+                                    <th>답변여부</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <c:if test="${bbsDTOlist ne null}">
+                                    <c:forEach items="${bbsDTOlist}" var="bbsDTO">
+                                        <tr onclick="location.href='/admin/qna/view'">
+                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" >${bbsDTO.bbs_idx}</td>
+                                            <td>${bbsDTO.bbs_title}</td>
+                                            <td>${bbsDTO.bbs_title}</td>
+                                            <td>${bbsDTO.member_id}</td>
+                                            <td>${bbsDTO.reg_date}</td>
+                                            <td>${bbsDTO.read_cnt}</td>
+                                            <td>${bbsDTO.read_cnt}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+
+                                <tr onclick="location.href='/admin/qna/view'">
+                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 31</td>
+                                    <td>질문</td>
+                                    <td>글제목입니당</td>
+                                    <td>작성자아이디입니다</td>
+                                    <td>작성일입니다</td>
+                                    <td>99</td>
+                                    <td>답변노우</td>
+                                </tr>
+
+                                <tr onclick="location.href='/admin/qna/view'">
+                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 33</td>
+                                    <td>답변</td>
+                                    <td>파일있는글제목입니당<span class="bi bi-paperclip"></span></td>
+                                    <td>작성자아이디입니다</td>
+                                    <td>작성일입니다</td>
+                                    <td>199</td>
+                                    <td>답변예스</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </form>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success me-2"
+                                    onclick="location.href='/admin/qna/contentregist'">등록</button>
+                            <button type="button" class="btn btn-success"
+                                    onclick="qna_delete()">삭제</button>
+                        </div>
 
 
-</main>
+                        <div class="d-flex justify-content-center">
+                            <!-- Pagination with icons -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav><!-- End Pagination with icons -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
@@ -55,6 +214,36 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+
+<script>
+    // 삭제 스크립트
+    const frm_delete = document.querySelector("#frm_qna_delete");
+    function qna_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+
+    // 체크박스 스크립트
+    const chk_all = document.querySelector("#chk_all");
+    const chk_group = document.querySelectorAll(".chk_del");
+
+    chk_all.addEventListener('click', (e)=> {
+        if ( chk_all.checked ) {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = true;
+            }
+        }
+        else {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = false;
+            }
+        }
+    })
+
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

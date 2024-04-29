@@ -22,7 +22,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/resources/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -50,6 +51,64 @@
             <div class="card-body">
                 <h5 class="card-title">주문 관리 <span>| 리스트</span></h5>
 
+
+                <div class="row mb-3">
+                    <form>
+                        <div class="col">
+                            <div class="row mb-3">
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_start_date"
+                                                          id="delivery_start_date">
+                                </div>
+                                ~
+                                <div class="col-3"><input class="form-control" type="date" name="delivery_end_date"
+                                                          id="delivery_end_date">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-1">
+                                <select name="category_class_code" class="form-select" id="category_class_code">
+                                    <option value="" selected hidden>주문상태</option>
+                                    <option value="">전체</option>
+                                    <option value="state_1">주문상태 1</option>
+                                    <option value="state_2">주문상태 2</option>
+                                </select>
+                            </div>
+
+                            <div class="col-1">
+                                <select name="search_category" class="form-select" id="search_category">
+                                    <option value="" selected hidden>검색 옵션</option>
+                                    <option value="">전체</option>
+                                    <option value="order_num">주문번호</option>
+                                    <option value="member_id">주문자 ID</option>
+                                    <option value="delivery_company">배송회사</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <input type="text" class="form-control" placeholder="검색어" name="search_word"
+                                       id="search_word">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="bi bi-search btn btn-success"> 검색</button>
+                                <button type="button" class="btn btn-success">적용</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="col-2 mb-2">
+                    <select class="form-select">
+                        <option value="5">5개씩 보기</option>
+                        <option value="10" selected>10개씩 보기</option>
+                        <option value="100">100개씩 보기</option>
+                    </select>
+                </div>
+
+                <!-- Table with stripped rows -->
                 <table class="table">
                     <thead>
                     <tr>
@@ -67,22 +126,56 @@
                     </thead>
                     <tbody>
                     <c:if test="${orderDTOlist ne null}">
-                    <c:forEach items="${orderDTOlist}" var="orderDTO">
-                    <tr onclick="location.href = 'admin-order-detail.html'">
-                        <th scope="row">${orderDTO.order_num}</th>
-                        <td>${orderDTO.member_id}</td>
-                        <td>${orderDTO.order_date}</td>
-                        <td>${orderDTO.total_price}</td>
-                        <td>${orderDTO.amount}</td>
-                        <td>${deliveryDTO.delivery_company}</td>
-                        <td>${deliveryDTO.start_date}</td>
-                        <td>${deliveryDTO.end_date}</td>
-                        <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
-                    </tr>
-                    </c:forEach>
+                        <c:forEach items="${orderDTOlist}" var="orderDTO">
+                            <tr onclick="location.href = '/admin/order/view'">
+                                <th scope="row">${orderDTO.order_num}</th>
+                                <td>${orderDTO.member_id}</td>
+                                <td>${orderDTO.order_date}</td>
+                                <td>${orderDTO.total_price}</td>
+                                <td>${orderDTO.amount}</td>
+                                <td>${deliveryDTO.delivery_company}</td>
+                                <td>${deliveryDTO.start_date}</td>
+                                <td>${deliveryDTO.end_date}</td>
+                                <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
+                            </tr>
+                        </c:forEach>
                     </c:if>
+
+                    <tr onclick="location.href = '/admin/order/view'">
+                        <th scope="row">8665</th>
+                        <td>testid331</td>
+                        <td>2024-05-01</td>
+                        <td>336000</td>
+                        <td>19</td>
+                        <td>로젠택배</td>
+                        <td>2024-05-17</td>
+                        <td>2024-05-21</td>
+                        <td><span class="badge bg-warning">배송전</span></td>
+                    </tr>
                     </tbody>
                 </table>
+                <!-- END Table with stripped rows -->
+
+                <div class="d-flex justify-content-center">
+                    <!-- Pagination with icons -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav><!-- End Pagination with icons -->
+                </div>
 
             </div>
 
@@ -92,11 +185,11 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->

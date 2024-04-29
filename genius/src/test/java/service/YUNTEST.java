@@ -2,11 +2,9 @@ package service;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
-import org.fullstack4.genius.dto.ReviewDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
+import org.fullstack4.genius.service.QnaServiceIf;
 import org.fullstack4.genius.service.ReviewServiceIf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +26,8 @@ public class YUNTEST {
 
     @Autowired
     private ReviewServiceIf reviewServiceIf;
+    @Autowired
+    private QnaServiceIf qnaServiceIf;
 
     @Test
     public void testBookRegist(){
@@ -85,27 +85,29 @@ public class YUNTEST {
     }
     @Test
     public void testView(){
-        log.info(bookServiceIf.view(1));
+        log.info(bookServiceIf.view("b0001"));
     }
     @Test
     public void testReviewRegist(){
         ReviewDTO reviewDTO = ReviewDTO.builder()
+                .review_idx(0)
                 .book_code("b0001")
-                .rank(5)
+                .rank(4)
                 .member_id("test")
+                .reg_date(null)
                 .review_contents("리뷰 테스트4").build();
         int result = reviewServiceIf.regist(reviewDTO);
         log.info("==========================");
         log.info("result : " + result);
         log.info("==========================");
     }
-    @Test
-    public void reviewDelete(){
-        int result = reviewServiceIf.delete(4);
-        log.info("======================");
-        log.info("reviewDelete result : " + result);
-        log.info("======================");
-    }
+//    @Test
+//    public void reviewDelete(){
+//        int result = reviewServiceIf.delete(4);
+//        log.info("======================");
+//        log.info("reviewDelete result : " + result);
+//        log.info("======================");
+//    }
 
     @Test
     public void reviewList(){
@@ -115,10 +117,26 @@ public class YUNTEST {
         log.info("=========================");
     }
     @Test
+    public void testModifyBook(){
+        BookDTO bookDTO = bookServiceIf.view("b0002");
+        bookDTO.setBook_idx(17);
+        int result = bookServiceIf.modify(bookDTO);
+        log.info("======================");
+        log.info("BookMapperTest : bookModify result : " + result);
+        log.info("======================");
+    }
+    @Test
     public void updateRankAvg(){
         int result = reviewServiceIf.updateAvg("b0001");
         log.info("=========================");
         log.info(result);
+        log.info("=========================");
+    }
+    @Test
+    public void testQnaList(){
+        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
+        log.info("=========================");
+        log.info(qnaDTOList);
         log.info("=========================");
     }
     @Test

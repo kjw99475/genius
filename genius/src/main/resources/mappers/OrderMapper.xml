@@ -3,5 +3,50 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.OrderMapper">
+    <select id="view" resultType="org.fullstack4.genius.domain.OrderVO">
+        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        where member_id=#{param1}
+    </select>
 
+    <select id="listAll" resultType="org.fullstack4.genius.domain.OrderVO">
+        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        where member_id=#{param1}
+    </select>
+
+    <select id="AdminlistAll" resultType="org.fullstack4.genius.domain.OrderVO">
+        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
+        FROM tbl_order AS a
+        INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
+    </select>
+
+    <select id="orderDetail" resultType="org.fullstack4.genius.domain.OrderVO">
+        select orderdetail_idx,order_num,book_code,category_class_code,category_subject_code,order_state,order_date,price,total_price,amount
+        FROM tbl_orderdetail
+        where order_num=#{param1}
+    </select>
+
+    <update id="cancelOrder">
+        UPDATE tbl_order SET cancel_YN = "Y" , cancel_date = NOW()
+        where order_idx =#{param1}
+    </update>
+
+    <insert id="regist">
+        INSERT INTO tbl_order(order_num,member_id,order_date,total_price,order_state)
+        VALUES(#{order_num},#{member_id},NOW(),#{total_price},#{order_state})
+    </insert>
+
+    <insert id="detailregist">
+        INSERT INTO tbl_orderdetail(order_num,book_code,category_class_code,category_subject_code,order_state,order_date,price,total_price,amount)
+        VALUES(#{order_num}
+        ,#{book_code}
+        ,#{category_class_code}
+        ,#{category_subject_code}
+        ,#{order_state}
+        ,NOW()
+        ,#{price}
+        ,#{total_price}
+        ,#{amount})
+    </insert>
 </mapper>

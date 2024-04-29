@@ -3,5 +3,42 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.BbsMapper">
+    
+    <select id="view" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs.bbs_idx, bbs_title, bbs.category_code, member_id, fileYN, replyYN, bbs_contents, bbs.reg_date, read_cnt
+<!--            , reply_idx, reply_contents, reply.reg_date, modify_date, ref_idx-->
+        FROM tbl_bbs AS bbs
+<!--        INNER JOIN tbl_bbs_reply AS reply--><!--WHERE replyYN = "Y" 조건..-->
+<!--        ON reply.bbs_idx = bbs.bbs_idx-->
+        WHERE bbs.bbs_idx = #{idx}
+    </select>
+
+
+    <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, replyYN, bbs_contents, reg_date, read_cnt
+        FROM tbl_bbs
+<!--        WHERE category_code = #{category_code}-->
+        ORDER BY bbs_idx DESC
+    </select>
+
+    <insert id="regist">
+        INSERT INTO tbl_bbs (bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt)
+        VALUES(#{bbs_title}, #{category_code}, #{member_id}, #{fileYN}, #{bbs_contents}, #{reg_date}, 0)
+    </insert>
+
+    <update id="modify">
+        UPDATE tbl_bbs SET
+            bbs_title = #{bbs_title}
+            , reg_date = #{reg_date}
+            , fileYN = #{fileYN}
+            , bbs_contents = #{bbs_contents}
+        WHERE bbs_idx = #{bbs_idx}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM tbl_bbs
+        WHERE bbs_idx = #{bbs_idx}
+    </delete>
 
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -67,6 +68,7 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
+        log.info("adminBookController : contents :" + bookDTO.getContents());
         int result = bookServiceIf.regist(bookDTO);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
@@ -77,17 +79,54 @@ public class AdminBookController {
     }
 
     @GetMapping("/itemview")
-    public void GETItemView(){
-
+    public void GETItemView(@RequestParam(name="book_code", defaultValue = "b0001") String book_code,
+                            Model model){
+        BookDTO bookDTO = bookServiceIf.view(book_code);
+        model.addAttribute("bookDTO", bookDTO);
     }
 
     @GetMapping("/itemModify")
-    public void GETItemModify(){
+    public void GETItemModify(@RequestParam(name="book_code", defaultValue = "b0001") String book_code,
+                              Model model){
+        BookDTO bookDTO = bookServiceIf.view(book_code);
+        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
+        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
+        model.addAttribute("subjectList",subjectList);
+        model.addAttribute("classList",classList);
 
+        model.addAttribute("bookDTO", bookDTO);
     }
 
     @PostMapping("/itemModify")
-    public void POSTItemModify(){
+    public String POSTItemModify(@Valid BookDTO bookDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model){
+        log.info("AdminBookController : POSTItemModify");
+        System.out.println("111");
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/book/itemModify";
+        }
+        int result = bookServiceIf.modify(bookDTO);
+        log.info("AdminBookController : POSTItemModify >> result : " + result);
+        if(result >0){
+            return "/admin/book/itemview?book_code="+bookDTO.getBook_code();
+        }
+        else{
+            model.addAttribute("bookDTO", bookDTO);
+            return "/admin/book/itemModify?book_code=" + bookDTO.getBook_code();
+        }
+    }
+
+    @GetMapping("/delete")
+    public void GETDelete(){
+
+    }
+
+    @PostMapping("/delete")
+    public void POSTDelete(){
 
     }
 }

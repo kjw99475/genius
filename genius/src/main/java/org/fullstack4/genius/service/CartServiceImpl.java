@@ -38,6 +38,26 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
+    public int exist(String book_code,String member_id) {
+        int exist = cartMapper.exist(book_code,member_id);
+        return exist;
+    }
+
+    @Override
+    public int updateCart(CartDTO cartDTO) {
+        CartVO vo = modelMapper.map(cartDTO, CartVO.class);
+        int result = cartMapper.updateCart(vo);
+        return result;
+    }
+
+    @Override
+    public int updateCart1(CartDTO cartDTO) {
+        CartVO vo = modelMapper.map(cartDTO, CartVO.class);
+        int result = cartMapper.updateCart1(vo);
+        return result;
+    }
+
+    @Override
     public List<CartDTO> listAll(String member_id) {
         List<CartVO> volist = cartMapper.listAll(member_id);
         List<CartDTO> dtolist = volist.stream()
@@ -47,8 +67,11 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
-    public CartDTO view(String user_id) {
-        return null;
+    public CartDTO view(int cart_idx) {
+        CartVO vo = cartMapper.view(cart_idx);
+        CartDTO dto = modelMapper.map(vo,CartDTO.class);
+
+        return dto;
     }
 
     @Override

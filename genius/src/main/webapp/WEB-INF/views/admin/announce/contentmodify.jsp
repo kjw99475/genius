@@ -45,7 +45,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>공지 등록</h1>
+        <h1>공지 수정</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
@@ -57,7 +57,7 @@
 
     <section class="section profile">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -67,51 +67,56 @@
                             <!--Form -->
                             <form method="post" action="/admin/announce/contentmodify">
                                 <div class="row mb-3">
-                                    <label for="category_code" class="col-md-4 col-lg-3 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
                                                value="announce" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-3 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
                                                value="${bbsDTO.bbs_title}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="member_id" class="col-md-4 col-lg-3 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
                                                value="${bbsDTO.member_id}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-3 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-3 col-form-label">등록일</label>
-                                    <div class="col-md-8 col-lg-9">
+                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
+                                    <div class="col-md-8 col-lg-10">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
                                                value="${bbsDTO.reg_date}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <input type="file">
+                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
+                                               value="${bbsDTO.bbs_contents}">
+                                    </div>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success">수정</button>
+                                <div class="row mb-3">
+                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input name="file" type="file" class="form-control" id="file"
+                                               value="${bbsDTO.file}">
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-success me-2">수정 완료</button>
+                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- EndForm -->
 

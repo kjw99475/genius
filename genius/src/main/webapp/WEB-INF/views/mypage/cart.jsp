@@ -74,87 +74,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img class="img-w150" src="/resources/img/product/product1.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>중학 보건</p>
-                                        </div>
+                        <c:forEach items="${list}" var="list">
+
+                        <tr>
+                            <td>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <img class="img-w150" src="${list.book_img}" alt="">
                                     </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="10,000"></h5>
-                                </td>
-                                <td>
+                                    <div class="media-body">
+                                        <p>${list.book_name}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${list.price}"></h5>
+                            </td>
+                            <td>
+                                <div class="product_count">
                                     <div class="product_count">
-                                        <div class="product_count">
-                                            <input type="number" name="qty" id="quantity1" maxlength="12" value="1" title="Quantity:"
-                                                   class="input-text qty" onchange="calculateSubTotal(this, 10000)" min="0">
-                                        </div>
+                                        <input type="number" name="qty" id="quantity1" maxlength="12" value="${list.quantity}" title="Quantity:"
+                                               class="input-text qty" onchange="calculateSubTotal(this, ${list.price},'${list.book_code}')" min="0">
                                     </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 text-right subtotal p-0 w-100px" data-idx="1" type="text" name="subtotal2" value="0"></h5>
-                                </td>
-                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check1" checked></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img class="img-w150" src="/resources/img/product/product2.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>고등학교 기본 수학</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 text-right price p-0 w-100px" data-idx="2" type="text" name="price2" value="20,000"></h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <div class="product_count">
-                                            <input type="number" name="qty" id="quantity2" maxlength="12" value="1" title="Quantity:"
-                                                   class="input-text qty" onchange="calculateSubTotal(this, 20000)" min="0">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 subtotal text-right p-0 w-100px" data-idx="2" type="text" name="subtotal2" value="0"></h5>
-                                </td>
-                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check2" checked></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img class="img-w150" src="/resources/img/product/product3.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>고등학교 기술가정</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 price text-right p-0 w-100px" data-idx="3" type="text" name="price3" value="55,000"></h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <div class="product_count">
-                                            <input type="number" name="qty" id="quantity3" maxlength="12" value="1" title="Quantity:"
-                                                   class="input-text qty" onchange="calculateSubTotal(this, 55000)" min="0">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5><input readonly class="border-0 subtotal text-right p-0 w-50px" data-idx="3" type="text" name="subtotal3" value="0"></h5>
-                                </td>
-                                <td style="text-align: center;"><input class="choose" type="checkbox" id="check3" checked></td>
-                            </tr>
+                                </div>
+                            </td>
+                            <td>
+                                <h5><input readonly class="border-0 text-right subtotal p-0 w-100px" data-idx="1" type="text" name="subtotal2" value="0"></h5>
+                            </td>
+                            <td style="text-align: center;"><input class="choose" type="checkbox" id="check1" checked value="${list.cart_idx}"></td>
+                        </tr>
+                        </c:forEach>
                             <tr>
                                 <td colspan="4">
                                     <h5>총계</h5>
@@ -174,6 +123,35 @@
         </div>
     </section>
     <!--================End Cart Area =================-->
+
+    <!--================페이징 내역 Start =================-->
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">01</a>
+            </li>
+            <li class="page-item active">
+                <a href="#" class="page-link">02</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">03</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">04</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">09</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--================페이징 내역 End =================-->
 </main>
 <!--================ 본문 END =================-->
 
@@ -187,10 +165,22 @@
 
 <script>
     /* 테스트 용 */
+    let chooses = document.querySelectorAll('.choose');
     let purchase = document.querySelectorAll('.purchase');
     for(let pur of purchase) {
         pur.addEventListener('click', ()=> {
-            location.href = "/order/payment1";
+
+            let param = "?cart_idx=";
+            for(let choice of chooses) {
+
+                if(choice.checked) {
+                    console.log(choice.value);
+                    param = param+choice.value+"&cart_idx=";
+
+                }
+            }
+            console.log(param);
+            location.href = "/order/payment" +param;
         })
     }
 
@@ -215,9 +205,10 @@
             let total = document.querySelector('#total');
             total.value = calculateTotal();
         })
+
     }
     // 선택 사항 변경 시 체크하는 로직
-    let chooses = document.querySelectorAll('.choose');
+    // let chooses = document.querySelectorAll('.choose');
     for (let choose of chooses) {
         choose.addEventListener('change', ()=> {
             let total = document.querySelector('#total');
@@ -236,10 +227,29 @@
         }
         return comma(total);
     }
-    // 부분 합계 업데이트 하는 로직
-    function calculateSubTotal(element, price) {
+    // 부분 합계 업데이트 및 db 실시간 업데이트하는 로직
+    function calculateSubTotal(element, price,book_code) {
         // 인자로 단가를 넣어주면 수량으로 알아서 계산 하는 로직
+
+
         let qty = parseInt(element.value);
+        $.ajax({
+            url:"/mypage/addcart1.dox",
+            dataType:"json",
+            type : "POST",
+            data : {
+                "member_id":"${sessionScope['member_id']}",
+                "book_code":book_code,
+                "quantity" :qty
+            },
+            success : function(data) {
+
+            },
+            fail : function (data){
+
+           }
+
+        });
         let total = price * qty;
         let target = element.parentElement.parentElement.parentElement.parentElement.querySelector('input.subtotal');
         target.value = comma(total);
@@ -279,6 +289,18 @@
         let chooses = document.querySelectorAll('.choose');
         for(let choice of chooses) {
             if(choice.checked) {
+                $.ajax({
+                    url:"/mypage/cartdelete.dox",
+                    dataType:"json",
+                    type : "POST",
+                    data : {
+                        "member_id":"${sessionScope['member_id']}",
+                        "cart_idx":choice.value
+                    },
+                    success : function(data) {
+
+                    }
+                });
                 let parent = choice.parentElement.parentElement;
                 parent.parentElement.removeChild(parent);
             }

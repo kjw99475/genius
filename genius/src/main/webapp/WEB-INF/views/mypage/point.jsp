@@ -58,7 +58,7 @@
                 <div>
                     <div class="confirmation-card text-center">
                         <h4 class="h4">나의 포인트</h4>
-                        <h3 class="h3">100,000,000 원</h3>
+                        <h3 class="h3">${point} 포인트</h3>
                         <div class="d-grid mt-4">
                             <button type="button" class="btn btn-success w-50 closeModal" data-toggle="modal" data-target="#exampleModalCenter">
                                 충전하기
@@ -83,98 +83,106 @@
                         <button class="btn btn-success" type="button">조회</button>
                     </div>
                 </div>
+                <c:forEach items="${mypaymentlist}" var="list">
+                    ${list.price}
+                </c:forEach>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="4">총 00건</th>
+                                <th scope="col">총 0${total_count}건</th>
+                                <th scope="col">종류</th>
+                                <th scope="col">결제 일자</th>
+                                <th scope="col">금액</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <p>울지마 톰즈 도서 구매</p>
-                                </td>
-                                <td>
-                                    <h5>사용</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-27 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p>-10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>포인트 충전</p>
-                                </td>
-                                <td>
-                                    <h5>충전</h5>
-                                </td>
-                                <td>
-                                    <p>2024-04-26 00:00:00</p>
-                                </td>
-                                <td>
-                                    <p class="text-geni">+10,000</p>
-                                </td>
-                            </tr>
+                            <c:forEach items= "${mypaymentlist}" var="list">
                             <tr>
                                 <td class="border-0">
-                                    <p>포인트 충전</p>
+                                    <p>${list.use_type}</p>
                                 </td>
                                 <td class="border-0">
-                                    <h5>충전</h5>
+                                    <h5>${list.use_type}</h5>
                                 </td>
                                 <td class="border-0">
-                                    <p>2024-04-26 00:00:00</p>
+                                    <p>${list.reg_date}</p>
                                 </td>
                                 <td class="border-0">
-                                    <p class="text-geni">+10,000</p>
+                                    <p class="text-geni">+${list.price}</p>
                                 </td>
                             </tr>
+                            </c:forEach>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td>--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                            <tr>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p>포인트 충전</p>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <h5>충전</h5>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p>2024-04-26 00:00:00</p>--%>
+<%--                                </td>--%>
+<%--                                <td class="border-0">--%>
+<%--                                    <p class="text-geni">+10,000</p>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
                         </tbody>
                     </table>
                 </div>
@@ -183,7 +191,34 @@
     </section>
     <!--================충전 내역 End =================-->
 
+    <!--================페이징 내역 Start =================-->
+    <nav class="blog-pagination justify-content-center d-flex">
+        <ul class="pagination">
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">01</a>
+            </li>
+            <li class="page-item active">
+                <a href="#" class="page-link">02</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">03</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">04</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link">09</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+            </li>
+        </ul>
+    </nav>
 
+    <!--================페이징 내역 End =================-->
 
 </main>
 <!--================ 본문 END =================-->
@@ -206,6 +241,7 @@
                         <small id="emailHelp" class="form-text text-muted">아래의 금액단위를 클릭해 충전금액을 입력해주세요</small>
                     </div>
                     <div class="d-flex justify-content-center pb-2" role="group" style="gap:5px">
+                        <button type="button" class="btn btn-default btn-price" data-price="1">+1</button>
                         <button type="button" class="btn btn-default btn-price" data-price="10000">+1만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="50000">+5만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="100000">+10만</button>
@@ -265,16 +301,17 @@
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 
+    var list;
     $.ajax({
         url:"/member/viewMember.dox",
         dataType:"json",
         type : "GET",
         data : {
-            "member_id":"test"
+            "member_id":"${sessionScope['member_id']}"
         },
         success : function(data) {
-
-            console.log(data);
+            list = data.dto;
+            console.log(list);
         }
     });
 
@@ -282,24 +319,54 @@
 
     var IMP = window.IMP;
         IMP.init("imp78587533");
+
         function requestPay() {
             let targetVal = parseInt(uncomma(target.value));
-        IMP.request_pay({
-            pg: 'html5_inicis',
-            pay_method: 'card',
-            merchant_uid: "57008833-33005",
-            name: '포인트 ' + targetVal + '원',
-            amount: targetVal,
-            buyer_email: 'Iamport@chai.finance',
-            buyer_name: '포트원 기술지원팀',
-            buyer_tel: '010-1234-5678',
-            buyer_addr: '서울특별시 강남구 삼성동',
-            buyer_postcode: '123-456'
-        }, function (rsp) { // callback
-
-            //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-        });
-    }
+            let today = new Date();
+            let rand = Math.floor(Math.random()*(1000000-0)+1);
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes();  // 분
+            let seconds = today.getSeconds();  // 초
+            let milliseconds = today.getMilliseconds();
+            let now = hours+minutes+seconds+milliseconds;
+            console.log(list);
+                IMP.request_pay({
+                    pg: 'html5_inicis',
+                    pay_method: 'card',
+                    merchant_uid: now+"-"+rand,
+                    name: '포인트',
+                    amount: targetVal,
+                    buyer_email: list.email,
+                    buyer_name: list.member_name,
+                    buyer_tel: list.phone,
+                    buyer_addr: list.addr1 +" " +list.addr2,
+                    buyer_postcode: list.zipcode
+                }, function (rsp) { // callback
+                    if(rsp.success){
+                        console.log(rsp.amount);
+                        $.ajax({
+                            url:"/mypage/point.dox",
+                            dataType:"json",
+                            type : "POST",
+                            data : {
+                                "payment_num":rsp.merchant_uid
+                                ,"member_id":"test"
+                                ,"price":rsp.paid_amount
+                                ,"method":rsp.pay_method
+                                ,"company":rsp.pg_provider
+                            },
+                            success : function(data) {
+                                alert("포인트 충전 성공");
+                                location.href="/mypage/point";
+                            }
+                        });
+                        console.log(rsp);
+                    }else {
+                        console.log(rsp);
+                    }
+                    //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+                });
+        }
 
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 

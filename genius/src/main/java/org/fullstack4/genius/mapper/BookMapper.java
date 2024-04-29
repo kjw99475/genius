@@ -12,7 +12,7 @@ public interface BookMapper {
     int regist(BookVO bbsVO);
 
     List<BookVO> listAll();
-    BookVO view(int idx);
+    BookVO view(String book_code);
     int modify(BookVO bbsVO);
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);

@@ -46,7 +46,7 @@
         <h1>회원 관리</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
                 <li class="breadcrumb-item active">회원</li>
             </ol>
         </nav>
@@ -66,27 +66,16 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_id" checked>
-                                                        <label class="form-check-label" for="member_id">
-                                                            회원 ID
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <input class="form-check-input" type="checkbox" name="search_type" id="member_name" checked>
-                                                        <label class="form-check-label" for="member_name">
-                                                            회원 이름
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            <div class="col-2">
+                                                <select name="search_category" id="search_category" class="form-select">
+                                                    <option value="" hidden>검색 옵션</option>
+                                                    <option value="" >전체</option>
+                                                    <option value="member_id">회원 ID</option>
+                                                    <option value="member_name">회원 이름</option>
+                                                </select>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
                                             </div>
                                             <div class="col">
@@ -98,23 +87,73 @@
                             </form>
                         </div>
                         <!-- Table with stripped rows -->
-                        <table class="table">
+                        <table class="table lh-lg">
                             <thead>
                             <tr>
                                 <th>회원번호</th>
                                 <th>회원아이디</th>
                                 <th>회원이름</th>
+                                <th class="col-2"></th>
                             </tr>
                             </thead>
                             <tbody>
+                            <c:if test="${memberDTOlist ne null}">
+                                <c:forEach items="${memberDTOlist}" var="memberDTO">
                             <tr>
                                 <td>${memberDTO.member_idx}</td>
                                 <td>${memberDTO.member_id}</td>
                                 <td>${memberDTO.member_name}</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                                </c:forEach>
+                            </c:if>
+                            <tr onclick="">
+                                <td>22</td>
+                                <td>memidasdf</td>
+                                <td>김인증</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                            <tr onclick="">
+                                <td>23</td>
+                                <td>memidqwer</td>
+                                <td>원산지</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
+
+
+                        <div class="d-flex justify-content-center">
+                            <!-- Pagination with icons -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav><!-- End Pagination with icons -->
+
+                        </div>
 
                     </div>
                 </div>

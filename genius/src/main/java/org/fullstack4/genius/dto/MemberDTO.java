@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Builder
 public class MemberDTO {
     private int member_idx;
+    @Builder.Default
+    private String social_type=null;
     private String member_id;
     private String member_name;
     private String pwd;
@@ -31,8 +33,13 @@ public class MemberDTO {
     private LocalDate modify_date;
     private LocalDate leave_date;
     private String status;
-    private String terms1;
-    private String terms2;
-    private String terms3;
-    private String terms4;
+    @Builder.Default
+    private String terms1="N";
+    @Builder.Default
+    private String terms2="N";
+    @Builder.Default
+    private String terms3="N";
+    @Builder.Default
+    private String terms4="N";
+    private String email;
 }

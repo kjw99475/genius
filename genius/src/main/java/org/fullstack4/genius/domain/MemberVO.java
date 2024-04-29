@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class MemberVO {
     private int member_idx;
+    private String social_type;
     private String member_id;
     private String member_name;
     private String pwd;
@@ -33,5 +34,6 @@ public class MemberVO {
     private String terms2;
     private String terms3;
     private String terms4;
+    private String email;
 
 }
