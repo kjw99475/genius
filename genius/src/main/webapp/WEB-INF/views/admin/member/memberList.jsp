@@ -2,20 +2,18 @@
   Created by IntelliJ IDEA.
   User: pc
   Date: 2024-04-25
-  Time: 오후 5:26
+  Time: 오후 5:27
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / bbs</title>
+    <title>Admin / member</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -45,11 +43,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>자료실 관리</h1>
+        <h1>회원 관리</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item active">자료실</li>
+                <li class="breadcrumb-item active">회원</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -57,40 +55,32 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
+
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">자료실 관리</h5>
-                        <p>자료실을 관리하는 페이지 입니다.</p>
+                        <h5 class="card-title">회원 관리</h5>
+                        <p>회원을 관리하는 페이지 입니다.</p>
+
                         <div class="row">
                             <form>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            <div class="col-2">
+                                                <select name="search_category" id="search_category" class="form-select">
+                                                    <option value="" hidden>검색 옵션</option>
+                                                    <option value="" >전체</option>
+                                                    <option value="member_id">회원 ID</option>
+                                                    <option value="member_name">회원 이름</option>
+                                                </select>
                                             </div>
-                                            ~
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
                                             </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="col-2">
-                                            <select name="search_category" id="search_category" class="form-select">
-                                                <option value="" selected>전체</option>
-                                                <option value="member_id">작성자</option>
-                                                <option value="bbs_title">제목</option>
-                                                <option value="bbs_content">내용</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
-                                        </div>
-                                        <div class="col">
-                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <div class="col">
+                                                <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,48 +94,51 @@
                                 <option value="100">100개씩 보기</option>
                             </select>
                         </div>
-
-                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete">
-                            <!-- Table with stripped rows -->
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th><input id="chk_all" type="checkbox">번호</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <c:choose>
-                                    <c:when test="${bbsDTOList ne null}">
-                                        <c:forEach items="${bbsDTOList}" var="bbsDTO">
-                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
-                                                <td>${bbsDTO.bbs_title}</td>
-                                                <td>${bbsDTO.member_id}</td>
-                                                <td>${bbsDTO.reg_date}</td>
-                                                <td>${bbsDTO.read_cnt}</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <tr><td colspan="5">결과가 없습니다.</td></tr>
-                                    </c:otherwise>
-                                </c:choose>
-                                </tbody>
-                            </table>
-                            <!-- End Table with stripped rows -->
-                        </form>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-success me-2"
-                                    onclick="location.href='/admin/bbs/contentregist'">등록</button>
-                            <button type="button" class="btn btn-success"
-                                    onclick="bbs_delete()">삭제</button>
-                        </div>
+                        <!-- Table with stripped rows -->
+                        <table class="table lh-lg">
+                            <thead>
+                            <tr>
+                                <th>회원번호</th>
+                                <th>회원아이디</th>
+                                <th>회원이름</th>
+                                <th class="col-2"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:if test="${memberDTOlist ne null}">
+                                <c:forEach items="${memberDTOlist}" var="memberDTO">
+                            <tr onclick="location.href='/admin/member/memberView'">
+                                <td>${memberDTO.member_idx}</td>
+                                <td>${memberDTO.member_id}</td>
+                                <td>${memberDTO.member_name}</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                                </c:forEach>
+                            </c:if>
+                            <tr onclick="location.href='/admin/member/memberView'">
+                                <td>22</td>
+                                <td>memidasdf</td>
+                                <td>김인증</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                            <tr onclick="location.href='/admin/member/memberView'">
+                                <td>23</td>
+                                <td>memidqwer</td>
+                                <td>원산지</td>
+                                <td class="flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2">수정</button>
+                                    <button type="button" class="btn btn-success ">삭제</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
 
 
                         <div class="d-flex justify-content-center">
@@ -167,7 +160,9 @@
                                     </li>
                                 </ul>
                             </nav><!-- End Pagination with icons -->
+
                         </div>
+
                     </div>
                 </div>
 
@@ -185,36 +180,6 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
-
-<script>
-    // 삭제 스크립트
-    const frm_delete = document.querySelector("#frm_bbs_delete");
-    function bbs_delete() {
-        let flag_delete = confirm("정말 삭제하시겠습니까?");
-        if (flag_delete) {
-            frm_delete.submit();
-        }
-    }
-
-    // 체크박스 스크립트
-    const chk_all = document.querySelector("#chk_all");
-    const chk_group = document.querySelectorAll(".chk_del");
-
-    chk_all.addEventListener('click', (e)=> {
-        if ( chk_all.checked ) {
-            for(let i=0; i<chk_group.length; i++) {
-                chk_group[i].checked = true;
-            }
-        }
-        else {
-            for(let i=0; i<chk_group.length; i++) {
-                chk_group[i].checked = false;
-            }
-        }
-    })
-
-</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

@@ -191,10 +191,10 @@ public class YUNTEST {
                 .member_id("test1")
                 .build();
         log.info("================================");
-        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
         int result = qnaMapper.regist(qnaVO);
+        int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
         log.info("qnaMapperTest >> testQnaRegist >> result : " + result);
         log.info("================================");
     }
-
 }

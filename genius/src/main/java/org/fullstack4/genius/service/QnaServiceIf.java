@@ -13,7 +13,7 @@ public interface QnaServiceIf {
     List<QnaDTO> listAll();
     QnaDTO view(int idx);
     int modify(QnaDTO qnaDTO);
-    int refModify(int idx);
+    int refModify(QnaDTO qnaDTO);
     int delete(int idx);
     int bbsTotalCount(PageRequestDTO requestDTO);
     List<QnaDTO> bbsListByPage(PageRequestDTO requestDTO);

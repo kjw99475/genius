@@ -48,7 +48,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item"><a href="/admin/bbs/list">자료실</a></li>
                 <li class="breadcrumb-item active">자료실 상세</li>
             </ol>
         </nav>
@@ -120,7 +120,7 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/bbs/bbsList'">
+                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/bbs/list'">
                                                 목록
                                             </button>
                                         </div>
@@ -144,14 +144,14 @@
                                     <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
                                         <td class="col-2">다음글</td>
                                         <td class="col-1">34${postbbsDTO.bbs_idx}</td>
-                                        <td class="col-6">담글제목${postbbsDTO.bbs_title}</td>
+                                        <td class="col-6">담글제목${postbbsDTO.bbs_title}<c:if test="${postbbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                         <td class="col-3">2024-07-06${postbbsDTO.reg_date}</td>
                                     </tr>
 
                                     <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
                                         <td class="col-2">이전글</td>
                                         <td class="col-1">32${prebbsDTO.bbs_idx}</td>
-                                        <td class="col-6">전글제목${prebbsDTO.bbs_title}</td>
+                                        <td class="col-6">전글제목${prebbsDTO.bbs_title}<c:if test="${prebbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                         <td class="col-3">2024-02-01${prebbsDTO.reg_date}</td>
                                     </tr>
                                 </table>

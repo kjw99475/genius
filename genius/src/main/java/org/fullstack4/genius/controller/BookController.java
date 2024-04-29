@@ -36,7 +36,7 @@ public class BookController {
             RedirectAttributes redirectAttributes,
             Model model) {
         if(bindingResult.hasErrors()){
-            log.info("BbsController >> list Error");
+            log.info("BookController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
         pageRequestDTO.setPage_size(9);

@@ -35,8 +35,8 @@ public class BbsServiceImpl implements BbsServiceIf {
     }
 
     @Override
-    public List<BbsDTO> listAll() {
-        List<BbsDTO> bbsDTOList = bbsMapper.listAll().stream()
+    public List<BbsDTO> listAll(String category_code) {
+        List<BbsDTO> bbsDTOList = bbsMapper.listAll(category_code).stream()
                 .map(bbsVO-> modelMapper.map(bbsVO, BbsDTO.class))
                 .collect(Collectors.toList());
         return bbsDTOList;
@@ -46,6 +46,20 @@ public class BbsServiceImpl implements BbsServiceIf {
     public BbsDTO view(int idx) {
         BbsVO bbsVO = bbsMapper.view(idx);
         BbsDTO bbsDTO = modelMapper.map(bbsVO, BbsDTO.class);
+        return bbsDTO;
+    }
+
+//    @Override
+//    public BbsDTO preView(int idx, String category_code) {
+//        BbsVO bbsvo = bbsMapper.preView(idx, category_code);
+//        BbsDTO bbsDTO = modelMapper.map(bbsvo, BbsDTO.class);
+//        return bbsDTO;
+//    }
+
+    @Override
+    public BbsDTO postView(int idx, String category_code) {
+        BbsVO bbsvo = bbsMapper.postView(idx, category_code);
+        BbsDTO bbsDTO = modelMapper.map(bbsvo, BbsDTO.class);
         return bbsDTO;
     }
 

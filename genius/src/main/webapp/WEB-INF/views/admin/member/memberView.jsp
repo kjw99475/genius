@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / member</title>
+    <title>Admin / member - view</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -47,118 +47,97 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item active">회원</li>
+                <li class="breadcrumb-item "><a href="/admin/member/memberList">회원</a></li>
+                <li class="breadcrumb-item active">회원 상세</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
+    <section class="section profile">
         <div class="row">
-            <div class="col-lg-12">
+
+            <div class="col-xl-12">
 
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">회원 관리</h5>
-                        <p>회원을 관리하는 페이지 입니다.</p>
+                    <div class="card-body pt-3">
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                <form name="frm_member_delete" id="frm_member_delete" action="/admin/member/memberDelete">
+                                    <!-- <h5 class="card-title">Profile Details</h5> -->
 
-                        <div class="row">
-                            <form>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="row mb-3">
-                                            <div class="col-2">
-                                                <select name="search_category" id="search_category" class="form-select">
-                                                    <option value="" hidden>검색 옵션</option>
-                                                    <option value="" >전체</option>
-                                                    <option value="member_id">회원 ID</option>
-                                                    <option value="member_name">회원 이름</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
-                                            </div>
-                                            <div class="col">
-                                                <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                            </div>
+                                    <div class="row">
+                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원번호</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <input name="frm" type="text" class="form-control" id="frm"
+                                                   value="폼으로 된 형태${memberDTO.member_idx}" readonly>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Table with stripped rows -->
-                        <table class="table lh-lg">
-                            <thead>
-                            <tr>
-                                <th>회원번호</th>
-                                <th>회원아이디</th>
-                                <th>회원이름</th>
-                                <th class="col-2"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${memberDTOlist ne null}">
-                                <c:forEach items="${memberDTOlist}" var="memberDTO">
-                            <tr>
-                                <td>${memberDTO.member_idx}</td>
-                                <td>${memberDTO.member_id}</td>
-                                <td>${memberDTO.member_name}</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
-                                </c:forEach>
-                            </c:if>
-                            <tr onclick="">
-                                <td>22</td>
-                                <td>memidasdf</td>
-                                <td>김인증</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
-                            <tr onclick="">
-                                <td>23</td>
-                                <td>memidqwer</td>
-                                <td>원산지</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-4 label ">이미지</div>
+                                        <div class="col-lg-10 col-md-8">
+                                            <img src="https://mall.chunjaetext.co.kr/web/product/small/202402/c92bb75807729444600df21b9257ccf9.jpg" alt="이미지">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="file" class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <input name="file" type="file" class="form-control" id="file"
+                                                   value="${memberDTO.book_img}">
+                                        </div>
+                                    </div>
 
 
-                        <div class="d-flex justify-content-center">
-                            <!-- Pagination with icons -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav><!-- End Pagination with icons -->
 
+                                    <div class="row mb-3">
+                                        <label for="social_type" class="col-md-4 col-lg-2 col-form-label label">카테고리</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <select name="social_type" class="form-control" id="social_type">
+                                                <option value="" selected hidden>셀렉트박스</option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="reg_date" class="col-md-4 col-lg-2 col-form-label label">가입일</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <input name="reg_date" type="date" class="form-control" id="reg_date"
+                                                   value="${memberDTO.reg_date}">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-4 label">폼 아니고 값만 출력할 때</div>
+                                        <div class="col-lg-10 col-md-8">출력출력</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-4 label">회원아이디</div>
+                                        <div class="col-lg-10 col-md-8">아이디${memberDTO.member_name}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-4 label">회원이름</div>
+                                        <div class="col-lg-10 col-md-8">이름${memberDTO.member_name}</div>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/member/memberModify?member_id=${memberDTO.member_id}'">수정</button>
+                            <button type="button" class="btn btn-success" id="btn_member_delete" onclick="member_delete();">삭제</button>
+                        </div>
+                    </div><!-- End Bordered Tabs -->
+
                 </div>
-
             </div>
+
         </div>
     </section>
 
@@ -172,6 +151,17 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    const frm_delete = document.querySelector("#frm_member_delete");
+    function member_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+</script>
+
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

@@ -49,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item"><a href="/admin/bbs/list">자료실</a></li>
                 <li class="breadcrumb-item active">자료실 등록</li>
             </ol>
         </nav>
@@ -108,10 +108,7 @@
                                 <div class="row mb-3">
                                     <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <c:if test="${bbsDTO.fileYN ne null}">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${bbsDTO.fileYN}" readonly>
-                                        </c:if>
+                                        <input name="file" type="file" class="form-control" id="file">
                                     </div>
                                 </div>
 

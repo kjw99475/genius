@@ -9,8 +9,10 @@ import java.util.List;
 public interface BbsServiceIf {
 
     int regist(BbsDTO bbsDTO);
-    List<BbsDTO> listAll();
+    List<BbsDTO> listAll(String category_code);
     BbsDTO view(int idx);
+//    BbsDTO preView(int idx, String category_code);
+    BbsDTO postView(int idx, String category_code);
     int modify(BbsDTO bbsDTO);
     int delete(int idx);
     int bbsTotalCount(PageRequestDTO requestDTO);
