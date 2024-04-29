@@ -15,6 +15,7 @@ public interface QnaServiceIf {
     int modify(QnaDTO qnaDTO);
     int refModify(QnaDTO qnaDTO);
     int delete(int idx);
+    int totalCount();
     int bbsTotalCount(PageRequestDTO requestDTO);
     List<QnaDTO> bbsListByPage(PageRequestDTO requestDTO);
 }

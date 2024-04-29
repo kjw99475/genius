@@ -34,20 +34,24 @@
             ref_idx = #{qna_idx}
         WHERE qna_idx = #{qna_idx} AND answerYN = 'N'
     </update>
+    <select id="totalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_qna
+    </select>
 
     <update id="modify">
-        UPDATE tbl_bbs SET
-            bbs_title = #{bbs_title}
-            , reg_date = #{reg_date}
-            , fileYN = #{fileYN}
-            , bbs_contents = #{bbs_contents}
-        WHERE bbs_idx = #{bbs_idx}
+        UPDATE tbl_qna SET
+            title = #{title}
+            , modify_date = NOW()
+<!--            , fileYN = #{fileYN}-->
+            , contents = #{contents}
+        WHERE qna_idx = #{qna_idx}
     </update>
 
     <delete id="delete">
         DELETE
-        FROM tbl_bbs
-        WHERE bbs_idx = #{bbs_idx}
+        FROM tbl_qna
+        WHERE qna_idx = #{qna_idx}
     </delete>
 
 </mapper>

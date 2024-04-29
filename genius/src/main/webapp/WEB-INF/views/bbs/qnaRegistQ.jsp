@@ -109,8 +109,9 @@
 <!--================ 푸터 End =================-->
 <script>
     document.getElementById("registBtn").addEventListener("click", function(e){
-       e.preventDefault();
-        document.getElementById("registFrm").submit();
+        e.preventDefault();
+        console.log(document.getElementById("inputCity").value)
+        //document.getElementById("registFrm").submit();
     });
 
     $('#summernote').summernote({
