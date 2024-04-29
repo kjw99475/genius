@@ -48,6 +48,16 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
+    public int usepoint(PaymentDTO paymentDTO) {
+        PaymentVO vo = modelMapper.map(paymentDTO, PaymentVO.class);
+        log.info("=====================================================");
+        log.info("PaymentVO : " + vo);
+        log.info("=====================================================");
+        int result = paymentMapper.usepoint(vo);
+        return result;
+    }
+
+    @Override
     public List<PaymentDTO> listAll(String user_id) {
         List<PaymentVO> vos = paymentMapper.listAll(user_id);
         List<PaymentDTO> dtos = vos.stream()
