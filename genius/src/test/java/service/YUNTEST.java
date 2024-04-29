@@ -126,6 +126,15 @@ public class YUNTEST {
         log.info("======================");
     }
     @Test
+    public void testQnaRegist(){
+        QnaDTO qnaDTO = QnaDTO.builder()
+                .title("test15제목")
+                .contents("test15답변")
+                .member_id("test").build();
+        qnaServiceIf.regist(qnaDTO);
+        log.info("qnaDTO : " + qnaDTO);
+    }
+    @Test
     public void updateRankAvg(){
         int result = reviewServiceIf.updateAvg("b0001");
         log.info("=========================");
@@ -139,6 +148,7 @@ public class YUNTEST {
         log.info(qnaDTOList);
         log.info("=========================");
     }
+
     @Test
     public void testClassCategoryList(){
         log.info(bookServiceIf.bookClassCategoryList());

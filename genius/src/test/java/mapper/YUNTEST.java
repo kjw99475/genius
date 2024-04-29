@@ -189,13 +189,12 @@ public class YUNTEST {
                 .title("질문test")
                 .contents("질문test")
                 .member_id("test1")
-                .ref_idx(7)
                 .build();
         log.info("================================");
-        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
         int result = qnaMapper.regist(qnaVO);
+        int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
         log.info("qnaMapperTest >> testQnaRegist >> result : " + result);
         log.info("================================");
     }
-
 }
