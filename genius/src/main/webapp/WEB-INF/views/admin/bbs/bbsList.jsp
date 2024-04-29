@@ -105,7 +105,7 @@
                             </select>
                         </div>
 
-                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete">
+                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
                             <!-- Table with stripped rows -->
                             <table class="table">
                                 <thead>
@@ -123,7 +123,7 @@
                                     <c:when test="${bbsDTOList ne null}">
                                         <c:forEach items="${bbsDTOList}" var="bbsDTO">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                                <td><input class="chk_del" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
                                                 <td>${bbsDTO.bbs_title}</td>
                                                 <td>${bbsDTO.member_id}</td>
                                                 <td>${bbsDTO.reg_date}</td>

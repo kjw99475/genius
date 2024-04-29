@@ -117,4 +117,21 @@ public class AdminBbsController {
         }
     }
 
+    @PostMapping("/delete_chk")
+    public String POSTDelete_chk(@RequestParam("chk_del") String[] chk_del) {
+        int cnt = 0;
+        for(int i=0; i<chk_del.length; i++) {
+            int bbs_idx = Integer.parseInt(chk_del[i]);
+            int result = bbsServiceIf.delete(bbs_idx);
+            if(result > 0) {
+                log.info("삭제 성공 idx : " + bbs_idx);
+                cnt +=1;
+            } else {
+                log.info("삭제 실패 idx : " + bbs_idx);
+            }
+        }
+        log.info("삭제 개수 >> " + cnt);
+        return "redirect:/admin/bbs/bbsList";
+    }
+
 }
