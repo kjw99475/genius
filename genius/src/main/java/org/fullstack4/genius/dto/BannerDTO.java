@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class BannerDTO {
     private int banner_img_idx;
