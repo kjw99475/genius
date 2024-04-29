@@ -38,8 +38,8 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
-    public int exist(String book_code) {
-        int exist = cartMapper.exist(book_code);
+    public int exist(String book_code,String member_id) {
+        int exist = cartMapper.exist(book_code,member_id);
         return exist;
     }
 

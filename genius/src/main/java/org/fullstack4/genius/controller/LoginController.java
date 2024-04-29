@@ -153,4 +153,17 @@ public class LoginController {
     @GetMapping("/findResult")
     public void GETFindResult() {}
 
+    @GetMapping("/naver")
+    public String GETNaverLogin(HttpServletRequest request,
+                                RedirectAttributes redirectAttributes) {
+        MemberDTO memberDTO = memberServiceIf.naver(request);
+        if (memberDTO != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("member_id", memberDTO.getMember_id());
+            session.setAttribute("admin_YN", "N");
+            return "redirect:/login/login";
+        }
+        redirectAttributes.addFlashAttribute("loginErr", "로그인 정보를 확인해주세요.");
+        return "redirect:/login/login";
+    }
 }

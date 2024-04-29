@@ -1,5 +1,6 @@
 package org.fullstack4.genius.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,15 +14,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CartDTO {
-    private int cart_idx;
+public class QnaDTO {
+    private int qna_idx;
+    private String title;
+    private String contents;
     private String member_id;
-    private String book_code;
-    private String book_img;
-    private int price;
-    private int quantity;
+    private String answerYN;
+    private String category_code;
+    private int read_cnt;
+    private int ref_idx;
     private LocalDate reg_date;
-    private String book_name;
-    private String category_class_code;
-    private String category_subject_code;
+    private LocalDate modify_date;
 }

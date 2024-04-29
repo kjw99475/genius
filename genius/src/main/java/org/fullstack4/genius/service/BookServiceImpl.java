@@ -54,9 +54,12 @@ public class BookServiceImpl implements BookServiceIf {
 
     @Override
     public int modify(BookDTO bookDTO) {
-
-
-        return 0;
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        log.info("===================");
+        int result = bookMapper.modify(bookVO);
+        log.info("bookservice : modify : result = " + result);
+        log.info("==================");
+        return result;
     }
 
     @Override

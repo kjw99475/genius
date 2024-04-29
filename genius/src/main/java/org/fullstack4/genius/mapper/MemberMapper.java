@@ -19,8 +19,10 @@ public interface MemberMapper {
     List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
 
     MemberVO login(String member_id);
+    MemberVO naver(String member_id);
     String findId(MemberVO memberVO);
     String findPwd(MemberVO memberVO);
     int changePwd(MemberVO memberVO);
     int modifyInfo(MemberVO memberVO);
+    int leave(String member_id);
 }

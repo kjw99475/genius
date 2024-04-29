@@ -98,10 +98,21 @@ public class AdminBookController {
     }
 
     @PostMapping("/itemModify")
-    public String POSTItemModify(@Valid BookDTO bookDTO, Model model){
+    public String POSTItemModify(@Valid BookDTO bookDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model){
+        log.info("AdminBookController : POSTItemModify");
+        System.out.println("111");
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/book/itemModify";
+        }
         int result = bookServiceIf.modify(bookDTO);
+        log.info("AdminBookController : POSTItemModify >> result : " + result);
         if(result >0){
-            return "redirect:/admin/book/itemview?book_code="+bookDTO.getBook_code();
+            return "/admin/book/itemview?book_code="+bookDTO.getBook_code();
         }
         else{
             model.addAttribute("bookDTO", bookDTO);

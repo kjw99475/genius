@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface OrderServiceIf {
     int regist(OrderDTO orderDTO);
+    int detailregist(OrderDTO orderDTO);
 
     List<OrderDTO> AdminlistAll();
     List<OrderDTO> listAll(String user_id);

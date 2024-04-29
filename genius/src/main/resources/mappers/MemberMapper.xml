@@ -9,17 +9,21 @@
         where member_id = #{member_id}
     </select>
     <select id="login" resultType="org.fullstack4.genius.domain.MemberVO">
-        SELECT member_idx,member_id,member_name,pwd,birthday,phone,gender,zip_code,addr1,addr2,point,profile,reg_date,admin_YN,modify_date,leave_date,status,email
+        SELECT member_idx,member_id,member_name,pwd,birthday,phone,gender,zip_code,addr1,addr2,point,profile,reg_date,admin_YN,modify_date,leave_date,status,email,social_type
         FROM tbl_member
-        WHERE member_id = #{member_id} AND status = 'Y'
+        WHERE member_id = #{member_id} AND status = 'Y' AND social_type IS NULL
     </select>
-
+    <select id="naver" resultType="org.fullstack4.genius.domain.MemberVO">
+        SELECT member_idx,member_id,member_name,pwd,birthday,phone,gender,zip_code,addr1,addr2,point,profile,reg_date,admin_YN,modify_date,leave_date,status,email,social_type
+        FROM tbl_member
+        WHERE member_id = #{member_id} AND status = 'Y' AND social_type = 'naver'
+    </select>
     <update id="pointcharge">
         update SET tbl_member point=#{point} where member_id=#{member_id}
     </update>
     <insert id="join">
-        INSERT INTO tbl_member (member_id, member_name, pwd, birthday, email, phone, gender, zip_code, addr1, addr2, admin_YN, terms1, terms2, terms3, terms4)
-        VALUES (#{member_id}, #{member_name}, #{pwd}, #{birthday}, #{email}, #{phone}, #{gender}, #{zip_code}, #{addr1}, #{addr2}, 'N', #{terms1}, #{terms2}, #{terms3}, #{terms3})
+        INSERT INTO tbl_member (social_type, member_id, member_name, pwd, birthday, email, phone, gender, zip_code, addr1, addr2, admin_YN, terms1, terms2, terms3, terms4)
+        VALUES (#{social_type}, #{member_id}, #{member_name}, #{pwd}, #{birthday}, #{email}, #{phone}, #{gender}, #{zip_code}, #{addr1}, #{addr2}, 'N', #{terms1}, #{terms2}, #{terms3}, #{terms3})
     </insert>
     <select id="findId" resultType="string">
         SELECT member_id
@@ -47,7 +51,14 @@
             zip_code = #{zip_code},
             addr1 = #{addr1},
             addr2 = #{addr2},
-            profile = #{profile}
+            profile = #{profile},
+            modify_date = now()
+        WHERE member_id = #{member_id}
+    </update>
+    <update id="leave">
+        UPDATE tbl_member
+        SET status = 'N',
+            leave_date = now()
         WHERE member_id = #{member_id}
     </update>
 </mapper>

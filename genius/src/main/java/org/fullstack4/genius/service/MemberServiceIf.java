@@ -4,15 +4,17 @@ import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface MemberServiceIf {
 
     int join(MemberDTO memberDTO);
     MemberDTO view(String user_id);
-    int update(MemberDTO memberDTO);
-    int leave(String user_id);
+    int leave(String member_id);
     int idCheck(String user_id);
 
     MemberDTO login(String member_id, String pwd);
+    MemberDTO naver(HttpServletRequest request);
     MemberDTO AutoLogin(String member_id);
     String findId(MemberDTO memberDTO);
     String findPwd(MemberDTO memberDTO);

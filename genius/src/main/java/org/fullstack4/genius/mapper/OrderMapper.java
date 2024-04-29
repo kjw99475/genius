@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderMapper {
     int regist(OrderVO orderVO);
-
+    int detailregist(OrderVO orderVO);
 
     List<OrderVO> AdminlistAll();
     List<OrderVO> listAll(String user_id);

@@ -25,8 +25,15 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/resources/css/summernote/summernote-lite.css">
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -62,25 +69,25 @@
                     <div class="form-row ml-5">
                         <div class="form-group col-md-5">
                             <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity">
+                            <input type="text" class="form-control" id="inputCity" name="title">
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">아이디</label>
-                            <input type="text" class="form-control" id="inputZip" value="아이디" name="member_id" readonly>
+                            <label for="inputZip">${sessionScope.member_id}</label>
+                            <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
-                            <label for="inputState">게시판 종류를 선택하세요</label>
+<%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
                             <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
+                                <option>Choose...</option>
                                 <option>자유 게시판</option>
-                                <option>QnA</option>
+                                <option selected>QnA</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <textarea id="summernote" name="editordata"></textarea>
+                <textarea id="summernote" name="contents"></textarea>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
@@ -100,6 +107,43 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    function imageUploader(file, el) {
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            data : formData,
+            type : "POST",
+            //아래 url 수정 필요
+            url : '/',
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',
+            success : function(data) {
+                $(el).summernote('insertImage', "${pageContext.request.contextPath}/assets/images/upload/"+data, function($image) {
+                    $image.css('width', "100%");
+                });
+                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                console.log(data);
+            }
+        });
+    }
+</script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
