@@ -47,4 +47,17 @@
         from tbl_payment
         where member_id=#{param1}
     </select>
+
+    <select id="viewOrder" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        where member_id=#{param1} and cancel_YN ='N'
+    </select>
+
+    <select id="viewOrderdetail" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT orderdetail_idx,order_num,A.book_code,B.book_name,B.book_img,A.category_class_code,A.category_subject_code,order_state,order_date,A.price,total_price,amount
+        FROM tbl_orderdetail AS a
+        INNER JOIN tbl_book AS B ON a.book_code = b.book_code
+        where order_num = #{param1}
+    </select>
 </mapper>

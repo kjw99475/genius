@@ -84,8 +84,8 @@
                             <input type="number" name="qty" id="sst" size="2" maxlength="12" value="0" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
-                            <button id="scrollTarget" class="button primary-outline-btn" type="button">바로 구매</button>
-                            <button class="button primary-outline-btn" type="button">장바구니에 담기</button>
+                            <button id="scrollTarget" class="button primary-outline-btn" type="button" onclick="purchasepage()">바로 구매</button>
+                            <button class="button primary-outline-btn" type="button" onclick="addcart()">장바구니에 담기</button>
                         </div>
                     </div>
                 </div>
@@ -373,6 +373,36 @@
             // document.querySelector('#review-tab').click();
     }
 
+    function purchasepage(){
+        let quantity = document.querySelector("#sst").value;
+        if(quantity <= 0){
+            alert("수량을 입력해라");
+        }else{
+            location.href='/order/payment1?book_code=${bookDTO.book_code}&quantity='+quantity;
+        }
+
+    }
+
+    function addcart(){
+        $.ajax({
+            url:"/mypage/addcart.dox",
+            dataType:"json",
+            type : "POST",
+            data : {
+                "member_id":"${sessionScope['member_id']}",
+                "book_code":"${bookDTO.book_code}",
+                "quantity" :document.querySelector("#sst").value
+            },
+            success : function(data) {
+                alert("장바구니 성공");///문제가 있을수 있어용
+            },
+            fail : function (data){
+
+            }
+
+        });
+
+    }
     // $(document).ready(function() {
     //     // 버튼 클릭 이벤트를 처리합니다.
     //     $('#reviewBtn').click(function() {
