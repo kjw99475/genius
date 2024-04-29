@@ -28,8 +28,8 @@ public class PageResponseDTO<E> {
     private String search_word;
     private String search_data1;
     private String search_data2;
-    private LocalDate search_date1;
-    private LocalDate search_date2;
+    private String search_date1;
+    private String search_date2;
     private String linked_params;
     private String class_code;
     private String subject_code;
@@ -55,13 +55,20 @@ public class PageResponseDTO<E> {
         this.next_page_flag = (this.total_page > this.page_block_end); // 다음페이지 있는지 여부(페이지네이션에서 10개씩 다음 가는거)
         this.search_word = CommonUtil.parseString(requestDTO.getSearch_word());
         this.search_type =  requestDTO.getSearch_type();
+        this.type = requestDTO.getType();
         this.search_type_st = (search_type != null) ? Arrays.toString(search_type).replace("[","").replace("]","").replace(" ","") : "t,u";
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
         this.search_data2 = CommonUtil.parseString(requestDTO.getSearch_data2());
+        this.search_date1 = CommonUtil.parseString(requestDTO.getSearch_date1());
+        this.search_date2 = CommonUtil.parseString(requestDTO.getSearch_date2());
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
-        if(search_type != null) sb.append("&search_type=" + search_type_st + "&search_word=" + this.search_word);
-        if(!search_data1.equals("")) sb.append("&search_data1=" + search_data1);
-        if(!search_data2.equals("")) sb.append("&search_data2=" + search_data2);
+        if(search_type != null) sb.append("&search_type=" + search_type_st );
+        if(search_word != null) sb.append("&search_word=" + search_word);
+        if(search_data1 != null) sb.append("&search_data1=" + search_data1);
+        if(search_data2 != null) sb.append("&search_data2=" + search_data2);
+        if(type != null) sb.append("&type=" + type);
+        if(search_date1 != null) sb.append("&search_date1=" + search_date1);
+        if(search_date2 != null) sb.append("&search_date2=" + search_date2);
         this.linked_params =  sb.toString();  // 쿼리스트링
         this.dtoList = dtoList;
         log.info("PageResponseDTO End");
