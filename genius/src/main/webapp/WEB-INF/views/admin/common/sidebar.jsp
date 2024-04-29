@@ -21,7 +21,7 @@
         <!-- End 메인 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/member/memberView">
+            <a class="nav-link collapsed" href="/admin/member/memberList">
                 <i class="bi bi-person"></i>
                 <span>회원 관리</span>
             </a>

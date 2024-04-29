@@ -86,5 +86,7 @@ public class JiwonTest {
     @Test
     public void testBbsprepost() {
         BbsVO bbsVO = bbsMapper.preView(4, "bc01");
+        //BbsVO bbsVO = bbsMapper.postView(4);
+        log.info(bbsVO.toString());
     }
 }

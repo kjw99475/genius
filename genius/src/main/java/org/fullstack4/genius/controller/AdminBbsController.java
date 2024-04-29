@@ -98,11 +98,12 @@ public class AdminBbsController {
     public void GETView(int bbs_idx
                         , Model model) {
         BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
-        //BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx);
+//        BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
+//        BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
 
         model.addAttribute("bbsDTO", bbsDTO);
-        //model.addAttribute("prebbsDTO", prebbsDTO);
-        //model.addAttribute("postbbsDTO", postbbsDTO);
+//        model.addAttribute("prebbsDTO", prebbsDTO);
+//        model.addAttribute("postbbsDTO", postbbsDTO);
 
     }
 

@@ -38,13 +38,17 @@
     <select id="view" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs.bbs_idx, bbs_title, bbs.category_code, bbs.member_id, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
         FROM tbl_bbs AS bbs
-        WHERE bbs.bbs_idx = #{idx}
+        WHERE bbs.bbs_idx = #{bbs_idx}
     </select>
 
     <select id="preView" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
         FROM tbl_bbs
-        WHERE bbs_idx <![CDATA[<]]> #{bbs_idx} AND category_code = #{category_code}
+<!--        WHERE bbs_idx <![CDATA[<]]> #{arg0} AND category_code = #{arg1}-->
+<!--        WHERE bbs_idx <![CDATA[<]]> @Param("idx") AND category_code = @Param("category_code")-->
+        WHERE category_code = #{category_code} AND bbs_idx <![CDATA[<]]> #{bbs_idx}
+        ORDER BY bbs_idx DESC
+        LIMIT 1
     </select>
 
     <select id="postView" resultType="org.fullstack4.genius.domain.BbsVO">

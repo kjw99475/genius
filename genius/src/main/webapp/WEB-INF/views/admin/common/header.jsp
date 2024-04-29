@@ -46,7 +46,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" onclick="logout()">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>로그아웃</span>
                         </a>
@@ -61,7 +61,20 @@
     <!-- End Icons Navigation -->
 
 </header><!-- End Header -->
-
+<script>
+    function logout() {
+        let frm = document.createElement('form');
+        let input = document.createElement('input');
+        frm.action = '/login/logout';
+        frm.method = 'post';
+        frm.id = 'frm';
+        input.name = 'member_id';
+        input.value = '${sessionScope['member_id']}';
+        frm.append(input);
+        document.body.append(frm);
+        document.getElementById('frm').submit();
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
