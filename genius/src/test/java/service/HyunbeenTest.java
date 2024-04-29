@@ -1,10 +1,7 @@
 package service;
 
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.genius.dto.CartDTO;
-import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.dto.OrderDTO;
-import org.fullstack4.genius.dto.PaymentDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Log4j2
@@ -86,6 +86,7 @@ public class HyunbeenTest {
     public void viewOrder(){
         String Member_id = "test";
         OrderDTO dto = order.view(Member_id);
+
         List<OrderDTO> dtolist2 = order.AdminlistAll();
         List<OrderDTO> dtolist = order.listAll(Member_id);
         List<OrderDTO> dtolist1 = order.orderDetail("o00001");
@@ -161,5 +162,52 @@ public class HyunbeenTest {
         log.info("=====================================");
         log.info("detaillist  "+" : " + detaillist.toString());
         log.info("=====================================");
+    }
+
+    @Test
+    public void AdminOrder(){
+        List<OrderDTO> list = order.AdminlistAll();
+        log.info("====================================");
+        log.info("list: " + list.toString());
+        log.info("====================================");
+    }
+
+    @Test
+    public void garadata(){
+
+
+        for(int i = 0; i<100;i++) {
+            int random = (int) (Math.random()*100000)+1;
+            String order_num=new SimpleDateFormat("yyMMddHmss").format(new Date())+"-"+random;
+            OrderDTO orderDTO = OrderDTO.builder()
+                    .member_id("test")
+                    .order_num(order_num)
+                    .order_state("배송 전")
+                    .total_price(10000 + (10 * i))
+                    .delivery_addr1("서울시 중랑구")
+                    .delivery_addr2("테스트 주소")
+                    .build();
+
+            int regist = order.regist(orderDTO);
+            int regist1 = order.deliveryRegist(orderDTO);
+        }
+
+    }
+
+    @Test
+    public void pagingTest12(){
+        List<OrderDTO> list = order.AdminlistAll();
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+        pageRequestDTO.setTotal_count(101);
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage(1);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<OrderDTO> responseDTO = order.OrderListByPage(pageRequestDTO);
+
+        log.info("=====================================");
+        log.info("pageRequestDTO: " + responseDTO.toString());
+        log.info("===================================");
+
     }
 }
