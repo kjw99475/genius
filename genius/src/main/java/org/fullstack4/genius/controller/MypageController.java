@@ -7,12 +7,10 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.dto.*;
-import org.fullstack4.genius.service.CartServiceIf;
-import org.fullstack4.genius.service.MemberServiceIf;
-import org.fullstack4.genius.service.PaymentServiceIf;
-import org.fullstack4.genius.service.PaymentServiceImpl;
+import org.fullstack4.genius.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ public class MypageController {
     private final PaymentServiceIf paymentService;
     private final CartServiceIf cartService;
     private final MemberServiceIf memberService;
+    private final QnaServiceIf qnaService;
 
     @GetMapping("/mypage")
     public String GETMypage(HttpServletRequest request,
@@ -78,8 +78,22 @@ public class MypageController {
     }
 
     @GetMapping("/myquestions")
-    public void GETQuestion(){
+    public void GETQuestion(@Valid PageRequestDTO pageRequestDTO,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes,
+                            HttpServletRequest request,
+                            Model model){
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        HttpSession session = request.getSession();
+        pageRequestDTO.setMember_id((String) session.getAttribute("member_id"));
+        pageRequestDTO.setPage_size(6);
+        pageRequestDTO.setPage_block_size(10);
+        PageResponseDTO<QnaDTO> responseDTO = qnaService.qnaListByPage(pageRequestDTO);
 
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @PostMapping("/myquestions")

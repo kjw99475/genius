@@ -36,6 +36,7 @@ public class PageResponseDTO<E> {
     private String sort;
     private String status;
     private String type;
+    private String member_id;
     List<E> dtoList;
     PageResponseDTO() {}
 
@@ -60,7 +61,8 @@ public class PageResponseDTO<E> {
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
         this.search_data2 = CommonUtil.parseString(requestDTO.getSearch_data2());
         this.search_date1 = requestDTO.getSearch_date1();
-        this.search_date2 = requestDTO.getSearch_date2();;
+        this.search_date2 = requestDTO.getSearch_date2();
+        this.member_id = requestDTO.getMember_id();
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
         if(search_type != null) sb.append("&search_type=" + search_type_st );
         if(search_word != null) sb.append("&search_word=" + search_word);
@@ -69,6 +71,8 @@ public class PageResponseDTO<E> {
         if(type != null) sb.append("&type=" + type);
         if(search_date1 != null) sb.append("&search_date1=" + search_date1);
         if(search_date2 != null) sb.append("&search_date2=" + search_date2);
+        if(member_id != null) sb.append("&member_id=" + member_id);
+
         this.linked_params =  sb.toString();  // 쿼리스트링
         this.dtoList = dtoList;
         log.info("PageResponseDTO End");

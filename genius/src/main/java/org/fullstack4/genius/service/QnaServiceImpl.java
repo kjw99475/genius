@@ -44,6 +44,14 @@ public class QnaServiceImpl implements QnaServiceIf {
     }
 
     @Override
+    public List<QnaDTO> myListAll() {
+        List<QnaDTO> qnaDTOList = qnaMapper.myListAll().stream()
+                .map(qnaVO-> modelMapper.map(qnaVO, QnaDTO.class))
+                .collect(Collectors.toList());
+        return qnaDTOList;
+    }
+
+    @Override
     public QnaDTO view(int idx) {
         QnaVO qnaVO = qnaMapper.view(idx);
         QnaDTO qnaDTO = modelMapper.map(qnaVO, QnaDTO.class);
@@ -67,6 +75,12 @@ public class QnaServiceImpl implements QnaServiceIf {
     public int delete(int idx) {
 
         return qnaMapper.delete(idx);
+    }
+
+    @Override
+    public int readCount(int idx) {
+        int result = qnaMapper.readCount(idx);
+        return result;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class BbsController {
         model.addAttribute("responseDTO", responseDTO);
     }
     @GetMapping("/qnaViewQ")
-    public void GETQnaViewQ(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+    public void GETQnaViewQ(@RequestParam(name="qna_idx") int qna_idx,
                             Model model) {
         QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
         log.info("bbsController >> qnaview >> " + qnaDTO);
@@ -64,6 +64,7 @@ public class BbsController {
         QnaDTO prevDTO = null;
         QnaDTO nextDTO = null;
         int listIdx = 0;
+        int readCnt = qnaServiceIf.readCount(qna_idx);
         for(QnaDTO dto : qnaDTOList){
             if(dto.getQna_idx()==qna_idx && listIdx != qnaDTOList.size()-1){
                 prevDTO = qnaDTOList.get(listIdx+1);
@@ -79,14 +80,16 @@ public class BbsController {
     }
 
     @GetMapping("/qnaViewA")
-    public void GETViewA(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+    public void GETViewA(@RequestParam(name="qna_idx") int qna_idx,
                          Model model) {
         QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
+
         log.info("bbsController >> qnaview >> " + qnaDTO);
         List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
         QnaDTO prevDTO = null;
         QnaDTO nextDTO = null;
         int listIdx = 0;
+        int readCnt = qnaServiceIf.readCount(qna_idx);
         for(QnaDTO dto : qnaDTOList){
             if(dto.getQna_idx()==qna_idx && listIdx != qnaDTOList.size()-1){
                 prevDTO = qnaDTOList.get(listIdx+1);
@@ -130,7 +133,7 @@ public class BbsController {
 
     }
     @GetMapping("/qnaModifytQ")
-    public void GETQnaModifytQ(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+    public void GETQnaModifytQ(@RequestParam(name="qna_idx") int qna_idx,
                                Model model) {
         QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
         model.addAttribute("qnaDTO", qnaDTO);
@@ -159,7 +162,7 @@ public class BbsController {
         }
     }
     @PostMapping("qnaDelete")
-    public String qnaDelete(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+    public String qnaDelete(@RequestParam(name="qna_idx") int qna_idx,
                             Model model){
         int result = qnaServiceIf.delete(qna_idx);
         if(result>0){

@@ -63,7 +63,7 @@
                 <tbody>
                 <tr>
                     <th scope="row">게시글 번호</th>
-                    <td>${param.no}</td>
+                    <td id="bbs_no">${param.no}</td>
                 </tr>
                 <tr>
                     <th scope="row">제목</th>
@@ -110,8 +110,8 @@
                     <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
                     <td class="card-product__title">
                         <c:if test="${prevDTO != null}">
-                            <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}</c:if>
-                                    <c:if test="${prevDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${prevDTO.qna_idx}</c:if>">
+                            <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>
+                                    <c:if test="${prevDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>">
                                     ${prevDTO.title}
                             </a>
                         </c:if>
@@ -124,8 +124,8 @@
                     <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
                     <td class="card-product__title">
                         <c:if test="${nextDTO != null}">
-                            <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}</c:if>
-                                    <c:if test="${nextDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${nextDTO.qna_idx}</c:if>">
+                            <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>
+                                    <c:if test="${nextDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>">
                                     ${nextDTO.title}
                             </a>
                         </c:if>
@@ -144,7 +144,12 @@
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->
+<script>
 
+    document.getElementById("bbs_no").addEventListener("click", function(e){
+        console.log(this.textContent);
+    });
+</script>
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
