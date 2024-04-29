@@ -4,14 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.dto.BbsDTO;
+import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.mapper.BbsMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,11 +83,32 @@ public class BbsServiceImpl implements BbsServiceIf {
 
     @Override
     public int bbsTotalCount(PageRequestDTO requestDTO) {
-        return 0;
+        int total_count = bbsMapper.bbsTotalCount(requestDTO);
+        return total_count;
     }
 
     @Override
-    public List<BbsDTO> bbsListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<BbsDTO> bbsListByPage(PageRequestDTO requestDTO) {
+//        List<BbsDTO> bbsDTOList = bbsMapper.bbsListByPage(requestDTO).stream()
+//                        .map(bbsVO -> modelMapper.map(bbsVO, BbsDTO.class))
+//                .collect(Collectors.toList());
+//        return bbsDTOList;
+
+        List<BbsVO> voList = bbsMapper.bbsListByPage(requestDTO);
+        log.info("========================");
+        log.info("voList : " + voList);
+        log.info("========================");
+        List<BbsDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,BbsDTO.class))
+                .collect(Collectors.toList());
+        int total_count = bbsMapper.bbsTotalCount(requestDTO);
+
+        PageResponseDTO<BbsDTO> responseDTO = PageResponseDTO.<BbsDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

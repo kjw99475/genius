@@ -34,6 +34,17 @@ public class JiwonTest {
     }
 
     @Test
+    public void testBbsListByPage(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .category_code("bc01")
+                .page_size(4)
+                .build();
+        List<BbsVO> list = bbsMapper.bbsListByPage(pageRequestDTO);
+        log.info("=================================");
+        log.info(list.toString());
+    }
+
+    @Test
     public void testBbsInsert(){
         int result = bbsMapper.regist(BbsVO.builder()
                         .bbs_title("테스트 제목33")
@@ -57,8 +68,9 @@ public class JiwonTest {
     @Test
     public void testBbsModify(){
         int result = bbsMapper.modify(BbsVO.builder()
-                        .bbs_idx(11)
+                        .bbs_idx(12)
                         .bbs_title("제목수정테스트")
+                        .member_id("test1234")
                         .bbs_contents("내용수정테스트")
                         .fileYN("N")
                         .reg_date(LocalDate.parse("2024-04-29"))
