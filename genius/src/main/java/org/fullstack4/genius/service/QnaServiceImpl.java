@@ -3,10 +3,9 @@ package org.fullstack4.genius.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BbsVO;
+import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
-import org.fullstack4.genius.dto.BbsDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.QnaDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.mapper.BbsMapper;
 import org.fullstack4.genius.mapper.QnaMapper;
 import org.modelmapper.ModelMapper;
@@ -76,12 +75,27 @@ public class QnaServiceImpl implements QnaServiceIf {
     }
 
     @Override
-    public int bbsTotalCount(PageRequestDTO requestDTO) {
-        return 0;
+    public int qnaTotalCount(PageRequestDTO requestDTO) {
+        return qnaMapper.qnaTotalCount(requestDTO);
     }
 
     @Override
-    public List<QnaDTO> bbsListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<QnaDTO> qnaListByPage(PageRequestDTO requestDTO) {
+        List<QnaVO> voList = qnaMapper.qnaListByPage(requestDTO);
+        log.info("========================");
+        log.info("voList : " + voList);
+        log.info("========================");
+        List<QnaDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,QnaDTO.class))
+                .collect(Collectors.toList());
+        int total_count = qnaMapper.qnaTotalCount(requestDTO);
+
+        PageResponseDTO<QnaDTO> responseDTO = PageResponseDTO.<QnaDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }
