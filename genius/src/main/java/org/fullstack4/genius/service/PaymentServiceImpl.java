@@ -2,7 +2,9 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.PaymentMapper;
@@ -88,6 +90,26 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     @Override
     public int delete(PaymentDTO PaymentDTO) {
         return 0;
+    }
+
+    @Override
+    public List<OrderDTO> viewOrder(String member_id) {
+        List<OrderVO> volist = paymentMapper.viewOrder(member_id);
+        List<OrderDTO> dtolist = volist.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return dtolist;
+    }
+
+    @Override
+    public List<OrderDTO> viewOrderdetail(String order_num) {
+        List<OrderVO> volist = paymentMapper.viewOrderdetail(order_num);
+        List<OrderDTO> dtolist = volist.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return dtolist;
     }
 
     @Override

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -137,5 +138,28 @@ public class HyunbeenTest {
         log.info("result : " + result);
         log.info("=====================================================");
 
+    }
+
+    @Test
+    public void Orderview(){
+        String id = "test";
+        List<OrderDTO> dtolist = payment.viewOrder(id);
+        log.info("=====================================");
+        log.info("dtolist: " + dtolist.toString());
+        log.info("=====================================");
+
+        List<List<OrderDTO>> detaillist = new ArrayList<List<OrderDTO>>();
+        for(int i = 0; i < dtolist.size(); i++){
+            String ordernum = dtolist.get(i).getOrder_num();
+            List<OrderDTO> detail = payment.viewOrderdetail(ordernum);
+            log.info("=====================================");
+            log.info("detail"+i+": " + detail.toString());
+            log.info("=====================================");
+            detaillist.add(detail);
+        }
+
+        log.info("=====================================");
+        log.info("detaillist  "+" : " + detaillist.toString());
+        log.info("=====================================");
     }
 }
