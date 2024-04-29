@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.QnaDTO;
 import org.fullstack4.genius.mapper.OrderMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,14 @@ public class OrderServiceImpl  implements OrderServiceIf {
     public int detailregist(OrderDTO orderDTO) {
         OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
         int result = orderMapper.detailregist(orderVO);
+
+        return result;
+    }
+
+    @Override
+    public int deliveryRegist(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.deliveryRegist(orderVO);
 
         return result;
     }
@@ -96,7 +106,21 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
-    public List<OrderDTO> OrderListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<OrderDTO> OrderListByPage(PageRequestDTO requestDTO)
+    {
+        List<OrderVO> voList = orderMapper.OrderListByPage(requestDTO);
+        List<OrderDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, OrderDTO.class))
+                .collect(Collectors.toList());
+
+        int total_count = orderMapper.total_count();
+
+        PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

@@ -37,11 +37,8 @@ public class LoginController {
             HttpServletResponse response,
             HttpServletRequest request
     ){
-        log.info("---------------------");
-        log.info("LoginController => POSTLogin()");
-        log.info("---------------------");
+
         if(member_id.equals("") || pwd.equals("")) {
-            log.info("LoginController > POSTLogin() : 로그인 정보에 빈 문자열 들어옴.");
             redirectAttributes.addFlashAttribute("loginErr", "로그인 정보를 확인해주세요.");
             return "redirect:/login/login";
         }
@@ -89,8 +86,6 @@ public class LoginController {
     @PostMapping("/findId")
     public String POSTFindId(MemberDTO memberDTO,
                           RedirectAttributes redirectAttributes){
-        log.info("---------------------");
-        log.info("LoginController => POSTFindId()");
         String member_id = memberServiceIf.findId(memberDTO);
         log.info("---------------------");
         if (member_id != null) {
@@ -118,10 +113,7 @@ public class LoginController {
     @PostMapping("/findPwd")
     public String POSTFindPwd(MemberDTO memberDTO,
                               RedirectAttributes redirectAttributes){
-        log.info("---------------------");
-        log.info("LoginController => POSTFindPwd()");
         String member_id = memberServiceIf.findPwd(memberDTO);
-        log.info("---------------------");
         if (member_id != null) {
             redirectAttributes.addAttribute("member_id", member_id);
             redirectAttributes.addAttribute("type", "2");
@@ -136,10 +128,7 @@ public class LoginController {
     @PostMapping("/changePwd")
     public String POSTChangePwd(MemberDTO memberDTO,
                               RedirectAttributes redirectAttributes){
-        log.info("---------------------");
-        log.info("LoginController => POSTChangePwd()");
         int result = memberServiceIf.changePwd(memberDTO);
-        log.info("---------------------");
         if (result > 0) {
             redirectAttributes.addAttribute("type", "findPwd");
             return "redirect:/login/findResult";

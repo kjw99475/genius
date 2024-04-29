@@ -4,7 +4,6 @@ package org.fullstack4.genius.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.BbsDTO;
-import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.service.BbsServiceIf;
@@ -28,23 +27,43 @@ public class AdminBbsController {
     public final BbsServiceIf bbsServiceIf;
     String category_code = "bc01";
 
-
     @GetMapping("/list")
     public void GETList(@Valid PageRequestDTO pageRequestDTO
-                        , BindingResult bindingResult
-                        , RedirectAttributes redirectAttributes
-                        , Model model){
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model
+    ){
         if(bindingResult.hasErrors()){
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-        pageRequestDTO.setPage_size(10);
+//        pageRequestDTO.setPage_size(page_size);
         pageRequestDTO.setPage_block_size(10);
-        //PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.listByPage(pageRequestDTO);
+        pageRequestDTO.setCategory_code(category_code);
 
-        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
-        model.addAttribute("bbsDTOList", bbsDTOList);
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+        //List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
+
+
+//    @GetMapping("/list")
+//    public void GETList(@Valid PageRequestDTO pageRequestDTO
+//                        , BindingResult bindingResult
+//                        , RedirectAttributes redirectAttributes
+//                        , Model model){
+//        if(bindingResult.hasErrors()){
+//            log.info("BbsController >> list Error");
+//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//        }
+//        pageRequestDTO.setPage_size(10);
+//        pageRequestDTO.setPage_block_size(10);
+//
+//        //PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.listByPage(pageRequestDTO);
+//        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
+//        model.addAttribute("bbsDTOList", bbsDTOList);
+//    }
 
     @GetMapping("/contentregist")
     public void GETContentRegist(BbsDTO bbsDTO

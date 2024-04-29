@@ -20,4 +20,8 @@ public class ReviewVO {
     private LocalDate reg_date;
     private int rank;
     private String review_contents;
+
+    private int book_idx;
+    private String book_name;
+    private String profile;
 }

@@ -16,8 +16,8 @@
         <li><a class="text-dark pt-1 pb-1" href="/bbs/noticeList">공지사항</a></li>
         <li><a class="text-dark pt-1 pb-1" href="/bbs/qnaList">QnA</a></li>
         <li><a class="text-dark pt-1 pb-1" href="" data-url="/mypage/myquestions" onclick="loginCheck(this)">나의 문의내역</a></li>
-        <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">top ▲</a></li>
-        <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#">bottom ▼</a></li>
+        <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#" onclick="scrollToTop()">top ▲</a></li>
+        <li class="bg-lightgray"><a class="text-dark pt-1 pb-1" href="#" onclick="scrollToBottom()">bottom ▼</a></li>
     </ul>
 </nav>
 <%--<div class="alert alert-warning alert-dismissible fade position-fixed z-100" role="alert" style="top: 150px; right: 0">--%>
@@ -49,5 +49,24 @@
             return false;
         }
         location.href = element.dataset.url;
+    }
+
+    // scroll
+    // scroll
+    function scrollToTop() {
+        event.preventDefault();
+        event.stopPropagation();
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }
+    function scrollToBottom() {
+        event.preventDefault();
+        event.stopPropagation();
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+        });
     }
 </script>

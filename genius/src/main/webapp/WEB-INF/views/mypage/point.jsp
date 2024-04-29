@@ -83,9 +83,6 @@
                         <button class="btn btn-success" type="button">조회</button>
                     </div>
                 </div>
-                <c:forEach items="${mypaymentlist}" var="list">
-                    ${list.price}
-                </c:forEach>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
