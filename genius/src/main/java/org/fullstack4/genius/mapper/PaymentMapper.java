@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface PaymentMapper {
 
-    int charge(PaymentVO PaymentVO);
-    int usepoint(PaymentVO PaymentVO);
+    int charge(PaymentVO paymentVO);
+    int usepoint(PaymentVO paymentVO);
     int memberPay(PaymentVO paymentVO);
     int totalCount(String member_id);
     List<PaymentVO> listAll(String user_id);

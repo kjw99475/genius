@@ -100,7 +100,7 @@
                             <c:forEach items= "${mypaymentlist}" var="list">
                             <tr>
                                 <td class="border-0">
-                                    <p>${list.use_type}</p>
+                                    <p>${list.title}</p>
                                 </td>
                                 <td class="border-0">
                                     <h5>${list.use_type}</h5>
@@ -109,7 +109,12 @@
                                     <p>${list.reg_date}</p>
                                 </td>
                                 <td class="border-0">
+                                    <c:if test="${list.price > 0}">
                                     <p class="text-geni">+${list.price}</p>
+                                    </c:if>
+                                    <c:if test="${list.price < 0}">
+                                    <p>${list.price}</p>
+                                    </c:if>
                                 </td>
                             </tr>
                             </c:forEach>

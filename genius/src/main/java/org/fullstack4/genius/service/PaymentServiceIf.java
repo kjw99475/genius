@@ -10,7 +10,7 @@ public interface PaymentServiceIf {
     int charge(PaymentDTO paymentDTO);
     int memberPay(PaymentDTO paymentDTO);
     int totalCount(String member_id);
-
+    int usepoint(PaymentDTO paymentDTO);
     List<PaymentDTO> listAll(String member_id);
     int pointview(String member_id);
     PaymentDTO view(String member_id);
