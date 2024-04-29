@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class PageResponseDTO<E> {
     private String search_word;
     private String search_data1;
     private String search_data2;
+    private LocalDate search_date1;
+    private LocalDate search_date2;
     private String linked_params;
     private String class_code;
     private String subject_code;

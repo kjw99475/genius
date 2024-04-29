@@ -110,7 +110,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
                                     <th>제목</th>
                                     <th>작성자</th>
                                     <th>작성일</th>
@@ -123,7 +123,7 @@
                                     <c:when test="${bbsDTOList ne null}">
                                         <c:forEach items="${bbsDTOList}" var="bbsDTO">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
                                                 <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_id}</td>
                                                 <td>${bbsDTO.reg_date}</td>
