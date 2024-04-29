@@ -12,9 +12,10 @@ public interface MemberServiceIf {
     MemberDTO view(String user_id);
     int leave(String member_id);
     int idCheck(String user_id);
+    int emailCheck(String email);
 
     MemberDTO login(String member_id, String pwd);
-    MemberDTO naver(HttpServletRequest request);
+    MemberDTO naverLogin(HttpServletRequest request);
     MemberDTO AutoLogin(String member_id);
     String findId(MemberDTO memberDTO);
     String findPwd(MemberDTO memberDTO);

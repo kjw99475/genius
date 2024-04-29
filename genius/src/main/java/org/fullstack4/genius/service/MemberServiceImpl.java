@@ -61,8 +61,12 @@ public class MemberServiceImpl implements MemberServiceIf {
     }
 
     @Override
-    public int idCheck(String user_id) {
-        return 0;
+    public int idCheck(String member_id) {
+        return memberMapper.idCheck(member_id);
+    }
+    @Override
+    public int emailCheck(String email) {
+        return memberMapper.emailCheck(email);
     }
 
     @Override
@@ -139,7 +143,7 @@ public class MemberServiceImpl implements MemberServiceIf {
     }
 
     @Override
-    public MemberDTO naver(HttpServletRequest request) {
+    public MemberDTO naverLogin(HttpServletRequest request) {
         MemberDTO memberDTO = null;
 
         //로그인 요청에서 받아온 파라미터
@@ -168,51 +172,32 @@ public class MemberServiceImpl implements MemberServiceIf {
 
         try {
             String responseStr = CommonUtil.postConnection(url, paramMap); // POST요청으로 로그인 토큰 획득
-//            String responseStr2 = CommonUtil.getConnection(getUserInfoUrl2, paramMap); // GET요청으로 로그인 토큰 획득 (네이버 페이용)
-//
-//            System.out.println(responseStr2);
-
             // JSON 파싱
             if(!CommonUtil.parseString(responseStr).isEmpty()){
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
-//                JSONObject jsonObject2 = (JSONObject) jsonParser.parse(responseStr2);
                 String access_token = (String) jsonObject.get("access_token");
-//                String access_token2 = (String) jsonObject2.get("access_token");
 
                 //HttpHeader 생성
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Authorization", "Bearer " + access_token);
                 headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//                HttpHeaders headers2 = new HttpHeaders();
-//                headers2.add("Authorization", "Bearer " + access_token2);
-//                headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
                 //HttpHeader 담기 (기본 네이버)
                 RestTemplate rt = new RestTemplate();
                 HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-//                HttpEntity<MultiValueMap<String, String>> httpEntity2 = new HttpEntity<>(headers2);
                 ResponseEntity<String> response = rt.exchange(
                         getUserInfoUrl,
                         HttpMethod.POST,
                         httpEntity,
                         String.class
                 );
-                // HttpHeader 담기 (네이버 페이)
-//                ResponseEntity<String> response2 = rt.exchange(
-//                        getUserInfoUrl2,
-//                        HttpMethod.GET,
-//                        httpEntity,
-//                        String.class
-//                );
+
                 //Response 데이터 파싱
                 // 기본 네이버
                 JSONParser infoJsonParser = new JSONParser();
                 JSONObject jsonObj    = (JSONObject) infoJsonParser.parse(response.getBody());
                 JSONObject responseObj = (JSONObject) jsonObj.get("response");
-                // 네이버 페이
-//                JSONObject jsonObj2    = (JSONObject) infoJsonParser.parse(response2.getBody());
-//                JSONObject responseObj2 = (JSONObject) jsonObj2.get("data");
 
                 String member_id = String.valueOf(responseObj.get("id"));
                 String member_name = String.valueOf(responseObj.get("name"));
@@ -234,9 +219,6 @@ public class MemberServiceImpl implements MemberServiceIf {
                 System.out.println(birthyear+"-"+birthday);
                 LocalDate birthdayToLocalDate = null;
                 if(!birthday.equals("") && !birthyear.equals("")) {birthdayToLocalDate = LocalDate.parse(birthyear+"-"+birthday);}
-//                String zip_code = CommonUtil.parseString(responseObj2.get("zipCode"));
-//                String addr1 = CommonUtil.parseString(responseObj2.get("baseAddress"));
-//                String addr2 = CommonUtil.parseString(responseObj2.get("detailAddress"));
                 // 받아온 정보로 회원가입 및 로그인 구현
                 MemberVO memberVO = memberMapper.naver(member_id);
                 System.out.println("-------------------- member_id : " + member_id);

@@ -25,4 +25,6 @@ public interface MemberMapper {
     int changePwd(MemberVO memberVO);
     int modifyInfo(MemberVO memberVO);
     int leave(String member_id);
+    int idCheck(String member_id);
+    int emailCheck(String email);
 }
