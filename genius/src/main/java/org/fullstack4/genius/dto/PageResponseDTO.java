@@ -28,8 +28,8 @@ public class PageResponseDTO<E> {
     private String search_word;
     private String search_data1;
     private String search_data2;
-    private String search_date1;
-    private String search_date2;
+    private LocalDate search_date1;
+    private LocalDate search_date2;
     private String linked_params;
     private String class_code;
     private String subject_code;
@@ -59,8 +59,8 @@ public class PageResponseDTO<E> {
         this.search_type_st = (search_type != null) ? Arrays.toString(search_type).replace("[","").replace("]","").replace(" ","") : "t,u";
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
         this.search_data2 = CommonUtil.parseString(requestDTO.getSearch_data2());
-        this.search_date1 = CommonUtil.parseString(requestDTO.getSearch_date1());
-        this.search_date2 = CommonUtil.parseString(requestDTO.getSearch_date2());
+        this.search_date1 = requestDTO.getSearch_date1();
+        this.search_date2 = requestDTO.getSearch_date2();;
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
         if(search_type != null) sb.append("&search_type=" + search_type_st );
         if(search_word != null) sb.append("&search_word=" + search_word);

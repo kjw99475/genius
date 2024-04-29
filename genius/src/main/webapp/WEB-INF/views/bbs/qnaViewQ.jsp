@@ -74,7 +74,7 @@
                 <tbody>
                 <tr>
                     <th scope="row">게시글 번호</th>
-                    <td>1</td>
+                    <td>${param.no}</td>
                 </tr>
                 <tr>
                     <th scope="row">제목</th>
