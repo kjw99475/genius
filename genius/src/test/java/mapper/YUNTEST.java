@@ -76,6 +76,17 @@ public class YUNTEST {
         log.info("=================================");
     }
     @Test
+    public void testQnaListByPage() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .page_size(6)
+                .build();
+        List<QnaVO> qnaList = qnaMapper.qnaListByPage(pageRequestDTO);
+        log.info("=================================");
+        log.info(qnaList);
+        log.info("=================================");
+    }
+    @Test
     public void testListBook(){
         List<BookVO> list = bookMapper.listAll();
 

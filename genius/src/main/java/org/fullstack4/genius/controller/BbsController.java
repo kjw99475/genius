@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Log4j2
@@ -48,17 +49,12 @@ public class BbsController {
         }
         List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
         log.info(qnaDTOList);
-//        pageRequestDTO.setPage_size(6);
-//        pageRequestDTO.setPage_block_size(10);
-//        PageResponseDTO<BookDTO> responseDTO = qnaServiceIf.BookListByPage(pageRequestDTO);
+        pageRequestDTO.setPage_size(6);
+        pageRequestDTO.setPage_block_size(10);
+        PageResponseDTO<QnaDTO> responseDTO = qnaServiceIf.qnaListByPage(pageRequestDTO);
 
-//        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
-//        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
-//        model.addAttribute("subjectList",subjectList);
-//        model.addAttribute("classList",classList);
-        model.addAttribute("qnaDTOList", qnaDTOList);
+        model.addAttribute("responseDTO", responseDTO);
     }
-
     @GetMapping("/qnaViewQ")
     public void GETQnaViewQ(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
                             Model model) {

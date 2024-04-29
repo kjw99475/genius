@@ -16,6 +16,6 @@ public interface QnaMapper {
     int delete(int idx);
     int refModify(int idx);
     int totalCount();
-    int bbsTotalCount(PageRequestDTO requestDTO);
-    List<QnaVO> bbsListByPage(PageRequestDTO requestDTO);
+    int qnaTotalCount(PageRequestDTO requestDTO);
+    List<QnaVO> qnaListByPage(PageRequestDTO requestDTO);
 }
