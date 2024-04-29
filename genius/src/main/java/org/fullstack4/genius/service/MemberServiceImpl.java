@@ -168,7 +168,9 @@ public class MemberServiceImpl implements MemberServiceIf {
 
         try {
             String responseStr = CommonUtil.postConnection(url, paramMap); // POST요청으로 로그인 토큰 획득
-//            String responseStr2 = CommonUtil.getConnection(url, paramMap); // GET요청으로 로그인 토큰 획득 (네이버 페이용)
+//            String responseStr2 = CommonUtil.getConnection(getUserInfoUrl2, paramMap); // GET요청으로 로그인 토큰 획득 (네이버 페이용)
+//
+//            System.out.println(responseStr2);
 
             // JSON 파싱
             if(!CommonUtil.parseString(responseStr).isEmpty()){
@@ -176,7 +178,7 @@ public class MemberServiceImpl implements MemberServiceIf {
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(responseStr);
 //                JSONObject jsonObject2 = (JSONObject) jsonParser.parse(responseStr2);
                 String access_token = (String) jsonObject.get("access_token");
-//                String access_token2 = (String) jsonObject2.get("access_token2");
+//                String access_token2 = (String) jsonObject2.get("access_token");
 
                 //HttpHeader 생성
                 HttpHeaders headers = new HttpHeaders();
@@ -196,11 +198,11 @@ public class MemberServiceImpl implements MemberServiceIf {
                         httpEntity,
                         String.class
                 );
-                //HttpHeader 담기 (네이버 페이)
+                // HttpHeader 담기 (네이버 페이)
 //                ResponseEntity<String> response2 = rt.exchange(
 //                        getUserInfoUrl2,
 //                        HttpMethod.GET,
-//                        httpEntity2,
+//                        httpEntity,
 //                        String.class
 //                );
                 //Response 데이터 파싱
@@ -216,7 +218,17 @@ public class MemberServiceImpl implements MemberServiceIf {
                 String member_name = String.valueOf(responseObj.get("name"));
                 String email = String.valueOf(responseObj.get("email"));
                 String phone = String.valueOf(responseObj.get("mobile"));
+                if(phone != null) {phone = phone.replace("-","");}
                 String gender = String.valueOf(responseObj.get("gender"));
+                if(gender != null) {
+                    if(gender.equals("F")) {
+                        gender = "여";
+                    } else if(gender.equals("M")) {
+                        gender = "남";
+                    } else {
+                        gender = "-";
+                    }
+                }
                 String birthyear = String.valueOf(CommonUtil.parseString(responseObj.get("birthyear")));
                 String birthday = String.valueOf(CommonUtil.parseString(responseObj.get("birthday")));
                 LocalDate birthdayToLocalDate = null;
