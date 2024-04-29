@@ -231,6 +231,7 @@ public class MemberServiceImpl implements MemberServiceIf {
                 }
                 String birthyear = String.valueOf(CommonUtil.parseString(responseObj.get("birthyear")));
                 String birthday = String.valueOf(CommonUtil.parseString(responseObj.get("birthday")));
+                System.out.println(birthyear+"-"+birthday);
                 LocalDate birthdayToLocalDate = null;
                 if(!birthday.equals("") && !birthyear.equals("")) {birthdayToLocalDate = LocalDate.parse(birthyear + birthday);}
 //                String zip_code = CommonUtil.parseString(responseObj2.get("zipCode"));
