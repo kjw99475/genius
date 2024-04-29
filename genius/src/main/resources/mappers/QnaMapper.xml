@@ -25,9 +25,9 @@
         ORDER BY ref_idx, qna_idx
     </select>
 
-    <insert id="regist">
-        INSERT INTO tbl_qna (ref_idx, category_code, answerYN, title, contents, reg_date, read_cnt, member_id)
-        VALUES(#{ref_idx}, 'bc02', 'N', #{title}, #{contents}, NOW(), 0, #{member_id})
+    <insert id="regist" parameterType="org.fullstack4.genius.domain.QnaVO" useGeneratedKeys="true" keyProperty="qna_idx" keyColumn="qna_idx">
+        INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id)
+        VALUES('N', #{title}, #{contents}, NOW(), 0, #{member_id})
     </insert>
     <update id="refModify">
         UPDATE tbl_qna SET
