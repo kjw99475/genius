@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface BbsMapper {
     int regist(BbsVO bbsVO);
-    List<BbsVO> listAll();
+    List<BbsVO> listAll(String category_code);
     BbsVO view(int idx);
     int modify(BbsVO bbsVO);
     int delete(int idx);

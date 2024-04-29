@@ -36,7 +36,7 @@ public class BbsServiceImpl implements BbsServiceIf {
 
     @Override
     public List<BbsDTO> listAll() {
-        List<BbsDTO> bbsDTOList = bbsMapper.listAll().stream()
+        List<BbsDTO> bbsDTOList = bbsMapper.listAll("bc01").stream()
                 .map(bbsVO-> modelMapper.map(bbsVO, BbsDTO.class))
                 .collect(Collectors.toList());
         return bbsDTOList;

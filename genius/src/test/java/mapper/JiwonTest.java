@@ -30,7 +30,7 @@ public class JiwonTest {
 
     @Test
     public void testBbsList(){
-        List<BbsVO> list = bbsMapper.listAll();
+        List<BbsVO> list = bbsMapper.listAll("bc01");
         log.info("=================================");
         log.info(list.size());
         log.info("=================================");

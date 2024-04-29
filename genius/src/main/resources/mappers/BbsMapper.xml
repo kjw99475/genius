@@ -46,7 +46,7 @@
     <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date
         FROM tbl_bbs
-<!--        WHERE category_code = #{category_code}-->
+        WHERE category_code = #{category_code}
         ORDER BY bbs_idx DESC
     </select>
 
@@ -69,6 +69,8 @@
         FROM tbl_bbs
         WHERE bbs_idx = #{bbs_idx}
     </delete>
+
+
 
     <select id="bbsTotalCount">
         SELECT COUNT(*)
