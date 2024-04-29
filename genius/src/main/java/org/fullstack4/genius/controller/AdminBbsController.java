@@ -26,9 +26,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminBbsController {
     public final BbsServiceIf bbsServiceIf;
+    String category_code = "bc01";
 
 
-    @GetMapping("/bbsList")
+    @GetMapping("/list")
     public void GETList(@Valid PageRequestDTO pageRequestDTO
                         , BindingResult bindingResult
                         , RedirectAttributes redirectAttributes
@@ -41,7 +42,7 @@ public class AdminBbsController {
         pageRequestDTO.setPage_block_size(10);
         //PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.BbsListByPage(pageRequestDTO);
 
-        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
+        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
         model.addAttribute("bbsDTOList", bbsDTOList);
     }
 
@@ -97,7 +98,12 @@ public class AdminBbsController {
     public void GETView(int bbs_idx
                         , Model model) {
         BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        //BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx);
+
         model.addAttribute("bbsDTO", bbsDTO);
+        //model.addAttribute("prebbsDTO", prebbsDTO);
+        //model.addAttribute("postbbsDTO", postbbsDTO);
+
     }
 
     @PostMapping("/view")

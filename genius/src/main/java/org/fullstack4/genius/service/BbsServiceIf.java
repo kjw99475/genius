@@ -9,7 +9,7 @@ import java.util.List;
 public interface BbsServiceIf {
 
     int regist(BbsDTO bbsDTO);
-    List<BbsDTO> listAll();
+    List<BbsDTO> listAll(String category_code);
     BbsDTO view(int idx);
     int modify(BbsDTO bbsDTO);
     int delete(int idx);

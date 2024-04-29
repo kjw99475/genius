@@ -124,7 +124,7 @@
                                         <c:forEach items="${bbsDTOList}" var="bbsDTO">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
                                                 <td><input class="chk_del" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
-                                                <td>${bbsDTO.bbs_title}</td>
+                                                <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_id}</td>
                                                 <td>${bbsDTO.reg_date}</td>
                                                 <td>${bbsDTO.read_cnt}</td>

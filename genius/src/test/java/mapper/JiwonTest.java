@@ -25,9 +25,6 @@ public class JiwonTest {
     @Autowired(required = false)
     private BbsMapper bbsMapper;
 
-    @Autowired(required = false)
-    private ReviewMapper reviewMapper;
-
     @Test
     public void testBbsList(){
         List<BbsVO> list = bbsMapper.listAll("bc01");
@@ -84,5 +81,10 @@ public class JiwonTest {
                 .search_date2(LocalDate.parse("2026-04-28"))
                 .build());
         log.info("개수 : " + result);
+    }
+
+    @Test
+    public void testBbsprepost() {
+        BbsVO bbsVO = bbsMapper.preView(4, "bc01");
     }
 }

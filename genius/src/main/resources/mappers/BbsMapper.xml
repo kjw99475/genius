@@ -37,11 +37,21 @@
     
     <select id="view" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs.bbs_idx, bbs_title, bbs.category_code, bbs.member_id, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
-<!--            , reply_idx, reply_contents, reply.reg_date, modify_date, ref_idx-->
         FROM tbl_bbs AS bbs
         WHERE bbs.bbs_idx = #{idx}
     </select>
 
+    <select id="preView" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
+        FROM tbl_bbs
+        WHERE bbs_idx <![CDATA[<]]> #{bbs_idx} AND category_code = #{category_code}
+    </select>
+
+    <select id="postView" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
+        FROM tbl_bbs
+        WHERE bbs_idx <![CDATA[>]]> #{bbs_idx} AND category_code = #{category_code}
+    </select>
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date

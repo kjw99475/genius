@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/bbs/bbsList">
+                    <a href="/admin/bbs/list">
                         <i class="bi bi-circle"></i><span>자료실 관리</span>
                     </a>
                 </li>
