@@ -6,6 +6,7 @@
 
     <sql id="whereCondition">
         <where>
+            category_code = #{category_code}
             <if test=' search_word != null and search_word != "" '>
                 <choose>
                     <when test=' search_type.toString() == "" '>
@@ -29,7 +30,7 @@
                     AND reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
                 <if test="search_date2 != null">
-                    AND reg_date <![CDATA[<=]]> #{search_date2}+1
+                    AND reg_date <![CDATA[<=]]> #{search_date2}
                 </if>
             </if>
         </where>
@@ -44,8 +45,6 @@
     <select id="preView" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
         FROM tbl_bbs
-<!--        WHERE bbs_idx <![CDATA[<]]> #{arg0} AND category_code = #{arg1}-->
-<!--        WHERE bbs_idx <![CDATA[<]]> @Param("idx") AND category_code = @Param("category_code")-->
         WHERE category_code = #{category_code} AND bbs_idx <![CDATA[<]]> #{bbs_idx}
         ORDER BY bbs_idx DESC
         LIMIT 1
@@ -54,7 +53,9 @@
     <select id="postView" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
         FROM tbl_bbs
-        WHERE bbs_idx <![CDATA[>]]> #{bbs_idx} AND category_code = #{category_code}
+        WHERE category_code = #{category_code} AND bbs_idx <![CDATA[>]]> #{bbs_idx}
+        ORDER BY bbs_idx ASC
+        LIMIT 1
     </select>
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
@@ -64,9 +65,16 @@
         ORDER BY bbs_idx DESC
     </select>
 
+    <select id="list" resultType="org.fullstack4.genius.domain.BbsVO">
+        SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date
+        FROM tbl_bbs
+        WHERE category_code = #{category_code}
+        ORDER BY bbs_idx DESC
+    </select>
+
     <insert id="regist">
         INSERT INTO tbl_bbs (bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt)
-        VALUES(#{bbs_title}, #{category_code}, #{member_id}, #{fileYN}, #{bbs_contents}, #{reg_date}, 0)
+        VALUES(#{bbs_title}, #{category_code}, #{member_id}, #{fileYN}, #{bbs_contents}, NOW(), 0)
     </insert>
 
     <update id="modify">

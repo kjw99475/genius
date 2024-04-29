@@ -49,17 +49,23 @@ public class BbsServiceImpl implements BbsServiceIf {
         return bbsDTO;
     }
 
-//    @Override
-//    public BbsDTO preView(int idx, String category_code) {
-//        BbsVO bbsvo = bbsMapper.preView(idx, category_code);
-//        BbsDTO bbsDTO = modelMapper.map(bbsvo, BbsDTO.class);
-//        return bbsDTO;
-//    }
+    @Override
+    public BbsDTO preView(int idx, String category_code) {
+        BbsDTO bbsDTO = null;
+        BbsVO bbsVO = bbsMapper.preView(idx, category_code);
+        if (bbsVO != null) {
+            bbsDTO = modelMapper.map(bbsVO, BbsDTO.class);
+        }
+        return bbsDTO;
+    }
 
     @Override
     public BbsDTO postView(int idx, String category_code) {
-        BbsVO bbsvo = bbsMapper.postView(idx, category_code);
-        BbsDTO bbsDTO = modelMapper.map(bbsvo, BbsDTO.class);
+        BbsDTO bbsDTO = null;
+        BbsVO bbsVO = bbsMapper.postView(idx, category_code);
+        if (bbsVO != null) {
+            bbsDTO = modelMapper.map(bbsVO, BbsDTO.class);
+        }
         return bbsDTO;
     }
 

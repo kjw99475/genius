@@ -76,17 +76,17 @@ public class JiwonTest {
     public void testBbsTotalCount() {
         int result = bbsMapper.bbsTotalCount(PageRequestDTO.builder()
                 .search_type(new String[]{""})
-                .search_word("자료실") //서치 어ㅏ직 안됨
-                .search_date1(LocalDate.parse("2022-04-27"))
-                .search_date2(LocalDate.parse("2026-04-28"))
+                .search_word("") //서치 어ㅏ직 안됨
+                .search_date1(LocalDate.parse("2024-04-25"))
+                .search_date2(LocalDate.parse("2024-04-28"))
                 .build());
         log.info("개수 : " + result);
     }
 
     @Test
     public void testBbsprepost() {
-        BbsVO bbsVO = bbsMapper.preView(4, "bc01");
-        //BbsVO bbsVO = bbsMapper.postView(4);
+        BbsVO bbsVO = bbsMapper.preView(1, "bc01");
+//        BbsVO bbsVO = bbsMapper.postView(4, "bc01");
         log.info(bbsVO.toString());
     }
 }
