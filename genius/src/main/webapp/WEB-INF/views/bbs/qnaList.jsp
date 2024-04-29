@@ -85,11 +85,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO">
+                <c:set value="${responseDTO.total_count}" var="total_count"/>
+                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
                     <c:if test="${qnaDTO.answerYN == 'N'}">
                         <tr>
-                            <th scope="row">6</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}">${qnaDTO.title}</a></td>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
                             <td>${qnaDTO.member_id}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
@@ -97,8 +98,8 @@
                     </c:if>
                     <c:if test="${qnaDTO.answerYN == 'Y'}">
                         <tr>
-                            <th scope="row">5</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
                             <td>${qnaDTO.member_id}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
@@ -144,7 +145,6 @@
             </ul>
         </nav>
     </section>
-    ${responseDTO}
 </main>
 <!--================ 본문 END =================-->
 
