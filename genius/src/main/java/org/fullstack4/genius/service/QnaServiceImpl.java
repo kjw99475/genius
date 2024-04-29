@@ -27,7 +27,13 @@ public class QnaServiceImpl implements QnaServiceIf {
     public int regist(QnaDTO qnaDTO) {
         QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
         int result = qnaMapper.regist(qnaVO);
-        return 0;
+        int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+
+        log.info("======================");
+        log.info("QnaServiceImpl >> regist >> result : " + result + ", result2 : " + result2);
+        log.info("======================");
+
+        return result;
     }
 
     @Override
@@ -49,8 +55,8 @@ public class QnaServiceImpl implements QnaServiceIf {
     }
 
     @Override
-    public int refModify(int idx) {
-        int result = qnaMapper.refModify(idx);
+    public int refModify(QnaDTO qnaDTO) {
+        int result = qnaMapper.refModify(qnaDTO.getQna_idx());
         return result;
     }
 

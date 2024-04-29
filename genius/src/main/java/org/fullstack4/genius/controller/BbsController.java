@@ -3,10 +3,7 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
-import org.fullstack4.genius.dto.QnaDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.fullstack4.genius.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
@@ -78,7 +75,26 @@ public class BbsController {
     }
 
     @PostMapping("/qnaRegistQ")
-    public void POSTQnaRegistQ() {
+    public String POSTQnaRegistQ(@Valid QnaDTO qnaDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               Model model) {
+        if(bindingResult.hasErrors()){
+            log.info("BookController >> list Error");
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        log.info("========================");
+        log.info("postQnaRegist >> qnaDTO" + qnaDTO);
+        log.info("========================");
+        int result = qnaServiceIf.regist(qnaDTO);
+
+        if(result>0){
+            return "redirect:/bbs/qnaList";
+        }else{
+            redirectAttributes.addFlashAttribute(qnaDTO);
+            return "redirect:/bbs/qnaRegistQ";
+        }
 
     }
 
