@@ -52,23 +52,34 @@
                                     </h3>
                                     <div class="col-md-12 form-group">
                                         <label for="member_id">아이디</label>
-                                        <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="member_id" class="form-control" placeholder="아이디" id="member_id" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#idAuthYN'), document.querySelector('#err_member_id'))">
+                                            <input type="hidden" name="idAuthYN" value="false" id="idAuthYN">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-success" type="button" id="button-addon1" onclick="idDupCheck(document.getElementById('member_id'))">중복확인</button>
+                                            </div>
+                                        </div>
+                                        <small id="err_member_id"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="member_name">이름</label>
                                         <input type="text" class="form-control" id="member_name" name="member_name" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                                        <small id="err_member_name"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwd">비밀번호</label>
                                         <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                        <small id="err_pwd"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwdCheck">비밀번호 확인</label>
                                         <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                        <small id="err_pwdCheck"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
                                         <input type="date" class="form-control" id="birthday" name="birthday" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
+                                        <small id="err_birthday"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>성별</label>
@@ -76,29 +87,44 @@
                                             <label for="female"><input type="radio" class="pixel-radio" id="female" name="gender" value="여">여</label>
                                             <label for="male"><input type="radio" class="pixel-radio" id="male" name="gender" value="남">남</label>
                                         </div>
+                                        <small id="err_gender"></small>
                                     </div>
+
                                     <div class="col-md-12 form-group">
-                                        <label for="phone">이메일</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                        <label for="email">이메일</label>
+                                        <div class="input-group mb-3">
+                                            <input type="email" name="email" class="form-control" placeholder="이메일" id="email" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#emailAuthYN'), document.querySelector('#err_email'))">
+                                            <input type="hidden" name="emailAuthYN" value="false" id="emailAuthYN">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-success" type="button" id="button-addon3" onclick="emailDupCheck(document.getElementById('email'))">중복확인</button>
+                                            </div>
+                                        </div>
+                                        <small id="err_email"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
+                                        <small id="err_phone"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>주소</label>
                                         <div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" name="zip_code" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <input type="text" name="zip_code" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+                                                    </div>
                                                 </div>
+                                                <small id="err_zip_code"></small>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <small id="err_addr1"></small>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="addr2" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                <small id="err_addr2"></small>
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
@@ -109,6 +135,7 @@
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
                                         이용약관 동의
                                     </h3>
+                                    <small id="err_terms"></small>
                                     <div class="form-group m-0 p-2">
                                         <input type="checkbox" id="agreeAll" name="agreeAll" onchange="">
                                         <label class="m-0 text-dark" for="agreeAll">아래 모든 내용에 모두 동의합니다.</label>
@@ -493,6 +520,7 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    // 이용약관 전체동의
     const agreeAll = document.getElementById('agreeAll');
     agreeAll.addEventListener('change', ()=>{
         let checkYN = agreeAll.checked;
@@ -507,6 +535,100 @@
             }
         }
     })
+
+    // 인증여부 초기화
+    function resetAuthYN(target, target2) {
+        console.log("========================================");
+        console.log(target);
+        console.log(target2);
+        console.log("========================================");
+        target.value = "false";
+        target2.innerText = "";
+    }
+
+    // 아이디 중복체크
+    function idDupCheck(item) {
+        console.log(item.value);
+        $.ajax({
+            url: "/member/idCheck",
+            method: 'post',
+            dataType : 'text',
+            data : {
+                "member_id" : item.value
+            },
+            success: function (data) {
+                let target = $('#err_member_id');
+                console.log("item : " + item.value);
+                console.log("data : " + data);
+                if(!$(item).val().trim()) {
+                    $(target).text('아이디를 입력해주세요');
+                    $(target).css('color', '#e30000');
+                    $(target).css('display', 'block');
+                    $('#auth').val('false');
+                } else {
+                    $(target).css('display', 'none');
+                    if (data != 0) {
+                        $(target).text('이미 등록된 아이디 입니다.');
+                        $(target).css('color', '#e30000');
+                        $(target).css('display', 'block');
+                        $('#auth').val('false');
+                    } else {
+                        $(target).text('사용 가능한 아이디 입니다.');
+                        $(target).css('color', '#057cfc');
+                        $(target).css('display', 'block');
+                        $('#auth').val('true');
+                    }
+                }
+            },
+            error : function(xhr, status, error) {
+                console.log("xhr! : " + xhr);
+                console.log("status! : " + status);
+                console.log("error! : " + error);
+            }
+        });
+    }
+
+    // 이메일 중복체크
+    function emailDupCheck(item) {
+        console.log(item.value);
+        $.ajax({
+            url: "/member/emailCheck",
+            method: 'post',
+            dataType : 'text',
+            data : {
+                "email" : item.value
+            },
+            success: function (data) {
+                let target = $('#err_email');
+                console.log("item : " + item.value);
+                console.log("data : " + data);
+                if(!$(item).val().trim()) {
+                    $(target).text('이메일을 입력해주세요');
+                    $(target).css('color', '#e30000');
+                    $(target).css('display', 'block');
+                    $('#auth').val('false');
+                } else {
+                    $(target).css('display', 'none');
+                    if (data != 0) {
+                        $(target).text('이미 등록된 이메일 입니다.');
+                        $(target).css('color', '#e30000');
+                        $(target).css('display', 'block');
+                        $('#auth').val('false');
+                    } else {
+                        $(target).text('사용 가능한 이메일 입니다.');
+                        $(target).css('color', '#057cfc');
+                        $(target).css('display', 'block');
+                        $('#auth').val('true');
+                    }
+                }
+            },
+            error : function(xhr, status, error) {
+                console.log("xhr! : " + xhr);
+                console.log("status! : " + status);
+                console.log("error! : " + error);
+            }
+        });
+    }
 
 </script>
 
