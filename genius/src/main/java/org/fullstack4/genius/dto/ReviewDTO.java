@@ -29,4 +29,8 @@ public class ReviewDTO {
     @Min(value=1)
     private int rank=1;
     private String review_contents;
+
+    private int book_idx;
+    private String book_name;
+    private String profile;
 }
