@@ -60,13 +60,49 @@ public class BbsController {
     }
 
     @GetMapping("/qnaViewQ")
-    public void GETQnaViewQ() {
-
+    public void GETQnaViewQ(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+                            Model model) {
+        QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
+        log.info("bbsController >> qnaview >> " + qnaDTO);
+        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
+        QnaDTO prevDTO = null;
+        QnaDTO nextDTO = null;
+        int listIdx = 0;
+        for(QnaDTO dto : qnaDTOList){
+            if(dto.getQna_idx()==qna_idx && listIdx != qnaDTOList.size()-1){
+                prevDTO = qnaDTOList.get(listIdx+1);
+            }
+            if (dto.getQna_idx()==qna_idx && listIdx != 0){
+                nextDTO = qnaDTOList.get(listIdx-1);
+            }
+            listIdx++;
+        }
+        model.addAttribute("prevDTO", prevDTO);
+        model.addAttribute("nextDTO", nextDTO);
+        model.addAttribute("qnaDTO", qnaDTO);
     }
 
     @GetMapping("/qnaViewA")
-    public void GETViewA() {
-
+    public void GETViewA(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+                         Model model) {
+        QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
+        log.info("bbsController >> qnaview >> " + qnaDTO);
+        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
+        QnaDTO prevDTO = null;
+        QnaDTO nextDTO = null;
+        int listIdx = 0;
+        for(QnaDTO dto : qnaDTOList){
+            if(dto.getQna_idx()==qna_idx && listIdx != qnaDTOList.size()-1){
+                prevDTO = qnaDTOList.get(listIdx+1);
+            }
+            if (dto.getQna_idx()==qna_idx && listIdx != 0){
+                nextDTO = qnaDTOList.get(listIdx-1);
+            }
+            listIdx++;
+        }
+        model.addAttribute("prevDTO", prevDTO);
+        model.addAttribute("nextDTO", nextDTO);
+        model.addAttribute("qnaDTO", qnaDTO);
     }
 
     @GetMapping("/qnaRegistQ")
@@ -96,6 +132,45 @@ public class BbsController {
             return "redirect:/bbs/qnaRegistQ";
         }
 
+    }
+    @GetMapping("/qnaModifytQ")
+    public void GETQnaModifytQ(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+                               Model model) {
+        QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
+        model.addAttribute("qnaDTO", qnaDTO);
+    }
+
+    @PostMapping("/qnaModifytQ")
+    public String POSTQnaModifyQ(@Valid QnaDTO qnaDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model) {
+        if(bindingResult.hasErrors()){
+            log.info("BookController >> list Error");
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        log.info("========================");
+        log.info("postQnaModify >> qnaDTO" + qnaDTO);
+        log.info("========================");
+        int result = qnaServiceIf.modify(qnaDTO);
+
+        if(result>0){
+            return "redirect:/bbs/qnaViewQ?qna_idx="+ qnaDTO.getQna_idx();
+        }else{
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            return "redirect:/bbs/qnaModifytQ?qna_idx="+qnaDTO.getQna_idx();
+        }
+    }
+    @PostMapping("qnaDelete")
+    public String qnaDelete(@RequestParam(name="qna_idx", defaultValue = "b0001") int qna_idx,
+                            Model model){
+        int result = qnaServiceIf.delete(qna_idx);
+        if(result>0){
+            return "redirect:/bbs/qnaList";
+        } else {
+            return "redirect:/bbs/qnaViewQ?qna_idx=" + qna_idx;
+        }
     }
 
     @GetMapping("/faqList")

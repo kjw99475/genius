@@ -87,7 +87,7 @@
                     <c:if test="${qnaDTO.answerYN == 'N'}">
                         <tr>
                             <th scope="row">6</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewQ">${qnaDTO.title}</a></td>
+                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}">${qnaDTO.title}</a></td>
                             <td>${qnaDTO.member_id}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
@@ -96,7 +96,7 @@
                     <c:if test="${qnaDTO.answerYN == 'Y'}">
                         <tr>
                             <th scope="row">5</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
                             <td>${qnaDTO.member_id}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
@@ -141,7 +141,6 @@
             </ul>
         </nav>
     </section>
-    ${sessionScope.member_id}
 </main>
 <!--================ 본문 END =================-->
 
