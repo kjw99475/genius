@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.Common.FileUtil;
-import org.fullstack4.genius.dto.CartDTO;
-import org.fullstack4.genius.dto.FileDTO;
-import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.dto.PaymentDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.CartServiceIf;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.fullstack4.genius.service.PaymentServiceIf;
@@ -23,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,8 +88,20 @@ public class MypageController {
     }
 
     @GetMapping("/payhistory")
-    public void GETPayhistory(){
+    public void GETPayhistory(HttpServletRequest req,Model model){
+        HttpSession session = req.getSession();
+        String member_id = session.getAttribute("member_id").toString();
+        List<OrderDTO> dtolist = paymentService.viewOrder(member_id);
 
+        List<List<OrderDTO>> detaillist = new ArrayList<List<OrderDTO>>();
+        for(int i = 0; i < dtolist.size(); i++){
+            String ordernum = dtolist.get(i).getOrder_num();
+            List<OrderDTO> detail = paymentService.viewOrderdetail(ordernum);
+            detaillist.add(detail);
+        }
+
+        model.addAttribute("dtolist", dtolist);
+        model.addAttribute("detaillist", detaillist);
     }
 
     @PostMapping("/payhistory")

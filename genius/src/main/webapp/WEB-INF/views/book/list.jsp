@@ -165,8 +165,8 @@
                                         <div class="card-product__img target" for="ch1">
                                             <img class="card-img img-h350" src="${list.book_img}" alt="">
                                             <ul class="card-product__imgOverlay">
-                                                <li><button><i class="ti-bag"></i></button></li>
-                                                <li><button><i class="ti-shopping-cart"></i></button></li>
+                                                <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-bag"></i></button></li>
+                                                <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
                                             </ul>
                                             <div class="form-check targetTo z-100">
                                                 <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
@@ -299,6 +299,26 @@
                 console.log(choice.value);
             }
         }
+
+    }
+    function addcart(item){
+        $.ajax({
+            url:"/mypage/addcart.dox",
+            dataType:"json",
+            type : "POST",
+            data : {
+                "member_id":"${sessionScope['member_id']}",
+                "book_code":item,
+                "quantity" :1
+            },
+            success : function(data) {
+                alert("장바구니 성공");///문제가 있을수 있어용
+            },
+            fail : function (data){
+
+            }
+
+        });
 
     }
 </script>

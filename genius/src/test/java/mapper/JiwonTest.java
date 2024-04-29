@@ -25,19 +25,16 @@ public class JiwonTest {
     @Autowired(required = false)
     private BbsMapper bbsMapper;
 
-    @Autowired(required = false)
-    private ReviewMapper reviewMapper;
-
     @Test
     public void testBbsList(){
-        List<BbsVO> list = bbsMapper.listAll();
+        List<BbsVO> list = bbsMapper.listAll("bc01");
         log.info("=================================");
         log.info(list.size());
         log.info("=================================");
     }
 
     @Test
-    public void testBbs(){
+    public void testBbsInsert(){
         int result = bbsMapper.regist(BbsVO.builder()
                         .bbs_title("테스트 제목33")
                         .category_code("bc01")
@@ -60,7 +57,7 @@ public class JiwonTest {
     @Test
     public void testBbsModify(){
         int result = bbsMapper.modify(BbsVO.builder()
-                        .bbs_idx(4)
+                        .bbs_idx(11)
                         .bbs_title("제목수정테스트")
                         .bbs_contents("내용수정테스트")
                         .fileYN("N")
@@ -72,6 +69,24 @@ public class JiwonTest {
 
     @Test
     public void testBbsDelete() {
-        int result = bbsMapper.delete(8);
+        int result = bbsMapper.delete(11);
+    }
+
+    @Test
+    public void testBbsTotalCount() {
+        int result = bbsMapper.bbsTotalCount(PageRequestDTO.builder()
+                .search_type(new String[]{""})
+                .search_word("") //서치 어ㅏ직 안됨
+                .search_date1(LocalDate.parse("2024-04-25"))
+                .search_date2(LocalDate.parse("2024-04-28"))
+                .build());
+        log.info("개수 : " + result);
+    }
+
+    @Test
+    public void testBbsprepost() {
+        BbsVO bbsVO = bbsMapper.preView(1, "bc01");
+//        BbsVO bbsVO = bbsMapper.postView(4, "bc01");
+        log.info(bbsVO.toString());
     }
 }

@@ -66,10 +66,10 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1">
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2">
                                             </div>
 
                                         </div>
@@ -78,11 +78,11 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <select name="search_category" id="search_category" class="form-select">
+                                            <select name="search_type" id="search_category" class="form-select">
                                                 <option value="" selected>전체</option>
                                                 <option value="member_id">작성자</option>
                                                 <option value="bbs_title">제목</option>
-                                                <option value="bbs_content">내용</option>
+                                                <option value="bbs_contents">내용</option>
                                             </select>
                                         </div>
 
@@ -105,12 +105,12 @@
                             </select>
                         </div>
 
-                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete">
+                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
                             <!-- Table with stripped rows -->
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
                                     <th>제목</th>
                                     <th>작성자</th>
                                     <th>작성일</th>
@@ -123,8 +123,8 @@
                                     <c:when test="${bbsDTOList ne null}">
                                         <c:forEach items="${bbsDTOList}" var="bbsDTO">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
-                                                <td>${bbsDTO.bbs_title}</td>
+                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+                                                <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_id}</td>
                                                 <td>${bbsDTO.reg_date}</td>
                                                 <td>${bbsDTO.read_cnt}</td>

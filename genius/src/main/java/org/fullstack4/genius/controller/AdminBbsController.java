@@ -26,9 +26,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminBbsController {
     public final BbsServiceIf bbsServiceIf;
+    String category_code = "bc01";
 
 
-    @GetMapping("/bbsList")
+    @GetMapping("/list")
     public void GETList(@Valid PageRequestDTO pageRequestDTO
                         , BindingResult bindingResult
                         , RedirectAttributes redirectAttributes
@@ -37,11 +38,11 @@ public class AdminBbsController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-        pageRequestDTO.setPage_size(9);
+        pageRequestDTO.setPage_size(10);
         pageRequestDTO.setPage_block_size(10);
-        //PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.BbsListByPage(pageRequestDTO);
+        //PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.listByPage(pageRequestDTO);
 
-        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll();
+        List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
         model.addAttribute("bbsDTOList", bbsDTOList);
     }
 
@@ -65,7 +66,7 @@ public class AdminBbsController {
         int result = bbsServiceIf.regist(bbsDTO);
         if(result > 0) {
             log.info("등록 성공 ===============");
-            return "redirect:/admin/bbs/bbsList";
+            return "redirect:/admin/bbs/list";
         } else {
             log.info("등록 실패 ===============");
             return "redirect:/admin/bbs/contentregist";
@@ -97,7 +98,13 @@ public class AdminBbsController {
     public void GETView(int bbs_idx
                         , Model model) {
         BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
+        BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
+
         model.addAttribute("bbsDTO", bbsDTO);
+        model.addAttribute("prebbsDTO", prebbsDTO);
+        model.addAttribute("postbbsDTO", postbbsDTO);
+
     }
 
     @PostMapping("/view")
@@ -110,11 +117,28 @@ public class AdminBbsController {
         int result = bbsServiceIf.delete(bbs_idx);
         if(result > 0) {
             log.info("삭제 성공 >> " + bbs_idx);
-            return "redirect:/admin/bbs/bbsList";
+            return "redirect:/admin/bbs/list";
         } else {
             log.info("삭제 실패 >> " + bbs_idx);
             return "redirect:/admin/bbs/view?bbs_idx=" + bbs_idx;
         }
+    }
+
+    @PostMapping("/delete_chk")
+    public String POSTDelete_chk(@RequestParam("chk_del") String[] chk_del) {
+        int cnt = 0;
+        for(int i=0; i<chk_del.length; i++) {
+            int bbs_idx = Integer.parseInt(chk_del[i]);
+            int result = bbsServiceIf.delete(bbs_idx);
+            if(result > 0) {
+                log.info("삭제 성공 idx : " + bbs_idx);
+                cnt +=1;
+            } else {
+                log.info("삭제 실패 idx : " + bbs_idx);
+            }
+        }
+        log.info("삭제 개수 >> " + cnt);
+        return "redirect:/admin/bbs/list";
     }
 
 }

@@ -49,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item"><a href="/admin/bbs/list">자료실</a></li>
                 <li class="breadcrumb-item active">자료실 수정</li>
             </ol>
         </nav>
@@ -71,7 +71,7 @@
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bbs" readonly>
+                                               value="bc01" readonly>
                                     </div>
                                 </div>
 
@@ -91,13 +91,13 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <%--<div class="row mb-3">
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
                                                value="${bbsDTO.reg_date}">
                                     </div>
-                                </div>
+                                </div>--%>
 
                                 <div class="row mb-3">
                                     <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">내용</label>
@@ -110,10 +110,15 @@
                                 <div class="row mb-3">
                                     <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <c:if test="${bbsDTO.fileYN ne null}">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${bbsDTO.fileYN}">
-                                        </c:if>
+                                        <c:choose>
+                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
+                                                <input name="file" type="file" class="form-control" id="file"
+                                                       value="${bbsDTO.fileYN}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input name="file" type="file" class="form-control" id="file">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
 

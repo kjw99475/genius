@@ -21,7 +21,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/resources/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +38,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -48,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item"><a href="/admin/bbs/list">자료실</a></li>
                 <li class="breadcrumb-item active">자료실 상세</li>
             </ol>
         </nav>
@@ -120,7 +121,8 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/bbs/bbsList'">
+                                            <button type="button" class="btn btn-success"
+                                                    onclick="location.href='/admin/bbs/list'">
                                                 목록
                                             </button>
                                         </div>
@@ -128,7 +130,8 @@
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-end">
                                             <button type="button" class="btn btn-success me-2"
-                                                    onclick="location.href='/admin/bbs/contentmodify?bbs_idx=${bbsDTO.bbs_idx}'">수정
+                                                    onclick="location.href='/admin/bbs/contentmodify?bbs_idx=${bbsDTO.bbs_idx}'">
+                                                수정
                                             </button>
                                             <button type="button" class="btn btn-success" onclick="bbs_delete()">
                                                 삭제
@@ -140,20 +143,44 @@
                             </form><!-- EndForm -->
 
                             <div class="mt-5">
-                                <table class="table">
-                                    <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
-                                        <td class="col-2">다음글</td>
-                                        <td class="col-1">34${postbbsDTO.bbs_idx}</td>
-                                        <td class="col-6">담글제목${postbbsDTO.bbs_title}</td>
-                                        <td class="col-3">2024-07-06${postbbsDTO.reg_date}</td>
-                                    </tr>
+                                <table class="table table-borderless">
+                                    <c:choose>
+                                        <c:when test="${postbbsDTO eq null}">
+                                            <tr class="row border-bottom mb-0">
+                                                <td class="col-3">다음글</td>
+                                                <td class="col-9">다음 글이 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr class="row border-bottom mb-0" onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
+                                                <td class="col-2">다음글</td>
+                                                <td class="col-1">${postbbsDTO.bbs_idx}</td>
+                                                <td class="col-6">${postbbsDTO.bbs_title}<c:if
+                                                        test="${postbbsDTO.fileYN eq 'Y'}"><span
+                                                        class="bi bi-paperclip"></span></c:if></td>
+                                                <td class="col-3">${postbbsDTO.reg_date}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
 
-                                    <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
-                                        <td class="col-2">이전글</td>
-                                        <td class="col-1">32${prebbsDTO.bbs_idx}</td>
-                                        <td class="col-6">전글제목${prebbsDTO.bbs_title}</td>
-                                        <td class="col-3">2024-02-01${prebbsDTO.reg_date}</td>
-                                    </tr>
+                                    <c:choose>
+                                        <c:when test="${prebbsDTO eq null}">
+                                            <tr class="row">
+                                                <td class="col-3">이전글</td>
+                                                <td class="col-9">이전 글이 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr class="row" onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
+                                                <td class="col-2">이전글</td>
+                                                <td class="col-1">${prebbsDTO.bbs_idx}</td>
+                                                <td class="col-6">${prebbsDTO.bbs_title}
+                                                    <c:if test="${prebbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                                <td class="col-3">${prebbsDTO.reg_date}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </table>
                             </div>
                         </div>
@@ -167,15 +194,16 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <script>
     const frm_delete = document.querySelector("#frm_bbs_delete");
+
     function bbs_delete() {
         let flag_delete = confirm("정말 삭제하시겠습니까?");
         if (flag_delete) {

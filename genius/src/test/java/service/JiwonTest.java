@@ -22,4 +22,10 @@ public class JiwonTest {
         BbsDTO bbsDTO = bbsServiceIf.view(6);
         log.info(bbsDTO);
     }
+
+    @Test
+    public void testBbsPrepost() {
+        BbsDTO bbsDTO = bbsServiceIf.postView(15, "bc01");
+        log.info(bbsDTO);
+    }
 }

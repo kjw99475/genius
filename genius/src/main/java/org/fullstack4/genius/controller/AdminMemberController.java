@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/admin/member")
 @RequiredArgsConstructor
 public class AdminMemberController {
+    @GetMapping("/memberList")
+    public void GETMemberList(){
+
+    }
+
 
     @GetMapping("/memberView")
     public void GETMemberView(){
