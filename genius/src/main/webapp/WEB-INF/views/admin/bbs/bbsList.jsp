@@ -66,10 +66,10 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1">
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2">
                                             </div>
 
                                         </div>
@@ -78,11 +78,11 @@
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <select name="search_category" id="search_category" class="form-select">
+                                            <select name="search_type" id="search_category" class="form-select">
                                                 <option value="" selected>전체</option>
                                                 <option value="member_id">작성자</option>
                                                 <option value="bbs_title">제목</option>
-                                                <option value="bbs_content">내용</option>
+                                                <option value="bbs_contents">내용</option>
                                             </select>
                                         </div>
 

@@ -37,7 +37,7 @@ public class JiwonTest {
     }
 
     @Test
-    public void testBbs(){
+    public void testBbsInsert(){
         int result = bbsMapper.regist(BbsVO.builder()
                         .bbs_title("테스트 제목33")
                         .category_code("bc01")
@@ -60,7 +60,7 @@ public class JiwonTest {
     @Test
     public void testBbsModify(){
         int result = bbsMapper.modify(BbsVO.builder()
-                        .bbs_idx(4)
+                        .bbs_idx(11)
                         .bbs_title("제목수정테스트")
                         .bbs_contents("내용수정테스트")
                         .fileYN("N")
@@ -72,6 +72,17 @@ public class JiwonTest {
 
     @Test
     public void testBbsDelete() {
-        int result = bbsMapper.delete(8);
+        int result = bbsMapper.delete(11);
+    }
+
+    @Test
+    public void testBbsTotalCount() {
+        int result = bbsMapper.bbsTotalCount(PageRequestDTO.builder()
+                .search_type(new String[]{""})
+                .search_word("자료실") //서치 어ㅏ직 안됨
+                .search_date1(LocalDate.parse("2022-04-27"))
+                .search_date2(LocalDate.parse("2026-04-28"))
+                .build());
+        log.info("개수 : " + result);
     }
 }
