@@ -127,31 +127,30 @@
                     <tbody>
                     <c:if test="${orderDTOlist ne null}">
                         <c:forEach items="${orderDTOlist}" var="orderDTO">
-                            <tr onclick="location.href = '/admin/order/view'">
-                                <th scope="row">${orderDTO.order_num}</th>
+                            <tr>
+                                <th scope="row"><a href='/admin/order/view'>${orderDTO.order_num}</a></th>
                                 <td>${orderDTO.member_id}</td>
                                 <td>${orderDTO.order_date}</td>
                                 <td>${orderDTO.total_price}</td>
                                 <td>${orderDTO.amount}</td>
-                                <td>${deliveryDTO.delivery_company}</td>
-                                <td>${deliveryDTO.start_date}</td>
-                                <td>${deliveryDTO.end_date}</td>
+                                <td>
+                                    <select class="deliverySelect">
+                                        <option value="우체국">우체국</option>
+                                        <option value="CJ대한통운">CJ대한통운</option>
+                                        <option value="로젠택배">로젠택배</option>
+                                        <option value="한진택배">한진택배</option>
+                                        <option value="롯데택배">롯데택배</option>
+                                        <option value="드림택배">드림택배</option>
+                                        <option value="대신택배">대신택배</option>
+                                        <option value="일양로지스택배">일양로지스택배</option>
+                                    </select>
+                                        ${orderDTO.delivery_company}</td>
+                                <td>${orderDTO.delivery_start_date}</td>
+                                <td>${orderDTO.delivery_end_date}</td>
                                 <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
                             </tr>
                         </c:forEach>
                     </c:if>
-
-                    <tr onclick="location.href = '/admin/order/view'">
-                        <th scope="row">8665</th>
-                        <td>testid331</td>
-                        <td>2024-05-01</td>
-                        <td>336000</td>
-                        <td>19</td>
-                        <td>로젠택배</td>
-                        <td>2024-05-17</td>
-                        <td>2024-05-21</td>
-                        <td><span class="badge bg-warning">배송전</span></td>
-                    </tr>
                     </tbody>
                 </table>
                 <!-- END Table with stripped rows -->
@@ -165,9 +164,11 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <c:forEach begin="1" end="${pageDTO.page_block_size}" var="i">
+                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=${i}">${i}</a></li>
+                            </c:forEach>
+<%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=2">2</a></li>--%>
+<%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=3">3</a></li>--%>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

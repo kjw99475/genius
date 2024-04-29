@@ -49,4 +49,22 @@
         ,#{total_price}
         ,#{amount})
     </insert>
+
+    <insert id="deliveryRegist">
+        INSERT INTO tbl_delivery(order_num,member_id,total_price,delivery_addr1,delivery_addr2,delivery_state)
+        VALUES(#{order_num},#{member_id},#{total_price},#{delivery_addr1},#{delivery_addr2},'배송 전')
+
+    </insert>
+
+    <select id="total_count" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_order
+    </select>
+
+    <select id="OrderListByPage" resultType="org.fullstack4.genius.domain.OrderVO">
+        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
+        FROM tbl_order AS a
+        INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 </mapper>

@@ -196,6 +196,11 @@
 
                     </div>
                 </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success m-3">배송 시작</button>
+                    <button class="btn btn-success m-3">주문 취소</button>
+                    <button class="btn btn-success m-3">환불</button>
+                </div>
 
             </div>
         </div>

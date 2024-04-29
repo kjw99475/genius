@@ -46,10 +46,6 @@ public class MemberServiceImpl implements MemberServiceIf {
 
         MemberVO memberVO = memberMapper.view(member_id);
         MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
-
-//        log.info("===================================");
-//        log.info("memberDTO: " + memberDTO.toString());
-//        log.info("===================================");
         return memberDTO;
     }
 
