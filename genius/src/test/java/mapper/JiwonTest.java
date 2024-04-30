@@ -60,7 +60,7 @@ public class JiwonTest {
 
     @Test
     public void testBbsView(){
-        BbsVO bbsVO = bbsMapper.view(1);
+        BbsVO bbsVO = bbsMapper.view(21);
         log.info("=================================");
         log.info(bbsVO.toString());
     }

@@ -30,9 +30,13 @@
     <link href="/resources/admin/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="/resources/admin/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="/resources/admin/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/vendors/themify-icons/themify-icons.css">
+
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -57,36 +61,58 @@
         <div class="row">
 
             <div class="col-xl-12">
-
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                 <form name="frm_member_delete" id="frm_member_delete" action="/admin/member/memberDelete">
                                     <!-- <h5 class="card-title">Profile Details</h5> -->
-
+                                    <div class="row">
+                                        <div class="myProfile form-group d-flex justify-content-center">
+                                            <div class="target w-200px h-200px">
+                                                <label for="profile" class="myPhoto rounded-circle border-gray w-200px h-200px flow-hidden">
+                                                    <img class="w-200px h-200px" id="profile_img" src="/resources/upload/profile/${memberDTO.profile}" alt="내 프로필 이미지"/></label>
+                                                <div class="custom-file targetToOrg" style="bottom:40px !important; right: 50px !important;">
+                                                    <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)">
+                                                    <label class="bg-geni text-white rounded-circle shadow-sm icon_geni middle d-flex align-items-center justify-content-center" for="profile"><i class="ti-settings"></i></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원번호</label>
                                         <div class="col-md-8 col-lg-10">
-                                            <input name="frm" type="text" class="form-control" id="frm"
-                                                   value="폼으로 된 형태${memberDTO.member_idx}" readonly>
+                                            <input name="frm" type="text" class="form-control"
+                                                   value="${memberDTO['member_idx']}" disabled>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-4 label ">이미지</div>
-                                        <div class="col-lg-10 col-md-8">
-                                            <img src="https://mall.chunjaetext.co.kr/web/product/small/202402/c92bb75807729444600df21b9257ccf9.jpg" alt="이미지">
-                                        </div>
-                                    </div>
-
                                     <div class="row mb-3">
-                                        <label for="file" class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                        <label for="social_type" class="col-md-4 col-lg-2 col-form-label label">구분</label>
                                         <div class="col-md-8 col-lg-10">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${memberDTO.book_img}">
+                                            <input name="frm" type="text" class="form-control"
+                                                   value="<c:choose><c:when test="${memberDTO['admin_YN'] == 'Y'}">관리자</c:when><c:otherwise>일반</c:otherwise>
+                                            </c:choose>" disabled>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원아이디</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <input name="frm" type="text" class="form-control"
+                                                   value="${memberDTO['member_id']}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원이름</label>
+                                        <div class="col-md-8 col-lg-10">
+                                            <input name="frm" type="text" class="form-control"
+                                                   value="${memberDTO['member_name']}" disabled>
+                                        </div>
+                                    </div>
+
+
+
+
+
 
 
 
@@ -100,7 +126,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <label for="reg_date" class="col-md-4 col-lg-2 col-form-label label">가입일</label>
                                         <div class="col-md-8 col-lg-10">
@@ -108,30 +133,34 @@
                                                    value="${memberDTO.reg_date}">
                                         </div>
                                     </div>
-
-
                                     <div class="row">
                                         <div class="col-lg-2 col-md-4 label">폼 아니고 값만 출력할 때</div>
                                         <div class="col-lg-10 col-md-8">출력출력</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-2 col-md-4 label">회원아이디</div>
                                         <div class="col-lg-10 col-md-8">아이디${memberDTO.member_name}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-2 col-md-4 label">회원이름</div>
                                         <div class="col-lg-10 col-md-8">이름${memberDTO.member_name}</div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
-
-                        <div class="text-center mt-5">
-                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/member/memberModify?member_id=${memberDTO.member_id}'">수정</button>
-                            <button type="button" class="btn btn-success" id="btn_member_delete" onclick="member_delete();">삭제</button>
+                        <div class="mt-5 d-flex justify-content-between">
+                            <c:set var="linked_params">
+                                <c:forEach var="key" items="${paramValues.keySet()}" varStatus="status">
+                                    <c:if test="${key != 'member_id'}"><c:if test="${status.first}">${key}=${param[key]}</c:if><c:if test="${! status.first}">&${key}=${param[key]}</c:if></c:if>
+                                </c:forEach>
+                            </c:set>
+                            <div>
+                                <button type="button" class="btn btn-outline-success" onclick="location.href = '/admin/member/memberList?${linked_params}'">목록</button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-success">수정</button>
+                                <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
+                            </div>
                         </div>
                     </div><!-- End Bordered Tabs -->
 
@@ -153,11 +182,28 @@
 <!--================ 푸터 End =================-->
 
 <script>
-    const frm_delete = document.querySelector("#frm_member_delete");
-    function member_delete() {
-        let flag_delete = confirm("정말 삭제하시겠습니까?");
-        if (flag_delete) {
-            frm_delete.submit();
+    // 프로필 이미지 변경
+    function changeProfileImg(e) {
+        let files = e.target.files;
+        let reader = new FileReader();
+        reader.onload = (e)=>{
+            $('#profile_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(files[0]);
+    }
+
+    // 탈퇴
+    function leave(member_id) {
+        if (confirm("정말로 탈퇴하실건가요?")) {
+            let frm = document.createElement('form');
+            let input_target = document.createElement('input');
+            frm.action = '/admin/member/memberLeave';
+            frm.method = 'post';
+            frm.id = 'leaveFrm';
+            input_target.name = 'target';
+            input_target.value = member_id;
+            input_target.type = 'hidden';
+            frm.append(input_target);
         }
     }
 </script>

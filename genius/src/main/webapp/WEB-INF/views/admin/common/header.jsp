@@ -30,7 +30,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>관리자</h6>
-                        <span>관리자</span>
+                        <span>${sessionScope.member_id}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

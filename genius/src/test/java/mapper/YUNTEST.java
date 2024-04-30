@@ -194,6 +194,15 @@ public class YUNTEST {
         log.info("================================");
     }
     @Test
+    public void testQnaModify(){
+        QnaVO qnaVO = qnaMapper.view(32);
+        qnaVO.setTitle("수정테스트");
+        int result = qnaMapper.modify(qnaVO);
+        log.info("================================");
+        log.info("qnaMapperTest >> testQnaModify >> result : " +result);
+        log.info("================================");
+    }
+    @Test
     public void testQnaRegist(){
         for(int i=0;i<100;i++) {
             QnaVO qnaVO = QnaVO.builder()

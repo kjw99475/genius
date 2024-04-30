@@ -1234,3 +1234,43 @@ h6 {
   font-size: 13px;
   color: #017029;
 }
+
+.bg-geni {background-color: #00B050 !important;}  
+.bg-geni-ft{background-color: #e5f5ee;}  
+.text-geni {color: #00B050 !important;}  
+.bg-lightgray {background-color: rgb(235, 235, 235);} .bg-gray {background-color:#fbfafa !important;} 
+.border-gray-left{border-left:1px solid #d7d5d5 !important;} 
+.border-gray-right{border-right:1px solid #d7d5d5 !important;} 
+.border-gray-top{border-top:1px solid #d7d5d5 !important;} 
+.border-gray-bottom{border-bottom:1px solid #d7d5d5 !important;} 
+.border-gray{border:1px solid #d7d5d5 !important;} 
+.img-h350 {height: 350px !important;}  
+.img-w150 {width: 150px !important;} 
+.active-geni {background-color: #00B050 !important;} 
+.bg-img1 {background-repeat: no-repeat; background-size: cover;background-image: url(../img/background/bg1.jpg);} 
+.bg-img2 {background-repeat: no-repeat; background-size: cover;background-image: url(../img/background/bg2.jpg);} 
+.bg-img3 {background-repeat: no-repeat; background-size: cover;background-image: url(../img/background/bg3.jpg);} 
+.bg-img4 {background-repeat: no-repeat; background-size: cover;background-image: url(../img/background/bg4.jpg);} 
+.bg-img5 {background-repeat: no-repeat; background-size: cover;background-image: url(../img/background/bg5.jpg);} 
+.p-6 {padding: 6rem!important} 
+.z-100 {z-index: 100;} 
+.target{position: relative;} 
+.targetTo{position: absolute; top:5px; left:5px;} 
+.lg-checkbox {width: 20px; height: 20px;} .stars{color: #fbd600 !important;} 
+.star-list li a i{color : #6c757d} .button-sm {width: 1em; height: 0.5em; font-size: small;} 
+.w-5 {width:5% !important;} .w-1 {width:1% !important;} .w-10 {width:10% !important;} 
+.w-15 {width:15% !important;} 
+.w-50px {width: 50px !important;} 
+.w-100px {width: 100px !important;} 
+.bg-table {background-color: #f1f6f7;} 
+.img-w100{width: 100px !important;} 
+.targetToOrg {position: absolute;} 
+.h-100px {height: 100px !important;} 
+.flow-hidden {overflow: hidden;} 
+.w-200px {width: 200px !important;} 
+.h-200px {height: 200px !important;} 
+.w-300px {width: 300px !important;} 
+.h-300px {height: 300px !important;} 
+.icon_geni{position:absolute;height:40px;width:40px;text-align:center;z-index:100 !important}
+
+

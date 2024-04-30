@@ -127,7 +127,7 @@
                                         <td>${dtoList['reg_date']}</td>
                                         <td>${dtoList.status}</td>
                                         <td class="flex justify-content-end">
-                                            <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&member_idx=${dtoList['member_idx']}'">수정</button>
+                                            <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&page=${pageResponseDTO['page']}&member_id=${dtoList['member_id']}'">수정</button>
                                             <button type="button" class="btn btn-outline-success" onclick="leave('${dtoList['member_id']}')">탈퇴</button>
                                         </td>
                                     </tr>
