@@ -70,7 +70,9 @@
 
                 </div>
             </div>
+
             <div class="order_details_table bg-light">
+                <form action="/mypage/point${pageDTO.linked_params}" id="dateform">
                 <div class="row justify-content-end align-items-center pb-3">
                     <div class="col-auto">
                         <input type="date" class="form-control" id="startDay" name="search_date1">
@@ -80,14 +82,15 @@
                         <input type="date" class="form-control" id="endDay" name="search_date2">
                     </div>
                     <div>
-                        <button class="btn btn-success" type="button" onclick="location.href='/mypage/point${pageDTO.linked_params}'">조회</button>
+                        <button class="btn btn-success" type="button" id="datebtn">조회</button>
                     </div>
                 </div>
+                </form>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">총 0${total_count}건</th>
+                                <th scope="col">총 0${pageDTO.total_count}건</th>
                                 <th scope="col">종류</th>
                                 <th scope="col">결제 일자</th>
                                 <th scope="col">금액</th>
@@ -202,19 +205,19 @@
                 <c:if test="${pageDTO.page>10}">
             <li class="page-item">
                 </c:if>
-                <a class="page-link" href="/mypage/point?page=${pageDTO.page_block_end-10}" aria-label="Previous">
+                <a class="page-link" href="/mypage/point?${pageDTO.linked_params}&page=${pageDTO.page_block_end-10}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
                 <c:if test="${pageDTO.page == i}">
                     <li class="page-item active">
-                        <a class="page-link" href="/mypage/point?page=${i}">${i}</a>
+                        <a class="page-link" href="/mypage/point${pageDTO.linked_params}&page=${i}">${i}</a>
                     </li>
                 </c:if>
                 <c:if test="${pageDTO.page != i}">
                     <li class="page-item">
-                        <a class="page-link" href="/mypage/point?page=${i}">${i}</a>
+                        <a class="page-link" href="/mypage/point${pageDTO.linked_params}&page=${i}">${i}</a>
                     </li>
                 </c:if>
             </c:forEach>
@@ -226,7 +229,7 @@
                 <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
             <li class="page-item">
                 </c:if>
-                <a class="page-link" href="/mypage/point?page=${pageDTO.page_block_start+10}" aria-label="Next">
+                <a class="page-link" href="/mypage/point?page=${pageDTO.linked_params}&page=${pageDTO.page_block_start+10}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -383,6 +386,10 @@
                 });
         }
 
+
+        document.querySelector("#datebtn").addEventListener('click',()=>{
+            document.querySelector("#dateform").submit();
+        });
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 </script>

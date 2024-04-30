@@ -12,7 +12,7 @@ import java.util.List;
 public interface PaymentServiceIf {
     int charge(PaymentDTO paymentDTO);
     int memberPay(PaymentDTO paymentDTO);
-    int totalCount(String member_id);
+    int totalCount(PageRequestDTO pageRequestDTO);
     int usepoint(PaymentDTO paymentDTO);
     List<PaymentDTO> listAll(String member_id);
     int pointview(String member_id);
@@ -22,8 +22,8 @@ public interface PaymentServiceIf {
     List<OrderDTO> viewOrder(String member_id);
     List<OrderDTO> viewOrderdetail(String order_num);
 
-    int OrderTotalCount(String member_id,PageRequestDTO requestDTO);
-    PageResponseDTO<OrderDTO> viewOrderListByPage(String member_id,PageRequestDTO requestDTO);
+    int OrderTotalCount(PageRequestDTO requestDTO);
+    PageResponseDTO<OrderDTO> viewOrderListByPage(PageRequestDTO requestDTO);
     int PaymentTotalCount(PageRequestDTO requestDTO);
-    PageResponseDTO<PaymentDTO> PaymentListByPage(String member_id,PageRequestDTO requestDTO);
+    PageResponseDTO<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO);
 }
