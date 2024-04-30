@@ -74,8 +74,8 @@
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc01" disabled>
+                                        <input name="category_code" type="text" class="form-control form-control-plaintext" id="category_code"
+                                               value="bc01" readonly>
                                     </div>
                                 </div>
 
@@ -90,8 +90,8 @@
                                 <div class="row mb-3">
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                        <input name="member_id" type="text" class="form-control form-control-plaintext" id="member_id"
+                                               value="${sessionScope.member_id}" readonly>
                                     </div>
                                 </div>
 
