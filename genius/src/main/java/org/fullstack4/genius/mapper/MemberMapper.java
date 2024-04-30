@@ -15,8 +15,8 @@ public interface MemberMapper {
     MemberVO view(String member_id);
     int modify(MemberVO MemberVO);
     int delete(int idx);
-    int MemberTotalCount(PageRequestDTO requestDTO);
-    List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
+//    int MemberTotalCount(PageRequestDTO requestDTO);
+//    List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
 
     MemberVO login(String member_id);
     MemberVO naver(String member_id);
@@ -27,4 +27,6 @@ public interface MemberMapper {
     int leave(String member_id);
     int idCheck(String member_id);
     int emailCheck(String email);
+    List<MemberVO> list(PageRequestDTO pageRequestDTO);
+    int totalCount(PageRequestDTO pageRequestDTO);
 }

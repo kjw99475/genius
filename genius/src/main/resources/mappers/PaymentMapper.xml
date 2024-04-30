@@ -60,4 +60,27 @@
         INNER JOIN tbl_book AS B ON a.book_code = b.book_code
         where order_num = #{param1}
     </select>
+
+
+    <select id="OrderTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_order
+        where member_id=#{param1} and cancel_YN = 'N'
+    </select>
+
+    <select id="viewOrderListbypage" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        where member_id=#{param1} and cancel_YN ='N'
+        ORDER BY order_idx DESC
+        LIMIT #{param2.page_skip_count}, #{param2.page_size}
+    </select>
+
+    <select id="PaymentListByPage" resultType="org.fullstack4.genius.domain.PaymentVO">
+        select payment_idx,payment_num,member_id,price,method,company,reg_date,use_type,title
+        from tbl_payment
+        where member_id=#{param1}
+        ORDER BY payment_idx DESC
+        LIMIT #{param2.page_skip_count}, #{param2.page_size}
+    </select>
 </mapper>

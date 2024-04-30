@@ -102,19 +102,30 @@ public class MypageController {
     }
 
     @GetMapping("/payhistory")
-    public void GETPayhistory(HttpServletRequest req,Model model){
+    public void GETPayhistory(HttpServletRequest req,Model model,
+                              @RequestParam(name="page", defaultValue = "1")int page
+                            ,PageRequestDTO pageRequestDTO){
         HttpSession session = req.getSession();
         String member_id = session.getAttribute("member_id").toString();
-        List<OrderDTO> dtolist = paymentService.viewOrder(member_id);
+//        List<OrderDTO> dtolist = paymentService.viewOrder(member_id);
+
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage(page);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<OrderDTO> responseDTO = paymentService.viewOrderListByPage(member_id,pageRequestDTO);
 
         List<List<OrderDTO>> detaillist = new ArrayList<List<OrderDTO>>();
-        for(int i = 0; i < dtolist.size(); i++){
-            String ordernum = dtolist.get(i).getOrder_num();
+        for(int i = 0; i < responseDTO.getDtoList().size(); i++){
+            String ordernum = responseDTO.getDtoList().get(i).getOrder_num();
             List<OrderDTO> detail = paymentService.viewOrderdetail(ordernum);
             detaillist.add(detail);
         }
 
-        model.addAttribute("dtolist", dtolist);
+
+
+        model.addAttribute("dtolist", responseDTO.getDtoList());
+        model.addAttribute("pageDTO", responseDTO);
         model.addAttribute("detaillist", detaillist);
     }
 
@@ -124,13 +135,21 @@ public class MypageController {
     }
 
     @GetMapping("/cart")
-    public void GETCart(Model model, HttpServletRequest req){
+    public void GETCart(Model model, HttpServletRequest req,
+                        @RequestParam(name="page", defaultValue = "1")int page,
+                        PageRequestDTO pageRequestDTO){
         HttpSession session = req.getSession();
         String member_id = (String) session.getAttribute("member_id");
 
-        List<CartDTO> dto =cartService.listAll(member_id);
-        log.info("###################"+dto.toString());
-        model.addAttribute("list",dto);
+
+        pageRequestDTO.setPage_size(5);
+        pageRequestDTO.setPage(page);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<CartDTO> responseDTO = cartService.CartListByPage(member_id,pageRequestDTO);
+//        List<CartDTO> dto =cartService.listAll(member_id);
+        model.addAttribute("pageDTO", responseDTO);
+        model.addAttribute("list",responseDTO.getDtoList());
     }
 
 
@@ -209,19 +228,26 @@ public class MypageController {
     }
 
     @GetMapping("/point")
-    public void GETPoint(Model model,HttpServletRequest req){
+    public void GETPoint(Model model,HttpServletRequest req,
+                         @RequestParam(name="page", defaultValue = "1")int page,
+                         PageRequestDTO pageRequestDTO){
         HttpSession session = req.getSession();
         String member_id = (String) session.getAttribute("member_id");
         int mypoint = paymentService.pointview(member_id);
-        List<PaymentDTO> mypayment = paymentService.listAll(member_id);
-        int total_count = paymentService.totalCount(member_id);
-        model.addAttribute("total_count",total_count);
-        model.addAttribute("point",mypoint);
-        model.addAttribute("mypaymentlist",mypayment);
 
-        log.info("================================================");
-        log.info("mypayment: " + mypayment);
-        log.info("================================================");
+
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage(page);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<PaymentDTO> responseDTO = paymentService.PaymentListByPage(member_id,pageRequestDTO);
+
+        int total_count = paymentService.totalCount(member_id);
+        model.addAttribute("total_count",responseDTO.getTotal_count());
+        model.addAttribute("point",mypoint);
+        model.addAttribute("mypaymentlist",responseDTO.getDtoList());
+        model.addAttribute("pageDTO", responseDTO);
+
     }
 
     @PostMapping("/point")

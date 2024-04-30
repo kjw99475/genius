@@ -100,7 +100,6 @@
                         <div class="col-2 mb-2">
 <%--                            <form id="frm_page_size" >--%>
                             <select name="page_size" class="form-select" onchange="this.form.submit()">
-                                <option value="" >페이지 크기</option>
                                 <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
                                 <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
                                 <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
@@ -137,7 +136,7 @@
 <%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
                                                 <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
                                                 <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
-                                                <td>${bbsDTO.member_id}</td>
+                                                <td>${bbsDTO.member_name}</td>
                                                 <td>${bbsDTO.reg_date}</td>
                                                 <td>${bbsDTO.read_cnt}</td>
                                             </tr>
@@ -162,13 +161,12 @@
 
                         <div class="d-flex justify-content-center">
 
-                            <!-- 페이징 영역 start -->
+                            <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
+                                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+                                           class="page-link" aria-label="Previous">&laquo;
                                         </a>
                                     </li>
                                     <c:forEach begin="${responseDTO.page_block_start}"
@@ -187,16 +185,13 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
+                                    <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
+                                        <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav><!-- End Pagination with icons -->
                             <!-- 페이징 영역 end -->
-
-
 
                         </div>
                     </div>

@@ -78,7 +78,7 @@
                     </div>
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
-<%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
+                            <%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
                             <select id="inputState" class="form-control">
                                 <option>Choose...</option>
                                 <option>자유 게시판</option>

@@ -5,6 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.CartVO;
 import org.fullstack4.genius.dto.CartDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.CartMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -88,12 +90,23 @@ public class CartServiceImpl implements CartServiceIf{
     }
 
     @Override
-    public int CartTotalCount(String user_id, PageRequestDTO requestDTO) {
+    public int CartTotalCount(String member_id, PageRequestDTO requestDTO) {
         return 0;
     }
 
     @Override
-    public List<CartDTO> CartListByPage(String user_id, PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<CartDTO> CartListByPage(String member_id, PageRequestDTO requestDTO) {
+        int total_count = cartMapper.CartTotalCount(member_id);
+        List<CartVO> voList = cartMapper.CartListByPage(member_id,requestDTO);
+        List<CartDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, CartDTO.class))
+                .collect(Collectors.toList());
+        PageResponseDTO<CartDTO> responseDTO = PageResponseDTO.<CartDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

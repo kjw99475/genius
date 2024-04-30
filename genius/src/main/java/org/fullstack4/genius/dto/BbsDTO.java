@@ -19,6 +19,7 @@ public class BbsDTO {
     private String bbs_title;
     private String category_code;
     private String member_id;
+    private String member_name;
     private String fileYN;
     private String replyYN;
     private String bbs_contents;

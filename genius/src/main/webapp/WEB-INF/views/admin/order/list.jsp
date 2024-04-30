@@ -159,18 +159,35 @@
                     <!-- Pagination with icons -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                            <c:if test="${pageDTO.page<=10}">
+                            <li class="page-item disabled">
+                                </c:if>
+                                <c:if test="${pageDTO.page>10}">
+                                <li class="page-item">
+                                </c:if>
+                                <a class="page-link" href="/admin/order/list?page=${pageDTO.page_block_end-10}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <c:forEach begin="1" end="${pageDTO.page_block_size}" var="i">
-                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=${i}">${i}</a></li>
+                            <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
+                            <li class="page-item">
+                                <c:if test="${pageDTO.page == i}">
+                                    <a class="page-link active" href="/admin/order/list?page=${i}">${i}</a>
+                                </c:if>
+                                <c:if test="${pageDTO.page != i}">
+                                    <a class="page-link" href="/admin/order/list?page=${i}">${i}</a>
+                                </c:if>
+                            </li>
                             </c:forEach>
 <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=2">2</a></li>--%>
 <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=3">3</a></li>--%>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <c:if test="${(pageDTO.page_block_start+10)>=(pageDTO.total_page)}">
+                                <li class="page-item disabled">
+                                    </c:if>
+                                    <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
+                                <li class="page-item">
+                                    </c:if>
+                                <a class="page-link" href="/admin/order/list?page=${pageDTO.page_block_start+10}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

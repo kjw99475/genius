@@ -74,39 +74,36 @@
                             <form method="post" id="frm_bbs_delete" action="/admin/bbs/delete">
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">카테고리</div>
-                                    <div class="col-lg-10 col-md-8">${bbsDTO.category_code}</div>
+                                    <div class="col-lg-1 col-md-4 label">카테고리</div>
+                                    <div class="col-lg-9 col-md-8">${bbsDTO.category_code}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">제목</div>
-                                    <div class="col-lg-10 col-md-8">${bbsDTO.bbs_title}</div>
+                                    <div class="col-lg-1 col-md-4 label">제목</div>
+                                    <div class="col-lg-9 col-md-8">${bbsDTO.bbs_title}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">작성자</div>
-                                    <div class="col-lg-10 col-md-8">${bbsDTO.member_id}</div>
+                                    <div class="col-lg-1 col-md-4 label">작성자</div>
+                                    <div class="col-lg-9 col-md-8">${bbsDTO.member_name}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">작성일</div>
-                                    <div class="col-lg-10 col-md-8">${bbsDTO.reg_date}</div>
+                                    <div class="col-lg-1 col-md-4 label">작성일</div>
+                                    <div class="col-lg-9 col-md-8">${bbsDTO.reg_date}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">내용</div>
-                                    <div class="col-md-8 col-lg-10">
-                                        <p>${bbsDTO.bbs_contents}</p>
+                                    <div class="col-lg-1 col-md-4 label">파일</div>
+                                    <div class="col-md-8 col-lg-9">
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">파일</div>
-                                    <div class="col-md-8 col-lg-10">
-                                        <c:if test="${bbsDTO.fileYN ne null}">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${bbsDTO.fileYN}" readonly>
-                                        </c:if>
+                                    <div class="col-lg-1 col-md-4 label">내용</div>
+                                    <div class="col-md-8 col-lg-9 overflow-auto" style="max-height: 700px;">
+                                        <p>${bbsDTO.bbs_contents}</p>
                                     </div>
                                 </div>
 
@@ -120,7 +117,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="text-center d-flex justify-content-end">
                                             <button type="button" class="btn btn-success me-2"
                                                     onclick="location.href='/admin/bbs/contentmodify?bbs_idx=${bbsDTO.bbs_idx}'">
