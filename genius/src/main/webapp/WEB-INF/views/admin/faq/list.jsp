@@ -64,88 +64,144 @@
                         <div class="row">
                             <form>
                                 <div class="row mb-3">
+
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_start">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1" value="${responseDTO.search_date1}" >
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="search_type" id="banner_end">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2" value="${responseDTO.search_date2}">
                                             </div>
-
                                         </div>
                                     </div>
+
                                     <div class="row">
 
-                                        <div class="col-1">
-                                            <select name="search_category" id="search_category" class="form-select">
-                                                <option selected>전체</option>
-                                                <option value="banner_name">배너 이름</option>
-                                                <option value="banner_use">사용 여부</option>
+                                        <div class="col-2">
+                                            <select name="type" id="search_category" class="form-select">
+                                                <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                                                <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                                                <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                                                <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
                                             </select>
                                         </div>
 
                                         <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO.search_word}">
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                            <button type="button" class="btn btn-success"
-                                                    onclick="location.href='/admin/faq/contentregist'">등록</button>
                                         </div>
                                     </div>
                                 </div>
+                                <%--                            </form>--%>
+                        </div>
+
+                        <div class="col-2 mb-2">
+                            <%--                            <form id="frm_page_size" >--%>
+                            <select name="page_size" class="form-select" onchange="this.form.submit()">
+                                <option value="" >페이지 크기</option>
+                                <option value="5" <c:if test="${responseDTO.page_size eq '5'}">selected</c:if> >5개씩 보기</option>
+                                <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                                <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
+                            </select>
                             </form>
                         </div>
 
-                        <!-- Table with stripped rows -->
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${bbsDTOlist ne null}">
-                                <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                    <tr onclick="location.href='/admin/faq/view'">
-                                        <td>${bbsDTO.bbs_idx}</td>
-                                        <td>${bbsDTO.bbs_title}</td>
-                                        <td>${bbsDTO.member_id}</td>
-                                        <td>${bbsDTO.reg_date}</td>
-                                        <td>${bbsDTO.read_cnt}</td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            </tbody>
-                            <tr onclick="location.href='/admin/faq/view'">
-                                <td>31</td>
-                                <td>글제목입니당</td>
-                                <td>작성자아이디입니다</td>
-                                <td>작성일입니다</td>
-                                <td>99</td>
-                            </tr>
+                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
+                            <!-- Table with stripped rows -->
+                            <table class="table">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="50%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="10%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                    <th>조회수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                <c:set value="${responseDTO.total_count}" var="total_count" />
+                                <c:choose>
+                                    <c:when test="${responseDTO ne null}">
+                                        <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
+                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
+                                                    <%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
+                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
+                                                <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                                <td>${bbsDTO.member_id}</td>
+                                                <td>${bbsDTO.reg_date}</td>
+                                                <td>${bbsDTO.read_cnt}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr><td colspan="5" class="">결과가 없습니다.</td></tr>
+                                    </c:otherwise>
+                                </c:choose>
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </form>
 
-                        <!-- Basic Pagination -->
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                        <!-- End Basic Pagination -->
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-success me-2"
+                                    onclick="location.href='/admin/bbs/contentregist'">등록</button>
+                            <button type="button" class="btn btn-success"
+                                    onclick="bbs_delete()">삭제</button>
+                        </div>
 
+
+                        <div class="d-flex justify-content-center">
+
+                            <!-- 페이징 영역 start -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <c:forEach begin="${responseDTO.page_block_start}"
+                                               end="${responseDTO.page_block_end}"
+                                               var="page_num">
+                                        <c:choose>
+                                            <c:when test="${responseDTO.page == page_num}">
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- 페이징 영역 end -->
+
+
+
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -160,6 +216,36 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+
+<script>
+    // 삭제 스크립트
+    const frm_delete = document.querySelector("#frm_bbs_delete");
+    function bbs_delete() {
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    }
+
+    // 체크박스 스크립트
+    const chk_all = document.querySelector("#chk_all");
+    const chk_group = document.querySelectorAll(".chk_del");
+
+    chk_all.addEventListener('click', (e)=> {
+        if ( chk_all.checked ) {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = true;
+            }
+        }
+        else {
+            for(let i=0; i<chk_group.length; i++) {
+                chk_group[i].checked = false;
+            }
+        }
+    })
+
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
