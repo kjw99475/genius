@@ -49,7 +49,7 @@ public class BbsController {
         }
         List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
         log.info(qnaDTOList);
-        pageRequestDTO.setPage_size(6);
+        pageRequestDTO.setPage_size(10);
         pageRequestDTO.setPage_block_size(10);
         PageResponseDTO<QnaDTO> responseDTO = qnaServiceIf.qnaListByPage(pageRequestDTO);
 
