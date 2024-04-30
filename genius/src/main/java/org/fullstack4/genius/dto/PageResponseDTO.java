@@ -69,17 +69,20 @@ public class PageResponseDTO<E> {
         this.member_id = requestDTO.getMember_id();
         this.class_code = requestDTO.getClass_code();
         this.subject_code = requestDTO.getSubject_code();
+        this.status = requestDTO.getStatus();
+        this.sort = requestDTO.getSort();
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
         if(search_type != null) sb.append("&search_type=" + search_type_st );
         if(search_word != null) sb.append("&search_word=" + search_word);
         if(search_data1 != null) sb.append("&search_data1=" + search_data1);
         if(search_data2 != null) sb.append("&search_data2=" + search_data2);
+        if(status != null) sb.append("&status=" + status);
         if(type != null) sb.append("&type=" + type);
         if(type2 != null) sb.append("&type2=" + type2);
         if(search_date1 != null) sb.append("&search_date1=" + search_date1);
         if(search_date2 != null) sb.append("&search_date2=" + search_date2);
-        if(class_code != null) sb.append("&class_code=" + class_code);
-        if(subject_code != null) sb.append("&subject_code=" + subject_code);
+        if(class_code != null && class_code!="") sb.append("&class_code=" + class_code);
+        if(subject_code != null && subject_code != "") sb.append("&subject_code=" + subject_code);
         if(member_id != null) sb.append("&member_id=" + member_id);
 
         this.linked_params =  sb.toString();  // 쿼리스트링

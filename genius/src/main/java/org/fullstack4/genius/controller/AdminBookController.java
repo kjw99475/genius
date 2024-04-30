@@ -41,14 +41,13 @@ public class AdminBookController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-        pageRequestDTO.setPage_size(9);
         pageRequestDTO.setPage_block_size(10);
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.BookListByPage(pageRequestDTO);
 
-//        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
-//        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
-//        model.addAttribute("subjectList",subjectList);
-//        model.addAttribute("classList",classList);
+        List<Map<String,String>> subjectList = bookServiceIf.bookSubjectCategoryList();
+        List<Map<String,String>> classList = bookServiceIf.bookClassCategoryList();
+        model.addAttribute("subjectList",subjectList);
+        model.addAttribute("classList",classList);
         model.addAttribute("responseDTO", responseDTO);
     }
 
