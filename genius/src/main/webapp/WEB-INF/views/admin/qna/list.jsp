@@ -66,10 +66,10 @@
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" value="${responseDTO.search_date1}" id="reg_date1">
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" value="${responseDTO.search_date1}" id="reg_date2">
                                             </div>
 
                                         </div>
@@ -86,16 +86,16 @@
                                         </div>
 
                                         <div class="col-1">
-                                            <select name="search_category" id="search_category" class="form-select">
-                                                <option value="" selected>전체</option>
-                                                <option value="member_id">작성자</option>
-                                                <option value="bbs_title">제목</option>
-                                                <option value="bbs_content">내용</option>
+                                            <select name="type" id="search_category" class="form-select">
+                                                <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                                <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>작성자</option>
+                                                <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>제목</option>
+                                                <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>내용</option>
                                             </select>
                                         </div>
 
                                         <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                            <input type="text" class="form-control" placeholder="검색어" value="${responseDTO.search_word}" name="search_word" id="search_word">
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
@@ -116,10 +116,20 @@
                         <form id="frm_qna_delete" method="post" action="/admin/qna/delete">
                             <!-- Table with stripped rows -->
                             <table class="table">
+
+                                <colgroup>
+                                    <col width="8%">
+                                    <col width="7%">
+                                    <col width="40%">
+                                    <col width="10%">
+                                    <col width="12%">
+                                    <col width="8%">
+                                    <col width="15%">
+                                </colgroup>
                                 <thead>
 
                                 <tr>
-                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th><input id="chk_all" type="checkbox" class="me-2">번호</th>
                                     <th>구분</th>
                                     <th>제목</th>
                                     <th>작성자</th>
@@ -129,41 +139,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <c:set value="${responseDTO.total_count}" var="total_count"/>
 
-                                <c:if test="${bbsDTOlist ne null}">
-                                    <c:forEach items="${bbsDTOlist}" var="bbsDTO">
-                                        <tr onclick="location.href='/admin/qna/view'">
-                                            <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" >${bbsDTO.bbs_idx}</td>
-                                            <td>${bbsDTO.bbs_title}</td>
-                                            <td>${bbsDTO.bbs_title}</td>
-                                            <td>${bbsDTO.member_id}</td>
-                                            <td>${bbsDTO.reg_date}</td>
-                                            <td>${bbsDTO.read_cnt}</td>
-                                            <td>${bbsDTO.read_cnt}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
-
-                                <tr onclick="location.href='/admin/qna/view'">
-                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 31</td>
-                                    <td>질문</td>
-                                    <td>글제목입니당</td>
-                                    <td>작성자아이디입니다</td>
-                                    <td>작성일입니다</td>
-                                    <td>99</td>
-                                    <td>답변노우</td>
-                                </tr>
-
-                                <tr onclick="location.href='/admin/qna/view'">
-                                    <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}"> 33</td>
-                                    <td>답변</td>
-                                    <td>파일있는글제목입니당<span class="bi bi-paperclip"></span></td>
-                                    <td>작성자아이디입니다</td>
-                                    <td>작성일입니다</td>
-                                    <td>199</td>
-                                    <td>답변예스</td>
-                                </tr>
-
+                                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
+                                    <tr onclick="location.href='/admin/qna/view'">
+                                        <td><input class="chk_del me-2" type="checkbox" value="${qnaDTO.qna_idx}" >${total_count - i.index - responseDTO.page_skip_count}</td>
+                                        <td>${qnaDTO.answerYN}</td>
+                                        <td>${qnaDTO.title}</td>
+                                        <td>${qnaDTO.member_id}</td>
+                                        <td>${qnaDTO.reg_date}</td>
+                                        <td>${qnaDTO.read_cnt}</td>
+                                        <td>답변상태</td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
@@ -181,18 +169,30 @@
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
+                                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+                                           class="page-link" aria-label="Previous">&laquo;
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
+                                    <c:forEach begin="${responseDTO.page_block_start}"
+                                               end="${responseDTO.page_block_end}"
+                                               var="page_num">
+                                        <c:choose>
+                                            <c:when test="${responseDTO.page == page_num}">
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
+                                        <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                                     </li>
                                 </ul>
                             </nav><!-- End Pagination with icons -->
@@ -203,7 +203,6 @@
             </div>
         </div>
     </section>
-
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
 
