@@ -6,6 +6,7 @@ import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
@@ -113,12 +114,47 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
+    public int OrderTotalCount(String member_id,PageRequestDTO requestDTO) {
+        int total_count = paymentMapper.OrderTotalCount(member_id,requestDTO);
+        return total_count;
+    }
+
+    @Override
+    public PageResponseDTO<OrderDTO> viewOrderListByPage(String member_id,PageRequestDTO requestDTO) {
+        List<OrderVO> voList = paymentMapper.viewOrderListbypage(member_id,requestDTO);
+        List<OrderDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, OrderDTO.class))
+                .collect(Collectors.toList());
+
+        int total_count = paymentMapper.OrderTotalCount(member_id,requestDTO);
+
+        PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
+    }
+
+    @Override
     public int PaymentTotalCount(PageRequestDTO requestDTO) {
         return 0;
     }
 
     @Override
-    public List<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<PaymentDTO> PaymentListByPage(String member_id,PageRequestDTO requestDTO) {
+        int total_count =paymentMapper.totalCount(member_id);
+        List<PaymentVO> voList = paymentMapper.PaymentListByPage(member_id,requestDTO);
+        List<PaymentDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,PaymentDTO.class))
+                .collect(Collectors.toList());
+        PageResponseDTO<PaymentDTO> responseDTO = PageResponseDTO.<PaymentDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }
