@@ -37,6 +37,7 @@ public class PageResponseDTO<E> {
     private String sort;
     private String status;
     private String type;
+    private String type2;
     private String member_id;
     List<E> dtoList;
     PageResponseDTO() {}
@@ -59,6 +60,7 @@ public class PageResponseDTO<E> {
         this.search_type =  requestDTO.getSearch_type();
         this.search_category = requestDTO.getSearch_category();
         this.type = requestDTO.getType();
+        this.type2 = requestDTO.getType2();
         this.search_type_st = (search_type != null) ? Arrays.toString(search_type).replace("[","").replace("]","").replace(" ","") : "t,u";
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
         this.search_data2 = CommonUtil.parseString(requestDTO.getSearch_data2());
@@ -71,6 +73,7 @@ public class PageResponseDTO<E> {
         if(search_data1 != null) sb.append("&search_data1=" + search_data1);
         if(search_data2 != null) sb.append("&search_data2=" + search_data2);
         if(type != null) sb.append("&type=" + type);
+        if(type2 != null) sb.append("&type2=" + type2);
         if(search_date1 != null) sb.append("&search_date1=" + search_date1);
         if(search_date2 != null) sb.append("&search_date2=" + search_date2);
         if(member_id != null) sb.append("&member_id=" + member_id);

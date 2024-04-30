@@ -3,6 +3,52 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.OrderMapper">
+
+    <sql id="whereCondition">
+        <where>
+                1=1
+                <if test=' search_word != null and search_word != "" '>
+                    <choose>
+                        <when test="type2 == '' or type2 == null">
+                            AND a.order_num LIKE CONCAT('%', #{search_word}, '%')
+                            OR a.member_id LIKE CONCAT('%', #{search_word}, '%')
+                            OR b.delivery_company LIKE CONCAT('%', #{search_word}, '%')
+                        </when>
+                        <when test="type2 == 1">
+                            AND a.order_num LIKE CONCAT('%', #{search_word}, '%')
+                        </when>
+                        <when test="type2 == 2">
+                            AND a.member_id LIKE CONCAT('%', #{search_word}, '%')
+                        </when>
+                        <when test="type2 == 3">
+                            AND a.delivery_company LIKE CONCAT('%', #{search_word}, '%')
+                        </when>
+                    </choose>
+                </if>
+                <choose>
+                    <when test="type == 1">
+                        AND a.order_state = '배송 전'
+                    </when>
+                    <when test="type == 2">
+                        AND a.order_state = '배송 중'
+                    </when>
+                    <when test="type == 3">
+                        AND a.order_state = '배송 완료'
+                    </when>
+                </choose>
+
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND a.order_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND a.order_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
+    </sql>
+
+
     <select id="view" resultType="org.fullstack4.genius.domain.OrderVO">
         select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
         FROM tbl_order
@@ -56,15 +102,18 @@
 
     </insert>
 
-    <select id="total_count" resultType="int">
+    <select id="OrderTotalCount" resultType="int">
         SELECT COUNT(*)
-        FROM tbl_order
+        FROM tbl_order AS a
+        INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
+        <include refid="whereCondition"></include>
     </select>
 
     <select id="OrderListByPage" resultType="org.fullstack4.genius.domain.OrderVO">
         select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
         FROM tbl_order AS a
         INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
+        <include refid="whereCondition"></include>
         LIMIT #{page_skip_count}, #{page_size}
     </select>
 </mapper>
