@@ -41,7 +41,11 @@
                 </if>
             </if>
             <if test='member_id != null and member_id !=""'>
-                AND member_id = #{member_id}
+                AND ref_idx in (
+                    SELECT ref_idx
+                    FROM tbl_qna
+                    WHERE member_id = #{member_id}
+                )
             </if>
         </where>
     </sql>
