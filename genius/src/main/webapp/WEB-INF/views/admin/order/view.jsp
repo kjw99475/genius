@@ -59,6 +59,11 @@
 
     <section class="section">
         <div class="row">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-success m-3">배송 시작</button>
+                <button class="btn btn-success m-3">주문 취소</button>
+                <button class="btn btn-success m-3">환불</button>
+            </div>
             <div class="col-lg-4">
 
                 <div class="card">
@@ -158,12 +163,6 @@
                         </div>
 
                     </div>
-                </div>
-
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-success m-3">배송 시작</button>
-                    <button class="btn btn-success m-3">주문 취소</button>
-                    <button class="btn btn-success m-3">환불</button>
                 </div>
 
             </div>

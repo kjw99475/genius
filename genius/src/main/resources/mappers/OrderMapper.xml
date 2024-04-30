@@ -79,8 +79,17 @@
     </update>
 
     <insert id="regist">
-        INSERT INTO tbl_order(order_num,member_id,order_date,total_price,order_state)
-        VALUES(#{order_num},#{member_id},NOW(),#{total_price},#{order_state})
+        INSERT INTO tbl_order(order_num,member_id,order_date,total_price,order_state,order_name,order_phone,order_addr1,order_addr2,order_zipcode)
+        VALUES(#{order_num}
+        ,#{member_id}
+        ,NOW()
+        ,#{total_price}
+        ,#{order_state}
+        ,#{order_name}
+        ,#{order_phone}
+        ,#{order_addr1}
+        ,#{order_addr2}
+        ,#{order_zipcode})
     </insert>
 
     <insert id="detailregist">
