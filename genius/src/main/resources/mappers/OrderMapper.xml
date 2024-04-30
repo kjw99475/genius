@@ -137,4 +137,14 @@
         UPDATE tbl_delivery SET
         delivery_company = #{delivery_company}
     </update>
+
+    <select id="AdminOrderdetail">
+        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode
+        ,b.order_addr1,b.order_addr2,b.order_zipcode,b.order_phone
+        ,c.delivery_state,c.delivery_company,c.delivery_start_date,c.delivery_end_date,delivery_code
+        FROM tbl_order AS a
+        INNER JOIN tbl_order_detail AS b
+        INNER JOIN tbl_delivery AS c
+        WHERE a.order_num = #{order_num}
+    </select>
 </mapper>
