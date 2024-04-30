@@ -22,7 +22,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/resources/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -58,25 +59,25 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
 
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">주문 정보</h5>
 
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">주문 번호</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_num}</div>
+                            <div class="col-lg-4 col-md-4">주문 번호</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_num}출력용123</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문 상태</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_state}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_state}출력용123</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문일시</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_date}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.order_date}출력용123</div>
                         </div>
 
                         <div class="row">
@@ -97,51 +98,10 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">주문 상세정보</h5>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">상품 번호</div>
-                            <div class="col-lg-8 col-md-8">${bookDTO.book_code}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">상품명</div>
-                            <div class="col-lg-8 col-md-8">${bookDTO.book_name}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">수량</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.amount}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">적용가</div>
-                            <div class="col-lg-8 col-md-8">${bookDTO.discount_price}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">개별 총계</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.price}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">총수량</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.amount}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 label ">총 합계</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.total_price}</div>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
 
-            <div class="col-lg-6">
+
+            <div class="col-lg-4">
 
                 <div class="card">
                     <div class="card-body">
@@ -174,6 +134,9 @@
 
                     </div>
                 </div>
+            </div>
+
+            <div class="col-lg-4">
 
                 <div class="card">
                     <div class="card-body">
@@ -196,6 +159,7 @@
 
                     </div>
                 </div>
+
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-success m-3">배송 시작</button>
                     <button class="btn btn-success m-3">주문 취소</button>
@@ -203,9 +167,76 @@
                 </div>
 
             </div>
+
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">주문 상세정보</h5>
+
+                        <table class="table">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="30%">
+                                <col width="10%">
+                                <col width="15%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="10%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">상품 번호</th>
+                                <th scope="col">상품명</th>
+                                <th scope="col">수량</th>
+                                <th scope="col">적용가</th>
+                                <th scope="col">개별 총계</th>
+                                <th scope="col">총수량</th>
+                                <th scope="col">총 합계</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+<%--                            <c:forEach var="" items="list">--%>
+<%--                                <tr>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+
+                            <tr>
+                                <td>D654987654</td>
+                                <td>천재교과서321</td>
+                                <td>20</td>
+                                <td>33000</td>
+                                <td>660000</td>
+                                <td>55</td>
+                                <td>1000000</td>
+                            </tr>
+
+                            <tr>
+                                <td>C65445364554</td>
+                                <td>범재교과서321</td>
+                                <td>30</td>
+                                <td>22000</td>
+                                <td>660000</td>
+                                <td>70</td>
+                                <td>2000000</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
-
 
 
 </main><!-- End #main -->
@@ -213,11 +244,11 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
