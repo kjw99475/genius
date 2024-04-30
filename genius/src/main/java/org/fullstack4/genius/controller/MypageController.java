@@ -58,7 +58,7 @@ public class MypageController {
         MemberDTO orgMemberDTO = memberService.view(member_id);
         newMemberDTO.setMember_id(member_id);
         FileDTO fileDTO = null;
-        if(file != null) {
+        if(file.getSize() > 0) {
             String uploadFolder =  CommonUtil.getUploadFolder(request, "profile");
             fileDTO = FileDTO.builder()
                     .file(file)
