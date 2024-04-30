@@ -11,6 +11,7 @@
                         OR book_name LIKE CONCAT('%', #{search_word}, '%')
                         OR author LIKE CONCAT('%', #{search_word}, '%')
                         OR publisher LIKE CONCAT('%', #{search_word}, '%')
+                        OR book_code LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 1">
                         AND book_name LIKE CONCAT('%', #{search_word}, '%')
@@ -20,6 +21,9 @@
                     </when>
                     <when test="type == 3">
                         AND publisher LIKE CONCAT('%', #{search_word}, '%')
+                    </when>
+                    <when test="type == 4">
+                        AND book_code LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                 </choose>
             </if>
