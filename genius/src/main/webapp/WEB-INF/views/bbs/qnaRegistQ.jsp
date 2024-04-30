@@ -72,7 +72,7 @@
                             <input type="text" class="form-control" id="inputCity" name="title" value=""/>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">${sessionScope.member_id}</label>
+                            <label for="inputZip">아이디</label>
                             <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
     document.getElementById("registBtn").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById("inputCity").value)
-        //document.getElementById("registFrm").submit();
+        document.getElementById("registFrm").submit();
     });
 
     $('#summernote').summernote({

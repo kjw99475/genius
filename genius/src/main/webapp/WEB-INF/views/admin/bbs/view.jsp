@@ -94,14 +94,14 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label">내용</label>
+                                    <div class="col-lg-2 col-md-4 label">내용</div>
                                     <div class="col-md-8 col-lg-10">
                                         <p>${bbsDTO.bbs_contents}</p>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-lg-2 col-md-4 label">파일</div>
                                     <div class="col-md-8 col-lg-10">
                                         <c:if test="${bbsDTO.fileYN ne null}">
                                             <input name="file" type="file" class="form-control" id="file"

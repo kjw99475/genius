@@ -101,8 +101,8 @@
 <%--                            <form id="frm_page_size" >--%>
                             <select name="page_size" class="form-select" onchange="this.form.submit()">
                                 <option value="" >페이지 크기</option>
-                                <option value="5" <c:if test="${responseDTO.page_size eq '5'}">selected</c:if> >5개씩 보기</option>
                                 <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                                <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
                                 <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
                             </select>
                             </form>
