@@ -67,10 +67,10 @@
 
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1" value="${responseDTO.search_date1}" >
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2" value="${responseDTO.search_date2}">
                                             </div>
                                         </div>
                                     </div>
@@ -79,15 +79,15 @@
 
                                         <div class="col-2">
                                             <select name="type" id="search_category" class="form-select">
-                                                <option value="0">전체</option>
-                                                <option value="1">작성자</option>
-                                                <option value="2">제목</option>
-                                                <option value="3">내용</option>
+                                                <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                                                <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                                                <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                                                <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
                                             </select>
                                         </div>
 
                                         <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO.search_word}">
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
@@ -100,10 +100,10 @@
                         <div class="col-2 mb-2">
 <%--                            <form id="frm_page_size" >--%>
                             <select name="page_size" class="form-select" onchange="this.form.submit()">
-                                <option value="">페이지 크기</option>
-                                <option value="5">5개씩 보기</option>
-                                <option value="10">10개씩 보기</option>
-                                <option value="100">100개씩 보기</option>
+                                <option value="" >페이지 크기</option>
+                                <option value="5" <c:if test="${responseDTO.page_size eq '5'}">selected</c:if> >5개씩 보기</option>
+                                <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                                <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
                             </select>
                             </form>
                         </div>
@@ -111,6 +111,13 @@
                         <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
                             <!-- Table with stripped rows -->
                             <table class="table">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="50%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="10%">
+                                </colgroup>
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
