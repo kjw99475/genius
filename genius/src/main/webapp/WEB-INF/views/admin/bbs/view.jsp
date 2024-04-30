@@ -94,19 +94,16 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">내용</div>
+                                    <div class="col-lg-2 col-md-4 label">파일</div>
                                     <div class="col-md-8 col-lg-10">
-                                        <p>${bbsDTO.bbs_contents}</p>
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-2 col-md-4 label">파일</div>
-                                    <div class="col-md-8 col-lg-10">
-                                        <c:if test="${bbsDTO.fileYN ne null}">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${bbsDTO.fileYN}" readonly>
-                                        </c:if>
+                                    <div class="col-lg-2 col-md-4 label">내용</div>
+                                    <div class="col-md-8 col-lg-8 overflow-auto" style="max-height: 300px;">
+                                        <p>${bbsDTO.bbs_contents}</p>
                                     </div>
                                 </div>
 

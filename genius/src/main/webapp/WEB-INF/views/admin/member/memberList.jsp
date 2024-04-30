@@ -85,10 +85,10 @@
                             </form>
                         </div>
                         <div class="col-2 mb-2">
-                            <select name="page_size" class="form-select">
-                                <option value="10">10개씩 보기</option>
-                                <option value="50">50개씩 보기</option>
-                                <option value="100">100개씩 보기</option>
+                            <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                                <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                                <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                                <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
                             </select>
                         </div>
                         <!-- Table with stripped rows -->
@@ -106,11 +106,10 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             <c:if test="${!empty pageResponseDTO.dtoList}">
-                                <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_block_size'])* (pageResponseDTO.page - 1))}" />
+                                <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
                                 <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
-                                    <tr onclick="location.href='/admin/member/memberView?member_idx=${dtoList['member_idx']}'">
+                                    <tr>
                                         <td>${i}</td>
                                         <td>${dtoList['member_idx']}</td>
                                         <td>
@@ -128,8 +127,8 @@
                                         <td>${dtoList['reg_date']}</td>
                                         <td>${dtoList.status}</td>
                                         <td class="flex justify-content-end">
-                                            <button type="button" class="btn btn-success me-2">수정</button>
-                                            <button type="button" class="btn btn-outline-success ">탈퇴</button>
+                                            <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&member_idx=${dtoList['member_idx']}'">수정</button>
+                                            <button type="button" class="btn btn-outline-success" onclick="leave('${dtoList['member_id']}')">탈퇴</button>
                                         </td>
                                     </tr>
                                     <c:set var="i" value="${i-1}" />
@@ -145,7 +144,6 @@
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
-
                         <div class="d-flex justify-content-center">
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
@@ -169,14 +167,11 @@
                             </nav><!-- End Pagination with icons -->
 
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
 
@@ -187,7 +182,72 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    // 페이지 개수 보기
+    function modifyPageSize(element) {
+        let pageSize = element.value;
+        location.href = '/admin/member/memberList?page_size='+pageSize+'&search_word=${pageResponseDTO['search_word']}&search_data1=${pageResponseDTO['search_data1']}&search_data2=${pageResponseDTO['search_data2']}';
+    }
 
+    // 탈퇴
+    function leave(member_id) {
+        if(confirm("정말로 탈퇴하실건가요?")) {
+            let frm = document.createElement('form');
+            let input_target = document.createElement('input');
+            frm.action = '/admin/member/memberLeave';
+            frm.method = 'post';
+            frm.id = 'leaveFrm';
+            input_target.name = 'target';
+            input_target.value = member_id;
+            input_target.type = 'hidden';
+            frm.append(input_target);
+            <c:if test="${!empty pageResponseDTO['page_size']}">
+            let input_page_size = document.createElement('input');
+            input_page_size.name = 'page_size';
+            input_page_size.value = "${pageResponseDTO['page_size']}";
+            input_page_size.type = 'hidden';
+            frm.append(input_page_size);
+            </c:if>
+            <c:if test="${!empty pageResponseDTO['search_category']}">
+            let input_search_category = document.createElement('input');
+            input_search_category.name = 'search_category';
+            input_search_category.value = "${pageResponseDTO['search_category']}";
+            input_search_category.type = 'hidden';
+            frm.append(input_search_category);
+            </c:if>
+            <c:if test="${!empty pageResponseDTO['search_word']}">
+            let input_search_word = document.createElement('input');
+            input_search_word.name = 'search_word';
+            input_search_word.value ="${pageResponseDTO['search_word']}";
+            input_search_word.type = 'hidden';
+            frm.append(input_search_word);
+            </c:if>
+            <c:if test="${!empty pageResponseDTO['search_data1']}">
+            let input_search_data1 = document.createElement('input');
+            input_search_data1.name = 'search_data1';
+            input_search_data1.value = "${pageResponseDTO['search_data1']}";
+            input_search_data1.type = 'hidden';
+            frm.append(input_search_data1);
+            </c:if>
+            <c:if test="${!empty pageResponseDTO['search_data2']}">
+            let input_search_data2 = document.createElement('input');
+            input_search_data2.name = 'search_data2';
+            input_search_data2.value = "${pageResponseDTO['search_data2']}";
+            input_search_data2.type = 'hidden';
+            frm.append(input_search_data2);
+            </c:if>
+            <c:if test="${!empty pageResponseDTO['page']}">
+            let input_page = document.createElement('input');
+            input_page.name = 'page';
+            input_page.value = "${pageResponseDTO['page']}";
+            input_page.type = 'hidden';
+            frm.append(input_page);
+            </c:if>
+            document.body.append(frm);
+            document.querySelector('#leaveFrm').submit();
+        }
+    }
+</script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

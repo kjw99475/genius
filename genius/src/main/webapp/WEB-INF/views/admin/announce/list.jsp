@@ -59,8 +59,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">자료실 관리</h5>
-                        <p>자료실을 관리하는 페이지 입니다.</p>
+                        <h5 class="card-title">공지사항 관리</h5>
+                        <p>공지사항을 관리하는 페이지 입니다.</p>
                         <div class="row">
                             <form>
                                 <div class="row mb-3">
