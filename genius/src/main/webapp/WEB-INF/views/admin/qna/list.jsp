@@ -103,10 +103,10 @@
                                     </div>
                                 </div>
                                 <div class="col-2 mb-2">
-                                    <select class="form-select">
-                                        <option value="5">5개씩 보기</option>
-                                        <option value="10" selected>10개씩 보기</option>
-                                        <option value="100">100개씩 보기</option>
+                                    <select name="page_size" class="form-select" onchange="this.form.submit()">
+                                        <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                                        <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
+                                        <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
                                     </select>
                                 </div>
                             </form>
@@ -143,8 +143,8 @@
                                 <c:set value="${responseDTO.total_count}" var="total_count"/>
 
                                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
-                                    <tr onclick="location.href='/admin/qna/view'">
-                                        <td><input class="chk_del me-2" type="checkbox" value="${qnaDTO.qna_idx}" >${total_count - i.index - responseDTO.page_skip_count}</td>
+                                    <tr onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}'">
+                                        <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" >${total_count - i.index - responseDTO.page_skip_count}</td>
                                         <td>${qnaDTO.answerYN}</td>
                                         <td>${qnaDTO.title}</td>
                                         <td>${qnaDTO.member_id}</td>
@@ -170,8 +170,8 @@
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
-                                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+                                    <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                                        <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
                                            class="page-link" aria-label="Previous">&laquo;
                                         </a>
                                     </li>
@@ -191,8 +191,8 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
-                                    <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
-                                        <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                                    <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                                        <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
                         " class="page-link" aria-label="Next">&raquo;</a>
                                     </li>
                                 </ul>
@@ -206,7 +206,7 @@
     </section>
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
-
+${responseDTO}
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

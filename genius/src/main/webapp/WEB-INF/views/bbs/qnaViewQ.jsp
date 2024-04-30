@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <th scope="row">작성자</th>
-                    <td> ${qnaDTO.member_id} <span></span> </td>
+                    <td> ${qnaDTO.member_name} <span></span> </td>
                 </tr>
                 <tr>
                     <th scope="row">작성일</th>

@@ -25,4 +25,5 @@ public class QnaDTO {
     private int ref_idx;
     private LocalDate reg_date;
     private LocalDate modify_date;
+    private String member_name;
 }
