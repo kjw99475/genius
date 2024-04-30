@@ -84,48 +84,28 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">6</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Mark</a></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Jacob</a></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Larry the</a></td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Mark</a></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewQ">Jacob</a></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>Larry the bird</a></td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
+                <c:set value="${responseDTO.total_count}" var="total_count"/>
+
+                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
+                    <c:if test="${qnaDTO.answerYN == 'N'}">
+                        <tr>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
+                            <td>${qnaDTO.member_id}</td>
+                            <td>${qnaDTO.reg_date}</td>
+                            <td>${qnaDTO.read_cnt}</td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${qnaDTO.answerYN == 'Y'}">
+                        <tr>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                            <td>${qnaDTO.member_id}</td>
+                            <td>${qnaDTO.reg_date}</td>
+                            <td>${qnaDTO.read_cnt}</td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
@@ -137,25 +117,28 @@
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
                 <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                    <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>" class="page-link" aria-label="Previous">&lt;
+                    </a>
                 </li>
+                <c:forEach begin="${responseDTO.page_block_start}"
+                           end="${responseDTO.page_block_end}"
+                           var="page_num">
+                    <c:choose>
+                        <c:when test="${responseDTO.page == page_num}">
+                            <li class="page-item active">
+                                <a href="#" class="page-link">${page_num}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
                 <li class="page-item">
-                    <a href="#" class="page-link">01</a>
-                </li>
-                <li class="page-item active">
-                    <a href="#" class="page-link">02</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">03</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">04</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">09</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                    <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                        " class="page-link" aria-label="Next">&gt;</a>
                 </li>
             </ul>
         </nav>

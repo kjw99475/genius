@@ -5,6 +5,7 @@ import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mapper
@@ -17,5 +18,8 @@ public interface QnaMapper {
     int refModify(int idx);
     int totalCount();
     int qnaTotalCount(PageRequestDTO requestDTO);
+    int readCount(int idx);
     List<QnaVO> qnaListByPage(PageRequestDTO requestDTO);
+    List<QnaVO> qnaListByMyPage(PageRequestDTO requestDTO);
+    List<QnaVO> myListAll();
 }

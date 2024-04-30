@@ -152,13 +152,12 @@ public class YUNTEST {
     @Test
     public void testReviewRegist(){
         log.info("================================");
-        ReviewVO reviewVO = ReviewVO.builder()
-                .book_code("b0002")
-                .member_id("test")
-                .rank(3)
-                .review_contents("리뷰 테스트1").build();
-        int result = reviewMapper.regist(reviewVO);
-        log.info("result : " + result);
+            ReviewVO reviewVO = ReviewVO.builder()
+                    .book_code("b0002")
+                    .member_id("test")
+                    .rank(3)
+                    .review_contents("리뷰 테스트1").build();
+            int result = reviewMapper.regist(reviewVO);
         log.info("================================");
     }
     @Test
@@ -196,16 +195,16 @@ public class YUNTEST {
     }
     @Test
     public void testQnaRegist(){
-        QnaVO qnaVO = QnaVO.builder()
-                .title("질문test")
-                .contents("질문test")
-                .member_id("test1")
-                .build();
-        log.info("================================");
-        int result = qnaMapper.regist(qnaVO);
-        int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
-        log.info("qnaMapperTest >> testQnaRegist >> qnavo : " + qnaVO);
-        log.info("qnaMapperTest >> testQnaRegist >> result : " + result);
+        for(int i=0;i<100;i++) {
+            QnaVO qnaVO = QnaVO.builder()
+                    .title("질문test")
+                    .contents("질문test")
+                    .member_id("test1")
+                    .build();
+            log.info("================================");
+            int result = qnaMapper.regist(qnaVO);
+            int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+        }
         log.info("================================");
     }
 }

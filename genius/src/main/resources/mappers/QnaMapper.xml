@@ -37,8 +37,11 @@
                     AND reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
                 <if test="search_date2 != null">
-                    AND reg_date <![CDATA[<=]]> #{search_date2}
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
                 </if>
+            </if>
+            <if test='member_id != null and member_id !=""'>
+                AND member_id = #{member_id}
             </if>
         </where>
     </sql>
@@ -59,7 +62,11 @@
         FROM tbl_qna
         WHERE qna_idx = #{idx}
     </select>
-
+    <update id="readCount">
+        UPDATE tbl_qna SET
+            read_cnt = read_cnt + 1
+        WHERE qna_idx = #{idx}
+    </update>
     <select id="listAll" resultType="org.fullstack4.genius.domain.QnaVO">
         SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date
         FROM tbl_qna
