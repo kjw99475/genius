@@ -24,6 +24,7 @@ public class PageResponseDTO<E> {
     private boolean prev_page_flag;
     private boolean next_page_flag;
     private String[] search_type;
+    private String search_category;
     private String search_type_st;
     private String search_word;
     private String search_data1;
@@ -56,6 +57,7 @@ public class PageResponseDTO<E> {
         this.next_page_flag = (this.total_page > this.page_block_end); // 다음페이지 있는지 여부(페이지네이션에서 10개씩 다음 가는거)
         this.search_word = CommonUtil.parseString(requestDTO.getSearch_word());
         this.search_type =  requestDTO.getSearch_type();
+        this.search_category = requestDTO.getSearch_category();
         this.type = requestDTO.getType();
         this.search_type_st = (search_type != null) ? Arrays.toString(search_type).replace("[","").replace("]","").replace(" ","") : "t,u";
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
