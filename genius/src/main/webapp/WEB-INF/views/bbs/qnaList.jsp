@@ -121,8 +121,10 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                    <li class="page-item">
-                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>" class="page-link" aria-label="Previous">&lt;
+                    <li class="page-item" <c:if test="${responseDTO.page gt '1'}"> disabled</c:if>>
+                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+
+                           class="page-link" aria-label="Previous">&lt;
                         </a>
                     </li>
                 <c:forEach begin="${responseDTO.page_block_start}"

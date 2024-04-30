@@ -89,7 +89,7 @@ public class MypageController {
         }
         HttpSession session = request.getSession();
         pageRequestDTO.setMember_id((String) session.getAttribute("member_id"));
-        pageRequestDTO.setPage_size(6);
+        pageRequestDTO.setPage_size(10);
         pageRequestDTO.setPage_block_size(10);
         PageResponseDTO<QnaDTO> responseDTO = qnaService.qnaListByPage(pageRequestDTO);
 
