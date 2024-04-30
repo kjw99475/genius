@@ -51,8 +51,8 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
+
         <div class="row">
             <div class="col-lg-12">
 
@@ -62,21 +62,19 @@
                         <p>회원을 관리하는 페이지 입니다.</p>
 
                         <div class="row">
-                            <form>
+                            <form action="/admin/member/memberList" method="get">
                                 <div class="row mb-3">
                                     <div class="col">
                                         <div class="row mb-3">
                                             <div class="col-2">
                                                 <select name="search_category" id="search_category" class="form-select">
-                                                    <option value="" hidden>검색 옵션</option>
-                                                    <option value="" >전체</option>
-                                                    <option value="member_id">회원 ID</option>
-                                                    <option value="member_name">회원 이름</option>
+                                                    <option value="all" <c:if test="${pageResponseDTO['search_category'] == null || pageResponseDTO['search_category'] == 'all'}">selected</c:if>>전체</option>
+                                                    <option value="member_id" <c:if test="${pageResponseDTO['search_category'] == 'member_id'}">selected</c:if>>회원 ID</option>
+                                                    <option value="member_name" <c:if test="${pageResponseDTO['search_category'] == 'member_name'}">selected</c:if>>회원 이름</option>
                                                 </select>
                                             </div>
-
                                             <div class="col-6">
-                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${pageResponseDTO['search_word']}">
                                             </div>
                                             <div class="col">
                                                 <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
@@ -86,11 +84,10 @@
                                 </div>
                             </form>
                         </div>
-
                         <div class="col-2 mb-2">
-                            <select class="form-select">
-                                <option value="5">5개씩 보기</option>
-                                <option value="10" selected>10개씩 보기</option>
+                            <select name="page_size" class="form-select">
+                                <option value="10">10개씩 보기</option>
+                                <option value="50">50개씩 보기</option>
                                 <option value="100">100개씩 보기</option>
                             </select>
                         </div>
@@ -98,63 +95,73 @@
                         <table class="table lh-lg">
                             <thead>
                             <tr>
+                                <th>NO</th>
                                 <th>회원번호</th>
+                                <th>구분</th>
                                 <th>회원아이디</th>
                                 <th>회원이름</th>
+                                <th>가입일</th>
+                                <th>상태</th>
                                 <th class="col-2"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:if test="${memberDTOlist ne null}">
-                                <c:forEach items="${memberDTOlist}" var="memberDTO">
-                            <tr onclick="location.href='/admin/member/memberView'">
-                                <td>${memberDTO.member_idx}</td>
-                                <td>${memberDTO.member_id}</td>
-                                <td>${memberDTO.member_name}</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
+
+                            <c:if test="${!empty pageResponseDTO.dtoList}">
+                                <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_block_size'])* (pageResponseDTO.page - 1))}" />
+                                <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
+                                    <tr onclick="location.href='/admin/member/memberView?member_idx=${dtoList['member_idx']}'">
+                                        <td>${i}</td>
+                                        <td>${dtoList['member_idx']}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${dtoList['admin_YN'] == 'Y'}">
+                                                    관리자
+                                                </c:when>
+                                                <c:otherwise>
+                                                    일반
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>${dtoList['member_id']}</td>
+                                        <td>${dtoList['member_name']}</td>
+                                        <td>${dtoList['reg_date']}</td>
+                                        <td>${dtoList.status}</td>
+                                        <td class="flex justify-content-end">
+                                            <button type="button" class="btn btn-success me-2">수정</button>
+                                            <button type="button" class="btn btn-outline-success ">탈퇴</button>
+                                        </td>
+                                    </tr>
+                                    <c:set var="i" value="${i-1}" />
                                 </c:forEach>
                             </c:if>
-                            <tr onclick="location.href='/admin/member/memberView'">
-                                <td>22</td>
-                                <td>memidasdf</td>
-                                <td>김인증</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
-                            <tr onclick="location.href='/admin/member/memberView'">
-                                <td>23</td>
-                                <td>memidqwer</td>
-                                <td>원산지</td>
-                                <td class="flex justify-content-end">
-                                    <button type="button" class="btn btn-success me-2">수정</button>
-                                    <button type="button" class="btn btn-success ">삭제</button>
-                                </td>
-                            </tr>
+                            <c:if test="${empty pageResponseDTO.dtoList}">
+                                <tr>
+                                    <td colspan="8">
+                                        내용이 없습니다.
+                                    </td>
+                                </tr>
+                            </c:if>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
-
 
                         <div class="d-flex justify-content-center">
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                    <li class="page-item <c:if test="${!pageResponseDTO.prev_page_flag}">disabled</c:if>">
+                                        <a class="page-link" href="${pageResponseDTO.linked_params}&page=${((pageResponseDTO.page - pageResponseDTO.page_block_size) >= 1) ? (pageResponseDTO.page - pageResponseDTO.page_block_size) : 1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
+                                    <c:forEach var="li" begin="${pageResponseDTO.page_block_start}" end="${pageResponseDTO.page_block_end}">
+                                        <li class="page-item <c:if test="${pageResponseDTO.page eq li}">active</c:if> ">
+                                            <a class="page-link" href="${pageResponseDTO.linked_params}&page=${li}">${li}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item <c:if test="${!pageResponseDTO.next_page_flag}">disabled</c:if>">
+                                        <a class="page-link" href="${pageResponseDTO.linked_params}&page=${(pageResponseDTO.page + pageResponseDTO.page_block_size) <= pageResponseDTO.total_page ? (pageResponseDTO.page + pageResponseDTO.page_block_size) : pageResponseDTO.total_page}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
