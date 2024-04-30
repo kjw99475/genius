@@ -166,6 +166,7 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    // 프로필 이미지 변경
     function changeProfileImg(e) {
         let files = e.target.files;
         let reader = new FileReader();
