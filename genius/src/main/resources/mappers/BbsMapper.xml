@@ -37,8 +37,10 @@
     </sql>
     
     <select id="view" resultType="org.fullstack4.genius.domain.BbsVO">
-        SELECT bbs.bbs_idx, bbs_title, bbs.category_code, bbs.member_id, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
+        SELECT bbs.bbs_idx, bbs_title, bbs.category_code, bbs.member_id, mem.member_name, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
         FROM tbl_bbs AS bbs
+        INNER JOIN tbl_member AS mem
+        ON mem.member_id = bbs.member_id AND mem.status = "Y"
         WHERE bbs.bbs_idx = #{bbs_idx}
     </select>
 
@@ -66,8 +68,10 @@
     </select>
 
     <select id="bbsListByPage" resultType="org.fullstack4.genius.domain.BbsVO">
-        SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date
-        FROM tbl_bbs
+        SELECT bbs_idx, bbs_title, category_code, bbs.member_id, mem.member_name, fileYN, bbs_contents, bbs.reg_date, read_cnt, bbs.modify_date
+        FROM tbl_bbs AS bbs
+        inner JOIN tbl_member AS mem
+        ON mem.member_id = bbs.member_id AND mem.status = "Y"
         <include refid="whereCondition"></include>
         ORDER BY bbs_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
