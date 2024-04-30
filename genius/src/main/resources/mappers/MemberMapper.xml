@@ -64,7 +64,6 @@
         SET member_name = #{member_name},
             pwd = #{pwd},
             birthday = #{birthday},
-            email = #{email},
             phone = #{phone},
             gender = #{gender},
             zip_code = #{zip_code},

@@ -284,7 +284,7 @@
         div.classList.add("row");
         let innerText = "";
         innerText += '<div class="col-9">'
-        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<input type="text" class="form-control contentsList" id=`${id}` value="">';
         innerText += '</div>';
         innerText += '<div class="col-3">';
         innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';

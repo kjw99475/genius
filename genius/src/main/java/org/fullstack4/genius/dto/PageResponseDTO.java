@@ -67,6 +67,8 @@ public class PageResponseDTO<E> {
         this.search_date1 = requestDTO.getSearch_date1();
         this.search_date2 = requestDTO.getSearch_date2();
         this.member_id = requestDTO.getMember_id();
+        this.class_code = requestDTO.getClass_code();
+        this.subject_code = requestDTO.getSubject_code();
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
         if(search_type != null) sb.append("&search_type=" + search_type_st );
         if(search_word != null) sb.append("&search_word=" + search_word);
@@ -76,6 +78,8 @@ public class PageResponseDTO<E> {
         if(type2 != null) sb.append("&type2=" + type2);
         if(search_date1 != null) sb.append("&search_date1=" + search_date1);
         if(search_date2 != null) sb.append("&search_date2=" + search_date2);
+        if(class_code != null) sb.append("&class_code=" + class_code);
+        if(subject_code != null) sb.append("&subject_code=" + subject_code);
         if(member_id != null) sb.append("&member_id=" + member_id);
 
         this.linked_params =  sb.toString();  // 쿼리스트링
