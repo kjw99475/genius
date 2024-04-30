@@ -102,16 +102,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-2 mb-2">
+                                    <select class="form-select">
+                                        <option value="5">5개씩 보기</option>
+                                        <option value="10" selected>10개씩 보기</option>
+                                        <option value="100">100개씩 보기</option>
+                                    </select>
+                                </div>
                             </form>
                         </div>
 
-                        <div class="col-2 mb-2">
-                            <select class="form-select">
-                                <option value="5">5개씩 보기</option>
-                                <option value="10" selected>10개씩 보기</option>
-                                <option value="100">100개씩 보기</option>
-                            </select>
-                        </div>
+
 
                         <form id="frm_qna_delete" method="post" action="/admin/qna/delete">
                             <!-- Table with stripped rows -->
