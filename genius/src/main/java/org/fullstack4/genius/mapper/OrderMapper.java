@@ -17,6 +17,7 @@ public interface OrderMapper {
     int cancelOrder(int order_idx);
     int delete(int order_idx);
     int total_count();
+    int updateDcompany(OrderVO orderVO);
     int OrderTotalCount(PageRequestDTO requestDTO);
     List<OrderVO> OrderListByPage(PageRequestDTO requestDTO);
 }

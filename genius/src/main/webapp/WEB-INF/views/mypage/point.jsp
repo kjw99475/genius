@@ -73,14 +73,14 @@
             <div class="order_details_table bg-light">
                 <div class="row justify-content-end align-items-center pb-3">
                     <div class="col-auto">
-                        <input type="date" class="form-control" id="startDay" name="startDay">
+                        <input type="date" class="form-control" id="startDay" name="search_date1">
                     </div>
                     <div>~</div>
                     <div class="col-auto">
-                        <input type="date" class="form-control" id="endDay" name="endDay">
+                        <input type="date" class="form-control" id="endDay" name="search_date2">
                     </div>
                     <div>
-                        <button class="btn btn-success" type="button">조회</button>
+                        <button class="btn btn-success" type="button" onclick="location.href='/mypage/point${pageDTO.linked_params}'">조회</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -365,7 +365,7 @@
                             type : "POST",
                             data : {
                                 "payment_num":rsp.merchant_uid
-                                ,"member_id":"test"
+                                ,"member_id":"${sessionScope['member_id']}"
                                 ,"price":rsp.paid_amount
                                 ,"method":rsp.pay_method
                                 ,"company":rsp.pg_provider

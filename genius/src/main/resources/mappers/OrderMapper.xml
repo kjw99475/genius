@@ -116,4 +116,16 @@
         <include refid="whereCondition"></include>
         LIMIT #{page_skip_count}, #{page_size}
     </select>
+
+    <update id="updateDcompany">
+        UPDATE tbl_delivery SET
+        delivery_company = #{delivery_company}
+        ,delivery_start_date = NOW()
+        WHERE order_num = #{order_num}
+    </update>
+
+    <update id="updateOrderDcompany">
+        UPDATE tbl_delivery SET
+        delivery_company = #{delivery_company}
+    </update>
 </mapper>
