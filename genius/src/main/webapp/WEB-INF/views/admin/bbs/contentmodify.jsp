@@ -77,7 +77,7 @@
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc01" readonly>
+                                               value="bc01" disabled>
                                     </div>
                                 </div>
 
@@ -93,7 +93,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                               value="${bbsDTO.member_id}" disabled>
                                     </div>
                                 </div>
 
@@ -101,7 +101,7 @@
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}">
+                                               value="${bbsDTO.reg_date}" disabled>
                                     </div>
                                 </div>--%>
 
