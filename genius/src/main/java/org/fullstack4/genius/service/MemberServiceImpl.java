@@ -7,6 +7,8 @@ import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.domain.MemberVO;
 import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.MemberDTO;
+import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.mapper.MemberMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,7 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -243,5 +247,14 @@ public class MemberServiceImpl implements MemberServiceIf {
             e.printStackTrace();
         }
         return memberDTO;
+    }
+
+    @Override
+    public PageResponseDTO<MemberDTO> list(PageRequestDTO requestDTO) {
+        List<MemberVO> memberVOList = memberMapper.list(requestDTO);
+        List<MemberDTO> memberDTOList = memberVOList.stream().map(vo-> modelMapper.map(vo, MemberDTO.class)).collect(Collectors.toList());
+        int total_count = memberMapper.totalCount(requestDTO);
+        PageResponseDTO<MemberDTO> pageResponseDTO = PageResponseDTO.<MemberDTO>withAll().requestDTO(requestDTO).dtoList(memberDTOList).total_count(total_count).build();
+        return pageResponseDTO;
     }
 }
