@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,9 +49,44 @@ public class AdminOrderController {
     @ResponseBody
     public String viewMember(Model model , @RequestParam HashMap<String,Object> map){
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        log.info("=======================딜리버리 테스트=============");
-        log.info("ordernumList : " + map.get("ordernumList"));
 
+
+        String ordernum = map.get("ordernumList").toString();
+        String delivery = map.get("delivery").toString();
+
+        ordernum = ordernum.replace("\"","");
+        ordernum = ordernum.replace("[","");
+        ordernum = ordernum.replace("]","");
+        String[] ordernumList = ordernum.split(",");
+
+        delivery = delivery.replace("\"","");
+        delivery = delivery.replace("[","");
+        delivery = delivery.replace("]","");
+        String[] deliveryList = delivery.split(",");
+
+        log.info("=======================딜리버리 테스트 시작=============");
+        log.info("========================"+ Arrays.toString(ordernumList)+"===================");
+        log.info("========================"+ Arrays.toString(deliveryList)+"===================");
+        log.info("=======================딜리버리 테스트 끝=============");
+
+        int result = 0;
+        for(int i=0;i<ordernumList.length;i++){
+            if(!deliveryList[i].equals("")) {
+                OrderDTO dto = OrderDTO.builder()
+                        .order_num(ordernumList[i])
+                        .delivery_company(deliveryList[i])
+                        .build();
+                result += orderService.updateDcompany(dto);
+            }
+        }
+
+        if(result >0) {
+            resultMap.put("result", "success");
+        }
+        else{
+            resultMap.put("result", "fail");
+        }
+        resultMap.put("result", "success");
         // 갯수 세기
         return new Gson().toJson(resultMap);
     }

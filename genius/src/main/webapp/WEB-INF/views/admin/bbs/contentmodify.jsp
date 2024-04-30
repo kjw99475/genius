@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin / bbs - modify</title>
     <!-- Favicons -->
-    <link href="/resources/admin/img/favicon.png" rel="icon">
+    <link href="/resources/admin/img/favicon.png" rel="icon" type="image/png">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -77,7 +77,7 @@
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc01" disabled>
+                                               value="bc01" readonly>
                                     </div>
                                 </div>
 
@@ -93,7 +93,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}" disabled>
+                                               value="${bbsDTO.member_id}" readonly>
                                     </div>
                                 </div>
 
@@ -101,7 +101,7 @@
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" disabled>
+                                               value="${bbsDTO.reg_date}" >
                                     </div>
                                 </div>--%>
 

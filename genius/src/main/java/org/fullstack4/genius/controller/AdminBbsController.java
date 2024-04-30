@@ -81,6 +81,8 @@ public class AdminBbsController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
+        //카테고리 체크
+        bbsDTO.setCategory_code(category_code);
 
         int result = bbsServiceIf.regist(bbsDTO);
         if(result > 0) {

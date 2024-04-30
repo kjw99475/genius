@@ -51,13 +51,27 @@
     <!-- ============= 결제 내역 Start ============= -->
     <section class="section-margin--small">
         <div class="container">
+            <form action="/mypage/payhistory${pageDTO.linked_params}" id="payfrm">
+                <div class="row justify-content-end align-items-center pb-3">
+                    <div class="col-auto">
+                        <input type="date" class="form-control" id="startDay" name="search_date1">
+                    </div>
+                    <div>~</div>
+                    <div class="col-auto">
+                        <input type="date" class="form-control" id="endDay" name="search_date2">
+                    </div>
+                    <div>
+                        <button class="btn btn-success" type="button" id="paybtn">조회</button>
+                    </div>
+                </div>
+            </form>
             <div class="accordion" id="accordionExample">
                 <c:forEach items="${dtolist}" var="list" varStatus="status">
                 <div class="card">
                     <div class="card-header" id="heading${status.index}">
                         <h5 class="mb-0 p-3 d-flex justify-content-between"  data-toggle="collapse" data-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
                             <div class="d-flex flex-column" style="gap:10px">
-                                <span><small>2024-04-27 15:09:00</small><small> | 총 ${detaillist[status.index].size()}건</small></span>
+                                <span><small>${list.order_date}</small><small> | 총 ${detaillist[status.index].size()}건</small></span>
                                 <span> ${list.total_price}원</span>
                             </div>
                             <div class="d-flex flex-column align-items-end" style="gap:10px">
@@ -128,19 +142,19 @@
                 <c:if test="${pageDTO.page>10}">
             <li class="page-item">
                 </c:if>
-                <a class="page-link" href="/mypage/payhistory?page=${pageDTO.page_block_end-10}" aria-label="Previous">
+                <a class="page-link" href="/mypage/payhistory?${pageDTO.linked_params}&page=${pageDTO.page_block_end-10}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
                 <c:if test="${pageDTO.page == i}">
-                <li class="page-item active">
-                    <a class="page-link" href="/mypage/payhistory?page=${i}">${i}</a>
-                </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="/mypage/payhistory${pageDTO.linked_params}&page=${i}">${i}</a>
+                    </li>
                 </c:if>
                 <c:if test="${pageDTO.page != i}">
                     <li class="page-item">
-                        <a class="page-link" href="/mypage/payhistory?page=${i}">${i}</a>
+                        <a class="page-link" href="/mypage/payhistory${pageDTO.linked_params}&page=${i}">${i}</a>
                     </li>
                 </c:if>
             </c:forEach>
@@ -152,7 +166,7 @@
                 <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
             <li class="page-item">
                 </c:if>
-                <a class="page-link" href="/mypage/payhistory?page=${pageDTO.page_block_start+10}" aria-label="Next">
+                <a class="page-link" href="/mypage/payhistory${pageDTO.linked_params}&page=${pageDTO.page_block_start+10}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -180,5 +194,10 @@
 <script src="/resources/vendors/jquery.ajaxchimp.min.js"></script>
 <script src="/resources/vendors/mail-script.js"></script>
 <script src="/resources/js/main.js"></script>
+<script>
+    document.querySelector("#paybtn").addEventListener('click',()=>{
+        document.querySelector("#payfrm").submit();
+    });
+</script>
 </body>
 

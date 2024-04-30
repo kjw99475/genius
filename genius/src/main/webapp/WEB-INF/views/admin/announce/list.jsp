@@ -108,7 +108,7 @@
                             </form>
                         </div>
 
-                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
+                        <form id="frm_bbs_delete" method="post" action="/admin/announce/delete_chk">
                             <!-- Table with stripped rows -->
                             <table class="table">
                                 <colgroup>
@@ -133,7 +133,7 @@
                                 <c:choose>
                                     <c:when test="${responseDTO ne null}">
                                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
-                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
+                                            <tr onclick="location.href='/admin/announce/view?bbs_idx='+${bbsDTO.bbs_idx}">
                                                     <%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
                                                 <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
                                                 <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
@@ -154,7 +154,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-success me-2"
-                                    onclick="location.href='/admin/bbs/contentregist'">등록</button>
+                                    onclick="location.href='/admin/announce/contentregist'">등록</button>
                             <button type="button" class="btn btn-success"
                                     onclick="bbs_delete()">삭제</button>
                         </div>

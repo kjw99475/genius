@@ -70,7 +70,8 @@ public class OrderController {
 
     @RequestMapping(value = "/userpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String userpayment(@RequestParam HashMap<String,Object> map) throws Exception {
+    public String userpayment(@RequestParam HashMap<String,Object> map,
+                              HttpServletRequest req) throws Exception {
 
         HashMap<String, Object> resultMap = new HashMap<>();
 
@@ -99,6 +100,11 @@ public class OrderController {
                 .order_num(order_num)
                 .order_state("배송 전")
                 .total_price(Integer.parseInt(map.get("price").toString()))
+                .order_addr1(req.getParameter("order_addr1"))
+                .order_addr2(req.getParameter("order_addr2"))
+                .order_name(req.getParameter("name"))
+                .order_phone(req.getParameter("phone"))
+                .order_zipcode(req.getParameter("order_zip_code"))
                 .build();
 
         ///////////////////////////주문디테일 테이블//////////////////////////////////////////
@@ -144,11 +150,13 @@ public class OrderController {
 
     @RequestMapping(value = "/cartpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String cartpayment(@RequestParam HashMap<String,Object> map) throws Exception {
+    public String cartpayment(@RequestParam HashMap<String,Object> map,HttpServletRequest req) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<>();
 
         String member_id = map.get("member_id").toString();
         log.info("#####################"+member_id);
+        log.info("#####################"+map.get("frm"));
+        log.info("테스트:" + req.getParameter("order_addr1"));
         MemberDTO dto = memberService.view(member_id);
 
         /////////////////주문 번호랑 상세 정보 insert ////////////
@@ -203,6 +211,11 @@ public class OrderController {
                         .order_num(order_num)
                         .order_state("배송 전")
                         .total_price(Integer.parseInt(map.get("price").toString()))
+                        .order_addr1(req.getParameter("order_addr1"))
+                        .order_addr2(req.getParameter("order_addr2"))
+                        .order_name(req.getParameter("name"))
+                        .order_phone(req.getParameter("phone"))
+                        .order_zipcode(req.getParameter("order_zip_code"))
                         .build();
                 int regist = orderService.regist(orderDTO1);
                 for (int i = 0; i < dtolist.size(); i++) {

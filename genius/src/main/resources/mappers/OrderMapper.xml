@@ -79,8 +79,17 @@
     </update>
 
     <insert id="regist">
-        INSERT INTO tbl_order(order_num,member_id,order_date,total_price,order_state)
-        VALUES(#{order_num},#{member_id},NOW(),#{total_price},#{order_state})
+        INSERT INTO tbl_order(order_num,member_id,order_date,total_price,order_state,order_name,order_phone,order_addr1,order_addr2,order_zipcode)
+        VALUES(#{order_num}
+        ,#{member_id}
+        ,NOW()
+        ,#{total_price}
+        ,#{order_state}
+        ,#{order_name}
+        ,#{order_phone}
+        ,#{order_addr1}
+        ,#{order_addr2}
+        ,#{order_zipcode})
     </insert>
 
     <insert id="detailregist">
@@ -115,5 +124,27 @@
         INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
         <include refid="whereCondition"></include>
         LIMIT #{page_skip_count}, #{page_size}
+    </select>
+
+    <update id="updateDcompany">
+        UPDATE tbl_delivery SET
+        delivery_company = #{delivery_company}
+        ,delivery_start_date = NOW()
+        WHERE order_num = #{order_num}
+    </update>
+
+    <update id="updateOrderDcompany">
+        UPDATE tbl_delivery SET
+        delivery_company = #{delivery_company}
+    </update>
+
+    <select id="AdminOrderdetail">
+        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode
+        ,b.order_addr1,b.order_addr2,b.order_zipcode,b.order_phone
+        ,c.delivery_state,c.delivery_company,c.delivery_start_date,c.delivery_end_date,delivery_code
+        FROM tbl_order AS a
+        INNER JOIN tbl_order_detail AS b
+        INNER JOIN tbl_delivery AS c
+        WHERE a.order_num = #{order_num}
     </select>
 </mapper>

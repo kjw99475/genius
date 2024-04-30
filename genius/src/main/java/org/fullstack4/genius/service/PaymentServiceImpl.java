@@ -45,8 +45,8 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    public int totalCount(String member_id) {
-        int totalCount = paymentMapper.totalCount(member_id);
+    public int totalCount(PageRequestDTO pageRequestDTO) {
+        int totalCount = paymentMapper.totalCount(pageRequestDTO);
         return totalCount;
     }
 
@@ -114,19 +114,19 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    public int OrderTotalCount(String member_id,PageRequestDTO requestDTO) {
-        int total_count = paymentMapper.OrderTotalCount(member_id,requestDTO);
+    public int OrderTotalCount(PageRequestDTO requestDTO) {
+        int total_count = paymentMapper.OrderTotalCount(requestDTO);
         return total_count;
     }
 
     @Override
-    public PageResponseDTO<OrderDTO> viewOrderListByPage(String member_id,PageRequestDTO requestDTO) {
-        List<OrderVO> voList = paymentMapper.viewOrderListbypage(member_id,requestDTO);
+    public PageResponseDTO<OrderDTO> viewOrderListByPage(PageRequestDTO requestDTO) {
+        List<OrderVO> voList = paymentMapper.viewOrderListbypage(requestDTO);
         List<OrderDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo, OrderDTO.class))
                 .collect(Collectors.toList());
 
-        int total_count = paymentMapper.OrderTotalCount(member_id,requestDTO);
+        int total_count = paymentMapper.OrderTotalCount(requestDTO);
 
         PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
                 .requestDTO(requestDTO)
@@ -143,9 +143,9 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    public PageResponseDTO<PaymentDTO> PaymentListByPage(String member_id,PageRequestDTO requestDTO) {
-        int total_count =paymentMapper.totalCount(member_id);
-        List<PaymentVO> voList = paymentMapper.PaymentListByPage(member_id,requestDTO);
+    public PageResponseDTO<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO) {
+        int total_count =paymentMapper.totalCount(requestDTO);
+        List<PaymentVO> voList = paymentMapper.PaymentListByPage(requestDTO);
         List<PaymentDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo,PaymentDTO.class))
                 .collect(Collectors.toList());
