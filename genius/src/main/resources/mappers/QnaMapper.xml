@@ -17,12 +17,12 @@
             <if test='search_word != null and search_word !=""'>
                 <choose>
                     <when test="type == 0">
-                        OR tq.member_id LIKE CONCAT('%', #{search_word}, '%')
+                        OR tm.member_name LIKE CONCAT('%', #{search_word}, '%')
                         OR title LIKE CONCAT('%', #{search_word}, '%')
                         OR contents LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 1">
-                        AND tq.member_id LIKE CONCAT('%', #{search_word}, '%')
+                        AND tm.member_name LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 2">
                         AND title LIKE CONCAT('%', #{search_word}, '%')
