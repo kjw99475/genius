@@ -74,46 +74,34 @@
                             <form method="post" id="frm_bbs_delete" action="/admin/bbs/delete">
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
-                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bbs" readonly>
-                                    </div>
+                                    <div class="col-lg-2 col-md-4 label">카테고리</div>
+                                    <div class="col-lg-10 col-md-8">${bbsDTO.category_code}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}" readonly>
-                                    </div>
+                                    <div class="col-lg-2 col-md-4 label">제목</div>
+                                    <div class="col-lg-10 col-md-8">${bbsDTO.bbs_title}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}" readonly>
-                                    </div>
+                                    <div class="col-lg-2 col-md-4 label">작성자</div>
+                                    <div class="col-lg-10 col-md-8">${bbsDTO.member_id}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" readonly>
-                                    </div>
+                                    <div class="col-lg-2 col-md-4 label">작성일</div>
+                                    <div class="col-lg-10 col-md-8">${bbsDTO.reg_date}</div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label">내용</label>
+                                    <div class="col-lg-2 col-md-4 label">내용</div>
                                     <div class="col-md-8 col-lg-10">
                                         <p>${bbsDTO.bbs_contents}</p>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-lg-2 col-md-4 label">파일</div>
                                     <div class="col-md-8 col-lg-10">
                                         <c:if test="${bbsDTO.fileYN ne null}">
                                             <input name="file" type="file" class="form-control" id="file"
@@ -148,40 +136,46 @@
                             </form><!-- EndForm -->
 
                             <div class="mt-5">
-                                <table class="table table-borderless">
+                                <table class="table table-borderless text-start">
+                                    <colgroup>
+                                        <col width="20%">
+                                        <col width="65%">
+                                        <col width="15%">
+                                    </colgroup>
+
                                     <c:choose>
                                         <c:when test="${postbbsDTO eq null}">
-                                            <tr class="row border-bottom mb-0">
-                                                <td class="col-3">다음글</td>
-                                                <td class="col-9">다음 글이 없습니다.</td>
+                                            <tr class=" border-bottom mb-0">
+                                                <td>다음글</td>
+                                                <td>다음 글이 없습니다.</td>
+                                                <td></td>
                                             </tr>
                                         </c:when>
                                         <c:otherwise>
-                                            <tr class="row border-bottom mb-0" onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
-                                                <td class="col-2">다음글</td>
-                                                <td class="col-1">${postbbsDTO.bbs_idx}</td>
-                                                <td class="col-6">${postbbsDTO.bbs_title}<c:if
+                                            <tr class=" border-bottom mb-0" onclick="location.href='/admin/bbs/view?bbs_idx='+${postbbsDTO.bbs_idx}">
+                                                <td>다음글</td>
+                                                <td>${postbbsDTO.bbs_title}<c:if
                                                         test="${postbbsDTO.fileYN eq 'Y'}"><span
                                                         class="bi bi-paperclip"></span></c:if></td>
-                                                <td class="col-3">${postbbsDTO.reg_date}</td>
+                                                <td>${postbbsDTO.reg_date}</td>
                                             </tr>
                                         </c:otherwise>
                                     </c:choose>
 
                                     <c:choose>
                                         <c:when test="${prebbsDTO eq null}">
-                                            <tr class="row">
-                                                <td class="col-3">이전글</td>
-                                                <td class="col-9">이전 글이 없습니다.</td>
+                                            <tr>
+                                                <td>이전글</td>
+                                                <td>이전 글이 없습니다.</td>
+                                                <td></td>
                                             </tr>
                                         </c:when>
                                         <c:otherwise>
-                                            <tr class="row" onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
-                                                <td class="col-2">이전글</td>
-                                                <td class="col-1">${prebbsDTO.bbs_idx}</td>
-                                                <td class="col-6">${prebbsDTO.bbs_title}
+                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${prebbsDTO.bbs_idx}">
+                                                <td>이전글</td>
+                                                <td>${prebbsDTO.bbs_title}
                                                     <c:if test="${prebbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
-                                                <td class="col-3">${prebbsDTO.reg_date}</td>
+                                                <td>${prebbsDTO.reg_date}</td>
                                             </tr>
                                         </c:otherwise>
                                     </c:choose>

@@ -72,13 +72,13 @@
                             <input type="text" class="form-control" id="inputCity" name="title" value=""/>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">${sessionScope.member_id}</label>
+                            <label for="inputZip">아이디</label>
                             <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
-<%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
+                            <%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
                             <select id="inputState" class="form-control">
                                 <option>Choose...</option>
                                 <option>자유 게시판</option>
@@ -111,7 +111,7 @@
     document.getElementById("registBtn").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById("inputCity").value)
-        //document.getElementById("registFrm").submit();
+        document.getElementById("registFrm").submit();
     });
 
     $('#summernote').summernote({
