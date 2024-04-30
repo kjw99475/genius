@@ -96,9 +96,6 @@ public class QnaServiceImpl implements QnaServiceIf {
     @Override
     public PageResponseDTO<QnaDTO> qnaListByPage(PageRequestDTO requestDTO) {
         List<QnaVO> voList = qnaMapper.qnaListByPage(requestDTO);
-        log.info("========================");
-        log.info("voList : " + voList);
-        log.info("========================");
         List<QnaDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo,QnaDTO.class))
                 .collect(Collectors.toList());

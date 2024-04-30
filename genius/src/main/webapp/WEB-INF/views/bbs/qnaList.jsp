@@ -92,7 +92,7 @@
                         <tr>
                             <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
                             <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
-                            <td>${qnaDTO.member_id}</td>
+                            <td>${qnaDTO.member_name}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
                         </tr>
