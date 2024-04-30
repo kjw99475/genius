@@ -45,7 +45,17 @@
     <select id="totalCount" resultType="int">
         select Count(*)
         from tbl_payment
-        where member_id=#{param1}
+        <where>
+            member_id=#{member_id}
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND reg_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
     </select>
 
     <select id="viewOrder" resultType="org.fullstack4.genius.domain.OrderVO">
@@ -65,32 +75,52 @@
     <select id="OrderTotalCount" resultType="int">
         SELECT COUNT(*)
         FROM tbl_order
-        where member_id=#{param1} and cancel_YN = 'N'
+        <where>
+            member_id=#{member_id} and cancel_YN = 'N'
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND order_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND order_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
     </select>
 
     <select id="viewOrderListbypage" resultType="org.fullstack4.genius.domain.OrderVO">
         SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
         FROM tbl_order
-        where member_id=#{param1} and cancel_YN ='N'
+        <where>
+            member_id=#{member_id} and cancel_YN = 'N'
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND order_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND order_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
         ORDER BY order_idx DESC
-        LIMIT #{param2.page_skip_count}, #{param2.page_size}
+        LIMIT #{page_skip_count}, #{page_size}
     </select>
 
     <select id="PaymentListByPage" resultType="org.fullstack4.genius.domain.PaymentVO">
         select payment_idx,payment_num,member_id,price,method,company,reg_date,use_type,title
         from tbl_payment
         <where>
-        member_id=#{param1}
-            <if test="#{param2.search_date1} != null or #{param2.search_date2} != null">
+        member_id=#{member_id}
+            <if test="search_date1 != null or search_date2 != null">
                 <if test="search_date1 != null">
-                    AND a.order_date <![CDATA[>=]]> #{param2.search_date1}
+                    AND reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
-                <if test="#{param2.search_date2} != null">
-                    AND a.order_date <![CDATA[<]]> #{param2.search_date2} + INTERVAL 1 DAY
+                <if test="search_date2 != null">
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
                 </if>
             </if>
         </where>
         ORDER BY payment_idx DESC
-        LIMIT #{param2.page_skip_count}, #{param2.page_size}
+        LIMIT #{page_skip_count}, #{page_size}
     </select>
 </mapper>
