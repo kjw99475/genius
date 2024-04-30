@@ -38,7 +38,12 @@ public class AdminMemberController {
 
 
     @GetMapping("/memberView")
-    public void GETMemberView(){
+    public void GETMemberView(
+            @RequestParam(name = "member_id", defaultValue = "") String member_id,
+            Model model
+            ){
+        MemberDTO memberDTO = memberServiceIf.view(member_id);
+        model.addAttribute("memberDTO", memberDTO);
 
     }
 
