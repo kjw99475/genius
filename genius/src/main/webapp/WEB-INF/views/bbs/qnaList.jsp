@@ -121,11 +121,11 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
-                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
-                           class="page-link" aria-label="Previous">&lt;
-                        </a>
-                    </li>
+                <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                    <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                       class="page-link" aria-label="Previous">&laquo;
+                    </a>
+                </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
                            end="${responseDTO.page_block_end}"
                            var="page_num">
@@ -142,9 +142,9 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
-                    <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
-                        " class="page-link" aria-label="Next">&gt;</a>
+                <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                    <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                 </li>
             </ul>
         </nav>

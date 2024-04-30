@@ -206,7 +206,6 @@
     </section>
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
-${responseDTO}
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

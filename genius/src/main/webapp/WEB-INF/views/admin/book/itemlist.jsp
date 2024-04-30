@@ -179,18 +179,30 @@
                     <!-- Pagination with icons -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
+                            <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                                <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                                   class="page-link" aria-label="Previous">&laquo;
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
+                            <c:forEach begin="${responseDTO.page_block_start}"
+                                       end="${responseDTO.page_block_end}"
+                                       var="page_num">
+                                <c:choose>
+                                    <c:when test="${responseDTO.page == page_num}">
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">${page_num}</a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item">
+                                            <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                                <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                             </li>
                         </ul>
                     </nav><!-- End Pagination with icons -->
@@ -198,7 +210,6 @@
             </div>
         </div>
     </div><!-- End 상품 리스트 -->
-    ${responseDTO.dtoList}
 </main>
 <!--================ 본문 END =================-->
 

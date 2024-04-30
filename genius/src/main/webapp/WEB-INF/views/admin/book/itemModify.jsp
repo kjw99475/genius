@@ -171,7 +171,7 @@
                                         <div class="col-lg-2"></div>
                                         <div class="col-md-8 col-lg-10 row">
                                             <div class="col-9">
-                                                <input name="contents" type="text" class="form-control contentsList" id=""
+                                                <input type="text" class="form-control contentsList" id=""
                                                        value="${content}">
                                             </div>
                                             <div class="col-3">
@@ -244,7 +244,22 @@
     }
     modifyBtn.addEventListener("click", function(e){
         e.preventDefault();
+        let contentsStr = "";
+        let contentsList = document.getElementsByClassName("contentsList");
+        for(i=0;i<contentsList.length;i++){
+            if (contentsList[i].value==""){
+                alert("목차를 입력해주세요");
+                return;
+            }
+            contentsStr += contentsList[i].value + "|";
+        }
+        document.getElementById("contents").value = contentsStr.substring(0,contentsStr.length -1);
+
+        console.log(contentsStr);
+        console.log(document.getElementById("contents").value);
         document.getElementById("frm_book_modify").submit();
+
+
     });
     contentsAddBtn.addEventListener("click", function(e){
         e.preventDefault();
@@ -256,7 +271,7 @@
         div.classList.add("row");
         let innerText = "";
         innerText += '<div class="col-9">'
-        innerText += '<input name="contents" type="text" class="form-control contentsList" id=`${id}` value="">';
+        innerText += '<input type="text" class="form-control contentsList" id=`${id}` value="">';
         innerText += '</div>';
         innerText += '<div class="col-3">';
         innerText += '<button type="button" id="contentsDelBtn" class="btn btn-success me-2 contentsDelBtn" onclick="delContents(this);">삭제</button>';

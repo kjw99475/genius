@@ -112,11 +112,11 @@ public class AdminBookController {
         int result = bookServiceIf.modify(bookDTO);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
         if(result >0){
-            return "/admin/book/itemview?book_code="+bookDTO.getBook_code();
+            return "redirect:/admin/book/itemview?book_code="+bookDTO.getBook_code();
         }
         else{
             model.addAttribute("bookDTO", bookDTO);
-            return "/admin/book/itemModify?book_code=" + bookDTO.getBook_code();
+            return "redirect:/admin/book/itemModify?book_code=" + bookDTO.getBook_code();
         }
     }
 
@@ -126,7 +126,9 @@ public class AdminBookController {
     }
 
     @PostMapping("/delete")
-    public void POSTDelete(){
+    public String POSTDelete(@RequestParam (name = "book_idx") int book_idx){
+        int result = bookServiceIf.delete(book_idx);
 
+        return "redirect:/admin/book/itemlist";
     }
 }
