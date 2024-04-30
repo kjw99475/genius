@@ -9,18 +9,18 @@
             category_code = #{category_code}
             <if test=' search_word != null and search_word != "" '>
                 <choose>
-                    <when test=' search_type.toString() == "" '>
-                        OR member_id LIKE CONCAT('%', #{search_word}, '%')
+                    <when test="type == 0">
+                        AND member_id LIKE CONCAT('%', #{search_word}, '%')
                         OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
                         OR bbs_contents LIKE CONCAT('%', #{search_word}, '%')
                     </when>
-                    <when test=' search_type.toString() == "member_id" '>
+                    <when test="type == 1">
                         AND member_id LIKE CONCAT('%', #{search_word}, '%')
                     </when>
-                    <when test=' search_type.toString() == "bbs_title" '>
+                    <when test="type == 2">
                         AND bbs_title LIKE CONCAT('%', #{search_word}, '%')
                     </when>
-                    <when test=' search_type.toString() == "bbs_content" '>
+                    <when test="type == 3">
                         AND bbs_contents LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                 </choose>
@@ -30,7 +30,7 @@
                     AND reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
                 <if test="search_date2 != null">
-                    AND reg_date <![CDATA[<=]]> #{search_date2}
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
                 </if>
             </if>
         </where>
@@ -65,11 +65,12 @@
         ORDER BY bbs_idx DESC
     </select>
 
-    <select id="list" resultType="org.fullstack4.genius.domain.BbsVO">
+    <select id="bbsListByPage" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date
         FROM tbl_bbs
-        WHERE category_code = #{category_code}
+        <include refid="whereCondition"></include>
         ORDER BY bbs_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
     </select>
 
     <insert id="regist">
@@ -81,6 +82,7 @@
         UPDATE tbl_bbs SET
             bbs_title = #{bbs_title}
             , modify_date = NOW()
+            , member_id = #{member_id}
             , fileYN = #{fileYN}
             , bbs_contents = #{bbs_contents}
         WHERE bbs_idx = #{bbs_idx}

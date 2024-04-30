@@ -86,6 +86,7 @@
                 </thead>
                 <tbody>
                 <c:set value="${responseDTO.total_count}" var="total_count"/>
+
                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
                     <c:if test="${qnaDTO.answerYN == 'N'}">
                         <tr>
@@ -120,9 +121,10 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
-                </li>
+                    <li class="page-item">
+                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>" class="page-link" aria-label="Previous">&lt;
+                        </a>
+                    </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
                            end="${responseDTO.page_block_end}"
                            var="page_num">
@@ -140,14 +142,14 @@
                     </c:choose>
                 </c:forEach>
                 <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                    <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                        " class="page-link" aria-label="Next">&gt;</a>
                 </li>
             </ul>
         </nav>
     </section>
 </main>
 <!--================ 본문 END =================-->
-
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

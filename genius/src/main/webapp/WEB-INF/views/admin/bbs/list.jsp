@@ -64,6 +64,7 @@
                         <div class="row">
                             <form>
                                 <div class="row mb-3">
+
                                     <div class="col">
                                         <div class="row mb-3">
                                             <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1">
@@ -71,18 +72,17 @@
                                             ~
                                             <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2">
                                             </div>
-
                                         </div>
                                     </div>
 
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <select name="search_type" id="search_category" class="form-select">
-                                                <option value="" selected>전체</option>
-                                                <option value="member_id">작성자</option>
-                                                <option value="bbs_title">제목</option>
-                                                <option value="bbs_contents">내용</option>
+                                            <select name="type" id="search_category" class="form-select">
+                                                <option value="0">전체</option>
+                                                <option value="1">작성자</option>
+                                                <option value="2">제목</option>
+                                                <option value="3">내용</option>
                                             </select>
                                         </div>
 
@@ -94,15 +94,18 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+<%--                            </form>--%>
                         </div>
 
                         <div class="col-2 mb-2">
-                            <select class="form-select">
+<%--                            <form id="frm_page_size" >--%>
+                            <select name="page_size" class="form-select" onchange="this.form.submit()">
+                                <option value="">페이지 크기</option>
                                 <option value="5">5개씩 보기</option>
-                                <option value="10" selected>10개씩 보기</option>
+                                <option value="10">10개씩 보기</option>
                                 <option value="100">100개씩 보기</option>
                             </select>
+                            </form>
                         </div>
 
                         <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
@@ -119,11 +122,13 @@
                                 </thead>
                                 <tbody>
 
+                                <c:set value="${responseDTO.total_count}" var="total_count" />
                                 <c:choose>
-                                    <c:when test="${bbsDTOList ne null}">
-                                        <c:forEach items="${bbsDTOList}" var="bbsDTO">
+                                    <c:when test="${responseDTO ne null}">
+                                        <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
+<%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
+                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
                                                 <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_id}</td>
                                                 <td>${bbsDTO.reg_date}</td>
@@ -149,24 +154,43 @@
 
 
                         <div class="d-flex justify-content-center">
-                            <!-- Pagination with icons -->
+
+                            <!-- 페이징 영역 start -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
+
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <c:forEach begin="${responseDTO.page_block_start}"
+                                               end="${responseDTO.page_block_end}"
+                                               var="page_num">
+                                        <c:choose>
+                                            <c:when test="${responseDTO.page == page_num}">
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                 </ul>
-                            </nav><!-- End Pagination with icons -->
+                            </nav>
+                            <!-- 페이징 영역 end -->
+
+
+
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 package org.fullstack4.genius.service;
 
-import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.dto.BbsDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface BbsServiceIf {
     int modify(BbsDTO bbsDTO);
     int delete(int idx);
     int bbsTotalCount(PageRequestDTO requestDTO);
-    List<BbsDTO> bbsListByPage(PageRequestDTO requestDTO);
+    PageResponseDTO<BbsDTO> bbsListByPage(PageRequestDTO requestDTO);
 }

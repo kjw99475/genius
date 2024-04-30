@@ -12,10 +12,12 @@ public interface QnaServiceIf {
 
     int regist(QnaDTO qnaDTO);
     List<QnaDTO> listAll();
+    List<QnaDTO> myListAll();
     QnaDTO view(int idx);
     int modify(QnaDTO qnaDTO);
     int refModify(QnaDTO qnaDTO);
     int delete(int idx);
+    int readCount(int idx);
     int totalCount();
     int qnaTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<QnaDTO> qnaListByPage(PageRequestDTO requestDTO);
