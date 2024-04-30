@@ -113,13 +113,16 @@ public class OrderServiceImpl  implements OrderServiceIf {
                 .map(vo->modelMapper.map(vo, OrderDTO.class))
                 .collect(Collectors.toList());
 
-        int total_count = orderMapper.total_count();
+        log.info("requsetDTO 테스트 :" + requestDTO );
+        int total_count = orderMapper.OrderTotalCount(requestDTO);
 
         PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
                 .requestDTO(requestDTO)
                 .dtoList(dtoList)
                 .total_count(total_count)
                 .build();
+
+        log.info("responseDTO 테스트 :" + responseDTO );
 
         return responseDTO;
     }

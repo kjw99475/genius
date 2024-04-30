@@ -243,6 +243,11 @@
             input_page.type = 'hidden';
             frm.append(input_page);
             </c:if>
+            let input_link = document.createElement('input');
+            input_link.name = 'link';
+            input_link.value = "list";
+            input_link.type = 'hidden';
+            frm.append(input_link);
             document.body.append(frm);
             document.querySelector('#leaveFrm').submit();
         }

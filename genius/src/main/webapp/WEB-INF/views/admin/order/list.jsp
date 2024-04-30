@@ -53,14 +53,14 @@
 
 
                 <div class="row mb-3">
-                    <form>
+                    <form action="/admin/order/list" name="searchfrm" id="searchfrm">
                         <div class="col">
                             <div class="row mb-3">
-                                <div class="col-3"><input class="form-control" type="date" name="delivery_start_date"
+                                <div class="col-3"><input class="form-control" type="date" name="search_date1"
                                                           id="delivery_start_date">
                                 </div>
                                 ~
-                                <div class="col-3"><input class="form-control" type="date" name="delivery_end_date"
+                                <div class="col-3"><input class="form-control" type="date" name="search_date2"
                                                           id="delivery_end_date">
                                 </div>
 
@@ -69,21 +69,22 @@
                         <div class="row">
 
                             <div class="col-1">
-                                <select name="category_class_code" class="form-select" id="category_class_code">
+                                <select name="type" class="form-select" id="category_class_code">
                                     <option value="" selected hidden>주문상태</option>
                                     <option value="">전체</option>
-                                    <option value="state_1">주문상태 1</option>
-                                    <option value="state_2">주문상태 2</option>
+                                    <option value="1">배송 전</option>
+                                    <option value="2">배송 중</option>
+                                    <option value="3">배송 완료</option>
                                 </select>
                             </div>
 
                             <div class="col-1">
-                                <select name="search_category" class="form-select" id="search_category">
+                                <select name="type2" class="form-select" id="search_category">
                                     <option value="" selected hidden>검색 옵션</option>
                                     <option value="">전체</option>
-                                    <option value="order_num">주문번호</option>
-                                    <option value="member_id">주문자 ID</option>
-                                    <option value="delivery_company">배송회사</option>
+                                    <option value="1">주문번호</option>
+                                    <option value="2">주문자 ID</option>
+                                    <option value="3">배송회사</option>
                                 </select>
                             </div>
 
@@ -92,7 +93,7 @@
                                        id="search_word">
                             </div>
                             <div class="col">
-                                <button type="button" class="bi bi-search btn btn-success"> 검색</button>
+                                <button type="button" class="bi bi-search btn btn-success" onclick="search()"> 검색</button>
                                 <button type="button" class="btn btn-success">적용</button>
                             </div>
                         </div>
@@ -101,9 +102,9 @@
 
 
                 <div class="col-2 mb-2">
-                    <select class="form-select">
-                        <option value="5">5개씩 보기</option>
+                    <select class="form-select" id="page-size" onchange="page_size(this)">
                         <option value="10" selected>10개씩 보기</option>
+                        <option value="50">50개씩 보기</option>
                         <option value="100">100개씩 보기</option>
                     </select>
                 </div>
@@ -135,16 +136,16 @@
                                 <td>${orderDTO.amount}</td>
                                 <td>
                                     <select class="deliverySelect">
-                                        <option value="우체국">우체국</option>
-                                        <option value="CJ대한통운">CJ대한통운</option>
-                                        <option value="로젠택배">로젠택배</option>
-                                        <option value="한진택배">한진택배</option>
-                                        <option value="롯데택배">롯데택배</option>
-                                        <option value="드림택배">드림택배</option>
-                                        <option value="대신택배">대신택배</option>
-                                        <option value="일양로지스택배">일양로지스택배</option>
+                                        <option value="" <c:if test="${orderDTO.delivery_company == ''}">selected</c:if>>선택</option>
+                                        <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국 택배'}">selected</c:if>>우체국</option>
+                                        <option value="CJ대한통운" <c:if test="${orderDTO.delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
+                                        <option value="로젠택배" <c:if test="${orderDTO.delivery_company == '로젠택배'}">selected</c:if>>로젠택배</option>
+                                        <option value="한진택배" <c:if test="${orderDTO.delivery_company == '한진택배'}">selected</c:if>>한진택배</option>
+                                        <option value="롯데택배" <c:if test="${orderDTO.delivery_company == '롯데택배'}">selected</c:if>>롯데택배</option>
+                                        <option value="드림택배" <c:if test="${orderDTO.delivery_company == '드림택배'}">selected</c:if>>드림택배</option>
+                                        <option value="대신택배" <c:if test="${orderDTO.delivery_company == '대신택배'}">selected</c:if>>대신택배</option>
+                                        <option value="일양로지스택배" <c:if test="${orderDTO.delivery_company == '일양로지스택배'}">selected</c:if>>일양로지스택배</option>
                                     </select>
-                                        ${orderDTO.delivery_company}</td>
                                 <td>${orderDTO.delivery_start_date}</td>
                                 <td>${orderDTO.delivery_end_date}</td>
                                 <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
@@ -165,17 +166,17 @@
                                 <c:if test="${pageDTO.page>10}">
                                 <li class="page-item">
                                 </c:if>
-                                <a class="page-link" href="/admin/order/list?page=${pageDTO.page_block_end-10}" aria-label="Previous">
+                                <a class="page-link" href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page_block_end-10}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
                             <li class="page-item">
                                 <c:if test="${pageDTO.page == i}">
-                                    <a class="page-link active" href="/admin/order/list?page=${i}">${i}</a>
+                                    <a class="page-link active" href="/admin/order/list${pageDTO.linked_params}&page=${i}">${i}</a>
                                 </c:if>
                                 <c:if test="${pageDTO.page != i}">
-                                    <a class="page-link" href="/admin/order/list?page=${i}">${i}</a>
+                                    <a class="page-link" href="/admin/order/list${pageDTO.linked_params}&page=${i}">${i}</a>
                                 </c:if>
                             </li>
                             </c:forEach>
@@ -187,7 +188,7 @@
                                     <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
                                 <li class="page-item">
                                     </c:if>
-                                <a class="page-link" href="/admin/order/list?page=${pageDTO.page_block_start+10}" aria-label="Next">
+                                <a class="page-link" href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page_block_start+10}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -222,5 +223,51 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script>
+<script>
+    function search(){
+        document.querySelector("#searchfrm").submit();
+    }
+
+    function page_size(item){
+        location.href = "/admin/order/list?" +
+            "search_date1=${pageDTO.search_date1}"+
+            "&search_date2=${pageDTO.search_date2}"+
+            "&type=${pageDTO.type}"+
+            "&type2=${pageDTO.type2}&search_word=${pageDTO.search_word}&page_size="+item.value;
+    }
+
+    function cartChoices() {
+        let chooses = document.querySelectorAll('.deliverySelect');
+        var list =[];
+        <c:forEach items="${orderDTOlist}" var="orderDTO">
+            list.push(${orderDTO.order_num});
+        </c:forEach>
+
+        for(let choice of chooses) {
+                $.ajax({
+                    url:"/admin/order/deliveryupdate.dox",
+                    dataType:"json",
+                    type : "POST",
+                    data : {
+                        "ordernumList":list,
+                        "delivery":choice.value,
+                        "index" :choice.index
+                    },
+                    success : function(data) {
+
+                    },
+                    fail : function (data){
+
+                    }
+
+                });
+
+                console.log(choice.value);
+            }
+        }
+
+    }
+
+</script>
 </body>
 </html>

@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">이메일</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                        <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'" disabled>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
