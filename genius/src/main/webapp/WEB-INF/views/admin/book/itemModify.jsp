@@ -68,6 +68,7 @@
                             <!-- Profile Edit Form -->
                             <form id="frm_book_modify" name="frm_book_modify" method="post" action="/admin/book/itemModify">
                                 <input type="hidden" name="book_idx" value="${bookDTO.book_idx}">
+                                <input type="hidden" name="book_code" value="${bookDTO.book_code}">
                                 <input type="hidden" name="sales_start_date" value="${bookDTO.sales_start_date}">
                                 <input type="hidden" name="sales_end_date" value="${bookDTO.sales_end_date}">
                                 <input type="hidden" name="sales_status" value="${bookDTO.sales_status}">

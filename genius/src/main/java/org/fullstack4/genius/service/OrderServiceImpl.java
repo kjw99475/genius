@@ -101,6 +101,14 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
+    public int updateDcompany(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.updateDcompany(vo);
+
+        return result;
+    }
+
+    @Override
     public int OrderTotalCount(PageRequestDTO requestDTO) {
         return 0;
     }

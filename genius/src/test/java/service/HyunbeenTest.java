@@ -169,10 +169,16 @@ public class HyunbeenTest {
 
     @Test
     public void AdminOrder(){
-        List<OrderDTO> list = order.AdminlistAll();
-        log.info("====================================");
-        log.info("list: " + list.toString());
-        log.info("====================================");
+//        List<OrderDTO> list = order.AdminlistAll();
+//        log.info("====================================");
+//        log.info("list: " + list.toString());
+//        log.info("====================================");
+
+        OrderDTO dto = OrderDTO.builder()
+                .order_num("o00001")
+                .delivery_company("CJ대한통운")
+                .build();
+        int result = order.updateDcompany(dto);
     }
 
     @Test

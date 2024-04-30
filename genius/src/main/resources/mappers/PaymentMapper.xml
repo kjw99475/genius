@@ -79,7 +79,17 @@
     <select id="PaymentListByPage" resultType="org.fullstack4.genius.domain.PaymentVO">
         select payment_idx,payment_num,member_id,price,method,company,reg_date,use_type,title
         from tbl_payment
-        where member_id=#{param1}
+        <where>
+        member_id=#{param1}
+            <if test="#{param2.search_date1} != null or #{param2.search_date2} != null">
+                <if test="search_date1 != null">
+                    AND a.order_date <![CDATA[>=]]> #{param2.search_date1}
+                </if>
+                <if test="#{param2.search_date2} != null">
+                    AND a.order_date <![CDATA[<]]> #{param2.search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
         ORDER BY payment_idx DESC
         LIMIT #{param2.page_skip_count}, #{param2.page_size}
     </select>

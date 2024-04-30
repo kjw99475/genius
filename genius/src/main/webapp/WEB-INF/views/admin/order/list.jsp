@@ -94,7 +94,7 @@
                             </div>
                             <div class="col">
                                 <button type="button" class="bi bi-search btn btn-success" onclick="search()"> 검색</button>
-                                <button type="button" class="btn btn-success">적용</button>
+                                <button type="button" class="btn btn-success" onclick="cartChoices()">적용</button>
                             </div>
                         </div>
                     </form>
@@ -136,8 +136,8 @@
                                 <td>${orderDTO.amount}</td>
                                 <td>
                                     <select class="deliverySelect">
-                                        <option value="" <c:if test="${orderDTO.delivery_company == ''}">selected</c:if>>선택</option>
-                                        <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국 택배'}">selected</c:if>>우체국</option>
+                                        <option value="" <c:if test="${orderDTO.delivery_company == '' or orderDTO.delivery_company == null}">selected</c:if>>선택</option>
+                                        <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국'}">selected</c:if>>우체국</option>
                                         <option value="CJ대한통운" <c:if test="${orderDTO.delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
                                         <option value="로젠택배" <c:if test="${orderDTO.delivery_company == '로젠택배'}">selected</c:if>>로젠택배</option>
                                         <option value="한진택배" <c:if test="${orderDTO.delivery_company == '한진택배'}">selected</c:if>>한진택배</option>
@@ -212,6 +212,7 @@
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
+<script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/admin/vendor/chart.js/chart.umd.js"></script>
@@ -236,37 +237,67 @@
             "&type2=${pageDTO.type2}&search_word=${pageDTO.search_word}&page_size="+item.value;
     }
 
+
     function cartChoices() {
-        let chooses = document.querySelectorAll('.deliverySelect');
+
+
         var list =[];
+        var list1 = [];
         <c:forEach items="${orderDTOlist}" var="orderDTO">
-            list.push(${orderDTO.order_num});
+        list.push("${orderDTO.order_num}");
         </c:forEach>
 
-        for(let choice of chooses) {
-                $.ajax({
-                    url:"/admin/order/deliveryupdate.dox",
-                    dataType:"json",
-                    type : "POST",
-                    data : {
-                        "ordernumList":list,
-                        "delivery":choice.value,
-                        "index" :choice.index
-                    },
-                    success : function(data) {
 
-                    },
-                    fail : function (data){
+        let chooses = document.querySelectorAll('.deliverySelect');
 
-                    }
-
-                });
-
-                console.log(choice.value);
-            }
+        for(let choice of chooses){
+            list1.push(choice.value);
         }
 
-    }
+
+        // for(let i = 0; i<chooses.length; i++){
+            console.log(chooses);
+            console.log(list);
+            $.ajax({
+                url:"/admin/order/deliveryupdate.dox",
+                dataType:"json",
+                type : "GET",
+                data : {
+                    "ordernumList":JSON.stringify(list),
+                    "delivery":JSON.stringify(list1)
+                },
+                success : function(data) {
+                    alert("수정 성공");
+                    console.log("성공");
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }
+
+
+        <%--for(let i = 0; i<list1.length; i++) {--%>
+        <%--        $.ajax({--%>
+        <%--            url:"/admin/order/deliveryupdate.dox",--%>
+        <%--            dataType:"json",--%>
+        <%--            type : "GET",--%>
+        <%--            data : {--%>
+        <%--                "ordernumList":JSON.stringify(list[i]),--%>
+        <%--                "delivery":JSON.stringify(list1[i])--%>
+        <%--            },--%>
+        <%--            success : function(data) {--%>
+
+        <%--            },--%>
+        <%--            fail : function (data){--%>
+
+        <%--            }--%>
+
+        <%--        });--%>
+
+
+        <%--    }--%>
 
 </script>
 </body>

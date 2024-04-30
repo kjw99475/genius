@@ -68,7 +68,6 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
-        log.info("adminBookController : contents :" + bookDTO.getContents());
         int result = bookServiceIf.regist(bookDTO);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
@@ -104,10 +103,11 @@ public class AdminBookController {
                                  Model model){
         log.info("AdminBookController : POSTItemModify");
         System.out.println("111");
+        log.info(bookDTO);
         if(bindingResult.hasErrors()){
-            log.info("BbsController >> list Error");
+            log.info("AdminBookController >> POSTItemModify >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/admin/book/itemModify";
+            return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
         }
         int result = bookServiceIf.modify(bookDTO);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
