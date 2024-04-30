@@ -17,12 +17,12 @@
             <if test='search_word != null and search_word !=""'>
                 <choose>
                     <when test="type == 0">
-                        OR member_id LIKE CONCAT('%', #{search_word}, '%')
+                        OR tq.member_id LIKE CONCAT('%', #{search_word}, '%')
                         OR title LIKE CONCAT('%', #{search_word}, '%')
                         OR contents LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 1">
-                        AND member_id LIKE CONCAT('%', #{search_word}, '%')
+                        AND tq.member_id LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 2">
                         AND title LIKE CONCAT('%', #{search_word}, '%')
@@ -34,10 +34,10 @@
             </if>
             <if test="search_date1 != null or search_date2 != null">
                 <if test="search_date1 != null">
-                    AND reg_date <![CDATA[>=]]> #{search_date1}
+                    AND tq.reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
                 <if test="search_date2 != null">
-                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                    AND tq.reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
                 </if>
             </if>
             <if test='member_id != null and member_id !=""'>
@@ -50,7 +50,9 @@
         </where>
     </sql>
     <select id="qnaTotalCount" resultType="int">
-        SELECT COUNT(*) FROM tbl_qna
+        SELECT COUNT(*)
+        FROM tbl_qna as tq inner join tbl_member as tm
+        ON tq.member_id = tm.member_id
         <include refid="whereCondition"></include>
     </select>
 

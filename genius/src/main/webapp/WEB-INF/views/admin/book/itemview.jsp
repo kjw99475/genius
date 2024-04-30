@@ -64,9 +64,9 @@
                     <div class="card-body pt-3">
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                            <form name="frm_book_delete" id="frm_book_delete" action="/admin/book/delete">
+                            <form name="frm_book_delete" method="post" id="frm_book_delete" action="/admin/book/delete">
                                 <!-- <h5 class="card-title">Profile Details</h5> -->
-
+                                <input type="hidden" name="book_idx" value="${bookDTO.book_idx}">
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label ">상품번호</div>
                                     <div class="col-lg-10 col-md-8">${bookDTO.book_code}</div>

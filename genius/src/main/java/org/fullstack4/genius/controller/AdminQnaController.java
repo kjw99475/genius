@@ -55,7 +55,9 @@ public class AdminQnaController {
     }
 
     @PostMapping("/contentregist")
-    public void POSTContentRegist(){
+    public void POSTContentRegist(@Valid QnaDTO qnaDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes){
 
     }
 
