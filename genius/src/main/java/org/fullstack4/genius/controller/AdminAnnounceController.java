@@ -66,10 +66,10 @@ public class AdminAnnounceController {
         int result = bbsServiceIf.regist(bbsDTO);
         if(result > 0) {
             log.info("등록 성공 ===============");
-            return "redirect:/admin/bbs/list";
+            return "redirect:/admin/announce/list";
         } else {
             log.info("등록 실패 ===============");
-            return "redirect:/admin/bbs/contentregist";
+            return "redirect:/admin/announce/contentregist";
         }
     }
 
@@ -87,10 +87,10 @@ public class AdminAnnounceController {
         int result = bbsServiceIf.modify(bbsDTO);
         if(result > 0) {
             log.info("수정 성공==============");
-            return "redirect:/admin/bbs/view?bbs_idx=" +bbsDTO.getBbs_idx();
+            return "redirect:/admin/announce/view?bbs_idx=" +bbsDTO.getBbs_idx();
         } else {
             log.info("수정 실패==============");
-            return "redirect:/admin/bbs/contentmodify?bbs_idx=" + bbsDTO.getBbs_idx();
+            return "redirect:/admin/announce/contentmodify?bbs_idx=" + bbsDTO.getBbs_idx();
         }
     }
 
@@ -117,10 +117,10 @@ public class AdminAnnounceController {
         int result = bbsServiceIf.delete(bbs_idx);
         if(result > 0) {
             log.info("삭제 성공 >> " + bbs_idx);
-            return "redirect:/admin/bbs/list";
+            return "redirect:/admin/announce/list";
         } else {
             log.info("삭제 실패 >> " + bbs_idx);
-            return "redirect:/admin/bbs/view?bbs_idx=" + bbs_idx;
+            return "redirect:/admin/announce/view?bbs_idx=" + bbs_idx;
         }
     }
 
@@ -138,7 +138,7 @@ public class AdminAnnounceController {
             }
         }
         log.info("삭제 개수 >> " + cnt);
-        return "redirect:/admin/bbs/list";
+        return "redirect:/admin/announce/list";
     }
 
 }
