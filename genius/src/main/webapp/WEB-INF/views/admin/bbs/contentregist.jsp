@@ -70,13 +70,13 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/bbs/contentmodify">
-                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
+                            <form method="post" action="/admin/bbs/contentregist">
+<%--                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">--%>
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc01" disabled>
+                                               value="bc01" readonly>
                                     </div>
                                 </div>
 
@@ -92,7 +92,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자 ID</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${sessionScope.member_id}" disabled>
+                                               value="${sessionScope.member_id}" readonly>
                                     </div>
                                 </div>
 
@@ -100,7 +100,7 @@
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" disabled>
+                                               value="${bbsDTO.reg_date}" >
                                     </div>
                                 </div>--%>
 
