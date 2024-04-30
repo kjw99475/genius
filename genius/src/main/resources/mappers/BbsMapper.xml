@@ -82,7 +82,6 @@
         UPDATE tbl_bbs SET
             bbs_title = #{bbs_title}
             , modify_date = NOW()
-            , member_id = #{member_id}
             , fileYN = #{fileYN}
             , bbs_contents = #{bbs_contents}
         WHERE bbs_idx = #{bbs_idx}

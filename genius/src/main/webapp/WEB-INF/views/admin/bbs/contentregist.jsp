@@ -75,7 +75,7 @@
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc01" readonly>
+                                               value="bc01" disabled>
                                     </div>
                                 </div>
 

@@ -52,20 +52,20 @@
                     <div class="input-group d-flex justify-content-end">
                         <div class="sorting d-flex">
                             <select name="type">
-                                <option value="0">전체</option>
-                                <option value="1">작성자</option>
-                                <option value="2">제목</option>
-                                <option value="3">내용</option>
+                                <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>작성자</option>
+                                <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>제목</option>
+                                <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>내용</option>
                             </select>
                             <div class="col-auto">
-                                <input type="date" class="form-control" id="startDay" name="search_date1">
+                                <input type="date" class="form-control" id="startDay" value="${responseDTO.search_date1}" name="search_date1">
                             </div>
                             <div>~</div>
                             <div class="col-auto">
-                                <input type="date" class="form-control" id="endDay" name="search_date2">
+                                <input type="date" class="form-control" id="endDay"value="${responseDTO.search_date2}" name="search_date2">
                             </div>
                             <div class="filter-bar-search">
-                                <input type="text" name="search_word" placeholder="Search" style="width: 100%">
+                                <input type="text" name="search_word" value="${responseDTO.search_word}" placeholder="Search" style="width: 100%">
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-success">검색</button>
@@ -121,8 +121,9 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                    <li class="page-item">
-                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>" class="page-link" aria-label="Previous">&lt;
+                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
+                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+                           class="page-link" aria-label="Previous">&lt;
                         </a>
                     </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
@@ -141,7 +142,7 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <li class="page-item">
+                <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
                     <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
                         " class="page-link" aria-label="Next">&gt;</a>
                 </li>
