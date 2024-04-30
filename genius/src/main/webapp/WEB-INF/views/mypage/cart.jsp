@@ -127,26 +127,39 @@
     <!--================페이징 내역 Start =================-->
     <nav class="blog-pagination justify-content-center d-flex">
         <ul class="pagination">
+            <c:if test="${pageDTO.page<=10}">
+            <li class="page-item disabled">
+                </c:if>
+                <c:if test="${pageDTO.page>10}">
             <li class="page-item">
-                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                </c:if>
+                <a class="page-link" href="/mypage/cart?page=${pageDTO.page_block_end-10}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
+            <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
+                <c:if test="${pageDTO.page == i}">
+                    <li class="page-item active">
+                        <a class="page-link" href="/mypage/cart?page=${i}">${i}</a>
+                    </li>
+                </c:if>
+                <c:if test="${pageDTO.page != i}">
+                    <li class="page-item">
+                        <a class="page-link" href="/mypage/cart?page=${i}">${i}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
+            <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=2">2</a></li>--%>
+            <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=3">3</a></li>--%>
+            <c:if test="${(pageDTO.page_block_start+10)>=(pageDTO.total_page)}">
+            <li class="page-item disabled">
+                </c:if>
+                <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
             <li class="page-item">
-                <a href="#" class="page-link">01</a>
-            </li>
-            <li class="page-item active">
-                <a href="#" class="page-link">02</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">03</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">04</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">09</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                </c:if>
+                <a class="page-link" href="/mypage/cart?page=${pageDTO.page_block_start+10}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
             </li>
         </ul>
     </nav>

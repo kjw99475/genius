@@ -20,6 +20,9 @@ public interface PaymentMapper {
 
     int refund(PaymentVO Paymentvo);
     int delete(PaymentVO Paymentvo);
+
+    int OrderTotalCount(String member_id,PageRequestDTO requestDTO);
+    List<OrderVO> viewOrderListbypage(String member_id,PageRequestDTO requestDTO);
     int PaymentTotalCount(PageRequestDTO requestDTO);
-    List<PaymentVO> PaymentListByPage(PageRequestDTO requestDTO);
+    List<PaymentVO> PaymentListByPage(String member_id,PageRequestDTO requestDTO);
 }

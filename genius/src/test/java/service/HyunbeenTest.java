@@ -1,6 +1,7 @@
 package service;
 
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.*;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -176,14 +178,14 @@ public class HyunbeenTest {
     public void garadata(){
 
 
-        for(int i = 0; i<100;i++) {
+        for(int i = 0; i<10;i++) {
             int random = (int) (Math.random()*100000)+1;
             String order_num=new SimpleDateFormat("yyMMddHmss").format(new Date())+"-"+random;
             OrderDTO orderDTO = OrderDTO.builder()
                     .member_id("test")
                     .order_num(order_num)
                     .order_state("배송 전")
-                    .total_price(10000 + (10 * i))
+                    .total_price(10000 + (20 * i))
                     .delivery_addr1("서울시 중랑구")
                     .delivery_addr2("테스트 주소")
                     .build();
@@ -196,17 +198,31 @@ public class HyunbeenTest {
 
     @Test
     public void pagingTest12(){
-        List<OrderDTO> list = order.AdminlistAll();
-        PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setTotal_count(101);
-        pageRequestDTO.setPage_size(10);
-        pageRequestDTO.setPage(1);
-        pageRequestDTO.setPage_block_size(10);
+//        List<OrderDTO> list = order.AdminlistAll();
+//        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+//        pageRequestDTO.setTotal_count(101);
+//        pageRequestDTO.setPage_size(10);
+//        pageRequestDTO.setPage(11);
+//        pageRequestDTO.setPage_block_size(10);
+//
+//        PageResponseDTO<OrderDTO> responseDTO = order.OrderListByPage(pageRequestDTO);
+//
+//        log.info("=====================================");
+//        log.info("pageRequestDTO: " + responseDTO.toString());
+//        log.info("===================================");
 
-        PageResponseDTO<OrderDTO> responseDTO = order.OrderListByPage(pageRequestDTO);
 
-        log.info("=====================================");
-        log.info("pageRequestDTO: " + responseDTO.toString());
+        String member_id ="test";
+        PageRequestDTO requestDTO = new PageRequestDTO();
+        requestDTO.setPage_size(10);
+        requestDTO.setPage(1);
+        requestDTO.setPage_block_size(10);
+
+
+//        PageResponseDTO<OrderDTO> responseDTO = payment.viewOrderListByPage(member_id,requestDTO);
+        PageResponseDTO<PaymentDTO> responseDTO = payment.PaymentListByPage(member_id,requestDTO);
+        log.info("===================================");
+        log.info("responseDTO: " + responseDTO.toString());
         log.info("===================================");
 
     }

@@ -17,6 +17,6 @@ public interface CartMapper {
     CartVO view(int cart_idx);
     int modify(CartVO cartVO);
     int delete(CartVO cartVO);
-    int CartTotalCount(String user_id,PageRequestDTO requestDTO);
-    List<CartVO> CartListByPage(String user_id,PageRequestDTO requestDTO);
+    int CartTotalCount(String member_id);
+    List<CartVO> CartListByPage(String member_id,PageRequestDTO requestDTO);
 }

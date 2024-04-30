@@ -3,6 +3,7 @@ package org.fullstack4.genius.service;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
 import org.fullstack4.genius.dto.OrderDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
@@ -20,6 +21,9 @@ public interface PaymentServiceIf {
     int delete(PaymentDTO PaymentDTO);
     List<OrderDTO> viewOrder(String member_id);
     List<OrderDTO> viewOrderdetail(String order_num);
+
+    int OrderTotalCount(String member_id,PageRequestDTO requestDTO);
+    PageResponseDTO<OrderDTO> viewOrderListByPage(String member_id,PageRequestDTO requestDTO);
     int PaymentTotalCount(PageRequestDTO requestDTO);
-    List<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO);
+    PageResponseDTO<PaymentDTO> PaymentListByPage(String member_id,PageRequestDTO requestDTO);
 }
