@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.genius.mapper.MainMapper">
+    <select id="yesterDayBook" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT TB.book_idx, TB.book_code, TB.book_name, TB.book_img
+        , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name', TB.price
+        , TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
+        , SUM(TR.amount) AS row_rank
+        FROM tbl_book AS TB
+        INNER JOIN tbl_release AS TR ON TB.book_code = TR.book_code AND TR.release_date BETWEEN DATE(SUBDATE(NOW(),7)) AND DATE(NOW())
+        INNER JOIN tbl_class_category AS TC ON TB.category_class_code = TC.category_code
+        INNER JOIN tbl_subject_category AS TS ON TB.category_subject_code = TS.category_code
+        GROUP BY TB.book_idx
+        ORDER BY row_rank DESC, publication_date DESC
+        LIMIT 0,8;
+    </select>
+    <select id="totalBook" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT TB.book_idx, TB.book_code, TB.book_name, TB.book_img
+        , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name'
+        , TB.price, TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
+        , SUM(TR.amount) AS row_rank
+        FROM tbl_book AS TB
+        INNER JOIN tbl_release AS TR ON TB.book_code = TR.book_code
+        INNER JOIN tbl_class_category AS TC ON TB.category_class_code = TC.category_code
+        INNER JOIN tbl_subject_category AS TS ON TB.category_subject_code = TS.category_code
+        GROUP BY TB.book_idx
+        ORDER BY row_rank DESC, publication_date DESC
+        LIMIT 0,8;
+    </select>
+    <select id="newBook" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT TB.book_idx, TB.book_img,  TB.book_name
+        , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name'
+        , TB.price, TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
+        FROM tbl_book AS TB
+        INNER JOIN tbl_class_category AS TC ON TB.category_class_code = TC.category_code
+        INNER JOIN tbl_subject_category AS TS ON TB.category_subject_code = TS.category_code
+        ORDER BY publication_date DESC
+        LIMIT 0,8;
+    </select>
+    <select id="review" resultType="org.fullstack4.genius.domain.ReviewVO">
+        SELECT TB.book_idx, TB.book_name
+        , TR.`rank`, TR.review_contents, TR.reg_date
+        , TM.member_id, TM.profile
+        FROM tbl_book AS TB
+        INNER JOIN tbl_review AS TR ON TB.book_code = TR.book_code
+        INNER JOIN tbl_member AS TM ON TR.member_id = TM.member_id
+        ORDER BY TR.reg_date DESC
+        LIMIT 0,5;
+    </select>
+    <select id="banner" resultType="org.fullstack4.genius.domain.BannerVO">
+        SELECT TB.banner_img_idx, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TB.reg_date, TB.modify_date, TB.`order`, TB.post_start_date, TB.post_end_date
+        FROM tbl_banner AS TB
+        WHERE banner_status = 'Y' AND (DATE(NOW()) BETWEEN post_start_date AND post_end_date)
+        ORDER BY TB.`order` ASC
+    </select>
+</mapper>

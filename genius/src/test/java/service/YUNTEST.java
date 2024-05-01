@@ -2,6 +2,7 @@ package service;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.fullstack4.genius.service.QnaServiceIf;
@@ -126,6 +127,24 @@ public class YUNTEST {
         log.info("======================");
     }
     @Test
+    public void testQnaRegist(){
+        QnaDTO qnaDTO = QnaDTO.builder()
+                .title("test15제목")
+                .contents("test15답변")
+                .member_id("test").build();
+        qnaServiceIf.regist(qnaDTO);
+        log.info("qnaDTO : " + qnaDTO);
+    }
+    @Test
+    public void testQnaModify(){
+        QnaDTO qnaDTO = qnaServiceIf.view(32);
+        qnaDTO.setTitle("수정테스트2");
+        int result = qnaServiceIf.modify(qnaDTO);
+        log.info("================================");
+        log.info("qnaMapperTest >> testQnaModify >> result : " +result);
+        log.info("================================");
+    }
+    @Test
     public void updateRankAvg(){
         int result = reviewServiceIf.updateAvg("b0001");
         log.info("=========================");
@@ -139,6 +158,7 @@ public class YUNTEST {
         log.info(qnaDTOList);
         log.info("=========================");
     }
+
     @Test
     public void testClassCategoryList(){
         log.info(bookServiceIf.bookClassCategoryList());

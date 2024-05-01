@@ -55,6 +55,17 @@
     <!-- ================ End banner area ================= -->
     <section class="section-margin--small mb-5">
         <div class="container">
+            <div>
+                <div class="input-group d-flex justify-content-end mb-2">
+                    <c:if test="${prevDTO.answerYN == 'N' and sessionScope.member_id == qnaDTO.member_id}">
+                        <form action="/bbs/qnaDelete" method="post" id="deleteFrm" name="deleteFrm">
+                            <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+                            <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaModifytQ?qna_idx=${qnaDTO.qna_idx}'">수정</button>
+                            <button type="submit" id="qnaDelBtn" class="btn btn-success mt-3">삭제</button>
+                        </form>
+                    </c:if>
+                </div>
+            </div>
             <table class="table border-gray">
                 <colgroup>
                     <col style="width:130px;"/>
@@ -63,23 +74,23 @@
                 <tbody>
                 <tr>
                     <th scope="row">게시글 번호</th>
-                    <td>1</td>
+                    <td>${param.no}</td>
                 </tr>
                 <tr>
                     <th scope="row">제목</th>
-                    <td>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</td>
+                    <td>${qnaDTO.title}</td>
                 </tr>
                 <tr>
                     <th scope="row">작성자</th>
-                    <td> 천재교과서 <span>(아이디)</span> </td>
+                    <td> ${qnaDTO.member_name} <span></span> </td>
                 </tr>
                 <tr>
                     <th scope="row">작성일</th>
-                    <td>2023-10-06</td>
+                    <td>${qnaDTO.reg_date}</td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div><div class=""><p>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</p><p><br></p></div></div>
+                        <div><div class=""><p>${qnaDTO.contents}</p><p><br></p></div></div>
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +103,7 @@
                 </tr>
                 <tr>
                     <th scope="row">조회수</th>
-                    <td><span>12</span>
+                    <td><span>${qnaDTO.read_cnt}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -108,11 +119,31 @@
                 <tbody>
                 <tr>
                     <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
-                    <td class="card-product__title"><a href="#">이전글</a></td>
+                    <td class="card-product__title">
+                        <c:if test="${prevDTO != null}">
+                            <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>
+                                    <c:if test="${prevDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>">
+                                ${prevDTO.title}
+                            </a>
+                        </c:if>
+                        <c:if test="${prevDTO == null}">
+                                이전 글이 없습니다.
+                        </c:if>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
-                    <td class="card-product__title"><a href="#">다음글</a></td>
+                    <td class="card-product__title">
+                        <c:if test="${nextDTO != null}">
+                            <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>
+                                    <c:if test="${nextDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>">
+                                    ${nextDTO.title}
+                            </a>
+                        </c:if>
+                        <c:if test="${nextDTO == null}">
+                            다음 글이 없습니다.
+                        </c:if>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -128,7 +159,15 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
+<script>
+    let qnaDelBtn = document.getElementById("qnaDelBtn");
+    qnaDelBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        if(confirm("해당 질문 글을 삭제하시겠습니까?")){
+            document.getElementById("deleteFrm").submit();
+        }
+    })
+</script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>

@@ -49,114 +49,83 @@
                 <h5 class="card-title">상품 관리 <span>| 리스트 </span></h5>
 
                 <form>
-                <div class="row mb-6">
-                        <div class="col-1">
-                            <select name="category_class_code" class="form-select" id="category_class_code">
-                                <option value="" selected hidden>학년</option>
-                                <option value="">전체</option>
-                                <option value="c01">초1</option>
-                                <option value="c02">초2</option>
-                                <option value="c03">초3</option>
-                                <option value="c04">초4</option>
-                                <option value="c05">초5</option>
-                                <option value="c06">초6</option>
-                                <option value="c07">중1</option>
-                                <option value="c08">중2</option>
-                                <option value="c09">중3</option>
-                                <option value="c10">고1</option>
-                                <option value="c11">고2</option>
-                                <option value="c12">고3</option>
-                            </select>
-                        </div>
-                        <div class="col-1">
-                            <select name="category_subject_code" class="form-select" id="category_subject_code">
-                                <option value="" selected hidden>과목</option>
-                                <option value="">전체</option>
-                                <option value="s01">국어</option>
-                                <option value="s02">영어</option>
-                                <option value="s03">수학</option>
-                                <option value="s04">사회</option>
-                                <option value="s05">역사</option>
-                                <option value="s06">도덕</option>
-                                <option value="s07">과학</option>
-                                <option value="s08">체육</option>
-                                <option value="s09">예술</option>
-                                <option value="s10">제2외국어</option>
-                                <option value="s11">기술가정</option>
-                                <option value="s12">음악</option>
-                                <option value="s13">정보</option>
-                                <option value="s14">교양</option>
-                                <option value="s15">전문교과</option>
-                                <option value="s16">기타</option>
-                                <option value="s17">선택</option>
-                                <option value="s18">실과</option>
-                                <option value="s19">한문</option>
-                                <option value="s20">미술</option>
-                            </select>
-                        </div>
-                        <div class="col-1">
-                            <select name="search_category" class="form-select" id="search_category">
-                                <option value="" selected hidden>검색 옵션</option>
-                                <option value="">전체</option>
-                                <option value="book_name">책이름</option>
-                                <option value="author">저자</option>
-                                <option value="publisher">출판사</option>
-                                <option value="book_code">상품번호</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="text" class="form-control" placeholder="검색어" name="search_word"
-                                           id="search_word">
-                                </div>
-                                <div class="col">
-                                    <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                    <button type="button" class="btn btn-success"
-                                            onclick="location.href='/admin/book/itemRegist'">등록
-                                    </button>
+                    <div class="row mb-6">
+                            <div class="col-1">
+                                <select name="class_code" class="form-select" id="category_class_code">
+                                    <option value="">전체</option>
+                                    <c:forEach items="${classList}" var="list">
+                                        <option value="${list.category_code}"
+                                                <c:if test="${list.category_code eq responseDTO.class_code}">
+                                                    selected
+                                                </c:if>
+                                        >${list.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <select name="subject_code" class="form-select" id="category_subject_code">
+                                    <option value="">전체</option>
+                                    <c:forEach items="${subjectList}" var="list">
+                                        <option value="${list.category_code}"
+                                                <c:if test="${list.category_code eq responseDTO.subject_code}">
+                                                    selected
+                                                </c:if>
+                                        >${list.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <select name="type" class="form-select" id="search_category">
+                                    <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                    <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>책이름</option>
+                                    <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>작성자</option>
+                                    <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>출판사</option>
+                                    <option value="4" <c:if test="${responseDTO.type == '4'}"> selected</c:if>>상품번호</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="검색어" name="search_word"
+                                               id="search_word">
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                        <button type="button" class="btn btn-success"
+                                                onclick="location.href='/admin/book/itemRegist'">등록
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                </div>
+                    <div class="col-2 mb-2">
+                        <select name="page_size" class="form-select" onchange="this.form.submit()">
+                            <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                            <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
+                            <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
+                        </select>
+                    </div>
                 </form>
 
-                <div class="col-2 mb-2">
-                    <select class="form-select">
-                        <option value="5">5개씩 보기</option>
-                        <option value="10" selected>10개씩 보기</option>
-                        <option value="100">100개씩 보기</option>
-                    </select>
-                </div>
+
 
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">상품번호</th>
-                        <th scope="col">책이름</th>
-                        <th scope="col">정가</th>
-                        <th scope="col">할인율</th>
-                        <th scope="col">할인가</th>
-                        <th scope="col">저자</th>
-                        <th scope="col">출판사</th>
-                        <th scope="col">카테고리1</th>
-                        <th scope="col">카테고리2</th>
-                        <th scope="col">판매상태</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">상품번호</th>
+                            <th scope="col">책이름</th>
+                            <th scope="col">정가</th>
+                            <th scope="col">할인율</th>
+                            <th scope="col">할인가</th>
+                            <th scope="col">저자</th>
+                            <th scope="col">출판사</th>
+                            <th scope="col">카테고리1</th>
+                            <th scope="col">카테고리2</th>
+                            <th scope="col">판매상태</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr onclick="location.href='/admin/book/itemview'">
-                        <th scope="row">b0001</th>
-                        <td>책이름</td>
-                        <td>3000</td>
-                        <td>10</td>
-                        <td>2500</td>
-                        <td>저자</td>
-                        <td>천재교육</td>
-                        <td>c01</td>
-                        <td>s01</td>
-                        <td><span class="badge bg-warning">판매중</span></td> <!--상태에 따라 bg-수정 -->
-                    </tr>
                     <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
                         <tr onclick="location.href='/admin/book/itemview?book_code=${bookDTO.book_code}'">
                             <th scope="row">${bookDTO.book_code}</th>
@@ -179,18 +148,30 @@
                     <!-- Pagination with icons -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
+                            <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                                <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                                   class="page-link" aria-label="Previous">&laquo;
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
+                            <c:forEach begin="${responseDTO.page_block_start}"
+                                       end="${responseDTO.page_block_end}"
+                                       var="page_num">
+                                <c:choose>
+                                    <c:when test="${responseDTO.page == page_num}">
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">${page_num}</a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item">
+                                            <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                                <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                             </li>
                         </ul>
                     </nav><!-- End Pagination with icons -->
@@ -198,7 +179,6 @@
             </div>
         </div>
     </div><!-- End 상품 리스트 -->
-    ${responseDTO.dtoList}
 </main>
 <!--================ 본문 END =================-->
 

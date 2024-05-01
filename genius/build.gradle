@@ -22,7 +22,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-  compileOnly('javax.servlet:javax.servlet-api:4.0.1')
+  implementation('javax.servlet:javax.servlet-api:4.0.1')
 
   // https://mvnrepository.com/artifact/jstl/jstl
   implementation group: 'jstl', name: 'jstl', version: '1.2'
@@ -100,7 +100,10 @@ dependencies {
   // https://mvnrepository.com/artifact/org.json/json
   implementation group: 'org.json', name: 'json', version: '20231013'
 
+  // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+  implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 }
 
 test {
-useJUnitPlatform()}
+  useJUnitPlatform()}

@@ -49,20 +49,29 @@
         <div class="container">
             <div class="filter-bar">
                 <div class="input-group d-flex justify-content-end">
+                    <form>
                     <div class="sorting d-flex">
-                        <select name="sales_status">
-                            <option value="1">전체</option>
-                            <option value="2">작성자</option>
-                            <option value="3">제목</option>
-                            <option value="4">내용</option>
+                        <select name="type">
+                            <option value="0">전체</option>
+                            <option value="1">작성자</option>
+                            <option value="2">제목</option>
+                            <option value="3">내용</option>
                         </select>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="startDay" name="reg_date1">
+                        </div>
+                        <div>~</div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control" id="endDay" name="reg_date2">
+                        </div>
                         <div class="filter-bar-search">
                             <input type="text" placeholder="Search" style="width: 100%">
                         </div>
                         <div>
-                            <button type="button" class="btn btn-success">검색</button>
+                            <button type="submit" class="btn btn-success">검색</button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             <table class="table table-hover">
@@ -76,48 +85,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">6</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td><span class="badge badge-success">답변</span>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Larry the</td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td><span class="badge badge-success">답변</span>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td><span class="badge badge-success">답변</span>Larry the Bird</td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
+
+                <c:set value="${responseDTO.total_count}" var="total_count" />
+                <c:choose>
+                    <c:when test="${responseDTO ne null}">
+                        <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
+                            <tr>
+                                <th>${total_count -responseDTO.page_skip_count -loop.index}</th>
+                                <td><a class="text-dark" href="/bbs/boardView?bbs_idx=${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</a><c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="ti-file"></span></c:if></td>
+                                <td>${bbsDTO.member_name}</td>
+                                <td>${bbsDTO.reg_date}</td>
+                                <td>${bbsDTO.read_cnt}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr><td colspan="5">결과가 없습니다.</td></tr>
+                    </c:otherwise>
+                </c:choose>
+
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
@@ -128,26 +114,30 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                    <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                       class="page-link" aria-label="Previous">&laquo;
+                    </a>
                 </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">01</a>
-                </li>
-                <li class="page-item active">
-                    <a href="#" class="page-link">02</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">03</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">04</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">09</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                <c:forEach begin="${responseDTO.page_block_start}"
+                           end="${responseDTO.page_block_end}"
+                           var="page_num">
+                    <c:choose>
+                        <c:when test="${responseDTO.page == page_num}">
+                            <li class="page-item active">
+                                <a href="#" class="page-link">${page_num}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                    <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                 </li>
             </ul>
         </nav>

@@ -12,42 +12,103 @@
 <!--&lt;!&ndash;        ON reply.bbs_idx = bbs.bbs_idx&ndash;&gt;-->
 <!--        WHERE bbs.bbs_idx = #{idx}-->
 <!--    </select>-->
-    <select id="view" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date
-        FROM tbl_qna
-        WHERE qna_idx = #{idx}
+    <sql id="whereCondition">
+        <where>
+            <if test='search_word != null and search_word !=""'>
+                <choose>
+                    <when test="type == 0">
+                        OR tm.member_name LIKE CONCAT('%', #{search_word}, '%')
+                        OR title LIKE CONCAT('%', #{search_word}, '%')
+                        OR contents LIKE CONCAT('%', #{search_word}, '%')
+                    </when>
+                    <when test="type == 1">
+                        AND tm.member_name LIKE CONCAT('%', #{search_word}, '%')
+                    </when>
+                    <when test="type == 2">
+                        AND title LIKE CONCAT('%', #{search_word}, '%')
+                    </when>
+                    <when test="type == 3">
+                        AND contents LIKE CONCAT('%', #{search_word}, '%')
+                    </when>
+                </choose>
+            </if>
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND tq.reg_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND tq.reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+            <if test='member_id != null and member_id !=""'>
+                AND ref_idx in (
+                    SELECT ref_idx
+                    FROM tbl_qna
+                    WHERE member_id = #{member_id}
+                )
+            </if>
+        </where>
+    </sql>
+    <select id="qnaTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_qna as tq inner join tbl_member as tm
+        ON tq.member_id = tm.member_id
+        <include refid="whereCondition"></include>
     </select>
 
+    <select id="qnaListByPage" resultType="org.fullstack4.genius.domain.QnaVO">
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
+        FROM tbl_qna as tq inner join tbl_member as tm
+            ON tq.member_id = tm.member_id
+        <include refid="whereCondition"></include>
+        ORDER BY ref_idx DESC, qna_idx
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
+    <select id="view" resultType="org.fullstack4.genius.domain.QnaVO">
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
+        FROM tbl_qna as tq inner join tbl_member as tm
+        ON tq.member_id = tm.member_id
+        WHERE qna_idx = #{idx}
+    </select>
+    <update id="readCount">
+        UPDATE tbl_qna SET
+            read_cnt = read_cnt + 1
+        WHERE qna_idx = #{idx}
+    </update>
     <select id="listAll" resultType="org.fullstack4.genius.domain.QnaVO">
         SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date
         FROM tbl_qna
 <!--        WHERE category_code = #{category_code}-->
-        ORDER BY ref_idx, qna_idx
+        ORDER BY ref_idx DESC, qna_idx
     </select>
 
-    <insert id="regist">
-        INSERT INTO tbl_qna (ref_idx, category_code, answerYN, title, contents, reg_date, read_cnt, member_id)
-        VALUES(#{ref_idx}, 'bc02', 'N', #{title}, #{contents}, NOW(), 0, #{member_id})
+    <insert id="regist" parameterType="org.fullstack4.genius.domain.QnaVO" useGeneratedKeys="true" keyProperty="qna_idx" keyColumn="qna_idx">
+        INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id)
+        VALUES('N', #{title}, #{contents}, NOW(), 0, #{member_id})
     </insert>
     <update id="refModify">
         UPDATE tbl_qna SET
             ref_idx = #{qna_idx}
-        WHERE qna_idx = #{qna_idx}
+        WHERE qna_idx = #{qna_idx} AND answerYN = 'N'
     </update>
+    <select id="totalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_qna
+    </select>
 
     <update id="modify">
-        UPDATE tbl_bbs SET
-            bbs_title = #{bbs_title}
-            , reg_date = #{reg_date}
-            , fileYN = #{fileYN}
-            , bbs_contents = #{bbs_contents}
-        WHERE bbs_idx = #{bbs_idx}
+        UPDATE tbl_qna SET
+            title = #{title}
+            , modify_date = NOW()
+<!--            , fileYN = #{fileYN}-->
+            , contents = #{contents}
+        WHERE qna_idx = #{qna_idx}
     </update>
 
     <delete id="delete">
         DELETE
-        FROM tbl_bbs
-        WHERE bbs_idx = #{bbs_idx}
+        FROM tbl_qna
+        WHERE qna_idx = #{qna_idx}
     </delete>
 
 </mapper>

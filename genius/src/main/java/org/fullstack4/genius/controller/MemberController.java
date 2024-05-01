@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 
 @Log4j2
@@ -82,6 +83,32 @@ public class MemberController {
             return "redirect:/mypage/mypage";
         }
     }
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public void idCheck(@RequestParam(name = "member_id", defaultValue = "") String member_id,
+                          HttpServletResponse response) throws IOException {
+        log.info("---------------------");
+        log.info("MemberController => idCheck()");
 
+        int result = (int) memberService.idCheck(member_id);
+        log.info("result : " + result);
+        response.setContentType("application/text; charset=utf-8");
+        response.getWriter().print(result);
+        log.info("---------------------");
+    }
+
+    @PostMapping("/emailCheck")
+    @ResponseBody
+    public void emailCheck(@RequestParam(name = "email", defaultValue = "") String email,
+                          HttpServletResponse response) throws IOException {
+        log.info("---------------------");
+        log.info("MemberController => emailCheck()");
+
+        int result = (int) memberService.emailCheck(email);
+        log.info("result : " + result);
+        response.setContentType("application/text; charset=utf-8");
+        response.getWriter().print(result);
+        log.info("---------------------");
+    }
 
 }

@@ -25,19 +25,27 @@ public class JiwonTest {
     @Autowired(required = false)
     private BbsMapper bbsMapper;
 
-    @Autowired(required = false)
-    private ReviewMapper reviewMapper;
-
     @Test
     public void testBbsList(){
-        List<BbsVO> list = bbsMapper.listAll();
+        List<BbsVO> list = bbsMapper.listAll("bc01");
         log.info("=================================");
         log.info(list.size());
         log.info("=================================");
     }
 
     @Test
-    public void testBbs(){
+    public void testBbsListByPage(){
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .category_code("bc01")
+                .page_size(4)
+                .build();
+        List<BbsVO> list = bbsMapper.bbsListByPage(pageRequestDTO);
+        log.info("=================================");
+        log.info(list.toString());
+    }
+
+    @Test
+    public void testBbsInsert(){
         int result = bbsMapper.regist(BbsVO.builder()
                         .bbs_title("테스트 제목33")
                         .category_code("bc01")
@@ -52,7 +60,7 @@ public class JiwonTest {
 
     @Test
     public void testBbsView(){
-        BbsVO bbsVO = bbsMapper.view(1);
+        BbsVO bbsVO = bbsMapper.view(21);
         log.info("=================================");
         log.info(bbsVO.toString());
     }
@@ -60,8 +68,9 @@ public class JiwonTest {
     @Test
     public void testBbsModify(){
         int result = bbsMapper.modify(BbsVO.builder()
-                        .bbs_idx(4)
+                        .bbs_idx(12)
                         .bbs_title("제목수정테스트")
+                        .member_id("test1234")
                         .bbs_contents("내용수정테스트")
                         .fileYN("N")
                         .reg_date(LocalDate.parse("2024-04-29"))
@@ -72,6 +81,24 @@ public class JiwonTest {
 
     @Test
     public void testBbsDelete() {
-        int result = bbsMapper.delete(8);
+        int result = bbsMapper.delete(11);
+    }
+
+    @Test
+    public void testBbsTotalCount() {
+        int result = bbsMapper.bbsTotalCount(PageRequestDTO.builder()
+                .search_type(new String[]{""})
+                .search_word("") //서치 어ㅏ직 안됨
+                .search_date1(LocalDate.parse("2024-04-25"))
+                .search_date2(LocalDate.parse("2024-04-28"))
+                .build());
+        log.info("개수 : " + result);
+    }
+
+    @Test
+    public void testBbsprepost() {
+        BbsVO bbsVO = bbsMapper.preView(1, "bc01");
+//        BbsVO bbsVO = bbsMapper.postView(4, "bc01");
+        log.info(bbsVO.toString());
     }
 }

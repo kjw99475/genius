@@ -15,13 +15,18 @@ public interface MemberMapper {
     MemberVO view(String member_id);
     int modify(MemberVO MemberVO);
     int delete(int idx);
-    int MemberTotalCount(PageRequestDTO requestDTO);
-    List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
+//    int MemberTotalCount(PageRequestDTO requestDTO);
+//    List<MemberVO> MemberListByPage(PageRequestDTO requestDTO);
 
     MemberVO login(String member_id);
+    MemberVO naver(String member_id);
     String findId(MemberVO memberVO);
     String findPwd(MemberVO memberVO);
     int changePwd(MemberVO memberVO);
     int modifyInfo(MemberVO memberVO);
     int leave(String member_id);
+    int idCheck(String member_id);
+    int emailCheck(String email);
+    List<MemberVO> list(PageRequestDTO pageRequestDTO);
+    int totalCount(PageRequestDTO pageRequestDTO);
 }

@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin / bbs - modify</title>
     <!-- Favicons -->
-    <link href="/resources/admin/img/favicon.png" rel="icon">
+    <link href="/resources/admin/img/favicon.png" rel="icon" type="image/png">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -35,6 +35,12 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <!-- include summernote css/js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -49,7 +55,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">자료실</li>
+                <li class="breadcrumb-item"><a href="/admin/bbs/list">자료실</a></li>
                 <li class="breadcrumb-item active">자료실 수정</li>
             </ol>
         </nav>
@@ -69,15 +75,15 @@
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bbs" readonly>
+                                               value="bc01" readonly>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
                                                value="${bbsDTO.bbs_title}">
                                     </div>
@@ -85,39 +91,43 @@
 
                                 <div class="row mb-3">
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                               value="${bbsDTO.member_id}" readonly>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <%--<div class="row mb-3">
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}">
+                                               value="${bbsDTO.reg_date}" >
+                                    </div>
+                                </div>--%>
+
+                                <div class="row mb-3">
+                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <c:choose>
+                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
+                                                <input name="file" type="file" class="form-control" id="file"
+                                                       value="${bbsDTO.fileYN}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input name="file" type="file" class="form-control" id="file">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}">
+                                    <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <textarea id="summernote" name="bbs_contents">${bbsDTO.bbs_contents}</textarea>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <c:if test="${bbsDTO.fileYN ne null}">
-                                            <input name="file" type="file" class="form-control" id="file"
-                                                   value="${bbsDTO.fileYN}">
-                                        </c:if>
-                                    </div>
-                                </div>
-
-                                <div class="text-center mt-5">
+                                <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">수정 완료</button>
                                     <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
@@ -136,6 +146,45 @@
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->
+
+<script>
+    //서머노트
+    $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    function imageUploader(file, el) {
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            data : formData,
+            type : "POST",
+            //아래 url 수정 필요
+            url : '/',
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',
+            success : function(data) {
+                $(el).summernote('insertImage', "${pageContext.request.contextPath}/assets/images/upload/"+data, function($image) {
+                    $image.css('width', "100%");
+                });
+                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                console.log(data);
+            }
+        });
+    }
+</script>
 
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />

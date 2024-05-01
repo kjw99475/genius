@@ -14,6 +14,16 @@
         VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),'충전','포인트 충전')
     </insert>
 
+    <insert id="usepoint">
+        INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
+        VALUES (#{payment_num},#{member_id},#{price},#{method},'사이트 거래',NOW(),'사용','포인트 사용')
+    </insert>
+
+    <insert id="refund">
+        INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
+        VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),'환불','포인트 환불')
+    </insert>
+
     <select id="pointview" resultType="int">
         select point
         from tbl_member
@@ -35,6 +45,82 @@
     <select id="totalCount" resultType="int">
         select Count(*)
         from tbl_payment
-        where member_id=#{param1}
+        <where>
+            member_id=#{member_id}
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND reg_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="viewOrder" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        where member_id=#{param1} and cancel_YN ='N'
+    </select>
+
+    <select id="viewOrderdetail" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT orderdetail_idx,order_num,A.book_code,B.book_name,B.book_img,A.category_class_code,A.category_subject_code,order_state,order_date,A.price,total_price,amount
+        FROM tbl_orderdetail AS a
+        INNER JOIN tbl_book AS B ON a.book_code = b.book_code
+        where order_num = #{param1}
+    </select>
+
+
+    <select id="OrderTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_order
+        <where>
+            member_id=#{member_id} and cancel_YN = 'N'
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND order_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND order_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="viewOrderListbypage" resultType="org.fullstack4.genius.domain.OrderVO">
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        FROM tbl_order
+        <where>
+            member_id=#{member_id} and cancel_YN = 'N'
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND order_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND order_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
+        ORDER BY order_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
+
+    <select id="PaymentListByPage" resultType="org.fullstack4.genius.domain.PaymentVO">
+        select payment_idx,payment_num,member_id,price,method,company,reg_date,use_type,title
+        from tbl_payment
+        <where>
+        member_id=#{member_id}
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND reg_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
+        </where>
+        ORDER BY payment_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
     </select>
 </mapper>

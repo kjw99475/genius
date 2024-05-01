@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,16 +24,21 @@ public class PageResponseDTO<E> {
     private boolean prev_page_flag;
     private boolean next_page_flag;
     private String[] search_type;
+    private String search_category;
     private String search_type_st;
     private String search_word;
     private String search_data1;
     private String search_data2;
+    private LocalDate search_date1;
+    private LocalDate search_date2;
     private String linked_params;
     private String class_code;
     private String subject_code;
     private String sort;
     private String status;
     private String type;
+    private String type2;
+    private String member_id;
     List<E> dtoList;
     PageResponseDTO() {}
 
@@ -52,13 +58,33 @@ public class PageResponseDTO<E> {
         this.next_page_flag = (this.total_page > this.page_block_end); // 다음페이지 있는지 여부(페이지네이션에서 10개씩 다음 가는거)
         this.search_word = CommonUtil.parseString(requestDTO.getSearch_word());
         this.search_type =  requestDTO.getSearch_type();
+        this.search_category = requestDTO.getSearch_category();
+        this.type = requestDTO.getType();
+        this.type2 = requestDTO.getType2();
         this.search_type_st = (search_type != null) ? Arrays.toString(search_type).replace("[","").replace("]","").replace(" ","") : "t,u";
         this.search_data1 = CommonUtil.parseString(requestDTO.getSearch_data1());
         this.search_data2 = CommonUtil.parseString(requestDTO.getSearch_data2());
+        this.search_date1 = requestDTO.getSearch_date1();
+        this.search_date2 = requestDTO.getSearch_date2();
+        this.member_id = requestDTO.getMember_id();
+        this.class_code = requestDTO.getClass_code();
+        this.subject_code = requestDTO.getSubject_code();
+        this.status = requestDTO.getStatus();
+        this.sort = requestDTO.getSort();
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
-        if(search_type != null) sb.append("&search_type=" + search_type_st + "&search_word=" + this.search_word);
-        if(!search_data1.equals("")) sb.append("&search_data1=" + search_data1);
-        if(!search_data2.equals("")) sb.append("&search_data2=" + search_data2);
+        if(search_type != null) sb.append("&search_type=" + search_type_st );
+        if(search_word != null) sb.append("&search_word=" + search_word);
+        if(search_data1 != null) sb.append("&search_data1=" + search_data1);
+        if(search_data2 != null) sb.append("&search_data2=" + search_data2);
+        if(status != null) sb.append("&status=" + status);
+        if(type != null) sb.append("&type=" + type);
+        if(type2 != null) sb.append("&type2=" + type2);
+        if(search_date1 != null) sb.append("&search_date1=" + search_date1);
+        if(search_date2 != null) sb.append("&search_date2=" + search_date2);
+        if(class_code != null && class_code!="") sb.append("&class_code=" + class_code);
+        if(subject_code != null && subject_code != "") sb.append("&subject_code=" + subject_code);
+        if(member_id != null) sb.append("&member_id=" + member_id);
+
         this.linked_params =  sb.toString();  // 쿼리스트링
         this.dtoList = dtoList;
         log.info("PageResponseDTO End");

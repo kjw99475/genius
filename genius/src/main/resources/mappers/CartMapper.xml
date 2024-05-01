@@ -21,7 +21,7 @@
     <select id="exist" resultType="int">
         SELECT COUNT(*)
         from tbl_cart
-        where book_code=#{param1}
+        where book_code=#{param1} AND member_id=#{param2}
     </select>
 
     <update id="updateCart">
@@ -35,10 +35,25 @@
     </update>
 
     <select id="view" resultType="org.fullstack4.genius.domain.CartVO">
-        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.book_img
+        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.book_img,B.category_class_code,B.category_subject_code
         from tbl_cart as A
         INNER JOIN tbl_book AS B on B.book_code=A.book_code
         where cart_idx=#{cart_idx}
+    </select>
+
+    <select id="CartTotalCount">
+        SELECT COUNT(*)
+        FROM tbl_cart
+        where member_id=#{param1}
+    </select>
+
+    <select id="CartListByPage" resultType="org.fullstack4.genius.domain.CartVO">
+        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.book_img
+        from tbl_cart as A
+        INNER JOIN tbl_book AS B on B.book_code=A.book_code
+        where member_id=#{param1}
+        ORDER BY cart_idx DESC
+        LIMIT #{param2.page_skip_count}, #{param2.page_size}
     </select>
 
 </mapper>

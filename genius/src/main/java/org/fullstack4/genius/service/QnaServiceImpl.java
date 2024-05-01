@@ -3,10 +3,9 @@ package org.fullstack4.genius.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BbsVO;
+import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
-import org.fullstack4.genius.dto.BbsDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.QnaDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.mapper.BbsMapper;
 import org.fullstack4.genius.mapper.QnaMapper;
 import org.modelmapper.ModelMapper;
@@ -27,7 +26,13 @@ public class QnaServiceImpl implements QnaServiceIf {
     public int regist(QnaDTO qnaDTO) {
         QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
         int result = qnaMapper.regist(qnaVO);
-        return 0;
+        int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+
+        log.info("======================");
+        log.info("QnaServiceImpl >> regist >> result : " + result + ", result2 : " + result2);
+        log.info("======================");
+
+        return result;
     }
 
     @Override
@@ -39,33 +44,69 @@ public class QnaServiceImpl implements QnaServiceIf {
     }
 
     @Override
+    public List<QnaDTO> myListAll() {
+        List<QnaDTO> qnaDTOList = qnaMapper.myListAll().stream()
+                .map(qnaVO-> modelMapper.map(qnaVO, QnaDTO.class))
+                .collect(Collectors.toList());
+        return qnaDTOList;
+    }
+
+    @Override
     public QnaDTO view(int idx) {
-        return null;
+        QnaVO qnaVO = qnaMapper.view(idx);
+        QnaDTO qnaDTO = modelMapper.map(qnaVO, QnaDTO.class);
+
+        return qnaDTO;
     }
 
     @Override
     public int modify(QnaDTO qnaDTO) {
-        return 0;
+        QnaVO qnaVO = modelMapper.map(qnaDTO,QnaVO.class);
+        return qnaMapper.modify(qnaVO);
     }
 
     @Override
-    public int refModify(int idx) {
-        int result = qnaMapper.refModify(idx);
+    public int refModify(QnaDTO qnaDTO) {
+        int result = qnaMapper.refModify(qnaDTO.getQna_idx());
         return result;
     }
 
     @Override
     public int delete(int idx) {
-        return 0;
+
+        return qnaMapper.delete(idx);
     }
 
     @Override
-    public int bbsTotalCount(PageRequestDTO requestDTO) {
-        return 0;
+    public int readCount(int idx) {
+        int result = qnaMapper.readCount(idx);
+        return result;
     }
 
     @Override
-    public List<QnaDTO> bbsListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public int totalCount() {
+        return qnaMapper.totalCount();
+    }
+
+    @Override
+    public int qnaTotalCount(PageRequestDTO requestDTO) {
+        return qnaMapper.qnaTotalCount(requestDTO);
+    }
+
+    @Override
+    public PageResponseDTO<QnaDTO> qnaListByPage(PageRequestDTO requestDTO) {
+        List<QnaVO> voList = qnaMapper.qnaListByPage(requestDTO);
+        List<QnaDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,QnaDTO.class))
+                .collect(Collectors.toList());
+        int total_count = qnaMapper.qnaTotalCount(requestDTO);
+
+        PageResponseDTO<QnaDTO> responseDTO = PageResponseDTO.<QnaDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

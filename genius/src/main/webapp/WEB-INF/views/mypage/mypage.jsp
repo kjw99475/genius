@@ -66,22 +66,40 @@
                                     </div>
                                 </div>
                                 <div class="mb-5">
-                                    <div class="col-md-12 form-group">
-                                        <label for="member_id">아이디</label>
-                                        <input type="text" class="form-control" id="member_id" name="member_id" value="${memberDTO['member_id']}" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'" disabled>
-                                    </div>
+                                    <c:choose>
+                                        <c:when test="${memberDTO['social_type'] eq 'naver'}">
+                                            <div class="col-md-12 form-group">
+                                                <p class="text-geni">네이버 연동 계정입니다.</p>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="col-md-12 form-group">
+                                                <label for="member_id">아이디</label>
+                                                <input type="text" class="form-control" id="member_id" name="member_id" value="${memberDTO['member_id']}" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'" disabled>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <div class="col-md-12 form-group">
                                         <label for="member_name">이름</label>
                                         <input type="text" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
                                     </div>
-                                    <div class="col-md-12 form-group">
-                                        <label for="pwd">비밀번호</label>
-                                        <input type="password" class="form-control" id="pwd" name="pwd" value="${memberDTO.pwd}" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <label for="pwdCheck">비밀번호 확인</label>
-                                        <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" value="${memberDTO.pwd}" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
-                                    </div>
+                                    <c:choose>
+                                        <c:when test="${memberDTO['social_type'] eq 'naver'}">
+                                            <div class="col-md-12 form-group">
+                                                <input type="hidden" class="form-control" id="pwd" name="pwd" value="${memberDTO.pwd}" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="col-md-12 form-group">
+                                                <label for="pwd">비밀번호</label>
+                                                <input type="password" class="form-control" id="pwd" name="pwd" value="${memberDTO.pwd}" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <label for="pwdCheck">비밀번호 확인</label>
+                                                <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" value="${memberDTO.pwd}" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
                                         <input type="date" class="form-control" id="birthday" name="birthday" value="${memberDTO.birthday}" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
@@ -95,7 +113,7 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">이메일</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                        <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'" disabled>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
@@ -148,6 +166,7 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    // 프로필 이미지 변경
     function changeProfileImg(e) {
         let files = e.target.files;
         let reader = new FileReader();

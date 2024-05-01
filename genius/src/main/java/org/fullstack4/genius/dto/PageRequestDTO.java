@@ -53,16 +53,20 @@ public class PageRequestDTO {
     @Min(value=1)
     private int page_block_end=1;
     private String[] search_type;
+    private String search_category;
     private String search_word;
     private String search_data1;
     private String search_data2;
     private LocalDate search_date1;
     private LocalDate search_date2;
+    private String category_code;
     private String class_code;
     private String subject_code;
     private String sort;
     private String status;
     private String type;
+    private String type2;
+    private String member_id;
 
     public void setTotal_count(int total_count) {
         this.total_count = total_count;

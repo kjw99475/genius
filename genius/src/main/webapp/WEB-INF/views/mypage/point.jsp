@@ -70,27 +70,27 @@
 
                 </div>
             </div>
+
             <div class="order_details_table bg-light">
+                <form action="/mypage/point${pageDTO.linked_params}" id="dateform">
                 <div class="row justify-content-end align-items-center pb-3">
                     <div class="col-auto">
-                        <input type="date" class="form-control" id="startDay" name="startDay">
+                        <input type="date" class="form-control" id="startDay" name="search_date1">
                     </div>
                     <div>~</div>
                     <div class="col-auto">
-                        <input type="date" class="form-control" id="endDay" name="endDay">
+                        <input type="date" class="form-control" id="endDay" name="search_date2">
                     </div>
                     <div>
-                        <button class="btn btn-success" type="button">조회</button>
+                        <button class="btn btn-success" type="button" id="datebtn">조회</button>
                     </div>
                 </div>
-                <c:forEach items="${mypaymentlist}" var="list">
-                    ${list.price}
-                </c:forEach>
+                </form>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">총 0${total_count}건</th>
+                                <th scope="col">총 0${pageDTO.total_count}건</th>
                                 <th scope="col">종류</th>
                                 <th scope="col">결제 일자</th>
                                 <th scope="col">금액</th>
@@ -100,7 +100,7 @@
                             <c:forEach items= "${mypaymentlist}" var="list">
                             <tr>
                                 <td class="border-0">
-                                    <p>${list.use_type}</p>
+                                    <p>${list.title}</p>
                                 </td>
                                 <td class="border-0">
                                     <h5>${list.use_type}</h5>
@@ -109,7 +109,12 @@
                                     <p>${list.reg_date}</p>
                                 </td>
                                 <td class="border-0">
+                                    <c:if test="${list.price > 0}">
                                     <p class="text-geni">+${list.price}</p>
+                                    </c:if>
+                                    <c:if test="${list.price < 0}">
+                                    <p>${list.price}</p>
+                                    </c:if>
                                 </td>
                             </tr>
                             </c:forEach>
@@ -194,26 +199,39 @@
     <!--================페이징 내역 Start =================-->
     <nav class="blog-pagination justify-content-center d-flex">
         <ul class="pagination">
+            <c:if test="${pageDTO.page<=10}">
+            <li class="page-item disabled">
+                </c:if>
+                <c:if test="${pageDTO.page>10}">
             <li class="page-item">
-                <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                </c:if>
+                <a class="page-link" href="/mypage/point?${pageDTO.linked_params}&page=${pageDTO.page_block_end-10}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
+            <c:forEach begin="${pageDTO.page_block_start}" end="${pageDTO.page_block_end}" var="i">
+                <c:if test="${pageDTO.page == i}">
+                    <li class="page-item active">
+                        <a class="page-link" href="/mypage/point${pageDTO.linked_params}&page=${i}">${i}</a>
+                    </li>
+                </c:if>
+                <c:if test="${pageDTO.page != i}">
+                    <li class="page-item">
+                        <a class="page-link" href="/mypage/point${pageDTO.linked_params}&page=${i}">${i}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
+            <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=2">2</a></li>--%>
+            <%--                            <li class="page-item"><a class="page-link" href="/admin/order/list?page=3">3</a></li>--%>
+            <c:if test="${(pageDTO.page_block_start+10)>=(pageDTO.total_page)}">
+            <li class="page-item disabled">
+                </c:if>
+                <c:if test="${(pageDTO.page_block_start+10)<(pageDTO.total_page)}">
             <li class="page-item">
-                <a href="#" class="page-link">01</a>
-            </li>
-            <li class="page-item active">
-                <a href="#" class="page-link">02</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">03</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">04</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link">09</a>
-            </li>
-            <li class="page-item">
-                <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                </c:if>
+                <a class="page-link" href="/mypage/point?page=${pageDTO.linked_params}&page=${pageDTO.page_block_start+10}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -350,7 +368,7 @@
                             type : "POST",
                             data : {
                                 "payment_num":rsp.merchant_uid
-                                ,"member_id":"test"
+                                ,"member_id":"${sessionScope['member_id']}"
                                 ,"price":rsp.paid_amount
                                 ,"method":rsp.pay_method
                                 ,"company":rsp.pg_provider
@@ -368,6 +386,10 @@
                 });
         }
 
+
+        document.querySelector("#datebtn").addEventListener('click',()=>{
+            document.querySelector("#dateform").submit();
+        });
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 </script>

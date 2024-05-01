@@ -2,8 +2,11 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
@@ -42,9 +45,19 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    public int totalCount(String member_id) {
-        int totalCount = paymentMapper.totalCount(member_id);
+    public int totalCount(PageRequestDTO pageRequestDTO) {
+        int totalCount = paymentMapper.totalCount(pageRequestDTO);
         return totalCount;
+    }
+
+    @Override
+    public int usepoint(PaymentDTO paymentDTO) {
+        PaymentVO vo = modelMapper.map(paymentDTO, PaymentVO.class);
+        log.info("=====================================================");
+        log.info("PaymentVO : " + vo);
+        log.info("=====================================================");
+        int result = paymentMapper.usepoint(vo);
+        return result;
     }
 
     @Override
@@ -81,12 +94,67 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
+    public List<OrderDTO> viewOrder(String member_id) {
+        List<OrderVO> volist = paymentMapper.viewOrder(member_id);
+        List<OrderDTO> dtolist = volist.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return dtolist;
+    }
+
+    @Override
+    public List<OrderDTO> viewOrderdetail(String order_num) {
+        List<OrderVO> volist = paymentMapper.viewOrderdetail(order_num);
+        List<OrderDTO> dtolist = volist.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return dtolist;
+    }
+
+    @Override
+    public int OrderTotalCount(PageRequestDTO requestDTO) {
+        int total_count = paymentMapper.OrderTotalCount(requestDTO);
+        return total_count;
+    }
+
+    @Override
+    public PageResponseDTO<OrderDTO> viewOrderListByPage(PageRequestDTO requestDTO) {
+        List<OrderVO> voList = paymentMapper.viewOrderListbypage(requestDTO);
+        List<OrderDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, OrderDTO.class))
+                .collect(Collectors.toList());
+
+        int total_count = paymentMapper.OrderTotalCount(requestDTO);
+
+        PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
+    }
+
+    @Override
     public int PaymentTotalCount(PageRequestDTO requestDTO) {
         return 0;
     }
 
     @Override
-    public List<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<PaymentDTO> PaymentListByPage(PageRequestDTO requestDTO) {
+        int total_count =paymentMapper.totalCount(requestDTO);
+        List<PaymentVO> voList = paymentMapper.PaymentListByPage(requestDTO);
+        List<PaymentDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,PaymentDTO.class))
+                .collect(Collectors.toList());
+        PageResponseDTO<PaymentDTO> responseDTO = PageResponseDTO.<PaymentDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

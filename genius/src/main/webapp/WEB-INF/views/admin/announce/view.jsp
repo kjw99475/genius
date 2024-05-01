@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin / announce - view</title>
     <!-- Favicons -->
-    <link href="/resources/admin/img/favicon.png" rel="icon">
+    <link href="/resources/admin/img/favicon.png" rel="icon" type="image/png">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -65,93 +65,119 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" id="frm_announce_delete" action="/admin/announce/delete">
+                            <form method="post" id="frm_bbs_delete" action="/admin/announce/delete">
+                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
+
+
                                 <div class="row mb-3">
-                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="announce" readonly>
+                                               value="bc02" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}" readonly>
+                                               value="${bbsDTO.bbs_title}" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}" readonly>
+                                               value="${sessionScope.member_id}" disabled>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-10">
+                                <%--<div class="row mb-3">
+                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label label">작성일</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" readonly>
+                                               value="${bbsDTO.reg_date}">
                                     </div>
+                                </div>--%>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>
+                                    </div>
+
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"
-                                               value="${bbsDTO.bbs_contents}" readonly>
+                                    <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
+                                    <div class="col-md-8 col-lg-9 overflow-auto" style="max-height: 700px;">
+                                        <p>${bbsDTO.bbs_contents}</p>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="bbs_contents" class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="${bbsDTO.file}" readonly>
+
+                                <div class="mt-5 d-flex justify-content-between">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/announce/list'">목록</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success me-2"
+                                                onclick="location.href='/admin/announce/contentmodify?bbs_idx=${bbsDTO.bbs_idx}'">
+                                            수정
+                                        </button>
+                                        <button type="button" class="btn btn-outline-success" onclick="bbs_delete()">
+                                            삭제
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div class="row mt-5">
-                                    <div class="col-4"></div>
-                                    <div class="col-4">
-                                        <div class="text-center d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/announce/list'">
-                                                목록
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="text-center d-flex justify-content-end">
-                                            <button type="button" class="btn btn-success me-2"
-                                                    onclick="location.href='/admin/announce/contentmodify'">수정
-                                            </button>
-                                            <button type="button" class="btn btn-success" onclick="announce_delete()">
-                                                삭제
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </form><!-- EndForm -->
 
                             <div class="mt-5">
-                                <table class="table">
-                                    <tr onclick="location.href='/admin/announce/view'">
-                                        <td class="col-2">다음글</td>
-                                        <td class="col-1">34${postbbsDTO.bbs_idx}</td>
-                                        <td class="col-6">담글제목${postbbsDTO.bbs_title}</td>
-                                        <td class="col-3">2024-07-06${postbbsDTO.reg_date}</td>
-                                    </tr>
+                                <table class="table table-borderless text-start">
+                                    <colgroup>
+                                        <col width="20%">
+                                        <col width="65%">
+                                        <col width="15%">
+                                    </colgroup>
 
-                                    <tr onclick="location.href='/admin/announce/view'">
-                                        <td class="col-2">이전글</td>
-                                        <td class="col-1">32${prebbsDTO.bbs_idx}</td>
-                                        <td class="col-6">전글제목${prebbsDTO.bbs_title}</td>
-                                        <td class="col-3">2024-02-01${prebbsDTO.reg_date}</td>
-                                    </tr>
+                                    <c:choose>
+                                        <c:when test="${postbbsDTO eq null}">
+                                            <tr class=" border-bottom mb-0">
+                                                <td>다음글</td>
+                                                <td>다음 글이 없습니다.</td>
+                                                <td></td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr class=" border-bottom mb-0" onclick="location.href='/admin/announce/view?bbs_idx='+${postbbsDTO.bbs_idx}">
+                                                <td>다음글</td>
+                                                <td>${postbbsDTO.bbs_title}<c:if
+                                                        test="${postbbsDTO.fileYN eq 'Y'}"><span
+                                                        class="bi bi-paperclip"></span></c:if></td>
+                                                <td>${postbbsDTO.reg_date}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <c:choose>
+                                        <c:when test="${prebbsDTO eq null}">
+                                            <tr>
+                                                <td>이전글</td>
+                                                <td>이전 글이 없습니다.</td>
+                                                <td></td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr onclick="location.href='/admin/announce/view?bbs_idx='+${prebbsDTO.bbs_idx}">
+                                                <td>이전글</td>
+                                                <td>${prebbsDTO.bbs_title}
+                                                    <c:if test="${prebbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                                <td>${prebbsDTO.reg_date}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </table>
                             </div>
                         </div>
@@ -165,20 +191,59 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
 
 <script>
-    const frm_delete = document.querySelector("#frm_announce_delete");
-    function announce_delete() {
+    //삭제버튼
+    const frm_delete = document.querySelector("#frm_bbs_delete");
+
+    function bbs_delete() {
         let flag_delete = confirm("정말 삭제하시겠습니까?");
         if (flag_delete) {
             frm_delete.submit();
         }
+    }
+
+    //서머노트
+    $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    function imageUploader(file, el) {
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            data : formData,
+            type : "POST",
+            //아래 url 수정 필요
+            url : '/',
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',
+            success : function(data) {
+                $(el).summernote('insertImage', "${pageContext.request.contextPath}/assets/images/upload/"+data, function($image) {
+                    $image.css('width', "100%");
+                });
+                // 값이 잘 넘어오는지 콘솔 확인 해보셔도됩니다.
+                console.log(data);
+            }
+        });
     }
 </script>
 

@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin / bbs</title>
     <!-- Favicons -->
-    <link href="/resources/admin/img/favicon.png" rel="icon">
+    <link href="/resources/admin/img/favicon.png" rel="icon" type="image/png">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -64,53 +64,62 @@
                         <div class="row">
                             <form>
                                 <div class="row mb-3">
+
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date1" id="reg_date1">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1" value="${responseDTO.search_date1}" >
                                             </div>
                                             ~
-                                            <div class="col-3"><input class="form-control" type="date" name="reg_date2" id="reg_date2">
+                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2" value="${responseDTO.search_date2}">
                                             </div>
-
                                         </div>
                                     </div>
 
                                     <div class="row">
 
                                         <div class="col-2">
-                                            <select name="search_category" id="search_category" class="form-select">
-                                                <option value="" selected>전체</option>
-                                                <option value="member_id">작성자</option>
-                                                <option value="bbs_title">제목</option>
-                                                <option value="bbs_content">내용</option>
+                                            <select name="type" id="search_category" class="form-select">
+                                                <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                                                <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                                                <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                                                <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
                                             </select>
                                         </div>
 
                                         <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word">
+                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO.search_word}">
                                         </div>
                                         <div class="col">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+<%--                            </form>--%>
                         </div>
 
                         <div class="col-2 mb-2">
-                            <select class="form-select">
-                                <option value="5">5개씩 보기</option>
-                                <option value="10" selected>10개씩 보기</option>
-                                <option value="100">100개씩 보기</option>
+<%--                            <form id="frm_page_size" >--%>
+                            <select name="page_size" class="form-select" onchange="this.form.submit()">
+                                <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
+                                <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
+                                <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
                             </select>
+                            </form>
                         </div>
 
-                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete">
+                        <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
                             <!-- Table with stripped rows -->
                             <table class="table">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="50%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="10%">
+                                </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><input id="chk_all" type="checkbox">번호</th>
+                                    <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
                                     <th>제목</th>
                                     <th>작성자</th>
                                     <th>작성일</th>
@@ -119,13 +128,15 @@
                                 </thead>
                                 <tbody>
 
+                                <c:set value="${responseDTO.total_count}" var="total_count" />
                                 <c:choose>
-                                    <c:when test="${bbsDTOList ne null}">
-                                        <c:forEach items="${bbsDTOList}" var="bbsDTO">
+                                    <c:when test="${responseDTO ne null}">
+                                        <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-                                                <td><input class="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${bbsDTO.bbs_idx}</td>
-                                                <td>${bbsDTO.bbs_title}</td>
-                                                <td>${bbsDTO.member_id}</td>
+<%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
+                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
+                                                <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                                <td>${bbsDTO.member_name}</td>
                                                 <td>${bbsDTO.reg_date}</td>
                                                 <td>${bbsDTO.read_cnt}</td>
                                             </tr>
@@ -149,24 +160,39 @@
 
 
                         <div class="d-flex justify-content-center">
+
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
+                                    <li class="page-item <c:if test="${responseDTO.page eq '1'}"> disabled</c:if>" >
+                                        <a href="<c:if test="${responseDTO.page gt '1'}">${responseDTO.linked_params}&page=${responseDTO.page-1}</c:if>"
+                                           class="page-link" aria-label="Previous">&laquo;
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
+                                    <c:forEach begin="${responseDTO.page_block_start}"
+                                               end="${responseDTO.page_block_end}"
+                                               var="page_num">
+                                        <c:choose>
+                                            <c:when test="${responseDTO.page == page_num}">
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <li class="page-item <c:if test="${responseDTO.page eq responseDTO.total_page}"> disabled</c:if>">
+                                        <a href="<c:if test="${responseDTO.page < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page+1}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                                     </li>
                                 </ul>
                             </nav><!-- End Pagination with icons -->
+                            <!-- 페이징 영역 end -->
+
                         </div>
                     </div>
                 </div>

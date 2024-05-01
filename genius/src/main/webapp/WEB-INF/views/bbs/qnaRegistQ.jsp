@@ -64,21 +64,21 @@
                 </div>
             </div>
             <hr>
-            <form method="post">
+            <form method="post" action="/bbs/qnaRegistQ" id="registFrm" name="registFrm">
                 <div class="border-gray mb-5">
                     <div class="form-row ml-5">
                         <div class="form-group col-md-5">
                             <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" name="title">
+                            <input type="text" class="form-control" id="inputCity" name="title" value=""/>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">${sessionScope.member_id}</label>
+                            <label for="inputZip">아이디</label>
                             <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
-<%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
+                            <%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
                             <select id="inputState" class="form-control">
                                 <option>Choose...</option>
                                 <option>자유 게시판</option>
@@ -91,7 +91,7 @@
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
-                        <button type="button" class="btn btn-success mt-3" onclick="location.href='/bbs/qnaRegistQ'">등록</button>
+                        <button type="button" id="registBtn" class="btn btn-success mt-3">등록</button>
                     </div>
                 </div>
             </form>
@@ -108,6 +108,12 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    document.getElementById("registBtn").addEventListener("click", function(e){
+        e.preventDefault();
+        console.log(document.getElementById("inputCity").value)
+        document.getElementById("registFrm").submit();
+    });
+
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,

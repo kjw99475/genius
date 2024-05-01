@@ -48,29 +48,31 @@
     <section class="section-margin--small mb-5">
         <div class="container">
             <div class="filter-bar">
-                <div class="input-group d-flex justify-content-end">
-                    <div class="sorting d-flex">
-                        <select name="sales_status">
-                            <option value="1">전체</option>
-                            <option value="2">작성자</option>
-                            <option value="3">제목</option>
-                            <option value="4">내용</option>
-                        </select>
-                        <div class="col-auto">
-                            <input type="date" class="form-control" id="startDay" name="startDay">
-                        </div>
-                        <div>~</div>
-                        <div class="col-auto">
-                            <input type="date" class="form-control" id="endDay" name="endDay">
-                        </div>
-                        <div class="filter-bar-search">
-                            <input type="text" placeholder="Search" style="width: 100%">
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-success">검색</button>
+                <form action="/bbs/qnaList" method="get" id="frmSearch">
+                    <div class="input-group d-flex justify-content-end">
+                        <div class="sorting d-flex">
+                            <select name="type">
+                                <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>작성자</option>
+                                <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>제목</option>
+                                <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>내용</option>
+                            </select>
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="startDay" value="${responseDTO.search_date1}" name="search_date1">
+                            </div>
+                            <div>~</div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="endDay"value="${responseDTO.search_date2}" name="search_date2">
+                            </div>
+                            <div class="filter-bar-search">
+                                <input type="text" name="search_word" value="${responseDTO.search_word}" placeholder="Search" style="width: 100%">
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-success">검색</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <table class="table table-hover">
                 <thead class="filter-bar">
@@ -83,20 +85,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${qnaDTOList}" var="qnaDTO">
+                <c:set value="${responseDTO.total_count}" var="total_count"/>
+
+                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
                     <c:if test="${qnaDTO.answerYN == 'N'}">
                         <tr>
-                            <th scope="row">6</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewQ">${qnaDTO.title}</a></td>
-                            <td>${qnaDTO.member_id}</td>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
+                            <td>${qnaDTO.member_name}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
                         </tr>
                     </c:if>
                     <c:if test="${qnaDTO.answerYN == 'Y'}">
                         <tr>
-                            <th scope="row">5</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewA"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
                             <td>${qnaDTO.member_id}</td>
                             <td>${qnaDTO.reg_date}</td>
                             <td>${qnaDTO.read_cnt}</td>
@@ -117,34 +121,36 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                    <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                       class="page-link" aria-label="Previous">&laquo;
+                    </a>
                 </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">01</a>
-                </li>
-                <li class="page-item active">
-                    <a href="#" class="page-link">02</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">03</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">04</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">09</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                <c:forEach begin="${responseDTO.page_block_start}"
+                           end="${responseDTO.page_block_end}"
+                           var="page_num">
+                    <c:choose>
+                        <c:when test="${responseDTO.page == page_num}">
+                            <li class="page-item active">
+                                <a href="#" class="page-link">${page_num}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                    <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                 </li>
             </ul>
         </nav>
     </section>
-    ${sessionScope.member_id}
 </main>
 <!--================ 본문 END =================-->
-
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->

@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.QnaDTO;
 import org.fullstack4.genius.mapper.OrderMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,22 @@ public class OrderServiceImpl  implements OrderServiceIf {
     public int regist(OrderDTO orderDTO) {
         OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
         int result = orderMapper.regist(orderVO);
+
+        return result;
+    }
+
+    @Override
+    public int detailregist(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.detailregist(orderVO);
+
+        return result;
+    }
+
+    @Override
+    public int deliveryRegist(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.deliveryRegist(orderVO);
 
         return result;
     }
@@ -83,12 +101,55 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
+    public List<OrderDTO> AdminOrderdetail(String order_num) {
+        List<OrderVO> orderVO = orderMapper.AdminOrderdetail(order_num);
+        List<OrderDTO> orderDTO = orderVO.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return orderDTO;
+    }
+
+    @Override
+    public int updateOrderState(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.updateOrderState(vo);
+
+        return result;
+    }
+
+    @Override
+    public int updateDcompany(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.updateDcompany(vo);
+
+        return result;
+    }
+
+    @Override
     public int OrderTotalCount(PageRequestDTO requestDTO) {
         return 0;
     }
 
     @Override
-    public List<OrderDTO> OrderListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<OrderDTO> OrderListByPage(PageRequestDTO requestDTO)
+    {
+        List<OrderVO> voList = orderMapper.OrderListByPage(requestDTO);
+        List<OrderDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo, OrderDTO.class))
+                .collect(Collectors.toList());
+
+        log.info("requsetDTO 테스트 :" + requestDTO );
+        int total_count = orderMapper.OrderTotalCount(requestDTO);
+
+        PageResponseDTO<OrderDTO> responseDTO = PageResponseDTO.<OrderDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        log.info("responseDTO 테스트 :" + responseDTO );
+
+        return responseDTO;
     }
 }

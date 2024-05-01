@@ -6,16 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.Common.FileUtil;
-import org.fullstack4.genius.dto.CartDTO;
-import org.fullstack4.genius.dto.FileDTO;
-import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.dto.PaymentDTO;
-import org.fullstack4.genius.service.CartServiceIf;
-import org.fullstack4.genius.service.MemberServiceIf;
-import org.fullstack4.genius.service.PaymentServiceIf;
-import org.fullstack4.genius.service.PaymentServiceImpl;
+import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +33,7 @@ public class MypageController {
     private final PaymentServiceIf paymentService;
     private final CartServiceIf cartService;
     private final MemberServiceIf memberService;
+    private final QnaServiceIf qnaService;
 
     @GetMapping("/mypage")
     public String GETMypage(HttpServletRequest request,
@@ -60,7 +58,7 @@ public class MypageController {
         MemberDTO orgMemberDTO = memberService.view(member_id);
         newMemberDTO.setMember_id(member_id);
         FileDTO fileDTO = null;
-        if(file != null) {
+        if(file.getSize() > 0) {
             String uploadFolder =  CommonUtil.getUploadFolder(request, "profile");
             fileDTO = FileDTO.builder()
                     .file(file)
@@ -80,8 +78,22 @@ public class MypageController {
     }
 
     @GetMapping("/myquestions")
-    public void GETQuestion(){
+    public void GETQuestion(@Valid PageRequestDTO pageRequestDTO,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes,
+                            HttpServletRequest request,
+                            Model model){
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        HttpSession session = request.getSession();
+        pageRequestDTO.setMember_id((String) session.getAttribute("member_id"));
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage_block_size(10);
+        PageResponseDTO<QnaDTO> responseDTO = qnaService.qnaListByPage(pageRequestDTO);
 
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @PostMapping("/myquestions")
@@ -90,8 +102,33 @@ public class MypageController {
     }
 
     @GetMapping("/payhistory")
-    public void GETPayhistory(){
+    public void GETPayhistory(HttpServletRequest req,Model model
+                            ,PageRequestDTO pageRequestDTO){
+        HttpSession session = req.getSession();
+        String member_id = session.getAttribute("member_id").toString();
+//        List<OrderDTO> dtolist = paymentService.viewOrder(member_id);
 
+        pageRequestDTO.setMember_id(member_id);
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<OrderDTO> responseDTO = paymentService.viewOrderListByPage(pageRequestDTO);
+
+        List<List<OrderDTO>> detaillist = new ArrayList<List<OrderDTO>>();
+        for(int i = 0; i < responseDTO.getDtoList().size(); i++){
+            String ordernum = responseDTO.getDtoList().get(i).getOrder_num();
+            List<OrderDTO> detail = paymentService.viewOrderdetail(ordernum);
+            detaillist.add(detail);
+        }
+
+        log.info("===================================시작=============================");
+        log.info("responseDTO : " + responseDTO);
+        log.info("detaillist : " + detaillist);
+        log.info("===================================끝=============================");
+
+        model.addAttribute("dtolist", responseDTO.getDtoList());
+        model.addAttribute("pageDTO", responseDTO);
+        model.addAttribute("detaillist", detaillist);
     }
 
     @PostMapping("/payhistory")
@@ -100,13 +137,21 @@ public class MypageController {
     }
 
     @GetMapping("/cart")
-    public void GETCart(Model model, HttpServletRequest req){
+    public void GETCart(Model model, HttpServletRequest req,
+                        @RequestParam(name="page", defaultValue = "1")int page,
+                        PageRequestDTO pageRequestDTO){
         HttpSession session = req.getSession();
         String member_id = (String) session.getAttribute("member_id");
 
-        List<CartDTO> dto =cartService.listAll(member_id);
-        log.info("###################"+dto.toString());
-        model.addAttribute("list",dto);
+
+        pageRequestDTO.setPage_size(5);
+        pageRequestDTO.setPage(page);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<CartDTO> responseDTO = cartService.CartListByPage(member_id,pageRequestDTO);
+//        List<CartDTO> dto =cartService.listAll(member_id);
+        model.addAttribute("pageDTO", responseDTO);
+        model.addAttribute("list",responseDTO.getDtoList());
     }
 
 
@@ -114,8 +159,8 @@ public class MypageController {
     @ResponseBody
     public String AddCart(@RequestParam HashMap<String,Object> map){
         log.info("###################"+map.get("book_code").toString());
-        int exist = cartService.exist(map.get("book_code").toString());
-        log.info("###################"+exist);
+        int exist = cartService.exist(map.get("book_code").toString(),map.get("member_id").toString());
+        log.info("###################exist:"+exist);
         int result = 0;
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         if(exist != 0){
@@ -131,7 +176,7 @@ public class MypageController {
                 resultMap.put("result", "fail");
             }
         }
-        else {
+        else if(exist == 0) {
             CartDTO cartDTO = CartDTO.builder()
                     .book_code(map.get("book_code").toString())
                     .member_id(map.get("member_id").toString())
@@ -185,19 +230,23 @@ public class MypageController {
     }
 
     @GetMapping("/point")
-    public void GETPoint(Model model,HttpServletRequest req){
+    public void GETPoint(Model model,HttpServletRequest req,
+                         PageRequestDTO pageRequestDTO){
         HttpSession session = req.getSession();
         String member_id = (String) session.getAttribute("member_id");
         int mypoint = paymentService.pointview(member_id);
-        List<PaymentDTO> mypayment = paymentService.listAll(member_id);
-        int total_count = paymentService.totalCount(member_id);
-        model.addAttribute("total_count",total_count);
-        model.addAttribute("point",mypoint);
-        model.addAttribute("mypaymentlist",mypayment);
 
-        log.info("================================================");
-        log.info("mypayment: " + mypayment);
-        log.info("================================================");
+        pageRequestDTO.setMember_id(member_id);
+        pageRequestDTO.setPage_size(10);
+        pageRequestDTO.setPage_block_size(10);
+
+        PageResponseDTO<PaymentDTO> responseDTO = paymentService.PaymentListByPage(pageRequestDTO);
+
+
+        model.addAttribute("point",mypoint);
+        model.addAttribute("mypaymentlist",responseDTO.getDtoList());
+        model.addAttribute("pageDTO", responseDTO);
+
     }
 
     @PostMapping("/point")
