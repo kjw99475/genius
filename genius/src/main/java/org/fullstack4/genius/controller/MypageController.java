@@ -34,6 +34,7 @@ public class MypageController {
     private final CartServiceIf cartService;
     private final MemberServiceIf memberService;
     private final QnaServiceIf qnaService;
+    private final OrderServiceIf orderService;
 
     @GetMapping("/mypage")
     public String GETMypage(HttpServletRequest request,
@@ -285,4 +286,26 @@ public class MypageController {
         return new Gson().toJson(resultMap);
     }
 
+
+    @RequestMapping(value = "/refundRequest.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String refundRequest(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        log.info("###################"+map.toString());
+        OrderDTO orderDTO = OrderDTO.builder()
+                .order_num(map.get("order_num").toString())
+                .order_refund_request(map.get("order_refund_request").toString())
+                .build();
+        int result = orderService.requestRefund(orderDTO);
+        log.info(result);
+        if(result > 0) {
+            resultMap.put("result", "success");
+        }
+        else{
+            resultMap.put("result", "fail");
+            resultMap.put("message", "오류");
+        }
+
+        return new Gson().toJson(resultMap);
+    }
 }

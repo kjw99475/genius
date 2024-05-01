@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -33,6 +34,44 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
+
+            // Set chart options
+            var options = {'title':'How Much Pizza I Ate Last Night',
+                'width':400,
+                'height':300};
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -54,84 +93,69 @@
 
     <section class="section dashboard">
         <div class="row">
-
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-
+                    <!--Div that will hold the pie chart-->
+                    <div id="chart_div"></div>
                     <!-- Sales Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card sales-card">
-
                             <div class="card-body">
-                                <h5 class="card-title">판매량 <span>| 누적 / 오늘</span></h5>
-
+                                <h5 class="card-title">판매량 <span>| 오늘 / 누적</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{누적 판매량}</h6>
-<%--                                        <span class="text-success small pt-1 fw-bold">증감량</span> <span class="text-muted small pt-2 ps-1">increase</span>--%>
+                                        <h6>${summary.todayOrderCnt}<small>건</small></h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{오늘 판매량}</h6>
+                                        <h6 class="text-dark">/ ${summary.totalOrderCnt}<small>건</small></h6>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div><!-- End Sales Card -->
-
+                    </div>
+                    <!-- End Sales Card -->
                     <!-- Revenue Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
-
                             <div class="card-body">
-                                <h5 class="card-title">매출액 <span>| 누적 / 오늘</span></h5>
-
+                                <h5 class="card-title">매출액 <span>| 오늘 / 누적</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-currency-dollar"></i>
+                                        <i class="bi bi-credit-card-fill"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{누적 매출액}</h6>
-<%--                                        <span class="text-success small pt-1 fw-bold">증감량</span> <span class="text-muted small pt-2 ps-1">increase</span>--%>
+                                        <h6>${CommonUtil.comma(summary.todayOrderPrice)}<small>원</small></h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{오늘 매출액}</h6>
+                                        <h6 class="text-dark">/ ${CommonUtil.comma(summary.totalOrderPrice)}<small>원</small></h6>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div><!-- End Revenue Card -->
-
+                    </div>
+                    <!-- End Revenue Card -->
                     <!-- Customers Card -->
                     <div class="col-xxl-4 col-xl-12">
-
                         <div class="card info-card customers-card">
-
                             <div class="card-body">
-                                <h5 class="card-title">고객수 <span>| 누적 / 오늘</span></h5>
-
+                                <h5 class="card-title">고객수 <span>| 오늘 / 누적</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{누적 고객수}</h6>
-<%--                                        <span class="text-danger small pt-1 fw-bold">증감량</span> <span class="text-muted small pt-2 ps-1">decrease</span>--%>
+                                        <h6>${summary.todayOrderMember}<small>명</small></h6>
                                     </div>
-
                                     <div class="ps-3">
-                                        <h6>{오늘 고객수}</h6>
+                                        <h6 class="text-dark">/ ${summary.totalOrderMember}<small>명</small></h6>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div><!-- End Customers Card -->
 
                     <!-- Recent Sales -->
@@ -291,7 +315,8 @@
                     </div><!-- End Reports -->
 
                 </div>
-            </div><!-- End Left side columns -->
+            </div>
+            <!-- End Left side columns -->
 
 
 

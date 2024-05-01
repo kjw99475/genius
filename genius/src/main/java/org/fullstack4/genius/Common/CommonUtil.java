@@ -147,4 +147,8 @@ public class CommonUtil {
         myUri = myUri.substring(myUri.indexOf("/"));
         return myUri;
     }
+
+    public static String comma(String str) {
+        return String.format("%,d", parseInt(str));
+    }
 }

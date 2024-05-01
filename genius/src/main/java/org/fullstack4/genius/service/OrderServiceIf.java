@@ -21,6 +21,8 @@ public interface OrderServiceIf {
     List<OrderDTO> AdminOrderdetail(String order_num);
     int updateOrderState(OrderDTO orderDTO);
     int updateDcompany(OrderDTO orderDTO);
+    int requestRefund(OrderDTO orderDTO);
+    int responseRefund(OrderDTO orderDTO);
     int OrderTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<OrderDTO> OrderListByPage(PageRequestDTO requestDTO);
 }
