@@ -45,8 +45,22 @@
     <interceptors>
         <interceptor>
             <mapping path="/**" />
-            <beans:bean id="testInterceptor"
+            <beans:bean id="autoLoginInterceptor"
                         class="org.fullstack4.genius.interceptor.AutoLoginInterceptor">
+            </beans:bean>
+        </interceptor>
+        <interceptor>
+            <mapping path="/login/logout" />
+            <mapping path="/mypage/**" />
+            <mapping path="/order/**" />
+            <mapping path="/bbs/qnaViewQ*" />
+            <mapping path="/bbs/qna*Q" />
+            <mapping path="/bbs/qna*A" />
+            <mapping path="/bbs/*Regist" />
+            <mapping path="/bbs/*Modify" />
+            <mapping path="/admin/**" />
+            <beans:bean id="loginCheckInterceptor"
+                        class="org.fullstack4.genius.interceptor.LoginCheckInterceptor">
             </beans:bean>
         </interceptor>
     </interceptors>
