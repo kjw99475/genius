@@ -164,8 +164,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav><!-- End Pagination with icons -->
-
+                            </nav>
+                            <!-- End Pagination with icons -->
                         </div>
                     </div>
                 </div>

@@ -59,86 +59,116 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">배너 관리</h5>
-                        <p>배너를 관리하는 페이지 입니다.</p>
-
-                        <form>
-                            <div class="row mb-3">
+                        <form action="/admin/banner/bannerList">
+                            <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                 <div class="col">
-                                    <div class="row mb-3">
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type"
-                                                                  id="banner_start">
-                                        </div>
-                                        ~
-                                        <div class="col-3"><input class="form-control" type="date" name="search_type"
-                                                                  id="banner_end">
+                                    <div class="row mb-2">
+                                        <label class="fw-bold p-3">게시기간</label>
+                                        <div class="row justify-content-start align-items-center">
+                                            <div class="col-3">
+                                                <input class="form-control" type="date" name="search_data1" id="banner_start" value="${pageResponseDTO['search_data1']}">
+                                            </div>
+                                            ~
+                                            <div class="col-3">
+                                                <input class="form-control" type="date" name="search_data2" id="banner_end" value="${pageResponseDTO['search_data2']}">
+                                            </div>
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="row">
-
-                                    <div class="col-2">
-                                        <select name="search_category" id="search_category" class="form-select">
-                                            <option selected>전체</option>
-                                            <option value="banner_name">배너 이름</option>
-                                            <option value="banner_use">사용 여부</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="검색어" name="search_word"
-                                               id="search_word">
-                                    </div>
+                                <div class="row mb-2">
                                     <div class="col">
-                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                        <div class="row">
+                                            <label class="fw-bold p-3">키워드 검색</label>
+                                            <div class="d-flex align-items-center" style="gap: 10px">
+                                                <select name="search_category" id="search_category" class="form-select w-200px">
+                                                    <option value="all" <c:if test="${pageResponseDTO['search_category'] == null || pageResponseDTO['search_category'] == 'all'}">selected</c:if>>전체</option>
+                                                    <option value="title" <c:if test="${pageResponseDTO['search_category'] == 'title'}">selected</c:if>>배너 이름</option>
+                                                    <option value="member_id" <c:if test="${pageResponseDTO['search_category'] == 'member_id'}">selected</c:if>>등록아이디</option>
+                                                    <option value="member_name" <c:if test="${pageResponseDTO['search_category'] == 'member_name'}">selected</c:if>>등록자</option>
+                                                </select>
+                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${pageResponseDTO['search_word']}">
+                                                <div class="w-200px">
+                                                    <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <div class="row">
+                                            <label class="fw-bold p-3">사용여부</label>
+                                            <div class="d-flex pe-3 ps-3" style="gap: 15px">
+                                                <label for="Y" ><input type="radio" name="status" id="Y" value="Y" <c:if test="${pageResponseDTO['status'] == null || pageResponseDTO['status'] == 'Y'}">checked</c:if>> 사용</label>
+                                                <label for="N" ><input type="radio" name="status" id="N" value="N" <c:if test="${pageResponseDTO['status'] == 'N'}">checked</c:if>> 미사용</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
-
                         <div class="col-2 mb-2">
-                            <select class="form-select">
-                                <option value="5">5개씩 보기</option>
-                                <option value="10" selected>10개씩 보기</option>
-                                <option value="100">100개씩 보기</option>
+                            <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                                <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                                <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                                <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
                             </select>
                         </div>
-
                         <!-- Table with stripped rows -->
-                        <table class="table">
+                        <table class="w-100 table">
+                            <colgroup>
+                                <col class="w-5"/>
+                                <col class="w-25"/>
+                                <col class="w-10"/>
+                                <col class="w-10"/>
+                                <col class="w-25"/>
+                                <col class="w-10"/>
+                                <col class="w-5"/>
+                            </colgroup>
                             <thead>
                             <tr>
-                                <th>배너 이름</th>
-                                <th>게시 기간</th>
-                                <th>우선순위</th>
-                                <th>사용여부</th>
+                                <th scope="col" class="bg-geni-dark text-white" >No</th>
+                                <th scope="col" class="bg-geni-dark text-white" >배너 이름</th>
+                                <th scope="col" class="bg-geni-dark text-white" >등록자</th>
+                                <th scope="col" class="bg-geni-dark text-white" >등록일</th>
+                                <th scope="col" class="bg-geni-dark text-white" >게시 기간</th>
+                                <th scope="col" class="bg-geni-dark text-white" >사용여부</th>
+                                <th scope="col" class="bg-geni-dark text-white" >순서</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${bammerDTOList}" var="bannerDTO">
-                                <tr onclick="location.href='/admin/banner/bannerModify'">
-                                    <td>${bannerDTO.banner_name}</td>
-                                    <td>${bannerDTO.banner_start} ~ ${bannerDTO.banner_end}</td>
-                                    <td>${bannerDTO.banner_rank}</td>
-                                    <td>${bannerDTO.banner_use}</td>
+                            <c:if test="${!empty pageResponseDTO.dtoList}">
+                                <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
+                                <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
+                                    <tr onclick="location.href='/admin/banner/bannerModify?banner_img_idx=${dtoList['banner_img_idx']}'">
+                                        <td>${i}</td>
+                                        <td>${dtoList['title']}</td>
+                                        <td>${dtoList['member_name']}</td>
+                                        <td>${dtoList['reg_date']}</td>
+                                        <td>${dtoList['post_start_date']} ~ ${dtoList['post_end_date']}</td>
+                                        <td>
+                                            <c:if test="${dtoList['banner_status'] == 'Y'}">사용</c:if>
+                                            <c:if test="${dtoList['banner_status'] == 'N'}">미사용</c:if>
+                                        </td>
+                                        <td>${dtoList['order']}</td>
+                                    </tr>
+                                    <c:set var="i" value="${i-1}" />
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${empty pageResponseDTO.dtoList}">
+                                <tr>
+                                    <td colspan="7">
+                                        내용이 없습니다.
+                                    </td>
                                 </tr>
-                            </c:forEach>
-
-                            <tr onclick="location.href='/admin/banner/bannerModify'">
-                                <td>봄</td>
-                                <td>2024-03-03 ~ 2024-04-04</td>
-                                <td>1</td>
-                                <td>사용</td>
-                            </tr>
+                            </c:if>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
 
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-success"
-                                    onclick="location.href='/admin/banner/bannerRegist'">등록
+                            <button type="button" class="btn btn-success" onclick="location.href='/admin/banner/bannerRegist'">등록
                             </button>
                         </div>
 
@@ -147,22 +177,24 @@
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                    <li class="page-item <c:if test="${!pageResponseDTO.prev_page_flag}">disabled</c:if>">
+                                        <a class="page-link" href="${pageResponseDTO.linked_params}&page=${((pageResponseDTO.page - pageResponseDTO.page_block_size) >= 1) ? (pageResponseDTO.page - pageResponseDTO.page_block_size) : 1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
+                                    <c:forEach var="li" begin="${pageResponseDTO.page_block_start}" end="${pageResponseDTO.page_block_end}">
+                                        <li class="page-item <c:if test="${pageResponseDTO.page eq li}">active</c:if> ">
+                                            <a class="page-link" href="${pageResponseDTO.linked_params}&page=${li}">${li}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item <c:if test="${!pageResponseDTO.next_page_flag}">disabled</c:if>">
+                                        <a class="page-link" href="${pageResponseDTO.linked_params}&page=${(pageResponseDTO.page + pageResponseDTO.page_block_size) <= pageResponseDTO.total_page ? (pageResponseDTO.page + pageResponseDTO.page_block_size) : pageResponseDTO.total_page}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                 </ul>
-                            </nav><!-- End Pagination with icons -->
-
+                            </nav>
+                            <!-- End Pagination with icons -->
                         </div>
                     </div>
                 </div>
@@ -180,7 +212,14 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
-
+<script>
+    // 페이지 개수 보기
+    function modifyPageSize(element) {
+        let pageSize = element.value;
+        let queryString = "?page_size='+pageSize+'&search_word=${pageResponseDTO['search_word']}&search_data1=${pageResponseDTO['search_data1']}&search_data2=${pageResponseDTO['search_data2']}&status=${pageResponseDTO['status']}";
+        location.href = '/admin/banner/bannerList';
+    }
+</script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

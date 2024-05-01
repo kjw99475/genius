@@ -1236,7 +1236,8 @@ h6 {
 }
 
 .bg-geni {background-color: #00B050 !important;}  
-.bg-geni-ft{background-color: #e5f5ee;}  
+.bg-geni-ft{background-color: #e5f5ee !important;}  
+.bg-geni-dark{background-color: #67ab86 !important;}
 .text-geni {color: #00B050 !important;}  
 .bg-lightgray {background-color: rgb(235, 235, 235);} .bg-gray {background-color:#fbfafa !important;} 
 .border-gray-left{border-left:1px solid #d7d5d5 !important;} 

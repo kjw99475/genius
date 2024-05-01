@@ -26,12 +26,7 @@ public class BookServiceImpl implements BookServiceIf {
     @Override
     public int regist(BookDTO bookDTO) {
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
-        log.info("==========================");
-        log.info("BookServiceImpl >> regist(bookDTO) : " + bookDTO.toString());
         int result = bookMapper.regist(bookVO);
-        log.info("BookServiceImpl >> regist(bookVO) : " + bookVO.toString());
-        log.info("BookServiceImpl >> result : " + result);
-        log.info("==========================");
         return result;
     }
 
@@ -55,20 +50,13 @@ public class BookServiceImpl implements BookServiceIf {
     @Override
     public int modify(BookDTO bookDTO) {
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
-        log.info("===================");
         int result = bookMapper.modify(bookVO);
-        log.info("bookservice : modify : result = " + result);
-        log.info("==================");
         return result;
     }
 
     @Override
     public int delete(int idx) {
-        log.info("==========================");
-        log.info("BbsServiceImpl >> delete(int idx) : " + idx);
         int result = bookMapper.delete(idx);
-        log.info("BbsServiceImpl >> result : " + result);
-        log.info("==========================");
         return result;
     }
 
@@ -82,9 +70,6 @@ public class BookServiceImpl implements BookServiceIf {
     @Override
     public PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO) {
         List<BookVO> voList = bookMapper.BookListByPage(requestDTO);
-        log.info("========================");
-        log.info("voList : " + voList);
-        log.info("========================");
         List<BookDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo,BookDTO.class))
                 .collect(Collectors.toList());

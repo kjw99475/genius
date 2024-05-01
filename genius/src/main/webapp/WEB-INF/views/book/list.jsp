@@ -48,7 +48,6 @@
         </div>
     </section>
     <!-- ================ end banner area ================= -->
-
     <!-- ================ 내용 section start ================= -->
     <section class="section-margin--small mb-5">
         <div class="container">
@@ -62,7 +61,7 @@
                                 <form action="#">
                                     <ul>
                                         <c:forEach items="${subjectList}" var="list">
-                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="subject_code" value="${list.category_code}"><label for="${list.category_code}">${list.name}</label></li>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" value="${list.category_code}" onclick="categorySubjectSearch(this)" id="${list.category_code}" name="subject_code_check" <c:if test="${responseDTO.subject_code == list.category_code}"> checked</c:if>><label for="${list.category_code}">${list.name}</label></li>
                                         </c:forEach>
                                     </ul>
                                 </form>
@@ -73,88 +72,87 @@
                         <div class="top-filter-head">카테고리</div>
                         <div class="common-filter">
                             <div class="head">초등</div>
-                            <form action="#">
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
                                         <c:if test='${fn:contains(list.name, "초등")}'>
-                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" value="${list.category_code}" onclick="categoryClassSearch(this)" id="${list.category_code}" name="class_code_check" <c:if test="${responseDTO.class_code == list.category_code}"> checked</c:if>><label for="${list.category_code}">${list.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
-                            </form>
                         </div>
                         <div class="common-filter">
                             <div class="head">중등</div>
-                            <form action="#">
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
                                         <c:if test='${fn:contains(list.name, "중등")}'>
-                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" value="${list.category_code}" onclick="categoryClassSearch(this)" id="${list.category_code}" name="class_code_check" <c:if test="${responseDTO.class_code == list.category_code}"> checked</c:if>><label for="${list.category_code}">${list.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
-                            </form>
                         </div>
                         <div class="common-filter">
                             <div class="head">고등</div>
-                            <form action="#">
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
                                         <c:if test='${fn:contains(list.name, "고등")}'>
-                                            <li class="filter-list"><input class="pixel-radio" type="radio" id="${list.category_code}" name="category_class_code"><label for="${list.category_code}">${list.name}</label></li>
+                                            <li class="filter-list"><input class="pixel-radio" type="radio" value="${list.category_code}" onclick="categoryClassSearch(this)" id="${list.category_code}" name="class_code_check" <c:if test="${responseDTO.class_code == list.category_code}"> checked</c:if>><label for="${list.category_code}">${list.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
-                            </form>
                         </div>
                     </div>
                 </div>
                 <!-- 카테고리 Bar -->
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <!-- Start Filter Bar -->
-                    <div class="pb-2 d-flex justify-content-between">
-                        <div class="d-flex justify-content-start">
+
+                    <form id="search_form">
+                        <input type="hidden" id="category_class_code" name="class_code" value="${responseDTO.class_code}">
+                        <input type="hidden" id="category_subject_code" name="subject_code" value="${responseDTO.subject_code}">
+                        <div class="pb-2 d-flex justify-content-between">
+                            <div class="d-flex justify-content-start">
+                                <div class="sorting">
+                                    <select name="sort">
+                                        <option value="1" <c:if test="${responseDTO.sort == '1'}"> selected</c:if>>출판일 최신순</option>
+                                        <option value="2" <c:if test="${responseDTO.sort == '2'}"> selected</c:if>>판매량순</option>
+                                        <option value="3" <c:if test="${responseDTO.sort == '3'}"> selected</c:if>>낮은가격순</option>
+                                        <option value="4" <c:if test="${responseDTO.sort == '4'}"> selected</c:if>>높은가격순</option>
+                                    </select>
+                                </div>
+                                <div class="sorting ">
+                                    <select name="status">
+                                        <option value="0" <c:if test="${responseDTO.status == '0'}"> selected</c:if>>판매상태 전체</option>
+                                        <option value="1" <c:if test="${responseDTO.status == '1'}"> selected</c:if>>판매중</option>
+                                        <option value="2" <c:if test="${responseDTO.status == '2'}"> selected</c:if>>판매준비중</option>
+                                        <option value="3" <c:if test="${responseDTO.status == '3'}"> selected</c:if>>판매종료</option>
+                                        <option value="4" <c:if test="${responseDTO.status == '4'}"> selected</c:if>>품절</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="sorting">
-                                <select name="sort">
-                                    <option value="1">출판일 최신순</option>
-                                    <option value="2">판매량순</option>
-                                    <option value="3">낮은가격순</option>
-                                    <option value="4">높은가격순</option>
-                                </select>
-                            </div>
-                            <div class="sorting ">
-                                <select name="status">
-                                    <option value="0">판매상태 전체</option>
-                                    <option value="1">판매중</option>
-                                    <option value="2">판매준비중</option>
-                                    <option value="3">판매종료</option>
-                                    <option value="4">품절</option>
-                                </select>
+                                <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
                             </div>
                         </div>
-                        <div class="sorting">
-                            <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
-                        </div>
-                    </div>
-                    <!-- Start Filter Bar -->
-                    <div class="filter-bar">
-                        <div class="input-group d-flex justify-content-end">
-                            <div class="sorting d-flex">
-                                <select name="type">
-                                    <option value="0">전체</option>
-                                    <option value="1">책이름</option>
-                                    <option value="2">저자</option>
-                                    <option value="3">출판사</option>
-                                </select>
-                                <div class="filter-bar-search">
-                                    <input type="text" placeholder="Search" style="width: 100%">
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-success">검색</button>
+                        <!-- Start Filter Bar -->
+                        <div class="filter-bar">
+                            <div class="input-group d-flex justify-content-end">
+                                <div class="sorting d-flex">
+                                    <select name="type">
+                                        <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                        <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>책이름</option>
+                                        <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>저자</option>
+                                        <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>출판사</option>
+                                    </select>
+                                    <div class="filter-bar-search">
+                                        <input type="text" placeholder="Search" name="search_word" value="${responseDTO.search_word}" style="width: 100%">
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">검색</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- End Filter Bar -->
                     <!-- Start Best Seller -->
                     <section class="lattest-product-area pb-40 category-list">
@@ -272,7 +270,14 @@
             e.stopPropagation();
         })
     }
-
+    function categorySubjectSearch(element){
+        document.getElementById("category_subject_code").value = element.value;
+        document.getElementById("search_form").submit();
+    }
+    function categoryClassSearch(element){
+        document.getElementById("category_class_code").value = element.value;
+        document.getElementById("search_form").submit();
+    }
     /* 체크박스 장바구니 선택 로직*/
     function cartChoices() {
         let chooses = document.querySelectorAll('.choose');

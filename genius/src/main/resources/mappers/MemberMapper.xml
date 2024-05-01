@@ -14,11 +14,11 @@
             <if test="search_category == 'member_name'">
                 member_name LIKE CONCAT('%', #{search_word}, '%')
             </if>
-            <if test="search_date1 != null and search_date1 != ''">
-                AND display_date <![CDATA[>=]]> #{search_date1}
+            <if test="search_data1 != null and search_data1 != ''">
+                AND reg_date <![CDATA[>=]]> #{search_data1}
             </if>
-            <if test="search_date2 != null and search_data2 != ''">
-                AND display_date <![CDATA[<=]]> #{search_date2}
+            <if test="search_data2 != null and search_data2 != ''">
+                AND reg_date <![CDATA[<=]]> #{search_data2}
             </if>
         </where>
     </sql>
