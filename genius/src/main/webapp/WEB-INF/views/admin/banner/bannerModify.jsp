@@ -67,42 +67,42 @@
                             <!-- Edit Form -->
                             <form method="post">
                                 <div class="row mb-3">
-                                    <label for="banner_name" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
+                                    <label for="banner_name" class="col-md-4 col-lg-2 col-form-label">배너 이름}</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="fullName" type="text" class="form-control" id="banner_name"
-                                               value="${bannerDTO.book_name}">
+                                               value="${bannerDTO['title']}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="banner_start" class="col-md-4 col-lg-2 col-form-label">게시 시작일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_start" type="date" class="form-control" id="banner_start"
-                                               value="${bannerDTO.banner_start}">
+                                        <input name="post_start_date" type="date" class="form-control" id="banner_start"
+                                               value="${bannerDTO['post_start_date']}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="banner_end" class="col-md-4 col-lg-2 col-form-label">게시 종료일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_end" type="date" class="form-control" id="banner_end"
-                                               value="${bannerDTO.banner_end}">
+                                        <input name="post_end_date" type="date" class="form-control" id="banner_end"
+                                               value="${bannerDTO['post_end_date']}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">우선순위</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_rank" type="text" class="form-control" id="banner_rank"
-                                               value="${bannerDTO.banner_rank}">
+                                        <input name="order" type="text" class="form-control" id="banner_rank"
+                                               value="${bannerDTO['order']}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="banner_use" class="col-md-4 col-lg-2 col-form-label">사용여부</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_use" type="text" class="form-control" id="banner_use"
-                                               value="${bannerDTO.banner_use}">
+                                        <input name="status" type="text" class="form-control" id="banner_use"
+                                               value="${bannerDTO['banner_status']}">
                                     </div>
                                 </div>
 
@@ -110,7 +110,16 @@
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="file" type="file" class="form-control" id="file"
-                                               value="${bannerDTO.file}">
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 card">
+                                    <div class="card-header p-1 border-gray">
+                                        <p>미리보기</p>
+                                    </div>
+
+                                    <div class="card-body p-1 border-gray w-100">
+                                        <img class="d-block w-100" src="/resources/upload/banner/banner1.jpg">
                                     </div>
                                 </div>
 

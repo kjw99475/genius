@@ -21,6 +21,16 @@ public class BannerServiceImpl implements BannerServiceIf {
     private final ModelMapper modelMapper;
 
     @Override
+    public BannerDTO view(String banner_img_idx) {
+        BannerVO bannerVO = mainMapper.view(banner_img_idx);
+        BannerDTO bannerDTO = null;
+        if (bannerVO != null) {
+            bannerDTO = modelMapper.map(bannerVO, BannerDTO.class);
+        }
+        return bannerDTO;
+    }
+
+    @Override
     public PageResponseDTO<BannerDTO> list(PageRequestDTO pageRequestDTO) {
         log.info("pageRequestDTO : " + pageRequestDTO);
         log.info("==============================================");

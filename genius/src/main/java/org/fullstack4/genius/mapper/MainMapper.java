@@ -17,4 +17,5 @@ public interface MainMapper {
     List<BannerVO> banner();
     List<BannerVO> list(PageRequestDTO pageRequestDTO);
     int totalCount(PageRequestDTO pageRequestDTO);
+    BannerVO view(String banner_img_idx);
 }
