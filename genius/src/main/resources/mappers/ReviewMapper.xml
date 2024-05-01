@@ -28,4 +28,16 @@
         )
         WHERE book_code = #{book_code}
     </update>
+    <select id="reviewTotalCount" resultType="int">
+        SELECT COUNT(*) FROM tbl_review
+        WHERE book_code = #{book_code}
+    </select>
+
+    <select id="reviewListByPage" resultType="org.fullstack4.genius.domain.ReviewVO">
+        SELECT review_idx, member_id, book_code, reg_date, rank, review_contents
+        FROM tbl_review
+        WHERE book_code = #{book_code}
+        ORDER BY review_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 </mapper>

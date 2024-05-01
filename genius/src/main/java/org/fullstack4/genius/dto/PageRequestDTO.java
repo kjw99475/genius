@@ -67,6 +67,8 @@ public class PageRequestDTO {
     private String type;
     private String type2;
     private String member_id;
+    private String book_code;
+    private String page_flag;
 
     public void setTotal_count(int total_count) {
         this.total_count = total_count;

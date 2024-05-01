@@ -38,6 +38,10 @@ public class JiwonTest {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .category_code("bc01")
                 .page_size(4)
+                .type("1")
+                .search_word("몽구리")
+                .search_date1(LocalDate.parse("2024-04-04"))
+                .search_date2(null)
                 .build();
         List<BbsVO> list = bbsMapper.bbsListByPage(pageRequestDTO);
         log.info("=================================");

@@ -52,20 +52,20 @@
                     <form>
                     <div class="sorting d-flex">
                         <select name="type">
-                            <option value="0">전체</option>
-                            <option value="1">작성자</option>
-                            <option value="2">제목</option>
-                            <option value="3">내용</option>
+                            <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                            <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                            <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                            <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
                         </select>
                         <div class="col-auto">
-                            <input type="date" class="form-control" id="startDay" name="reg_date1">
+                            <input type="date" class="form-control" name="search_date1" value="${responseDTO.search_date1}">
                         </div>
                         <div>~</div>
                         <div class="col-auto">
-                            <input type="date" class="form-control" id="endDay" name="reg_date2">
+                            <input type="date" class="form-control" name="search_date2" value="${responseDTO.search_date2}">
                         </div>
                         <div class="filter-bar-search">
-                            <input type="text" placeholder="Search" style="width: 100%">
+                            <input type="text" placeholder="Search" name="search_word" style="width: 100%" value="${responseDTO.search_word}">
                         </div>
                         <div>
                             <button type="submit" class="btn btn-success">검색</button>

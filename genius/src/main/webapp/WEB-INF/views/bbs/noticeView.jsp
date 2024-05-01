@@ -53,7 +53,7 @@
         </div>
     </section>
     <!-- ================ End banner area ================= -->
-    <section class="section section-margin--small">
+    <section class="section-margin--small mb-5">
         <div class="container">
             <table class="table border-gray">
                 <colgroup>
@@ -62,24 +62,24 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th class="bg-table text-center" scope="row">게시글 번호</th>
-                    <td>1</td>
+                    <th scope="row">게시글 번호</th>
+                    <td>${param.no}</td>
                 </tr>
                 <tr>
-                    <th class="bg-table text-center" scope="row">제목</th>
-                    <td>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</td>
+                    <th scope="row">제목</th>
+                    <td>${bbsDTO.bbs_title}</td>
                 </tr>
                 <tr>
-                    <th class="bg-table text-center" scope="row">작성자</th>
-                    <td> 천재교과서 <span>(아이디)</span> </td>
+                    <th scope="row">작성자</th>
+                    <td> ${bbsDTO.member_name} <span></span> </td>
                 </tr>
                 <tr>
-                    <th class="bg-table text-center" scope="row">작성일</th>
-                    <td>2023-10-06</td>
+                    <th scope="row">작성일</th>
+                    <td>${bbsDTO.reg_date}</td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <div><div class=""><p>초등 평가문제 과학 6-2 (이상원)_정답 및 해설</p><p><br></p></div></div>
+                        <div><div class=""><p>${bbsDTO.bbs_contents}</p><p><br></p></div></div>
                     </td>
                 </tr>
                 <tr>
@@ -91,8 +91,8 @@
                     <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
                 </tr>
                 <tr>
-                    <th class="bg-table text-center" scope="row">조회수</th>
-                    <td><span>12</span>
+                    <th scope="row">조회수</th>
+                    <td><span>${bbsDTO.read_cnt}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -106,13 +106,28 @@
                     <col style="width:auto;"/>
                 </colgroup>
                 <tbody>
+
                 <tr>
-                    <th class="bg-table text-center"  scope="row"><strong>이전글</strong> <span class="ti-angle-up"></span></th>
-                    <td class="card-product__title"><a href="#">이전글</a></td>
+                    <th scope="row"><strong>다음글</strong><span class="ti-angle-up"></span></th>
+                    <td class="card-product__title">
+                        <c:if test="${postbbsDTO != null}">
+                            <a href='/bbs/noticeView?bbs_idx=${postbbsDTO.bbs_idx}'>${postbbsDTO.bbs_title}</a>
+                        </c:if>
+                        <c:if test="${postbbsDTO == null}">
+                            다음 글이 없습니다.
+                        </c:if>
+                    </td>
                 </tr>
                 <tr>
-                    <th class="bg-table text-center"  scope="row"><strong>다음글</strong> <span class="ti-angle-down"></span></th>
-                    <td class="card-product__title"><a href="#">다음글</a></td>
+                    <th scope="row"><strong>이전글</strong><span class="ti-angle-down"></span></th>
+                    <td class="card-product__title">
+                        <c:if test="${prebbsDTO != null}">
+                            <a href='/bbs/noticeView?bbs_idx=${prebbsDTO.bbs_idx}'>${prebbsDTO.bbs_title}</a>
+                        </c:if>
+                        <c:if test="${prebbsDTO == null}">
+                            이전 글이 없습니다.
+                        </c:if>
+                    </td>
                 </tr>
                 </tbody>
             </table>
