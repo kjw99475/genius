@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <style>
+        th{
+            border-right:1px solid #d7d5d5;
+            background-color:#fbfafa;
+        }
+    </style>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -35,9 +41,110 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
-    <section>
+
+    <!-- ================ start banner area ================= -->
+    <section class="bg-img4 p-6" id="category">
+        <div class="container h-100 p-3">
+            <div class="blog-banner pt-1 pb-1">
+                <div class="text-center ">
+                    <h1 class=" text-white">자료실</h1>
+                    <span class=" text-white">Board</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ================ End banner area ================= -->
+
+    <section class="section-margin--small mb-5">
         <div class="container">
-            <h1>자료실 > 자료실(뷰)</h1>
+            <div>
+                <div class="input-group d-flex justify-content-end mb-2">
+<%--                    <c:if test="${sessionScope.member_id == bbsDTO.member_id}">--%>
+                    <c:if test="${sessionScope.member_id ne null}">
+                        <form action="/bbs/boardDelete" method="post" id="deleteFrm" name="deleteFrm">
+                            <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
+                            <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/boardModify?bbs_idx=${bbsDTO.bbs_idx}'">수정</button>
+                            <button type="button" id="boardDelBtn" class="btn btn-outline-success mt-3">삭제</button>
+                        </form>
+                    </c:if>
+                </div>
+            </div>
+            <table class="table border-gray">
+                <colgroup>
+                    <col style="width:130px;"/>
+                    <col style="width:auto;"/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">게시글 번호</th>
+                    <td>${param.no}</td>
+                </tr>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td>${bbsDTO.bbs_title}</td>
+                </tr>
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td> ${bbsDTO.member_name} <span></span> </td>
+                </tr>
+                <tr>
+                    <th scope="row">작성일</th>
+                    <td>${bbsDTO.reg_date}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div><div class=""><p>${bbsDTO.bbs_contents}</p><p><br></p></div></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
+                </tr>
+                <tr>
+                    <th class="bg-table text-center" scope="row">첨부파일</th>
+                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
+                </tr>
+                <tr>
+                    <th scope="row">조회수</th>
+                    <td><span>${bbsDTO.read_cnt}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success" onclick="location.href='/bbs/boardList'">목록</button>
+        </div>
+        <div class="container mt-3">
+            <table class="table border-gray">
+                <colgroup>
+                    <col style="width:130px;"/>
+                    <col style="width:auto;"/>
+                </colgroup>
+                <tbody>
+                
+                <tr>
+                    <th scope="row"><strong>다음글</strong><span class="ti-angle-up"></span></th>
+                    <td class="card-product__title">
+                        <c:if test="${postbbsDTO != null}">
+                            <a href='/bbs/boardView?bbs_idx=${postbbsDTO.bbs_idx}'>${postbbsDTO.bbs_title}</a>
+                        </c:if>
+                        <c:if test="${postbbsDTO == null}">
+                            다음 글이 없습니다.
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><strong>이전글</strong><span class="ti-angle-down"></span></th>
+                    <td class="card-product__title">
+                        <c:if test="${prebbsDTO != null}">
+                            <a href='/bbs/boardView?bbs_idx=${prebbsDTO.bbs_idx}'>${prebbsDTO.bbs_title}</a>
+                        </c:if>
+                        <c:if test="${prebbsDTO == null}">
+                            이전 글이 없습니다.
+                        </c:if>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 </main>
@@ -50,6 +157,16 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+
+<script>
+    let boardDelBtn = document.getElementById("boardDelBtn");
+    boardDelBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        if(confirm("해당 질문 글을 삭제하시겠습니까?")){
+            document.getElementById("deleteFrm").submit();
+        }
+    })
+</script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>

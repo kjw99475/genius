@@ -18,6 +18,7 @@ public interface BbsMapper {
     BbsVO postView(@Param("bbs_idx") int bbs_idx, @Param("category_code") String category_code);
     int modify(BbsVO bbsVO);
     int delete(int idx);
+    int readCount(int idx);
     int bbsTotalCount(PageRequestDTO requestDTO);
     List<BbsVO> bbsListByPage(PageRequestDTO requestDTO);
 }

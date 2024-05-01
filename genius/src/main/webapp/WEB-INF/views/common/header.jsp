@@ -23,16 +23,18 @@
                             </c:if>
                             <script>
                                 function logout() {
+                                    event.stopPropagation();
+                                    event.preventDefault()
                                     let frm = document.createElement('form');
                                     let input = document.createElement('input');
                                     frm.action = '/login/logout';
                                     frm.method = 'post';
-                                    frm.id = 'frm';
+                                    frm.id = 'frmLogout';
                                     input.name = 'member_id';
                                     input.value = '${sessionScope['member_id']}';
                                     frm.append(input);
                                     document.body.append(frm);
-                                    document.getElementById('frm').submit();
+                                    document.getElementById('frmLogout').submit();
                                 }
                             </script>
                         </c:when>
