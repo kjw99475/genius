@@ -96,4 +96,10 @@
         INNER JOIN tbl_member AS TM ON TM.member_id = TB.member_id
         <include refid="whereConditionForBanner" />
     </select>
+    <select id="view" resultType="org.fullstack4.genius.domain.BannerVO">
+        SELECT TB.banner_img_idx, TB.title, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TM.member_name, TB.reg_date, TB.modify_date, TB.post_start_date, TB.post_end_date, TB.`order`
+        FROM tbl_banner AS TB
+        INNER JOIN tbl_member AS TM ON TM.member_id = TB.member_id
+        WHERE TB.banner_img_idx = #{banner_img_idx}
+    </select>
 </mapper>

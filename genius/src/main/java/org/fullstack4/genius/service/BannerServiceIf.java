@@ -7,4 +7,5 @@ import org.fullstack4.genius.dto.PageResponseDTO;
 
 public interface BannerServiceIf {
     PageResponseDTO<BannerDTO> list(PageRequestDTO pageRequestDTO);
+    BannerDTO view(String banner_img_idx);
 }
