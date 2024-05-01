@@ -33,7 +33,7 @@
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <c:forEach var="dto" items="${mainDTO.bannerDTOList}">
-          <div class="swiper-slide"><img src="${dto.path}${dto['save_name']}"></div>
+          <div class="swiper-slide background-option h-750px" style="background-image: url('${dto.path}${dto ["save_name"]}')"></div>
         </c:forEach>
       </div>
       <div class="swiper-pagination"></div>
