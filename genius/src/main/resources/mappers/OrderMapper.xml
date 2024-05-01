@@ -50,19 +50,19 @@
 
 
     <select id="view" resultType="org.fullstack4.genius.domain.OrderVO">
-        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         where member_id=#{param1}
     </select>
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.OrderVO">
-        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        select order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         where member_id=#{param1}
     </select>
 
     <select id="AdminlistAll" resultType="org.fullstack4.genius.domain.OrderVO">
-        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
+        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,a.order_refund_request,a.order_refund_response,b.delivery_start_date,b.delivery_end_date,b.delivery_company
         FROM tbl_order AS a
         INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
     </select>
@@ -118,10 +118,11 @@
     </select>
 
     <select id="OrderListByPage" resultType="org.fullstack4.genius.domain.OrderVO">
-        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,b.delivery_start_date,b.delivery_end_date,b.delivery_company
+        select a.order_idx,a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.total_price,a.order_state,a.order_refund_request,a.order_refund_response,b.delivery_start_date,b.delivery_end_date,b.delivery_company
         FROM tbl_order AS a
         INNER JOIN tbl_delivery AS b ON a.order_num = b.order_num
         <include refid="whereCondition"></include>
+        ORDER BY a.order_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
 
@@ -129,6 +130,7 @@
         UPDATE tbl_delivery SET
         delivery_company = #{delivery_company}
         ,delivery_start_date = NOW()
+        ,delivery_end_date = ADDDATE(NOW(), INTERVAL 2 DAY)
         ,delivery_state = #{delivery_state}
         WHERE order_num = #{order_num}
     </update>
@@ -145,7 +147,7 @@
     </update>
 
     <select id="AdminOrderdetail">
-        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode
+        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode,a.order_refund_request,a.order_refund_response
         ,b.price,b.total_price,b.amount,b.book_code
         ,c.delivery_state,c.delivery_company,c.delivery_start_date,c.delivery_end_date,delivery_code
         ,TM.member_name,TM.phone
@@ -158,7 +160,17 @@
         WHERE a.order_num = #{order_num}
     </select>
 
-    <insert id="UpdateDelivery">
+    <update id="requestRefund">
+        UPDATE tbl_order
+        SET order_refund_request = #{order_refund_request}
+        WHERE order_num = #{order_num}
 
-    </insert>
+    </update>
+
+    <update id="responseRefund">
+        UPDATE tbl_order
+        SET order_refund_response = #{order_refund_response}
+        WHERE order_num = #{order_num}
+
+    </update>
 </mapper>

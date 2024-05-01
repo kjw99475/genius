@@ -123,7 +123,7 @@
                         <th scope="col">배송시작일</th>
                         <th scope="col">배송종료일</th>
                         <th scope="col">주문상태</th>
-
+                        <th scope="col">환불요청</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -151,6 +151,12 @@
                                 <td>${orderDTO.delivery_start_date}</td>
                                 <td>${orderDTO.delivery_end_date}</td>
                                 <td class="delivery_state"><span class="badge bg-warning">${orderDTO.order_state}</span></td>
+                                <c:if test="${orderDTO.order_refund_request eq 'N'}">
+                                    <td class="delivery_state"><span class="badge bg-warning">N</span></td>
+                                </c:if>
+                                <c:if test="${orderDTO.order_refund_request eq 'Y'}">
+                                    <td class="delivery_state"><span class="badge bg-warning">Y</span></td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>

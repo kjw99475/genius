@@ -60,9 +60,10 @@
     <section class="section">
         <div class="row">
             <div class="d-flex justify-content-end">
-                <button class="btn btn-success m-3" onclick="orderstart()">배송 시작</button>
-                <button class="btn btn-success m-3">주문 취소</button>
-                <button class="btn btn-success m-3">환불</button>
+                <button class="btn btn-success m-3" onclick="orderstart()" <c:if test="${orderDTO.get(0).order_state ne '배송 전'}">disabled</c:if>>배송 시작</button>
+<%--                <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전'}">disabled</c:if>>주문 취소</button>--%>
+                <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전' or orderDTO.get(0).order_refund_request ne 'Y' or orderDTO.get(0).order_refund_response ne null}">disabled</c:if> onclick="response('${orderDTO.get(0).order_num}','Y')">환불 승인</button>
+                <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전' or orderDTO.get(0).order_refund_request ne 'Y' or orderDTO.get(0).order_refund_response ne null}">disabled</c:if> onclick="response('${orderDTO.get(0).order_num}','N')">환불 거절</button>
             </div>
             <div class="col-lg-4">
 
@@ -171,7 +172,7 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">배송종료일</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).delivery_end_date}</div>
+                            <div class="col-lg-8 col-md-8"><input type="date" value="${orderDTO.get(0).delivery_end_date}"></div>
                         </div>
 
                     </div>
@@ -306,6 +307,32 @@
             }
 
         });
+    }
+
+    function response(item,item1){
+        if(confirm("정말 환불하시겠습니까?")){
+            $.ajax({
+                url:"/admin/order/refundResponse.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "order_num":item,
+                    "order_refund_response" : item1
+                },
+                success : function(data) {
+                    if(data.result == "success"){
+                        console.log("성공");
+                        location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}";
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }
     }
 </script>
 </body>
