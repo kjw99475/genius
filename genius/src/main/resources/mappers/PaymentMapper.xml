@@ -132,4 +132,8 @@
         SET quantity = quantity - #{amount}
         where book_code = #{book_code}
     </update>
+    <delete id="deleteBookRelease">
+        DELETE FROM tbl_release
+        WHERE order_num = #{order_num}
+    </delete>
 </mapper>
