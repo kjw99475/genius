@@ -61,7 +61,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public String LogOut(
+    public void LogOut(
             @RequestParam(name = "member_id", defaultValue = "") String member_id,
             HttpServletResponse response,
             HttpServletRequest request
@@ -75,7 +75,6 @@ public class LoginController {
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        return "/login/login";
     }
 
     @GetMapping("/findId")

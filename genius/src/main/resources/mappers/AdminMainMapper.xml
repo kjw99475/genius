@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.genius.mapper.AdminMainMapper">
+    <select id="todaySummary" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT CASE WHEN SUM(amount) IS NULL THEN 0 ELSE SUM(amount) END AS todayOrderCnt
+        , CASE WHEN SUM(amount * price) IS NULL THEN 0 ELSE SUM(amount * price) END AS todayOrderPrice
+        , COUNT(DISTINCT TM.member_id) AS todayOrderMember
+        FROM tbl_release AS TR
+        INNER JOIN tbl_order AS TOR ON TR.order_num = TOR.order_num
+        INNER JOIN tbl_member AS TM ON TOR.member_id = TM.member_id
+        WHERE DATE(TR.release_date) = DATE(NOW())
+    </select>
+    <select id="totalSummary" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT CASE WHEN SUM(amount) IS NULL THEN 0 ELSE SUM(amount) END AS totalOrderCnt
+        , CASE WHEN SUM(amount * price) IS NULL THEN 0 ELSE SUM(amount * price) END AS totalOrderPrice
+        , COUNT(DISTINCT TM.member_id) AS totalOrderMember
+        FROM tbl_release AS TR
+        INNER JOIN tbl_order AS TOR ON TR.order_num = TOR.order_num
+        INNER JOIN tbl_member AS TM ON TOR.member_id = TM.member_id
+    </select>
+    
+</mapper>
