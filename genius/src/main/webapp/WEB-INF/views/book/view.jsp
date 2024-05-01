@@ -275,7 +275,6 @@
             </div>
         </div>
     </section>
-    ${responseDTO}
     <!--================End Product Description Area =================-->
 </main>
 <!--================ 본문 END =================-->
