@@ -75,8 +75,20 @@
                                 <span> ${list.total_price}원</span>
                             </div>
                             <div class="d-flex flex-column align-items-end" style="gap:10px">
-                                <small>주문완료</small>
-                                <button class="btn btn-success" type="button">주문취소</button>
+                                <small>${list.order_state}</small>
+                                <c:if test="${list.order_state eq '배송 전'}">
+                                    <button class="btn btn-success" type="button">주문취소</button>
+                                </c:if>
+                                <c:if test="${list.order_state ne '배송 전' and list.order_refund_request eq 'N'}">
+                                    <button class="btn btn-success" type="button" onclick="refund('${list.order_num}','Y')">환불요청</button>
+                                </c:if>
+                                <c:if test="${list.order_state ne '배송 전' and list.order_refund_request eq 'Y'}">
+                                    <button class="btn btn-success" type="button" onclick="refund('${list.order_num}','N')" <c:if test="${list.order_refund_response ne null}">disabled</c:if>>
+                                        <c:if test="${list.order_refund_response eq null}">환불요청 취소하기</c:if>
+                                        <c:if test="${list.order_refund_response eq 'Y'}">환불 완료</c:if>
+                                        <c:if test="${list.order_refund_response eq 'N'}">환불 불가</c:if>
+                                    </button>
+                                </c:if>
                             </div>
                         </h5>
                     </div>
@@ -198,6 +210,34 @@
     document.querySelector("#paybtn").addEventListener('click',()=>{
         document.querySelector("#payfrm").submit();
     });
+
+    function refund(item,item1){
+
+        if(confirm("정말 환불하시겠습니까?")){
+            $.ajax({
+                url:"/mypage/refundRequest.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "order_num":item,
+                    "order_refund_request" : item1
+                },
+                success : function(data) {
+                    if(data.result == "success"){
+                        console.log("성공");
+                        alert("환불 요청했습니다");
+                        location.href="/mypage/payhistory${pageDTO.linked_params}&page=${pageDTO.page}"
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }
+    }
 </script>
 </body>
 

@@ -59,7 +59,7 @@
     </select>
 
     <select id="viewOrder" resultType="org.fullstack4.genius.domain.OrderVO">
-        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         where member_id=#{param1} and cancel_YN ='N'
     </select>
@@ -89,7 +89,7 @@
     </select>
 
     <select id="viewOrderListbypage" resultType="org.fullstack4.genius.domain.OrderVO">
-        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         <where>
             member_id=#{member_id} and cancel_YN = 'N'

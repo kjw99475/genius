@@ -43,5 +43,6 @@ public class OrderDTO {
     private String order_zipcode;
     private String order_phone;
     private String order_name;
-
+    private String order_refund_request;
+    private String order_refund_response;
 }
