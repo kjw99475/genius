@@ -175,6 +175,11 @@
                             <div class="col-lg-8 col-md-8"><input type="date" value="${orderDTO.get(0).delivery_end_date}"></div>
                         </div>
 
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-success m-3">배송 정보 저장하기</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -310,7 +315,7 @@
     }
 
     function response(item,item1){
-        if(confirm("정말 환불하시겠습니까?")){
+        if(confirm("낙장불입")){
             $.ajax({
                 url:"/admin/order/refundResponse.dox",
                 dataType:"json",

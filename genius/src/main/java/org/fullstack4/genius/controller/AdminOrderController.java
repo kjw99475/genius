@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.OrderServiceIf;
+import org.fullstack4.genius.service.PaymentServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 public class AdminOrderController {
 
     private final OrderServiceIf orderService;
+    private final PaymentServiceIf paymentServiceIf;
 
     @GetMapping("/list")
     public void GETList(Model model, @RequestParam(name="page", defaultValue = "1")int page,
@@ -102,13 +104,43 @@ public class AdminOrderController {
     public String refundRequest(@RequestParam HashMap<String,Object> map){
         HashMap<String, Object> resultMap = new HashMap<>();
         log.info("###################"+map.toString());
+        String order_state;
+        boolean refund;
+        String order_num = map.get("order_num").toString();
+
+        List<OrderDTO> orderDTOImp = orderService.AdminOrderdetail(order_num);
+        
+        if(map.get("order_refund_response").toString().equals("Y")) {
+                    order_state = "환불 완료";
+                    refund = true;
+        }
+        else{
+                    order_state = "환불 불가";
+                    refund = false;
+        }
         OrderDTO orderDTO = OrderDTO.builder()
-                .order_num(map.get("order_num").toString())
+                .order_num(order_num)
+                .order_state(order_state)
                 .order_refund_response(map.get("order_refund_response").toString())
                 .build();
         int result = orderService.responseRefund(orderDTO);
         log.info(result);
         if(result > 0) {
+            orderService.updateOrderState(orderDTO);
+            if(refund){
+                PaymentDTO paymentDTO = PaymentDTO.builder()
+                        .payment_num(order_num)
+                        .member_id(orderDTOImp.get(0).getMember_id())
+                        .price(orderDTOImp.get(0).getTotal_price())
+                        .method("포인트")
+                        .company("genius")
+                        .use_type("환불")
+                        .title("포인트 환불")
+                        .build();
+
+                paymentServiceIf.memberPay(paymentDTO);
+                paymentServiceIf.usepoint(paymentDTO);
+            }
             resultMap.put("result", "success");
         }
         else{

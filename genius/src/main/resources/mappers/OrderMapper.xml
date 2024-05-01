@@ -147,8 +147,8 @@
     </update>
 
     <select id="AdminOrderdetail">
-        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode,a.order_refund_request,a.order_refund_response
-        ,b.price,b.total_price,b.amount,b.book_code
+        SELECT a.order_num,a.member_id,a.order_date,a.cancel_YN,a.cancel_date,a.order_state,a.order_name,a.order_phone,a.order_addr1,a.order_addr2,a.order_zipcode,a.order_refund_request,a.order_refund_response,a.total_price
+        ,b.price,b.amount,b.book_code
         ,c.delivery_state,c.delivery_company,c.delivery_start_date,c.delivery_end_date,delivery_code
         ,TM.member_name,TM.phone
         ,TB.book_name
