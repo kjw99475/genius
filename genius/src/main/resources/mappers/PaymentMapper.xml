@@ -16,7 +16,7 @@
 
     <insert id="usepoint">
         INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
-        VALUES (#{payment_num},#{member_id},#{price},#{method},'사이트 거래',NOW(),'사용','포인트 사용')
+        VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),#{use_type},#{title})
     </insert>
 
     <insert id="refund">
@@ -123,4 +123,13 @@
         ORDER BY payment_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
+    <insert id="releaseBook">
+        INSERT INTO tbl_release(order_num,book_code,book_name,price,amount,release_date,category_class_code,category_subject_code)
+        VALUES(#{order_num},#{book_code},#{book_name},#{price},#{amount},NOW(),#{category_class_code},#{category_subject_code})
+    </insert>
+    <update id="salesBook">
+        UPDATE tbl_book
+        SET quantity = quantity - #{amount}
+        where book_code = #{book_code}
+    </update>
 </mapper>

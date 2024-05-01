@@ -115,6 +115,7 @@ public class OrderController {
                 .member_id(member_id)
                 .order_num(order_num)
                 .book_code(bookDTO.getBook_code())
+                .book_name(bookDTO.getBook_name())
                 .category_class_code(bookDTO.getCategory_class_code())
                 .category_subject_code(bookDTO.getCategory_subject_code())
                 .order_state("배송 전")
@@ -137,6 +138,8 @@ public class OrderController {
                 int deliveryregist = orderService.deliveryRegist(orderDTO);
                 int detailregist = orderService.detailregist(detailorderDTO);
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
+                paymentServiceIf.releaseBook(detailorderDTO);
+                paymentServiceIf.salesBook(detailorderDTO);
                 resultMap.put("result", "success");
             }else {
                 resultMap.put("result", "fail");
@@ -228,6 +231,7 @@ public class OrderController {
                             .member_id(member_id)
                             .order_num(order_num)
                             .book_code(dtolist.get(i).getBook_code())
+                            .book_name(dtolist.get(i).getBook_name())
                             .category_class_code(dtolist.get(i).getCategory_class_code())
                             .category_subject_code(dtolist.get(i).getCategory_subject_code())
                             .order_state("배송 전")
@@ -236,6 +240,8 @@ public class OrderController {
                             .amount(dtolist.get(i).getQuantity())
                             .build();
                     orderService.detailregist(detailorderDTO);
+                    paymentServiceIf.releaseBook(detailorderDTO);
+                    paymentServiceIf.salesBook(detailorderDTO);
                 }
                 log.info("4##############################");
                 int result123 = paymentServiceIf.usepoint(paymentDTO);

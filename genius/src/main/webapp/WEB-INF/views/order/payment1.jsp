@@ -116,17 +116,17 @@
                                 <tr>
                                     <th class="border-0" scope="col"><small>상품명</small></th>
                                     <th class="border-0" scope="col"><small>수량</small></th>
+                                    <th class="border-0" scope="col"><small>가격</small></th>
                                     <th class="border-0" scope="col"><small>합계</small></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${dtolist}" var="list">
-                                    <tr>
-                                        <td><small>${list.book_name}</small></td>
-                                        <td><small>${list.quantity}</small></td>
-                                        <td><small>${list.price}원</small></td>
-                                    </tr>
-                                </c:forEach>
+                                <tr>
+                                    <td><small>${bookdto.book_name}</small></td>
+                                    <td><small>${bookdto.quantity}</small></td>
+                                    <td><small>${bookdto.price}원</small></td>
+                                    <td><small>${bookdto.price * bookdto.quantity}원</small></td>
+                                </tr>
                                 </tbody>
                             </table>
                             <ul class="list list_2">

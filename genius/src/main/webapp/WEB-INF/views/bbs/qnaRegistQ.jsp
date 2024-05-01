@@ -64,7 +64,7 @@
                 </div>
             </div>
             <hr>
-            <form method="post" action="/bbs/qnaRegistQ" id="registFrm" name="registFrm">
+            <form method="post" action="/bbs/qnaRegistQ" id="registFrm" name="registFrm" enctype="multipart/form-data">
                 <div class="border-gray mb-5">
                     <div class="form-row ml-5">
                         <div class="form-group col-md-5">
@@ -87,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="file" name="file">
                 <textarea id="summernote" name="contents"></textarea>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
