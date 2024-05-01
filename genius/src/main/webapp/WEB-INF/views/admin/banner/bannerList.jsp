@@ -95,45 +95,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <div class="row">
-                                            <label class="fw-bold p-3">사용여부</label>
-                                            <div class="d-flex pe-3 ps-3" style="gap: 15px">
-                                                <label for="Y" ><input type="radio" name="status" id="Y" value="Y" <c:if test="${pageResponseDTO['status'] == null || pageResponseDTO['status'] == 'Y'}">checked</c:if>> 사용</label>
-                                                <label for="N" ><input type="radio" name="status" id="N" value="N" <c:if test="${pageResponseDTO['status'] == 'N'}">checked</c:if>> 미사용</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </form>
-                        <div class="col-2 mb-2">
-                            <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
-                                <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
-                                <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
-                                <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
-                            </select>
+                        <div class="d-flex justify-content-between">
+                            <div class="col-2 mb-2">
+                                <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                                    <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                                    <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                                    <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
+                                </select>
+                            </div>
+                            <div class="col-2 mb-2">
+                                <div class="btn-group d-flex ">
+                                    <button class="btn btn-outline-success" onclick="deleteThese()">삭제</button>
+                                    <button class="btn btn-success">순서변경</button>
+                                </div>
+                            </div>
                         </div>
                         <!-- Table with stripped rows -->
                         <table class="w-100 table">
                             <colgroup>
                                 <col class="w-5"/>
+                                <col class="w-5"/>
                                 <col class="w-25"/>
                                 <col class="w-10"/>
                                 <col class="w-10"/>
                                 <col class="w-25"/>
-                                <col class="w-10"/>
                                 <col class="w-5"/>
                             </colgroup>
                             <thead>
                             <tr>
+                                <th scope="col" class="bg-geni-dark text-white" >
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="checkAll">
+                                    </div>
+                                </th>
                                 <th scope="col" class="bg-geni-dark text-white" >No</th>
                                 <th scope="col" class="bg-geni-dark text-white" >배너 이름</th>
                                 <th scope="col" class="bg-geni-dark text-white" >등록자</th>
                                 <th scope="col" class="bg-geni-dark text-white" >등록일</th>
                                 <th scope="col" class="bg-geni-dark text-white" >게시 기간</th>
-                                <th scope="col" class="bg-geni-dark text-white" >사용여부</th>
                                 <th scope="col" class="bg-geni-dark text-white" >순서</th>
                             </tr>
                             </thead>
@@ -142,15 +143,16 @@
                                 <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
                                 <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
                                     <tr onclick="location.href='/admin/banner/bannerModify?banner_img_idx=${dtoList['banner_img_idx']}'">
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input check-box" name="banner_img_idx" type="checkbox" value="${dtoList['banner_img_idx']}" id="check${dtoList['banner_img_idx']}" onclick="event.stopPropagation()">
+                                            </div>
+                                        </td>
                                         <td>${i}</td>
                                         <td>${dtoList['title']}</td>
                                         <td>${dtoList['member_name']}</td>
                                         <td>${dtoList['reg_date']}</td>
                                         <td>${dtoList['post_start_date']} ~ ${dtoList['post_end_date']}</td>
-                                        <td>
-                                            <c:if test="${dtoList['banner_status'] == 'Y'}">사용</c:if>
-                                            <c:if test="${dtoList['banner_status'] == 'N'}">미사용</c:if>
-                                        </td>
                                         <td>${dtoList['order']}</td>
                                     </tr>
                                     <c:set var="i" value="${i-1}" />
@@ -218,6 +220,46 @@
         let pageSize = element.value;
         let queryString = "?page_size='+pageSize+'&search_word=${pageResponseDTO['search_word']}&search_data1=${pageResponseDTO['search_data1']}&search_data2=${pageResponseDTO['search_data2']}&status=${pageResponseDTO['status']}";
         location.href = '/admin/banner/bannerList';
+    }
+
+    // 현재 페이지 전체 선택
+    const checkAll = document.getElementById('checkAll');
+    checkAll.addEventListener('change', ()=>{
+        let checkYN = checkAll.checked;
+        let checkboxes = document.querySelectorAll('.check-box');
+        if(checkYN) {
+            for (let checkbox of checkboxes) {
+                checkbox.checked = true;
+            }
+        } else {
+            for (let checkbox of checkboxes) {
+                checkbox.checked = false;
+            }
+        }
+    })
+
+    // 삭제 POST
+    function deleteThese() {
+        let selectedItems = document.querySelectorAll('.check-box:checked');
+        if (selectedItems.length > 0) {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                let frm = document.createElement('form');
+                frm.action = '/admin/banner/bannerDeleteAll'
+                frm.method = 'post';
+                frm.id = 'deleteFrm';
+                for (let element of selectedItems) {
+                    let input = document.createElement('input');
+                    input.name = 'banner_img_idx';
+                    input.type = 'hidden';
+                    input.value = element.value;
+                    frm.append(input);
+                }
+                document.body.append(frm);
+                document.getElementById('deleteFrm').submit();
+            }
+        } else {
+            alert("선택된 건이 없습니다.")
+        }
     }
 </script>
 <!-- Vendor JS Files -->
