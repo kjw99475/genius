@@ -39,6 +39,8 @@ public class PageResponseDTO<E> {
     private String type;
     private String type2;
     private String member_id;
+    private String book_code;
+    private String page_flag;
     List<E> dtoList;
     PageResponseDTO() {}
 
@@ -71,6 +73,7 @@ public class PageResponseDTO<E> {
         this.subject_code = requestDTO.getSubject_code();
         this.status = requestDTO.getStatus();
         this.sort = requestDTO.getSort();
+        this.page_flag = requestDTO.getPage_flag();
         StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
         if(search_type != null) sb.append("&search_type=" + search_type_st );
         if(search_word != null) sb.append("&search_word=" + search_word);

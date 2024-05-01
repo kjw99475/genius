@@ -43,6 +43,7 @@ public class AdminOrderController {
     @GetMapping("/view")
     public void GETView(@RequestParam (name="order_num") String order_num,Model model){
         List<OrderDTO> orderDTO = orderService.AdminOrderdetail(order_num);
+        log.info(orderDTO.toString());
         model.addAttribute("orderDTO", orderDTO);
     }
 
@@ -93,6 +94,28 @@ public class AdminOrderController {
         }
         resultMap.put("result", "success");
         // 갯수 세기
+        return new Gson().toJson(resultMap);
+    }
+
+    @RequestMapping(value = "/refundResponse.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String refundRequest(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        log.info("###################"+map.toString());
+        OrderDTO orderDTO = OrderDTO.builder()
+                .order_num(map.get("order_num").toString())
+                .order_refund_response(map.get("order_refund_response").toString())
+                .build();
+        int result = orderService.responseRefund(orderDTO);
+        log.info(result);
+        if(result > 0) {
+            resultMap.put("result", "success");
+        }
+        else{
+            resultMap.put("result", "fail");
+            resultMap.put("message", "오류");
+        }
+
         return new Gson().toJson(resultMap);
     }
 

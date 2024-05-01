@@ -134,63 +134,6 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
-
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 1.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>지수와 로그</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 2.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>지수함수와 로그함수</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 3.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>삼각함수</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 4.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>사인법칙과 코사인법칙</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 5.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>등차수열과 등비수열</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 6.</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>수열의 합</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h5>Label 7</h5>--%>
-<%--                                </td>--%>
-<%--                                <td>--%>
-<%--                                    <h5>수열의 귀납적 정의</h5>--%>
-<%--                                </td>--%>
-<%--                            </tr>--%>
                             </tbody>
                         </table>
                     </div>
@@ -225,7 +168,7 @@
                                 </div>
                             </div>
                             <div class="review_list" id="review_list">
-                                <c:forEach items="${reviewList}" var="review">
+                                <c:forEach items="${responseDTO.dtoList}" var="review">
                                     <div class="review_item">
                                         <div class="media">
                                             <div class="d-flex">
@@ -244,7 +187,7 @@
                                             <form action="/review/delete" method="post" name="frmRegistReview">
                                                 <input type="hidden" value="${review.review_idx}" name="review_idx">
                                                 <input type="hidden" value="${review.book_code}" name="book_code">
-                                                <c:if test="${review.member_id == 'test'}">
+                                                <c:if test="${review.member_id == sessionScope.member_id}">
                                                     <button type="submit" class="btn btn-sm btnRemove">삭제</button>
                                                 </c:if>
                                             </form>
@@ -273,30 +216,35 @@
 <%--                                </div>--%>
                                 <nav class="blog-pagination justify-content-center d-flex">
                                     <ul class="pagination">
-                                        <li class="page-item">
-                                            <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                                        <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                                            <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}&page_flag=1</c:if>"
+                                               class="page-link" aria-label="Previous">&laquo;
+                                            </a>
                                         </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">01</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a href="#" class="page-link">02</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">03</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">04</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link">09</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                                        <c:forEach begin="${responseDTO.page_block_start}"
+                                                   end="${responseDTO.page_block_end}"
+                                                   var="page_num">
+                                            <c:choose>
+                                                <c:when test="${responseDTO.page == page_num}">
+                                                    <li class="page-item active">
+                                                        <a href="#" class="page-link">${page_num}</a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item">
+                                                        <a href="${responseDTO.linked_params}&page=${page_num}&page_flag=1" class="page-link">${page_num}</a>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                                            <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}&page_flag=1</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                                         </li>
                                     </ul>
                                 </nav>
                             </div>
+
                         </div>
                         <div class="col-lg-6">
                             <div class="review_box">
@@ -327,6 +275,7 @@
             </div>
         </div>
     </section>
+    ${responseDTO}
     <!--================End Product Description Area =================-->
 </main>
 <!--================ 본문 END =================-->
@@ -341,8 +290,8 @@
 <script>
     window.onload = function() {
         // 특정 조건 확인
-        if (${param.registOK == '1'} || ${param.deleteOK == '1'}) {
-            reviewTAB()
+        if (${param.registOK == '1'} || ${param.deleteOK == '1'} ||${responseDTO.page_flag == '1'}) {
+            reviewTAB();
         }
     };
     let stars = document.querySelectorAll('.star-list li a');

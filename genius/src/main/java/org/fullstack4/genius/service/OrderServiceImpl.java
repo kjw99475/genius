@@ -127,6 +127,24 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
+    public int requestRefund(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.requestRefund(orderVO);
+        log.info(orderVO.toString());
+
+        return result;
+    }
+
+    @Override
+    public int responseRefund(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.responseRefund(orderVO);
+        log.info(orderVO.toString());
+
+        return result;
+    }
+
+    @Override
     public int OrderTotalCount(PageRequestDTO requestDTO) {
         return 0;
     }

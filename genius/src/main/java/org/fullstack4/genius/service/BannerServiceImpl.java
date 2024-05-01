@@ -53,7 +53,7 @@ public class BannerServiceImpl implements BannerServiceIf {
         if(map.get("result").equals("success")) {
             bannerDTO.setSave_name(map.get("newName"));
             bannerDTO.setOriginal_name(map.get("orgName"));
-            bannerDTO.setPath("/resources/upload/banner");
+            bannerDTO.setPath("/resources/upload/banner/");
             // 성공한 경우만 DB INSERT 실행
             BannerVO bannerVO = modelMapper.map(bannerDTO, BannerVO.class);
             result = bannerMapper.regist(bannerVO);

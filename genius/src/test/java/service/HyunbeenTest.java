@@ -238,11 +238,12 @@ public class HyunbeenTest {
 
     @Test
     public void detailOrder(){
-        String ordernum= "o00001";
-        List<OrderDTO> dto = order.AdminOrderdetail(ordernum);
+        OrderDTO orderDTO = OrderDTO.builder()
+                .order_num("240501155033-47610")
+                .order_refund_request("Y")
+                .build();
+        int result = order.requestRefund(orderDTO);
 
-        log.info("===================================");
-        log.info("dto : " + dto.toString());
-        log.info("===================================");
+        log.info("========="+orderDTO.toString());
     }
 }
