@@ -137,7 +137,37 @@
                             <td>${bookDTO.publisher}</td>
                             <td>${bookDTO.category_class_code}</td>
                             <td>${bookDTO.category_subject_code}</td>
-                            <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td> <!--상태에 따라 bg-수정 -->
+                            <td><span class="badge
+                                <c:choose>
+                                    <c:when test="${bookDTO.sales_status == '1'}">
+                                        bg-success
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '2'}">
+                                        bg-warning
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '3'}">
+                                        bg-secondary
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '4'}">
+                                        bg-danger
+                                    </c:when>
+                                </c:choose>
+                                ">
+                                <c:choose>
+                                    <c:when test="${bookDTO.sales_status == '1'}">
+                                        판매중
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '2'}">
+                                        판매 준비중
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '3'}">
+                                        판매 종료
+                                    </c:when>
+                                    <c:when test="${bookDTO.sales_status == '4'}">
+                                        품절
+                                    </c:when>
+                                </c:choose>
+                                </span></td> <!--상태에 따라 bg-수정 -->
                         </tr>
                     </c:forEach>
                     </tbody>
