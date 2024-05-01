@@ -260,7 +260,7 @@
                                 <form action="/review/regist.dox" class="form-contact form-review mt-3" method="post" id="frmReviewRegist">
                                     <input type="hidden" value="${param.book_code}" name="book_code"/>
                                     <input type="hidden" value="" name="rank" id="rank"/>
-                                    <input type="hidden" value="test" name="member_id"/>
+                                    <input type="hidden" value="${sessionScope.member_id}" name="member_id"/>
                                     <div class="form-group">
                                         <textarea class="form-control different-control w-100" name="review_contents" id="review_contents" cols="30" rows="5" placeholder="리뷰를 작성해주세요"></textarea>
                                     </div>
