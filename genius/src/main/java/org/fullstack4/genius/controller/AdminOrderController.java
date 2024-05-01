@@ -141,8 +141,9 @@ public class AdminOrderController {
                 for(int i = 0; i<orderDTOImp.size();i++){
                     OrderDTO dto = orderDTOImp.get(i);
                     dto.setAmount(Integer.parseInt("-"+orderDTOImp.get(i).getAmount()));
+                    log.info("테슽테틋ㅅ: " + dto.toString());
                     paymentServiceIf.salesBook(dto);
-                    paymentServiceIf.releaseBook(dto);
+//                    paymentServiceIf.releaseBook(dto);
                 }
 
                 paymentServiceIf.memberPay(paymentDTO);
