@@ -32,9 +32,9 @@
         <!--윤 강의실용-->
 <!--        <property name="jdbcUrl" value="jdbc:mariadb://10.41.2.198:3306/genius"></property>-->
         <!--지현 로컬용-->
-                <property name="jdbcUrl" value="jdbc:mariadb://192.168.0.13:3306/genius"></property>
+<!--                <property name="jdbcUrl" value="jdbc:mariadb://192.168.0.13:3306/genius"></property>-->
         <!--각자 로컬용-->
-<!--        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius"></property>-->
+        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius"></property>
         <property name="username" value="genius"></property>
         <property name="password" value="1234"></property>
         <property name="dataSourceProperties">

@@ -94,7 +94,7 @@
                             </div>
                             <div class="col">
                                 <button type="button" class="bi bi-search btn btn-success" onclick="search()"> 검색</button>
-                                <button type="button" class="btn btn-success" onclick="cartChoices()">적용</button>
+                                <button type="button" class="btn btn-success" onclick="cartChoices()">배송 시작</button>
                             </div>
                         </div>
                     </form>
@@ -130,7 +130,7 @@
                     <c:if test="${orderDTOlist ne null}">
                         <c:forEach items="${orderDTOlist}" var="orderDTO">
                             <tr>
-                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1"></td>
+                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>></td>
                                 <th scope="row"><a href='/admin/order/view?order_num=${orderDTO.order_num}'>${orderDTO.order_num}</a></th>
                                 <td>${orderDTO.member_id}</td>
                                 <td>${orderDTO.order_date}</td>

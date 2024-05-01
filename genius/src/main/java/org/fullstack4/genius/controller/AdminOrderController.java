@@ -138,6 +138,13 @@ public class AdminOrderController {
                         .title("포인트 환불")
                         .build();
 
+                for(int i = 0; i<orderDTOImp.size();i++){
+                    OrderDTO dto = orderDTOImp.get(i);
+                    dto.setAmount(Integer.parseInt("-"+orderDTOImp.get(i).getAmount()));
+                    paymentServiceIf.salesBook(dto);
+                    paymentServiceIf.releaseBook(dto);
+                }
+
                 paymentServiceIf.memberPay(paymentDTO);
                 paymentServiceIf.usepoint(paymentDTO);
             }

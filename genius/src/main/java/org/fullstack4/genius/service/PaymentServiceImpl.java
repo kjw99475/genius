@@ -10,6 +10,7 @@ import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -111,6 +112,20 @@ public class PaymentServiceImpl implements PaymentServiceIf{
                 .collect(Collectors.toList());
 
         return dtolist;
+    }
+
+    @Override
+    public int salesBook(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = paymentMapper.salesBook(vo);
+        return result;
+    }
+
+    @Override
+    public int releaseBook(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO,OrderVO.class);
+        int result = paymentMapper.releaseBook(vo);
+        return result;
     }
 
     @Override
