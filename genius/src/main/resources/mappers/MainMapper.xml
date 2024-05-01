@@ -3,6 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.MainMapper">
+    <sql id="whereConditionForBanner">
+        <where>
+            <if test="search_category == 'all'">
+                (TB.title LIKE CONCAT('%', #{search_word}, '%') OR TB.member_id LIKE CONCAT('%', #{search_word}, '%') OR TM.member_name LIKE CONCAT('%', #{search_word}, '%'))
+            </if>
+            <if test="search_category == 'title'">
+                TB.title LIKE CONCAT('%', #{search_word}, '%')
+            </if>
+            <if test="search_category == 'member_id'">
+                TB.member_id LIKE CONCAT('%', #{search_word}, '%')s
+            </if>
+            <if test="search_category == 'member_name'">
+                TM.member_name LIKE CONCAT('%', #{search_word}, '%')
+            </if>
+            <if test="search_data1 != null and !search_data1.equals('')">
+                AND TB.post_start_date <![CDATA[>=]]> #{search_data1}
+            </if>
+            <if test="search_data2 != null and !search_data2.equals('')">
+                AND TB.post_end_date <![CDATA[<=]]> #{search_data2}
+            </if>
+            <if test="status == null or status.equals('')">
+                AND TB.banner_status = 'Y'
+            </if>
+            <if test="status != null and !status.equals('')">
+                AND TB.banner_status = #{status}
+            </if>
+        </where>
+    </sql>
     <select id="yesterDayBook" resultType="org.fullstack4.genius.domain.BookVO">
         SELECT TB.book_idx, TB.book_code, TB.book_name, TB.book_img
         , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name', TB.price
@@ -50,8 +78,22 @@
         LIMIT 0,5;
     </select>
     <select id="banner" resultType="org.fullstack4.genius.domain.BannerVO">
-        SELECT banner_img_idx, banner_status, save_name, original_name, path, member_id, reg_date, modify_date
-        FROM tbl_banner
+        SELECT TB.banner_img_idx, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TB.reg_date, TB.modify_date
+        FROM tbl_banner AS TB
         WHERE banner_status = 'Y'
+    </select>
+    <select id="list" resultType="org.fullstack4.genius.domain.BannerVO">
+        SELECT TB.banner_img_idx, TB.title, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TM.member_name, TB.reg_date, TB.modify_date, TB.post_start_date, TB.post_end_date, TB.`order`
+        FROM tbl_banner AS TB
+        INNER JOIN tbl_member AS TM ON TM.member_id = TB.member_id
+        <include refid="whereConditionForBanner" />
+        ORDER BY TB.reg_date DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
+    <select id="totalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_banner AS TB
+        INNER JOIN tbl_member AS TM ON TM.member_id = TB.member_id
+        <include refid="whereConditionForBanner" />
     </select>
 </mapper>

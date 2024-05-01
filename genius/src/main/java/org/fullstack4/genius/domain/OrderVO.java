@@ -32,6 +32,11 @@ public class OrderVO {
     private String delivery_addr2;
     private String delivery_state;
     private String delivery_company;
+    private String order_addr1;
+    private String order_addr2;
+    private String order_zipcode;
+    private String order_phone;
+    private String order_name;
 
 
 }
