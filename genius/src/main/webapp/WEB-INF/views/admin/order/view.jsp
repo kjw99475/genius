@@ -60,7 +60,7 @@
     <section class="section">
         <div class="row">
             <div class="d-flex justify-content-end">
-                <button class="btn btn-success m-3">배송 시작</button>
+                <button class="btn btn-success m-3" onclick="orderstart()">배송 시작</button>
                 <button class="btn btn-success m-3">주문 취소</button>
                 <button class="btn btn-success m-3">환불</button>
             </div>
@@ -72,32 +72,32 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4">주문 번호</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_num}출력용123</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_num}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문 상태</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_state}출력용123</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_state}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문일시</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.order_date}출력용123</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_date}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문자 ID</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.member_id}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).member_id}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문자 이름</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.idx}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).member_name}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label">주문자 전화번호</div>
-                            <div class="col-lg-8 col-md-8">${orderDTO.idx}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).phone}</div>
                         </div>
 
                     </div>
@@ -114,27 +114,27 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">수신인</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_name}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">우편번호</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_zipcode}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">주소 1</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_addr1}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_addr1}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">주소 2</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_addr2}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_addr2}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">수신인 전화번호</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.idx}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).order_phone}</div>
                         </div>
 
                     </div>
@@ -149,17 +149,29 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">배송회사</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_company}</div>
+                            <div class="col-lg-8 col-md-8">
+                                <select class="deliverySelect" <c:if test="${orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null}">disabled</c:if>>
+                                    <option value="" <c:if test="${orderDTO.get(0).delivery_company == '' or orderDTO.get(0).delivery_company == null}">selected</c:if>>선택</option>
+                                    <option value="우체국" <c:if test="${orderDTO.get(0).delivery_company == '우체국'}">selected</c:if>>우체국</option>
+                                    <option value="CJ대한통운" <c:if test="${orderDTO.get(0).delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
+                                    <option value="로젠택배" <c:if test="${orderDTO.get(0).delivery_company == '로젠택배'}">selected</c:if>>로젠택배</option>
+                                    <option value="한진택배" <c:if test="${orderDTO.get(0).delivery_company == '한진택배'}">selected</c:if>>한진택배</option>
+                                    <option value="롯데택배" <c:if test="${orderDTO.get(0).delivery_company == '롯데택배'}">selected</c:if>>롯데택배</option>
+                                    <option value="드림택배" <c:if test="${orderDTO.get(0).delivery_company == '드림택배'}">selected</c:if>>드림택배</option>
+                                    <option value="대신택배" <c:if test="${orderDTO.get(0).delivery_company == '대신택배'}">selected</c:if>>대신택배</option>
+                                    <option value="일양로지스택배" <c:if test="${orderDTO.get(0).delivery_company == '일양로지스택배'}">selected</c:if>>일양로지스택배</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">배송시작일</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_start_date}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).delivery_start_date}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 label ">배송종료일</div>
-                            <div class="col-lg-8 col-md-8">${deliveryDTO.delivery_end_date}</div>
+                            <div class="col-lg-8 col-md-8">${orderDTO.get(0).delivery_end_date}</div>
                         </div>
 
                     </div>
@@ -180,8 +192,8 @@
                                 <col width="10%">
                                 <col width="15%">
                                 <col width="10%">
-                                <col width="10%">
-                                <col width="10%">
+<%--                                <col width="10%">--%>
+<%--                                <col width="10%">--%>
                             </colgroup>
                             <thead>
                             <tr>
@@ -190,43 +202,50 @@
                                 <th scope="col">수량</th>
                                 <th scope="col">적용가</th>
                                 <th scope="col">개별 총계</th>
-                                <th scope="col">총수량</th>
-                                <th scope="col">총 합계</th>
+<%--                                <th scope="col">총수량</th>--%>
+<%--                                <th scope="col">총 합계</th>--%>
                             </tr>
                             </thead>
                             <tbody>
+                            <c:set var="total_amount" value="0"/>
+                                <c:forEach items="${orderDTO}" var="list">
+                                <tr>
+                                    <td>${list.book_code}</td>
+                                    <td>${list.book_name}</td>
+                                    <td>${list.amount}</td>
+                                    <td>${list.price}</td>
+                                    <td>${list.amount * list.price}</td>
+<%--                                    <td>${list.total_price}</td>--%>
+<%--                                    <td>${list.total_price}</td>--%>
+                                    <c:set var="total_amount" value="${total_amount+list.amount}"/>
+                                </tr>
+                            </c:forEach>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>총 수량 :</strong>${total_amount}</td>
+                                    <td></td>
+                                    <td><strong>총 합계 :</strong>${orderDTO.get(0).total_price}</td>
+                                </tr>
+<%--                            <tr>--%>
+<%--                                <td>D654987654</td>--%>
+<%--                                <td>천재교과서321</td>--%>
+<%--                                <td>20</td>--%>
+<%--                                <td>33000</td>--%>
+<%--                                <td>660000</td>--%>
+<%--                                <td>55</td>--%>
+<%--                                <td>1000000</td>--%>
+<%--                            </tr>--%>
 
-<%--                            <c:forEach var="" items="list">--%>
-<%--                                <tr>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                </tr>--%>
-<%--                            </c:forEach>--%>
-
-                            <tr>
-                                <td>D654987654</td>
-                                <td>천재교과서321</td>
-                                <td>20</td>
-                                <td>33000</td>
-                                <td>660000</td>
-                                <td>55</td>
-                                <td>1000000</td>
-                            </tr>
-
-                            <tr>
-                                <td>C65445364554</td>
-                                <td>범재교과서321</td>
-                                <td>30</td>
-                                <td>22000</td>
-                                <td>660000</td>
-                                <td>70</td>
-                                <td>2000000</td>
-                            </tr>
+<%--                            <tr>--%>
+<%--                                <td>C65445364554</td>--%>
+<%--                                <td>범재교과서321</td>--%>
+<%--                                <td>30</td>--%>
+<%--                                <td>22000</td>--%>
+<%--                                <td>660000</td>--%>
+<%--                                <td>70</td>--%>
+<%--                                <td>2000000</td>--%>
+<%--                            </tr>--%>
                             </tbody>
                         </table>
 
@@ -251,6 +270,7 @@
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
+<script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/admin/vendor/chart.js/chart.umd.js"></script>
@@ -262,5 +282,31 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script>
+<script>
+
+
+    function orderstart(){
+        let delivery = document.querySelector('.deliverySelect').value;
+        console.log(delivery);
+        $.ajax({
+            url:"/admin/order/deliveryupdate.dox",
+            dataType:"json",
+            type : "GET",
+            data : {
+                "ordernumList":"${orderDTO.get(0).order_num}",
+                "delivery":JSON.stringify(delivery)
+            },
+            success : function(data) {
+                alert("수정 성공");
+                console.log("성공");
+                location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}"
+            },
+            fail : function (data){
+                console.log("실패");
+            }
+
+        });
+    }
+</script>
 </body>
 </html>

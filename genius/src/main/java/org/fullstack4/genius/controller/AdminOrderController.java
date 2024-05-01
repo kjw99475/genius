@@ -41,13 +41,14 @@ public class AdminOrderController {
     }
 
     @GetMapping("/view")
-    public void GETView(){
-
+    public void GETView(@RequestParam (name="order_num") String order_num,Model model){
+        List<OrderDTO> orderDTO = orderService.AdminOrderdetail(order_num);
+        model.addAttribute("orderDTO", orderDTO);
     }
 
     @RequestMapping(value = "/deliveryupdate.dox", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String viewMember(Model model , @RequestParam HashMap<String,Object> map){
+    public String deliveryUpdate(Model model , @RequestParam HashMap<String,Object> map){
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 
@@ -70,12 +71,16 @@ public class AdminOrderController {
         log.info("=======================딜리버리 테스트 끝=============");
 
         int result = 0;
+        int result1 = 0;
         for(int i=0;i<ordernumList.length;i++){
             if(!deliveryList[i].equals("")) {
                 OrderDTO dto = OrderDTO.builder()
                         .order_num(ordernumList[i])
                         .delivery_company(deliveryList[i])
+                        .delivery_state("배송 중")
+                        .order_state("배송 중")
                         .build();
+                result1 += orderService.updateOrderState(dto);
                 result += orderService.updateDcompany(dto);
             }
         }
