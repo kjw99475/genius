@@ -30,14 +30,40 @@ public class BbsController {
     private final BbsServiceIf bbsServiceIf;
 
     @GetMapping("/noticeList")
-    public void GETNoticeList() {
+    public void GETNoticeList(@Valid PageRequestDTO pageRequestDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
+                              Model model
+    ) {
+        String category_code = "bc02";
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+//        pageRequestDTO.setPage_size(page_size);
+        pageRequestDTO.setPage_block_size(10);
+        pageRequestDTO.setCategory_code(category_code);
 
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
 
     @GetMapping("/noticeView")
-    public void GETNoticeView() {
+    public void GETNoticeView(@RequestParam(name="bbs_idx") int bbs_idx,
+                              Model model
+    ) {
+        String category_code = "bc02";
 
+        int readCnt = bbsServiceIf.readCount(bbs_idx);
+        BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
+        BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
+
+        model.addAttribute("bbsDTO", bbsDTO);
+        model.addAttribute("prebbsDTO", prebbsDTO);
+        model.addAttribute("postbbsDTO", postbbsDTO);
     }
 
     @GetMapping("/qnaList")
@@ -175,8 +201,23 @@ public class BbsController {
     }
 
     @GetMapping("/faqList")
-    public void FaqList() {
+    public void FaqList(@Valid PageRequestDTO pageRequestDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model
+    ) {
+        String category_code = "bc03";
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+//        pageRequestDTO.setPage_size(page_size);
+        pageRequestDTO.setPage_block_size(10);
+        pageRequestDTO.setCategory_code(category_code);
 
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @GetMapping("/boardList")

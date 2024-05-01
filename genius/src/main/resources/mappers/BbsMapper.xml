@@ -71,8 +71,8 @@
         SELECT bbs_idx, bbs_title, category_code, bbs.member_id, mem.member_name, fileYN, bbs_contents, bbs.reg_date, read_cnt, bbs.modify_date
         FROM tbl_bbs AS bbs
         inner JOIN tbl_member AS mem
-        ON mem.member_id = bbs.member_id AND mem.status = "Y"
-        <include refid="whereCondition"></include>
+        ON mem.member_id = bbs.member_id
+          <include refid="whereCondition"></include>
         ORDER BY bbs_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
@@ -99,7 +99,9 @@
 
     <select id="bbsTotalCount">
         SELECT COUNT(*)
-        FROM tbl_bbs
+        FROM tbl_bbs AS bbs
+        INNER JOIN tbl_member AS mem
+        ON mem.member_id = bbs.member_id
         <include refid="whereCondition"></include>
     </select>
 
