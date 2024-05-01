@@ -36,6 +36,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -59,71 +61,75 @@
     <section class="section profile">
         <div class="row">
             <div class="col-xl-12">
-
                 <div class="card">
                     <div class="card-body pt-3">
-
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
                             <!-- Form -->
-                            <form method="post">
+                            <form enctype="multipart/form-data" method="post" action="/admin/banner/bannerRegist">
                                 <div class="row mb-3">
-                                    <label for="banner_name" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_name" type="text" class="form-control" id="banner_name"
-                                               value="${bannerDTO.banner_name}">
+                                        <input name="title" type="text" class="form-control" id="title"
+                                               value="${bannerDTO['title']}">
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
                                     <label for="banner_start" class="col-md-4 col-lg-2 col-form-label">게시 시작일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_start" type="date" class="form-control" id="banner_start"
-                                               value="${bannerDTO.banner_start}">
+                                        <input name="post_start_date" type="date" class="form-control" id="banner_start"
+                                               value="${bannerDTO['post_start_date']}">
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
                                     <label for="banner_end" class="col-md-4 col-lg-2 col-form-label">게시 종료일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_end" type="date" class="form-control" id="banner_end"
-                                               value="${bannerDTO.banner_end}">
+                                        <input name="post_end_date" type="date" class="form-control" id="banner_end"
+                                               value="${bannerDTO['post_end_date']}">
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
-                                    <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">우선순위</label>
+                                    <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">순서</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="banner_rank" type="text" class="form-control" id="banner_rank"
-                                               value="${bannerDTO.banner_rank}">
+                                        <input name="order" type="text" class="form-control" id="banner_rank"
+                                               value="${bannerDTO['order']}" disabled>
                                     </div>
                                 </div>
-
-                                <div class="row mb-3">
-                                    <label for="banner_use" class="col-md-4 col-lg-2 col-form-label">사용여부</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="banner_use" type="text" class="form-control" id="banner_use"
-                                               value="${bannerDTO.banner_use}">
-                                    </div>
-                                </div>
-
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="${bannerDTO.file}">
+                                        <input name="file" type="file" class="form-control" id="file" value="" onchange="changeImg(event)">
                                     </div>
                                 </div>
 
-                                <div class="text-center mt-5">
-                                    <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
-                                </div>
-                            </form><!-- End Form -->
+                                <div class="row m-1">
+                                    <div class="p-1 border-gray bg-light text-dark rounded-top-2">
+                                        <span class="d-block p-1 text-center">이미지 미리보기</span>
+                                    </div>
 
+                                    <div class="p-1 border-gray rounded-bottom-2" style="min-height: 200px">
+                                        <img id="preview" class="d-block w-100" src="/resources/img/no_image.png">
+                                    </div>
+                                </div>
+                                <div class="mt-5 d-flex justify-content-between">
+                                    <c:set var="linked_params">
+                                        <c:forEach var="key" items="${paramValues.keySet()}" varStatus="status">
+                                            <c:if test="${key != 'banner_img_idx'}"><c:if test="${status.first}">${key}=${param[key]}</c:if><c:if test="${! status.first}">&${key}=${param[key]}</c:if></c:if>
+                                        </c:forEach>
+                                    </c:set>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-success" onclick="location.href = '/admin/banner/bannerList?${linked_params}'">목록</button>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">등록</button>
+                                        <button type="button" class="btn btn-outline-success" id="btn_banner_delete" onclick="delete('${bannerDTO['banner_img_idx']}')">삭제</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- End Form -->
                         </div>
                     </div>
-                </div><!-- End Bordered Tabs -->
+                </div>
+                <!-- End Bordered Tabs -->
             </div>
         </div>
     </section>
@@ -139,7 +145,17 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
-
+<script>
+    // 미리보기 이미지 변경
+    function changeImg(e) {
+        let files = e.target.files;
+        let reader = new FileReader();
+        reader.onload = (e)=>{
+            $('#preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(files[0]);
+    }
+</script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @NoArgsConstructor
 @Builder
 public class BannerVO {
-    private int banner_img_idx;
+    private String banner_img_idx;
     private String title;
     private String save_name;
     private String original_name;
@@ -24,6 +24,6 @@ public class BannerVO {
     private String post_start_date;
     private String post_end_date;
     private String banner_status;
-    private int order;
+    private String order;
 }
 
