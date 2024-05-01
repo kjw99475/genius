@@ -113,6 +113,7 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">주문번호</th>
                         <th scope="col">주문자 id</th>
                         <th scope="col">주문일시</th>
@@ -129,13 +130,14 @@
                     <c:if test="${orderDTOlist ne null}">
                         <c:forEach items="${orderDTOlist}" var="orderDTO">
                             <tr>
-                                <th scope="row"><a href='/admin/order/view'>${orderDTO.order_num}</a></th>
+                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1"></td>
+                                <th scope="row"><a href='/admin/order/view?order_num=${orderDTO.order_num}'>${orderDTO.order_num}</a></th>
                                 <td>${orderDTO.member_id}</td>
                                 <td>${orderDTO.order_date}</td>
                                 <td>${orderDTO.total_price}</td>
                                 <td>${orderDTO.amount}</td>
                                 <td>
-                                    <select class="deliverySelect">
+                                    <select class="deliverySelect" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>>
                                         <option value="" <c:if test="${orderDTO.delivery_company == '' or orderDTO.delivery_company == null}">selected</c:if>>선택</option>
                                         <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국'}">selected</c:if>>우체국</option>
                                         <option value="CJ대한통운" <c:if test="${orderDTO.delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
@@ -148,7 +150,7 @@
                                     </select>
                                 <td>${orderDTO.delivery_start_date}</td>
                                 <td>${orderDTO.delivery_end_date}</td>
-                                <td><span class="badge bg-warning">${orderDTO.order_state}</span></td>
+                                <td class="delivery_state"><span class="badge bg-warning">${orderDTO.order_state}</span></td>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -241,41 +243,60 @@
     function cartChoices() {
 
 
-        var list =[];
-        var list1 = [];
-        <c:forEach items="${orderDTOlist}" var="orderDTO">
-        list.push("${orderDTO.order_num}");
-        </c:forEach>
+        var delivery_list =[];
+        var check_list = [];
 
 
-        let chooses = document.querySelectorAll('.deliverySelect');
+        let checknull = true;
 
-        for(let choice of chooses){
-            list1.push(choice.value);
+
+        let delivery = document.querySelectorAll('.deliverySelect');
+        let checkbox = document.querySelectorAll('.choose');
+
+        for(let i = 0; i<checkbox.length; i++){
+            if(checkbox[i].checked){
+                delivery_list.push(checkbox[i].value);
+                check_list.push(delivery[i].value);
+
+            }
         }
 
+        // for(let choice of delivery){
+        //     list1.push(choice.value);
+        // }
 
+        for(let i =0; i<delivery_list.length; i++){
+            if(check_list[i] == null || check_list[i]==""){
+                checknull = false;
+            }
+
+        }
+
+        if(checknull){
         // for(let i = 0; i<chooses.length; i++){
-            console.log(chooses);
-            console.log(list);
             $.ajax({
                 url:"/admin/order/deliveryupdate.dox",
                 dataType:"json",
                 type : "GET",
                 data : {
-                    "ordernumList":JSON.stringify(list),
-                    "delivery":JSON.stringify(list1)
+                    "ordernumList":JSON.stringify(delivery_list),
+                    "delivery":JSON.stringify(check_list)
                 },
                 success : function(data) {
                     alert("수정 성공");
                     console.log("성공");
+                    location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
                 },
                 fail : function (data){
                     console.log("실패");
                 }
 
             });
+        }else if(!checknull){
+            alert("택배사를 정해주세요");
         }
+    }
+
 
 
         <%--for(let i = 0; i<list1.length; i++) {--%>

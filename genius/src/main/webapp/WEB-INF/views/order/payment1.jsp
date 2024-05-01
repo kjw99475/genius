@@ -57,7 +57,7 @@
                         <h3>주문자 정보</h3>
                         <form class="row contact_form" action="#" method="post" novalidate="novalidate" id="userfrm" name="userfrm">
                             <div class="col-md-12 form-group d-flex align-items-baseline">
-                                <label class="w-100px">이름 : </label><input value="${memberdto.member_id}" type="text" class="form-control border-0" id="name" name="name" placeholder="이름을 입력해주세요" disabled>
+                                <label class="w-100px">이름 : </label><input value="${memberdto.member_name}" type="text" class="form-control border-0" id="name" name="name" placeholder="이름을 입력해주세요" disabled>
                             </div>
                             <div class="col-md-12 form-group d-flex align-items-baseline">
                                 <label class="w-100px">연락처 : </label><input value="${memberdto.phone}" type="tel" class="form-control border-0" id="phone" name="phone" placeholder="연락처를 입력해주세요" disabled>
@@ -75,7 +75,7 @@
                                 <div class="creat_account">
                                     <h3>배송지 정보</h3>
                                     <div class="col-md-12 form-group d-flex align-items-baseline">
-                                        <label class="w-100px">이름 : </label><input type="text" class="form-control" id="order_name" name="name" value="${memberdto.member_id}">
+                                        <label class="w-100px">이름 : </label><input type="text" class="form-control" id="order_name" name="name" value="${memberdto.member_name}">
                                     </div>
                                     <div class="col-md-12 form-group d-flex align-items-baseline">
                                         <label class="w-100px">연락처 : </label><input type="tel" class="form-control" id="order_phone" name="phone" value="${memberdto.phone}">
@@ -219,8 +219,7 @@
                 "member_id":"${sessionScope['member_id']}",
                 "price":"${totalprice}",
                 "book_code": "${bookdto.book_code}",
-                "quantity" : "${bookdto.quantity}",
-                "frm":frmData
+                "quantity" : "${bookdto.quantity}"
 
             },
             success : function(data) {

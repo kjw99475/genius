@@ -102,6 +102,8 @@ public class OrderController {
                 .total_price(Integer.parseInt(map.get("price").toString()))
                 .order_addr1(req.getParameter("order_addr1"))
                 .order_addr2(req.getParameter("order_addr2"))
+                .delivery_addr1(req.getParameter("order_addr1"))
+                .delivery_addr2(req.getParameter("order_addr2"))
                 .order_name(req.getParameter("name"))
                 .order_phone(req.getParameter("phone"))
                 .order_zipcode(req.getParameter("order_zip_code"))
@@ -132,6 +134,7 @@ public class OrderController {
             result = paymentServiceIf.memberPay(paymentDTO);
             if (result > 0) {
                 int regist = orderService.regist(orderDTO);
+                int deliveryregist = orderService.deliveryRegist(orderDTO);
                 int detailregist = orderService.detailregist(detailorderDTO);
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
                 resultMap.put("result", "success");
@@ -154,8 +157,7 @@ public class OrderController {
         HashMap<String, Object> resultMap = new HashMap<>();
 
         String member_id = map.get("member_id").toString();
-        log.info("#####################"+member_id);
-        log.info("#####################"+map.get("frm"));
+        resultMap.put("result", "fail");
         log.info("테스트:" + req.getParameter("order_addr1"));
         MemberDTO dto = memberService.view(member_id);
 
@@ -203,9 +205,7 @@ public class OrderController {
         if(dto.getPoint()>Integer.parseInt(map.get("price").toString())){
             result = paymentServiceIf.memberPay(paymentDTO);
             if (result > 0) {
-                for (int i = 0; i < dtolist.size(); i++) {
-                    int result1 = cartService.delete(dtolist.get(i));
-                }
+                log.info("1##############################");
                 OrderDTO orderDTO1 = OrderDTO.builder()
                         .member_id(member_id)
                         .order_num(order_num)
@@ -213,11 +213,16 @@ public class OrderController {
                         .total_price(Integer.parseInt(map.get("price").toString()))
                         .order_addr1(req.getParameter("order_addr1"))
                         .order_addr2(req.getParameter("order_addr2"))
+                        .delivery_addr1(req.getParameter("order_addr1"))
+                        .delivery_addr2(req.getParameter("order_addr2"))
                         .order_name(req.getParameter("name"))
                         .order_phone(req.getParameter("phone"))
                         .order_zipcode(req.getParameter("order_zip_code"))
                         .build();
+                log.info("2##############################");
                 int regist = orderService.regist(orderDTO1);
+                int deliveryregist = orderService.deliveryRegist(orderDTO1);
+                log.info("3##############################");
                 for (int i = 0; i < dtolist.size(); i++) {
                     OrderDTO detailorderDTO = OrderDTO.builder()
                             .member_id(member_id)
@@ -232,7 +237,12 @@ public class OrderController {
                             .build();
                     orderService.detailregist(detailorderDTO);
                 }
+                log.info("4##############################");
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
+
+                for (int i = 0; i < dtolist.size(); i++) {
+                    int result1 = cartService.delete(dtolist.get(i));
+                }
                 resultMap.put("result", "success");
             }else {
                 resultMap.put("result", "fail");
@@ -241,7 +251,7 @@ public class OrderController {
         }else{
             resultMap.put("result", "fail");
         }
-
+        log.info("5##############################");
         return new Gson().toJson(resultMap);
     }
 

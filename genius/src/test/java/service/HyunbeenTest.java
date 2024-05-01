@@ -235,4 +235,14 @@ public class HyunbeenTest {
 //        log.info("===================================");
 
     }
+
+    @Test
+    public void detailOrder(){
+        String ordernum= "o00001";
+        List<OrderDTO> dto = order.AdminOrderdetail(ordernum);
+
+        log.info("===================================");
+        log.info("dto : " + dto.toString());
+        log.info("===================================");
+    }
 }
