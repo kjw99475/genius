@@ -16,7 +16,7 @@
 
     <insert id="usepoint">
         INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
-        VALUES (#{payment_num},#{member_id},#{price},#{method},'사이트 거래',NOW(),'사용','포인트 사용')
+        VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),#{use_type},#{title})
     </insert>
 
     <insert id="refund">
