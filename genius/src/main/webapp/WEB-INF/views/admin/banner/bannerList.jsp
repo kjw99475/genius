@@ -48,7 +48,6 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">게시판 관리</li>
                 <li class="breadcrumb-item active">배너 관리</li>
             </ol>
         </nav>
@@ -142,14 +141,14 @@
                             <c:if test="${!empty pageResponseDTO.dtoList}">
                                 <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
                                 <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
-                                    <tr onclick="location.href='/admin/banner/bannerModify?banner_img_idx=${dtoList['banner_img_idx']}'">
+                                    <tr>
                                         <td>
                                             <div class="form-check">
                                                 <input class="form-check-input check-box" name="banner_img_idx" type="checkbox" value="${dtoList['banner_img_idx']}" id="check${dtoList['banner_img_idx']}" onclick="event.stopPropagation()">
                                             </div>
                                         </td>
                                         <td>${i}</td>
-                                        <td>${dtoList['title']}</td>
+                                        <td><a href="/admin/banner/bannerModify?banner_img_idx=${dtoList['banner_img_idx']}">${dtoList['title']}</a></td>
                                         <td>${dtoList['member_name']}</td>
                                         <td>${dtoList['reg_date']}</td>
                                         <td>${dtoList['post_start_date']} ~ ${dtoList['post_end_date']}</td>

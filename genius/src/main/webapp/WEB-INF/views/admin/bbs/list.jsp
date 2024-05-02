@@ -63,7 +63,7 @@
                                 <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                     <div class="col">
                                         <div class="row mb-2">
-                                            <label class="fw-bold p-3">게시기간</label>
+                                            <label class="fw-bold p-3">등록일</label>
                                             <div class="row justify-content-start align-items-center">
                                                 <div class="col-3">
                                                     <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
@@ -137,10 +137,10 @@
                                 <c:choose>
                                     <c:when test="${responseDTO ne null}">
                                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
-                                            <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
+                                            <tr>
                                                 <td><input class="chk_del form-check-input" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()"></td>
                                                 <td>${total_count -responseDTO.page_skip_count -loop.index}</td>
-                                                <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                                <td><a href="/admin/bbs/view?bbs_idx=${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</a><c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_name}</td>
                                                 <td>${bbsDTO.reg_date}</td>
                                                 <td>${bbsDTO.read_cnt}</td>
