@@ -115,6 +115,19 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
+    public int revenue(int total_price) {
+        int result = paymentMapper.revenue(total_price);
+        return result;
+    }
+
+    @Override
+    public int deleteBookRelease(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = paymentMapper.deleteBookRelease(orderVO);
+        return result;
+    }
+
+    @Override
     public int salesBook(OrderDTO orderDTO) {
         OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
         int result = paymentMapper.salesBook(vo);

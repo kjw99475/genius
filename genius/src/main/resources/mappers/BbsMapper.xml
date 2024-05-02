@@ -10,9 +10,10 @@
             <if test=' search_word != null and search_word != "" '>
                 <choose>
                     <when test="type == 0">
-                        AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
-                        OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
-                        OR bbs_contents LIKE CONCAT('%', #{search_word}, '%')
+                        AND
+                        ( mem.member_name LIKE CONCAT('%', #{search_word}, '%')
+                            OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
+                            OR bbs_contents LIKE CONCAT('%', #{search_word}, '%') )
                     </when>
                     <when test="type == 1">
                         AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
@@ -77,7 +78,7 @@
         LIMIT #{page_skip_count}, #{page_size}
     </select>
 
-    <insert id="regist">
+    <insert id="regist" parameterType="org.fullstack4.genius.domain.BbsVO" useGeneratedKeys="true" keyProperty="bbs_idx" keyColumn="bbs_idx">
         INSERT INTO tbl_bbs (bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt)
         VALUES(#{bbs_title}, #{category_code}, #{member_id}, #{fileYN}, #{bbs_contents}, NOW(), 0)
     </insert>

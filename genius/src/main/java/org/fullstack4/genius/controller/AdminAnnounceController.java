@@ -3,9 +3,10 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.genius.dto.BbsDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.FileUtil;
+import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.service.BbsFileServiceIf;
 import org.fullstack4.genius.service.BbsServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +15,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
 @RequestMapping(value="/admin/announce")
 @RequiredArgsConstructor
 public class AdminAnnounceController {
-    public final BbsServiceIf bbsServiceIf;
+    private final BbsServiceIf bbsServiceIf;
+    private final BbsFileServiceIf bbsFileServiceIf;
     String category_code = "bc02";
 
     @GetMapping("/list")
@@ -53,17 +66,94 @@ public class AdminAnnounceController {
 
 
     }
+    @GetMapping("/announceFileDownload")
+    public String GETBbsFileDownload(@RequestParam("file_idx") int file_idx,
+                                     @RequestParam("bbs_idx") String bbs_idx,
+                                     HttpServletRequest req,
+                                     HttpServletResponse res,
+                                     Model model) throws UnsupportedEncodingException {
+        BbsFileDTO fileDTO = bbsFileServiceIf.getFile(file_idx);
+        String upload_path = req.getServletContext().getRealPath("");
+        log.info("==================");
+        log.info("path : " + upload_path+"resources\\upload\\bbs\\"+fileDTO.getSave_name());
+        log.info("=================");
+        File file = new File(upload_path+"resources\\upload\\bbs\\"+fileDTO.getSave_name());
+
+        String original_name = fileDTO.getOriginal_name();
+        original_name = URLEncoder.encode(original_name,"utf-8");
+        log.info("filename : " + fileDTO.getPath()+fileDTO.getSave_name().substring(0,fileDTO.getSave_name().lastIndexOf(".")));
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + original_name + "\";");
+        res.setHeader("Content-Transfer-Encoding", "binary");
+        res.setHeader("Content-Type", fileDTO.getSave_name().substring(fileDTO.getSave_name().lastIndexOf("."),fileDTO.getSave_name().length()));
+        res.setHeader("Content-Length", "" + file.length());
+        res.setHeader("Pragma", "no-cache;");
+        res.setHeader("Expires", "-1;");
+
+        try(
+                FileInputStream fis = new FileInputStream(file);
+                OutputStream out = res.getOutputStream();
+        ){
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+            while((readCount = fis.read(buffer)) != -1){
+                out.write(buffer,0,readCount);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/admin/announce/view?bbs_idx="+bbs_idx;
+    }
 
     @PostMapping("/contentregist")
-    public String POSTContentRegist(BbsDTO bbsDTO
-            , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes){
+    public String POSTContentRegist(BbsDTO bbsDTO,
+                                    MultipartHttpServletRequest files,
+                                    BindingResult bindingResult,
+                                    HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes,
+                                    Model model){
         if(bindingResult.hasErrors()){
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
+        List<MultipartFile> list = files.getFiles("files");
+        log.info("fileupload list >> " + list);
+        log.info("list size : " + list.size());
+        bbsDTO.setFileYN("N");
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()!=0){
+                bbsDTO.setFileYN("Y");
+                break;
+            }
+        }
+        bbsDTO.setCategory_code("bc02");
 
         int result = bbsServiceIf.regist(bbsDTO);
+        String uploadFoler = CommonUtil.getUploadFolder(request,"bbs");
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()==0){
+                break;
+            }
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(list.get(i))
+                    .uploadFolder(uploadFoler)
+                    .build();
+            log.info("========================");
+            log.info("postQnaRegist >> qnaDTO" + bbsDTO);
+            log.info("========================");
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            log.info("=======================");
+            log.info("upload : " + map);
+            log.info("=======================");
+            if(map.get("result").equals("success")) {
+                BbsFileDTO bbsFileDTO = BbsFileDTO.builder()
+                        .path("/resources/upload/bbs/")
+                        .bbs_idx(result)
+                        .category_code("bc02")
+                        .original_name(map.get("orgName"))
+                        .save_name(map.get("newName")).build();
+                bbsFileServiceIf.regist(bbsFileDTO);
+            }
+        }
         if(result > 0) {
             log.info("등록 성공 ===============");
             return "redirect:/admin/announce/list";
@@ -100,6 +190,12 @@ public class AdminAnnounceController {
         BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
         BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
         BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
+        log.info(bbsDTO);
+        if(bbsDTO.getFileYN().equals("Y")){
+            List<BbsFileDTO> fileDTOList = bbsFileServiceIf.getFileList(bbsDTO.getBbs_idx(), bbsDTO.getCategory_code());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
 
         model.addAttribute("bbsDTO", bbsDTO);
         model.addAttribute("prebbsDTO", prebbsDTO);

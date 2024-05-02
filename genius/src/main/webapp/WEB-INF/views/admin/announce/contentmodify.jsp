@@ -54,7 +54,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">공지</li>
+                <li class="breadcrumb-item"><a href="/admin/announce/list">공지</a></li>
                 <li class="breadcrumb-item active">공지 수정</li>
             </ol>
         </nav>
@@ -92,7 +92,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}" readonly>
+                                               value="${bbsDTO.member_name}" readonly>
                                     </div>
                                 </div>
 
@@ -128,7 +128,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">수정 완료</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
                                 </div>
                             </form><!-- EndForm -->
 

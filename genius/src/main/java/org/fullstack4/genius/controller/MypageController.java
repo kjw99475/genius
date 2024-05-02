@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log4j2
 @Controller
@@ -159,39 +156,39 @@ public class MypageController {
     @RequestMapping(value = "/addcart.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String AddCart(@RequestParam HashMap<String,Object> map){
-        log.info("###################"+map.get("book_code").toString());
-        int exist = cartService.exist(map.get("book_code").toString(),map.get("member_id").toString());
-        log.info("###################exist:"+exist);
-        int result = 0;
+        String BookCodeList = map.get("book_code").toString();
+        BookCodeList = BookCodeList.replace("\"","");
+        BookCodeList = BookCodeList.replace("[","");
+        BookCodeList = BookCodeList.replace("]","");
+        String[] bookCodeList = BookCodeList.split(",");
+        log.info("bookCodeList : " + Arrays.toString(bookCodeList));
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        if(exist != 0){
-            CartDTO cartDTO = CartDTO.builder()
-                    .book_code(map.get("book_code").toString())
-                    .member_id(map.get("member_id").toString())
-                    .quantity(Integer.parseInt(map.get("quantity").toString()))
-                    .build();
-            result = cartService.updateCart(cartDTO);
-            if (result > 0) {
-                resultMap.put("result", "success");
-            } else {
-                resultMap.put("result", "fail");
-            }
-        }
-        else if(exist == 0) {
-            CartDTO cartDTO = CartDTO.builder()
-                    .book_code(map.get("book_code").toString())
-                    .member_id(map.get("member_id").toString())
-                    .quantity(Integer.parseInt(map.get("quantity").toString()))
-                    .build();
-            result = cartService.regist(cartDTO);
-            if (result > 0) {
-                resultMap.put("result", "success");
-            } else {
-                resultMap.put("result", "fail");
-            }
-        }
-        log.info("###################"+result);
 
+        int result = 0;
+        for(int i = 0 ; i < bookCodeList.length; i++) {
+            int exist = cartService.exist(bookCodeList[i], map.get("member_id").toString());
+
+            if (exist != 0) {
+                CartDTO cartDTO = CartDTO.builder()
+                        .book_code(bookCodeList[i])
+                        .member_id(map.get("member_id").toString())
+                        .quantity(Integer.parseInt(map.get("quantity").toString()))
+                        .build();
+                result = cartService.updateCart(cartDTO);
+            } else if (exist == 0) {
+                CartDTO cartDTO = CartDTO.builder()
+                        .book_code(bookCodeList[i])
+                        .member_id(map.get("member_id").toString())
+                        .quantity(Integer.parseInt(map.get("quantity").toString()))
+                        .build();
+                result = cartService.regist(cartDTO);
+            }
+        }
+        if(result > 0) {
+            resultMap.put("result", "success");
+        }else{
+            resultMap.put("result", "fail");
+        }
         return new Gson().toJson(resultMap);
     }
 
@@ -221,13 +218,29 @@ public class MypageController {
 
     @RequestMapping(value = "/cartdelete.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public void DeleteCart(@RequestParam HashMap<String,Object> map){
-        CartDTO cartDTO = CartDTO.builder()
-                .cart_idx(Integer.parseInt(map.get("cart_idx").toString()))
-                .member_id(map.get("member_id").toString())
-                .build();
-        cartService.delete(cartDTO);
-        log.info("###################"+map.toString());
+    public String DeleteCart(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        String cartList = map.get("cart_idx").toString();
+        cartList = cartList.replace("\"","");
+        cartList = cartList.replace("[","");
+        cartList = cartList.replace("]","");
+        String[] CartList = cartList.split(",");
+        int result = 0;
+        for(int i=0; i<CartList.length; i++) {
+            CartDTO cartDTO = CartDTO.builder()
+                    .cart_idx(Integer.parseInt(CartList[i]))
+                    .member_id(map.get("member_id").toString())
+                    .build();
+            result=cartService.delete(cartDTO);
+        }
+
+        if(result>0){
+            resultMap.put("result", "success");
+        }else{
+            resultMap.put("result", "fail");
+        }
+
+        return new Gson().toJson(resultMap);
     }
 
     @GetMapping("/point")

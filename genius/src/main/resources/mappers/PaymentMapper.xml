@@ -132,4 +132,14 @@
         SET quantity = quantity - #{amount}
         where book_code = #{book_code}
     </update>
+    <delete id="deleteBookRelease">
+        DELETE FROM tbl_release
+        WHERE order_num = #{order_num}
+    </delete>
+
+    <insert id="revenue">
+        INSERT INTO tbl_revenue_statics (date, revenue_total)
+        VALUES (DATE_FORMAT(NOW(), '%Y-%m-%d'), #{param1})
+        ON DUPLICATE KEY UPDATE revenue_total = revenue_total + #{param1};
+    </insert>
 </mapper>

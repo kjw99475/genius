@@ -22,6 +22,8 @@ public interface PaymentServiceIf {
     List<OrderDTO> viewOrder(String member_id);
     List<OrderDTO> viewOrderdetail(String order_num);
 
+    int revenue(int total_price);
+    int deleteBookRelease(OrderDTO orderDTO);
     int salesBook(OrderDTO orderDTO);
     int releaseBook(OrderDTO orderDTO);
     int OrderTotalCount(PageRequestDTO requestDTO);

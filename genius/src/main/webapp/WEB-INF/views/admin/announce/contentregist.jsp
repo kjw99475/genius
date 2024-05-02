@@ -55,7 +55,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">공지</li>
+                <li class="breadcrumb-item"><a href="/admin/announce/list">공지</a></li>
                 <li class="breadcrumb-item active">공지 등록</li>
             </ol>
         </nav>
@@ -71,7 +71,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/announce/contentregist">
+                            <form method="post" action="/admin/announce/contentregist" enctype="multipart/form-data">
 <%--                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">--%>
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -108,15 +108,7 @@
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <c:choose>
-                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
-                                                <input name="file" type="file" class="form-control" id="file"
-                                                       value="${bbsDTO.fileYN}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <input name="file" type="file" class="form-control" id="file">
-                                            </c:otherwise>
-                                        </c:choose>
+                                          <input name="files" type="file" class="form-control" id="file" multiple>
                                     </div>
                                 </div>
 

@@ -56,7 +56,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">QnA</li>
+                <li class="breadcrumb-item"><a href="admin/qna/list">QnA</a></li>
                 <li class="breadcrumb-item active">QnA 등록</li>
             </ol>
         </nav>
@@ -72,58 +72,62 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/contentregist">
+                            <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
+                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+
+
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="qna" readonly>
+                                               value="QnA" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}">
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="title" type="text" class="form-control" id="title"
+                                               value="${qnaDTO.title}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}">
+                                               value="${sessionScope.member_id}" readonly>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <%--<div class="row mb-3">
                                     <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}">
+                                               value="${qnaDTO.reg_date}">
                                     </div>
-                                </div>
+                                </div>--%>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="${bbsDTO.fileYN}">
+                                    <label class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="file" name="files" multiple>
                                     </div>
+
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <textarea id="summernote" name="bbs_contents" >${bbsDTO.bbs_contents}</textarea>
+                                        <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
                                     </div>
                                 </div>
 
-                                <div class="text-center mt-5">
+                                <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
                                     <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
                                 </div>
+
                             </form><!-- EndForm -->
 
                         </div>

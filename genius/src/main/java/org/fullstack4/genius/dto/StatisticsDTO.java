@@ -18,4 +18,9 @@ public class StatisticsDTO {
     private String totalOrderCnt;
     private String totalOrderPrice;
     private String totalOrderMember;
+    private String category_code;
+    private String category_name;
+    private String result;
+    private String date;
+    private String totalRevenue;
 }

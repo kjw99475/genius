@@ -59,49 +59,54 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">QnA 관리</h5>
-                        <p>QnA를 관리하는 페이지 입니다.</p>
                         <div class="row">
-                            <form>
-                                <div class="row mb-3">
+                            <form action="/admin/qna/list">
+                                <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                     <div class="col">
-                                        <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" value="${responseDTO.search_date1}" id="reg_date1">
-                                            </div>
-                                            ~
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" value="${responseDTO.search_date1}" id="reg_date2">
+                                        <div class="row mb-2">
+                                            <label class="fw-bold p-3">검색 기간</label>
+                                            <div class="row justify-content-start align-items-center">
+                                                <div class="col-3">
+                                                    <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
+                                                </div>
+                                                ~
+                                                <div class="col-3">
+                                                    <input class="form-control" type="date" name="search_date2" id="banner_end" value="${responseDTO['search_date2']}">
+                                                </div>
                                             </div>
 
                                         </div>
                                     </div>
-
-                                    <div class="row">
-
-                                        <div class="col-1">
-                                            <select name="answerYN" id="answerYN" class="form-select">
-                                                <option value="" selected>답변상태</option>
-                                                <option value="N">대기중</option>
-                                                <option value="Y">답변완료</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-1">
-                                            <select name="type" id="search_category" class="form-select">
-                                                <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
-                                                <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>작성자</option>
-                                                <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>제목</option>
-                                                <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>내용</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" value="${responseDTO.search_word}" name="search_word" id="search_word">
-                                        </div>
+                                    <div class="row mb-2">
                                         <div class="col">
-                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label class="fw-bold p-3 me-3">답변 상태 검색</label>
+                                                    <label class="fw-bold p-3 ">키워드 검색</label>
+                                                </div>
+                                                <div class="d-flex align-items-center" style="gap: 10px">
+                                                    <select name="answerYN" id="answerYN" class="form-select w-200px">
+                                                        <option value="" selected>답변상태</option>
+                                                        <option value="N">대기중</option>
+                                                        <option value="Y">답변완료</option>
+                                                    </select>
+
+                                                    <select name="type" id="search_category" class="form-select w-200px">
+                                                        <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                                                        <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                                                        <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                                                        <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
+                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
+                                                    <div class="w-200px">
+                                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-2 mb-2">
                                     <select name="page_size" class="form-select" onchange="this.form.submit()">
                                         <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
@@ -116,27 +121,40 @@
 
                         <form id="frm_qna_delete" method="post" action="/admin/qna/delete">
                             <!-- Table with stripped rows -->
-                            <table class="table">
+                            <table class="w-100 table">
 
                                 <colgroup>
-                                    <col width="8%">
-                                    <col width="7%">
-                                    <col width="40%">
-                                    <col width="10%">
-                                    <col width="12%">
-                                    <col width="8%">
-                                    <col width="15%">
+                                    <col class="w-5">
+                                    <col class="w-5">
+                                    <col class="w-25">
+                                    <col class="w-10">
+                                    <col class="w-10">
+                                    <col class="w-10">
+                                    <col class="w-5">
+                                    <col class="w-10">
+<%--                                    <col width="8%">--%>
+<%--                                    <col width="7%">--%>
+<%--                                    <col width="40%">--%>
+<%--                                    <col width="10%">--%>
+<%--                                    <col width="12%">--%>
+<%--                                    <col width="8%">--%>
+<%--                                    <col width="15%">--%>
                                 </colgroup>
                                 <thead>
 
                                 <tr>
-                                    <th><input id="chk_all" type="checkbox" class="me-2">번호</th>
-                                    <th>구분</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
-                                    <th>답변여부</th>
+                                    <th scope="col" class="bg-geni-dark text-white">
+                                        <div>
+                                            <input id="chk_all" type="checkbox" class="me-2">
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="bg-geni-dark text-white">No</th>
+                                    <th scope="col" class="bg-geni-dark text-white">제목</th>
+                                    <th scope="col" class="bg-geni-dark text-white">작성자</th>
+                                    <th scope="col" class="bg-geni-dark text-white">작성일</th>
+                                    <th scope="col" class="bg-geni-dark text-white">조회수</th>
+                                    <th scope="col" class="bg-geni-dark text-white">구분</th>
+                                    <th scope="col" class="bg-geni-dark text-white">답변여부</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -144,13 +162,21 @@
 
                                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
                                     <tr onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}'">
-                                        <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" >${total_count - i.index - responseDTO.page_skip_count}</td>
-                                        <td>${qnaDTO.answerYN}</td>
+                                        <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
+                                        <td>${total_count - i.index - responseDTO.page_skip_count}</td>
                                         <td>${qnaDTO.title}</td>
-                                        <td>${qnaDTO.member_id}</td>
+                                        <td>${qnaDTO.member_name}</td>
                                         <td>${qnaDTO.reg_date}</td>
                                         <td>${qnaDTO.read_cnt}</td>
-                                        <td>답변상태</td>
+                                        <td>
+                                            <c:if test="${qnaDTO.answerYN == 'N'}">
+                                                질문글
+                                            </c:if>
+                                            <c:if test="${qnaDTO.answerYN == 'Y'}">
+                                                답변글
+                                            </c:if>
+                                        </td>
+                                        <td>${qnaDTO.answerYN}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

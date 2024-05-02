@@ -59,7 +59,7 @@
 
     <section class="section-margin--small mb-5">
         <div class="container ">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
@@ -90,11 +90,10 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
                             <label for="file">파일</label>
-                            <input type="file" class="form-control" id="file" name="fileYN" value="N">
+                            <input type="file" class="form-control" id="file" name="files" multiple="multiple">
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,7 @@ public class BookVO {
     private String book_name;
     private String author;
     private int price;
+    private int amount;
     private int quantity;
     private String category_class_code;
     private String category_subject_code;
@@ -38,4 +39,6 @@ public class BookVO {
     private String contents;
     private String class_name;
     private String subject_name;
+    private String sales_amount;
+    private String sales_price;
 }

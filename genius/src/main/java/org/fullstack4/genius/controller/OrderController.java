@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -140,6 +141,7 @@ public class OrderController {
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
                 paymentServiceIf.releaseBook(detailorderDTO);
                 paymentServiceIf.salesBook(detailorderDTO);
+                paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
                 resultMap.put("result", "success");
             }else {
                 resultMap.put("result", "fail");
@@ -223,8 +225,6 @@ public class OrderController {
                         .order_zipcode(req.getParameter("order_zip_code"))
                         .build();
                 log.info("2##############################");
-                int regist = orderService.regist(orderDTO1);
-                int deliveryregist = orderService.deliveryRegist(orderDTO1);
                 log.info("3##############################");
                 for (int i = 0; i < dtolist.size(); i++) {
                     OrderDTO detailorderDTO = OrderDTO.builder()
@@ -242,6 +242,7 @@ public class OrderController {
                     orderService.detailregist(detailorderDTO);
                     paymentServiceIf.releaseBook(detailorderDTO);
                     paymentServiceIf.salesBook(detailorderDTO);
+                    paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
                 }
                 log.info("4##############################");
                 int result123 = paymentServiceIf.usepoint(paymentDTO);

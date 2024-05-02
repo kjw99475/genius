@@ -21,6 +21,7 @@ public class BookDTO {
     private String author;
     private int price;
     private int quantity;
+    private int amount;
     private String category_class_code;
     private String category_subject_code;
     private LocalDate sales_start_date;
@@ -39,4 +40,6 @@ public class BookDTO {
     private LocalDate publication_date;
     private String class_name;
     private String subject_name;
+    private String sales_amount;
+    private String sales_price;
 }

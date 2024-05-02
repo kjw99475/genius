@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +59,7 @@
                 <div>
                     <div class="confirmation-card text-center">
                         <h4 class="h4">나의 포인트</h4>
-                        <h3 class="h3">${point} 포인트</h3>
+                        <h3 class="h3">${CommonUtil.comma(point)} 포인트</h3>
                         <div class="d-grid mt-4">
                             <button type="button" class="btn btn-success w-50 closeModal" data-toggle="modal" data-target="#exampleModalCenter">
                                 충전하기
@@ -89,31 +90,42 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">총 0${pageDTO.total_count}건</th>
-                                <th scope="col">종류</th>
-                                <th scope="col">결제 일자</th>
-                                <th scope="col">금액</th>
+                            <tr class="bg-geni-ft">
+                                <th class="pt-3 pb-3" scope="col">총 0${pageDTO.total_count}건</th>
+                                <th class="pt-3 pb-3" scope="col">종류</th>
+                                <th class="pt-3 pb-3" scope="col">결제 일자</th>
+                                <th class="pt-3 pb-3" scope="col">금액</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items= "${mypaymentlist}" var="list">
+                        <c:if test="${mypaymentlist eq []}">
                             <tr>
-                                <td class="border-0">
+                                <td colspan="4">
+                                    <div class="row justify-content-center align-items-center pb-3 border-bottom">
+                                        <div class="col-auto">
+                                            결제 내역이 없습니다.
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:if>
+                            <c:forEach items= "${mypaymentlist}" var="list">
+                            <tr class="bg-white">
+                                <td class="border-0 pt-3 pb-3">
                                     <p>${list.title}</p>
                                 </td>
-                                <td class="border-0">
-                                    <h5>${list.use_type}</h5>
+                                <td class="border-0 pt-3 pb-3">
+                                    <p class="font-weight-bold">${list.use_type}</p>
                                 </td>
-                                <td class="border-0">
+                                <td class="border-0 pt-3 pb-3">
                                     <p>${list.reg_date}</p>
                                 </td>
-                                <td class="border-0">
+                                <td class="border-0 pt-3 pb-3">
                                     <c:if test="${list.price > 0}">
-                                    <p class="text-geni">+${list.price}</p>
+                                    <p class="text-geni">+${CommonUtil.comma(list.price)}</p>
                                     </c:if>
                                     <c:if test="${list.price < 0}">
-                                    <p>${list.price}</p>
+                                    <p>${CommonUtil.comma(list.price)}</p>
                                     </c:if>
                                 </td>
                             </tr>

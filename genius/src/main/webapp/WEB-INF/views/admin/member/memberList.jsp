@@ -58,51 +58,68 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">회원 관리</h5>
-                        <p>회원을 관리하는 페이지 입니다.</p>
 
                         <div class="row">
                             <form action="/admin/member/memberList" method="get">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="row mb-3">
-                                            <div class="col-2">
-                                                <select name="search_category" id="search_category" class="form-select">
-                                                    <option value="all" <c:if test="${pageResponseDTO['search_category'] == null || pageResponseDTO['search_category'] == 'all'}">selected</c:if>>전체</option>
-                                                    <option value="member_id" <c:if test="${pageResponseDTO['search_category'] == 'member_id'}">selected</c:if>>회원 ID</option>
-                                                    <option value="member_name" <c:if test="${pageResponseDTO['search_category'] == 'member_name'}">selected</c:if>>회원 이름</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${pageResponseDTO['search_word']}">
-                                            </div>
-                                            <div class="col">
-                                                <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
+
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label class="fw-bold p-3">키워드 검색</label>
+                                                </div>
+                                                <div class="d-flex align-items-center" style="gap: 10px">
+
+                                                    <select name="search_category" id="search_category" class="form-select w-200px">
+                                                        <option value="all" <c:if test="${pageResponseDTO['search_category'] == null || pageResponseDTO['search_category'] == 'all'}">selected</c:if>>전체</option>
+                                                        <option value="member_id" <c:if test="${pageResponseDTO['search_category'] == 'member_id'}">selected</c:if>>회원 ID</option>
+                                                        <option value="member_name" <c:if test="${pageResponseDTO['search_category'] == 'member_name'}">selected</c:if>>회원 이름</option>
+                                                    </select>
+
+
+                                                    <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
+                                                    <div class="w-200px">
+                                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="col-2 mb-2">
-                            <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
-                                <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
-                                <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
-                                <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
-                            </select>
-                        </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2 mb-2">
+                                    <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                                        <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                                        <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                                        <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         <!-- Table with stripped rows -->
-                        <table class="table lh-lg">
+                        <table class="table lh-lg table-bordered w-100">
+                            <colgroup>
+                                <col class="w-10" />
+                                <col class="w-10" />
+                                <col class="w-10" />
+                                <col class="w-20" />
+                                <col class="w-20" />
+                                <col class="w-20" />
+                                <col class="w-10" />
+                            </colgroup>
+
                             <thead>
                             <tr>
-                                <th>NO</th>
-                                <th>회원번호</th>
-                                <th>구분</th>
-                                <th>회원아이디</th>
-                                <th>회원이름</th>
-                                <th>가입일</th>
-                                <th>상태</th>
-                                <th class="col-2"></th>
+                                <th scope="col" class="bg-geni-dark text-white">NO</th>
+                                <th scope="col" class="bg-geni-dark text-white">회원번호</th>
+                                <th scope="col" class="bg-geni-dark text-white">구분</th>
+                                <th scope="col" class="bg-geni-dark text-white">회원아이디</th>
+                                <th scope="col" class="bg-geni-dark text-white">회원이름</th>
+                                <th scope="col" class="bg-geni-dark text-white">가입일</th>
+                                <th scope="col" class="bg-geni-dark text-white">상태</th>
+                                <th scope="col" class="bg-geni-dark text-white"></th>
                             </tr>
                             </thead>
                             <tbody>

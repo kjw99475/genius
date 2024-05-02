@@ -41,9 +41,9 @@
     </sql>
     <insert id="regist">
         INSERT INTO tbl_book(book_code, book_name, author, price, quantity, category_class_code, category_subject_code, publisher
-                            ,book_info, isbn, contents, publication_date)
+                            ,book_info, isbn, contents, publication_date,book_img,video)
         VALUES(#{book_code}, #{book_name}, #{author}, #{price}, #{quantity}, #{category_class_code}, #{category_subject_code}, #{publisher},
-                            #{book_info}, #{isbn}, #{contents}, #{publication_date})
+                            #{book_info}, #{isbn}, #{contents}, #{publication_date},#{book_img},#{video})
     </insert>
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.BookVO">
@@ -134,4 +134,22 @@
         SELECT category_code, name
         FROM tbl_class_category
     </select>
+
+    <update id="BookInventoryUpdate">
+        UPDATE tbl_book
+        SET sales_status = #{sales_status},sales_start_date=#{sales_start_date},sales_end_date=#{sales_end_date},quantity=#{quantity}
+        where book_code = #{book_code}
+    </update>
+
+    <insert id="InsertRestore">
+        INSERT INTO tbl_store(book_code,book_name,price,amount,store_date,category_class_code,category_subject_code)
+        VALUES(#{book_code}
+        ,#{book_name}
+        ,#{price}
+        ,#{amount}
+        ,NOW()
+        ,#{category_class_code}
+        ,#{category_subject_code}
+        )
+    </insert>
 </mapper>

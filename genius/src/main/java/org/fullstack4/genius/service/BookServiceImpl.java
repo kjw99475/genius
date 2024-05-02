@@ -2,8 +2,10 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.BookDTO;
+import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.mapper.BookMapper;
@@ -24,9 +26,35 @@ public class BookServiceImpl implements BookServiceIf {
 
 
     @Override
-    public int regist(BookDTO bookDTO) {
+    public int regist(BookDTO bookDTO,FileDTO imgfileDTO,FileDTO videofileDTO) {
+        log.info("테스트 "+imgfileDTO);
+        if (imgfileDTO.getUploadFolder()!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(imgfileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setBook_img(map.get("newName"));
+            }
+
+        }
+        if (videofileDTO.getUploadFolder()!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(videofileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setVideo(map.get("newName"));
+            }
+
+        }
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
         int result = bookMapper.regist(bookVO);
+        return result;
+    }
+
+    @Override
+    public int InsertRestore(BookDTO bookDTO) {
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        int result = bookMapper.InsertRestore(bookVO);
         return result;
     }
 
@@ -48,9 +76,32 @@ public class BookServiceImpl implements BookServiceIf {
     }
 
     @Override
-    public int modify(BookDTO bookDTO) {
+    public int modify(BookDTO bookDTO, FileDTO imgfileDTO,FileDTO videofileDTO) {
+        int result = 0;
+        log.info("테스트 "+imgfileDTO);
+        if (imgfileDTO.getUploadFolder()!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(imgfileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setBook_img(map.get("newName"));
+            }
+
+        }
+        log.info("테스트 "+videofileDTO);
+        if (videofileDTO.getUploadFolder()!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(videofileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setVideo(map.get("newName"));
+            }
+
+        }
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
-        int result = bookMapper.modify(bookVO);
+        result = bookMapper.modify(bookVO);
+
+
         return result;
     }
 
@@ -65,6 +116,13 @@ public class BookServiceImpl implements BookServiceIf {
         int total_count = bookMapper.BookTotalCount(requestDTO);
 
         return total_count;
+    }
+
+    @Override
+    public int BookInventoryUpdate(BookDTO bookDTO) {
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        int result = bookMapper.BookInventoryUpdate(bookVO);
+        return result;
     }
 
     @Override

@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,13 +75,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${list}" var="list">
-
                         <tr>
+                            <td colspan="5">
+                                <c:if test="${list eq []}">
+                                    <div class="row justify-content-center align-items-center pb-3 border-bottom">
+                                        <div class="col-auto">
+                                            장바구니에 상품이 없습니다.
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </td>
+                        </tr>
+                        <c:forEach items="${list}" var="list">
+                            <tr>
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img class="img-w150" src="${list.book_img}" alt="">
+                                        <img class="img-w150" src="/resources/upload/book/${list.book_img}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <p>${list.book_name}</p>
@@ -88,7 +99,7 @@
                                 </div>
                             </td>
                             <td>
-                                <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${list.price}"></h5>
+                                <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.price)}"></h5>
                             </td>
                             <td>
                                 <div class="product_count">
@@ -114,6 +125,7 @@
                             </tr>
                         </tbody>
                     </table>
+
                     <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button type="button"  class="btn btn-success rounded purchase">구매하기</button>
@@ -300,23 +312,30 @@
     /* 선택삭제 로직 */
     function deleteChoices() {
         let chooses = document.querySelectorAll('.choose');
+        let checklist = [];
         for(let choice of chooses) {
             if(choice.checked) {
-                $.ajax({
-                    url:"/mypage/cartdelete.dox",
-                    dataType:"json",
-                    type : "POST",
-                    data : {
-                        "member_id":"${sessionScope['member_id']}",
-                        "cart_idx":choice.value
-                    },
-                    success : function(data) {
-
-                    }
-                });
-                let parent = choice.parentElement.parentElement;
-                parent.parentElement.removeChild(parent);
+                checklist.push(choice.value);
             }
+        }
+        if(checklist.length>0){
+            $.ajax({
+                url:"/mypage/cartdelete.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "member_id":"${sessionScope['member_id']}",
+                    "cart_idx":JSON.stringify(checklist)
+                },
+                success : function(data) {
+                    if(data.result = "success") {
+                        alert("성공적으로 삭제되었습니다.");
+                        location.href = "/mypage/cart";
+                    }
+                }
+            });
+        }else{
+            alert("선택하신 항목이 없습니다.");
         }
         let total = document.querySelector('#total');
         total.value = calculateTotal();

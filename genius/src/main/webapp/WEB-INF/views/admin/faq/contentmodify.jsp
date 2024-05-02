@@ -56,7 +56,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
+                <li class="breadcrumb-item"><a href="/admin/faq/list">F.A.Q</a></li>
                 <li class="breadcrumb-item active">F.A.Q 수정</li>
             </ol>
         </nav>
@@ -130,7 +130,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">수정 완료</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/faq/view?bbs_idx=${bbsDTO.bbs_idx}'">취소</button>
                                 </div>
                             </form><!-- EndForm -->
 

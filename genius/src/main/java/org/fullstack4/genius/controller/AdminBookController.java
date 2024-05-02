@@ -1,24 +1,22 @@
 package org.fullstack4.genius.controller;
 
 
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log4j2
 @Controller
@@ -59,7 +57,39 @@ public class AdminBookController {
     @PostMapping("/itemRegist")
     public String POSTItemRegist(@Valid BookDTO bookDTO,
                                BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes){
+                               RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("videofile") MultipartFile videofile){
+
+
+        FileDTO fileDTO = new FileDTO();
+        log.info("=================이미지=================="+file.getSize());
+        BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
+        if(file.getSize() >0) {
+            log.info("===================================");
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+            fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+        }else{
+            bookDTO.setBook_img(OrgBookDTO.getBook_img());
+        }
+
+        log.info("=================비디오=================="+videofile.getSize());
+        FileDTO fileDTO1 = new FileDTO();
+        if(videofile.getSize()>0) {
+            log.info("=================비디오==================");
+            String uploadFolder1 = CommonUtil.getUploadFolder(request, "video");
+            fileDTO1 = FileDTO.builder()
+                    .file(videofile)
+                    .uploadFolder(uploadFolder1)
+                    .build();
+        }else{
+            bookDTO.setVideo(OrgBookDTO.getVideo());
+        }
+
         if(bindingResult.hasErrors()){
             log.info("Errors");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -67,7 +97,7 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
-        int result = bookServiceIf.regist(bookDTO);
+        int result = bookServiceIf.regist(bookDTO,fileDTO,fileDTO1);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
         } else {
@@ -97,18 +127,48 @@ public class AdminBookController {
 
     @PostMapping("/itemModify")
     public String POSTItemModify(@Valid BookDTO bookDTO,
+                                 HttpServletRequest request,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("videofile") MultipartFile videofile,
                                  Model model){
         log.info("AdminBookController : POSTItemModify");
         System.out.println("111");
         log.info(bookDTO);
+        BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
+        FileDTO fileDTO = new FileDTO();
+        log.info("=================이미지=================="+file.getSize());
+        if(file.getSize() >0) {
+            log.info("===================================");
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+            fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+        }else{
+            bookDTO.setBook_img(OrgBookDTO.getBook_img());
+        }
+
+        log.info("=================비디오=================="+videofile.getSize());
+        FileDTO fileDTO1 = new FileDTO();
+        if(videofile.getSize()>0) {
+            log.info("=================비디오==================");
+            String uploadFolder1 = CommonUtil.getUploadFolder(request, "video");
+            fileDTO1 = FileDTO.builder()
+                    .file(videofile)
+                    .uploadFolder(uploadFolder1)
+                    .build();
+        }else{
+            bookDTO.setVideo(OrgBookDTO.getVideo());
+        }
+
         if(bindingResult.hasErrors()){
             log.info("AdminBookController >> POSTItemModify >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
         }
-        int result = bookServiceIf.modify(bookDTO);
+        int result = bookServiceIf.modify(bookDTO,fileDTO,fileDTO1);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
         if(result >0){
             return "redirect:/admin/book/itemview?book_code="+bookDTO.getBook_code();

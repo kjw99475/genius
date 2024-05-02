@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -109,33 +110,28 @@
                     <form id="search_form">
                         <input type="hidden" id="category_class_code" name="class_code" value="${responseDTO.class_code}">
                         <input type="hidden" id="category_subject_code" name="subject_code" value="${responseDTO.subject_code}">
-                        <div class="pb-2 d-flex justify-content-between">
-                            <div class="d-flex justify-content-start">
-                                <div class="sorting">
-                                    <select name="sort">
-                                        <option value="1" <c:if test="${responseDTO.sort == '1'}"> selected</c:if>>출판일 최신순</option>
-                                        <option value="2" <c:if test="${responseDTO.sort == '2'}"> selected</c:if>>판매량순</option>
-                                        <option value="3" <c:if test="${responseDTO.sort == '3'}"> selected</c:if>>낮은가격순</option>
-                                        <option value="4" <c:if test="${responseDTO.sort == '4'}"> selected</c:if>>높은가격순</option>
-                                    </select>
-                                </div>
-                                <div class="sorting ">
-                                    <select name="status">
-                                        <option value="0" <c:if test="${responseDTO.status == '0'}"> selected</c:if>>판매상태 전체</option>
-                                        <option value="1" <c:if test="${responseDTO.status == '1'}"> selected</c:if>>판매중</option>
-                                        <option value="2" <c:if test="${responseDTO.status == '2'}"> selected</c:if>>판매준비중</option>
-                                        <option value="3" <c:if test="${responseDTO.status == '3'}"> selected</c:if>>판매종료</option>
-                                        <option value="4" <c:if test="${responseDTO.status == '4'}"> selected</c:if>>품절</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sorting">
-                                <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
-                            </div>
-                        </div>
                         <!-- Start Filter Bar -->
-                        <div class="filter-bar">
-                            <div class="input-group d-flex justify-content-end">
+                        <div class="filter-bar mb-0">
+                            <div class="input-group d-flex justify-content-between">
+                                <div class="d-flex justify-content-start">
+                                    <div class="sorting mr-0">
+                                        <select name="sort">
+                                            <option value="1" <c:if test="${responseDTO.sort == '1'}"> selected</c:if>>출판일 최신순</option>
+                                            <option value="2" <c:if test="${responseDTO.sort == '2'}"> selected</c:if>>판매량순</option>
+                                            <option value="3" <c:if test="${responseDTO.sort == '3'}"> selected</c:if>>낮은가격순</option>
+                                            <option value="4" <c:if test="${responseDTO.sort == '4'}"> selected</c:if>>높은가격순</option>
+                                        </select>
+                                    </div>
+                                    <div class="sorting ">
+                                        <select name="status">
+                                            <option value="0" <c:if test="${responseDTO.status == '0'}"> selected</c:if>>판매상태 전체</option>
+                                            <option value="1" <c:if test="${responseDTO.status == '1'}"> selected</c:if>>판매중</option>
+                                            <option value="2" <c:if test="${responseDTO.status == '2'}"> selected</c:if>>판매준비중</option>
+                                            <option value="3" <c:if test="${responseDTO.status == '3'}"> selected</c:if>>판매종료</option>
+                                            <option value="4" <c:if test="${responseDTO.status == '4'}"> selected</c:if>>품절</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="sorting d-flex">
                                     <select name="type">
                                         <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
@@ -152,6 +148,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pb-2 d-flex justify-content-between">
+
+                            <div class="sorting">
+                                <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
+                            </div>
+                        </div>
+
                     </form>
                     <!-- End Filter Bar -->
                     <!-- Start Best Seller -->
@@ -161,55 +164,42 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card text-center card-product" data-code ="${list.book_code}">
                                         <div class="card-product__img target" for="ch1">
-                                            <img class="card-img img-h350" src="${list.book_img}" alt="">
+                                            <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
                                             <ul class="card-product__imgOverlay">
                                                 <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-bag"></i></button></li>
                                                 <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
                                             </ul>
-                                            <div class="form-check targetTo z-100">
+                                            <div class="form-check targetTo ">
                                                 <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
                                             </div>
                                         </div>
                                         <div class="card-body">
                                             <p>${list.class_name} > ${list.subject_name}</p>
                                             <h4 class="card-product__title"><a href="#">${list.book_name}</a></h4>
-                                            <p class="card-product__price text-geni"><s class="text-muted h6">${list.price}</s> ${list.discount_price}</p>
+                                            <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(list.price)}</s> ${CommonUtil.comma(list.discount_price)}</p>
                                             <p class="card-product__rank stars">
-                                                <c:forEach begin="1" end="${list.rank_avg}" step="1">
-                                                    <i class="fa fa-star"></i>
-                                                </c:forEach>
+                                                <c:choose>
+                                                    <c:when test="${list.rank_avg > 0}">
+                                                        <c:forEach begin="1" end="5" step="1" varStatus="status">
+                                                            <c:if test="${status.index <= list.rank_avg}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:if>
+                                                            <c:if test="${status.index > list.rank_avg}">
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach begin="1" end="5" step="1">
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
-
-<%--                            <div class="col-md-6 col-lg-4">--%>
-<%--                                <div class="card text-center card-product">--%>
-<%--                                    <div class="card-product__img target" for="ch2">--%>
-<%--                                        <img class="card-img img-h350" src="/resources/img/product/product2.jpg" alt="">--%>
-<%--                                        <ul class="card-product__imgOverlay">--%>
-<%--                                            <li><button><i class="ti-bag"></i></button></li>--%>
-<%--                                            <li><button><i class="ti-shopping-cart"></i></button></li>--%>
-<%--                                        </ul>--%>
-<%--                                        <div class="form-check targetTo z-100">--%>
-<%--                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch2">--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="card-body">--%>
-<%--                                        <p>카테고리1 > 카테고리2</p>--%>
-<%--                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>--%>
-<%--                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>--%>
-<%--                                        <p class="card-product__rank stars">--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
                         </div>
                     </section>
                     <!-- End Best Seller -->
@@ -281,28 +271,38 @@
     /* 체크박스 장바구니 선택 로직*/
     function cartChoices() {
         let chooses = document.querySelectorAll('.choose');
+        let idxList = [];
         for(let choice of chooses) {
             if(choice.checked) {
-                    $.ajax({
-                        url:"/mypage/addcart.dox",
-                        dataType:"json",
-                        type : "POST",
-                        data : {
-                            "member_id":"${sessionScope['member_id']}",
-                            "book_code":choice.value,
-                            "quantity" :1
-                        },
-                        success : function(data) {
-                            alert("장바구니 성공");///문제가 있을수 있어용
-                        },
-                        fail : function (data){
-
-                        }
-
-                    });
-
+                idxList.push(choice.value);
                 console.log(choice.value);
             }
+        }
+        if(idxList.length>0){
+            $.ajax({
+                url:"/mypage/addcart.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "member_id":"${sessionScope['member_id']}",
+                    "book_code":JSON.stringify(idxList),
+                    "quantity" :1
+                },
+                success : function(data) {
+                    if(data.result == "success") {
+                        alert("장바구니에 성공적으로 상품이 담겼습니다.");
+                        location.href="/mypage/cart";
+                    }else{
+                        alert("장바구니에 상품이 담기지 못했습니다");
+                    }
+                },
+                fail : function (data){
+                    alert("일시적인 오류가 발생했습니다");
+                }
+
+            });
+        }else{
+            alert("체크하신 상품이 없습니다.");
         }
 
     }

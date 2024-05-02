@@ -49,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
+                <li class="breadcrumb-item"><a href="/admin/faq/list">F.A.Q</a></li>
                 <li class="breadcrumb-item active">F.A.Q 상세</li>
             </ol>
         </nav>
@@ -89,7 +89,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${sessionScope.member_id}" disabled>
+                                               value="${bbsDTO.member_name}" disabled>
                                     </div>
                                 </div>
 
@@ -111,8 +111,8 @@
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
-                                    <div class="col-md-8 col-lg-9 overflow-auto" style="max-height: 700px;">
-                                        <p>${bbsDTO.bbs_contents}</p>
+                                    <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
+                                        ${bbsDTO.bbs_contents}
                                     </div>
                                 </div>
 
