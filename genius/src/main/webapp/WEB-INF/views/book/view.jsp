@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -56,14 +57,14 @@
                 <div class="col-lg-6">
                     <div class="owl-carousel owl-theme s_Product_carousel">
                         <div class="single-prd-item">
-                            <img class="img-fluid " src="${bookDTO.book_img}" alt="">
+                            <img class="img-fluid " src="/resources/upload/book/${bookDTO.book_img}" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
                         <h3>${bookDTO.book_name}</h3>
-                        <h2><s class="text-muted h6">${bookDTO.price}원</s> ${bookDTO.discount_price}원</h2>
+                        <h2><s class="text-muted h6">${CommonUtil.comma(bookDTO.price)}원</s> ${CommonUtil.comma(bookDTO.discount_price)}원</h2>
                         <ul class="list">
                             <li>카테고리 : ${bookDTO.class_name} > ${bookDTO.subject_name}</li>
                             <li>저자 : ${bookDTO.author}</li>
@@ -72,9 +73,23 @@
                             <li>ISBN : ${bookDTO.isbn}</li>
                             <li>평점 :
                                 <span class="card-product__rank stars">
-                                    <c:forEach begin="1" end="${bookDTO.rank_avg}" step="1">
-                                        <i class="fa fa-star"></i>
-                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${bookDTO.rank_avg > 0}">
+                                            <c:forEach begin="1" end="5" step="1" varStatus="status">
+                                                <c:if test="${status.index <= bookDTO.rank_avg}">
+                                                    <i class="fa fa-star"></i>
+                                                </c:if>
+                                                <c:if test="${status.index > bookDTO.rank_avg}">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach begin="1" end="5" step="1">
+                                                <i class="fa fa-star text-secondary"></i>
+                                            </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </span>
                             </li>
                         </ul>
@@ -176,13 +191,26 @@
                                             </div>
                                             <div class="media-body">
                                                 <h4>${review.member_id}</h4>
-                                                <c:forEach begin="1" end="${review.rank}" step="1">
-                                                    <i class="fa fa-star"></i>
-                                                </c:forEach>
+                                                <c:choose>
+                                                    <c:when test="${review.rank > 0}">
+                                                        <c:forEach begin="1" end="5" step="1" varStatus="status">
+                                                            <c:if test="${status.index <= review.rank}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:if>
+                                                            <c:if test="${status.index > review.rank}">
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach begin="1" end="5" step="1">
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
                                         <p>${review.review_contents}</p>
-
                                         <div class="pt-2 pb-2">
                                             <form action="/review/delete" method="post" name="frmRegistReview">
                                                 <input type="hidden" value="${review.review_idx}" name="review_idx">

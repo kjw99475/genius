@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +73,7 @@
               <div class="card-body">
                 <p>${dto['class_name']} > ${dto['subject_name']}</p>
                 <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
-                <p class="card-product__price text-geni"><s class="text-muted h6">${dto['price']}</s>${dto['discount_price']}</p>
+                <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
               </div>
             </div>
           </div>
@@ -92,7 +93,7 @@
               <div class="card-body">
                 <p>${dto['class_name']} > ${dto['subject_name']}</p>
                 <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
-                <p class="card-product__price text-geni"><s class="text-muted h6">${dto['price']}</s>${dto['discount_price']}</p>
+                <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
               </div>
             </div>
           </div>
@@ -126,7 +127,7 @@
                     <div class="card-body">
                       <p>${dto['class_name']} > ${dto['subject_name']}</p>
                       <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
-                      <p class="card-product__price text-geni"><s class="text-muted h6">${dto['price']}</s>${dto['discount_price']}</p>
+                      <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
                     </div>
                   </div>
                 </div>
@@ -145,7 +146,7 @@
                   <div class="card-body">
                     <p>${dto['class_name']} > ${dto['subject_name']}</p>
                     <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
-                    <p class="card-product__price text-geni"><s class="text-muted h6">${dto['price']}</s>${dto['discount_price']}</p>
+                    <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
                   </div>
                 </div>
               </div>

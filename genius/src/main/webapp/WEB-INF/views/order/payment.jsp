@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +68,8 @@
                                     <h3>나의 포인트</h3>
                                 </div>
                                 <div>
-                                    <p> 현재 포인트 : <span>${memberdto.point}</span></p>
-                                    <p> 결제 후 포인트 : <span id="total">${memberdto.point-totalprice}</span></p>
+                                    <p> 현재 포인트 : <span>&nbsp;&nbsp;${CommonUtil.comma(memberdto.point)}</span></p>
+                                    <p> 결제 후 포인트 : <span id="total">&nbsp;&nbsp;${CommonUtil.comma(memberdto.point-totalprice)}</span></p>
                                 </div>
                             </div>
                             <div class="col-md-12 form-group">
@@ -104,8 +105,8 @@
                         </form>
                     </div>
                     <div class="col-lg-4">
-                        <div class="order_box">
-                            <h2>주문 정보</h2>
+                        <div class="order_box p-3">
+                            <h2 class="font-weight-bold">주문 정보</h2>
                             <table class="list table bg-white rounded">
                                 <colgroup>
                                     <col style="width: 50%" />
@@ -113,7 +114,7 @@
                                     <col style="width: 30%" />
                                 </colgroup>
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-light">
                                         <th class="border-0" scope="col"><small>상품명</small></th>
                                         <th class="border-0" scope="col"><small>수량</small></th>
                                         <th class="border-0" scope="col"><small>가격</small></th>
@@ -125,20 +126,18 @@
                                     <tr>
                                         <td><small>${list.book_name}</small></td>
                                         <td><small>${list.quantity}</small></td>
-                                        <td><small>${list.price}원</small></td>
-                                        <td><small>${list.price * list.quantity}원</small></td>
+                                        <td><small>${CommonUtil.comma(list.price)}</small></td>
+                                        <td><small>${CommonUtil.comma(list.price * list.quantity)}</small></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
                             <ul class="list list_2">
-                                <li>총합 <span>${totalprice}원</span></li>
+                                <li class="text-right font-weight-bold">총합 <span class="text-geni">${CommonUtil.comma(totalprice)}</span>원</li>
                             </ul>
                             <div class="payment_item">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option5" name="selector">
-                                    <label for="f-option5">아래 내용을 확인하였습니다.</label>
-                                    <div class="check"></div>
+                                <div class="input-group">
+                                    <label for="agree"><input type="radio" class="pixel-radio" id="agree" name="agree">아래 내용을 확인하였습니다.</label>
                                 </div>
                                 <p>위 주문 내용을 확인하였으며, 회원 본인은 개인정보 이용 및 제공 및 결제에 동의합니다.</p>
                             </div>
