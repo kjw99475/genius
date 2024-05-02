@@ -126,7 +126,7 @@
                                     <td>
                                         <div class="media align-items-center">
                                             <div class="d-flex">
-                                                <img class="img-w100" src="${List.book_img}" alt="">
+                                                <img class="img-w100" src="/resources/upload/book/${List.book_img}" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <p>${List.book_name}</p>

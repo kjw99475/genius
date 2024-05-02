@@ -2,6 +2,7 @@ package org.fullstack4.genius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 @Mapper
 public interface BookMapper {
     int regist(BookVO bbsVO);
+    int InsertRestore(BookVO bookVO);
 
     List<BookVO> listAll();
     BookVO view(String book_code);
