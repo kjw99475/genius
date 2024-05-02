@@ -16,4 +16,5 @@ public class BbsFileVO {
     private String save_name;
     private String original_name;
     private String path;
+    private String category_code;
 }

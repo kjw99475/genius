@@ -335,7 +335,7 @@ public class BbsController {
         BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
         BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
         if(bbsDTO.getFileYN().equals("Y")){
-            List<BbsFileDTO> fileDTOList = bbsFileServiceIf.getFileList(bbsDTO.getBbs_idx());
+            List<BbsFileDTO> fileDTOList = bbsFileServiceIf.getFileList(bbsDTO.getBbs_idx(), bbsDTO.getCategory_code());
             log.info(fileDTOList);
             model.addAttribute("fileList", fileDTOList);
         }

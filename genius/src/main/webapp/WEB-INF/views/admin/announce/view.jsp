@@ -103,9 +103,15 @@
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>
-                                    </div>
+
+                                        <c:if test="${fileList ne null}">
+                                            <c:forEach items="${fileList}" var="file">
+                                                <div class="col-md-8 col-lg-9">
+                                                    <i class="bi-file-earmark-arrow-down label"></i><a href="/admin/announce/announceFileDownload?file_idx=${file.file_idx}&bbs_idx=${bbsDTO.bbs_idx}">${file.original_name}</a>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+
 
                                 </div>
 

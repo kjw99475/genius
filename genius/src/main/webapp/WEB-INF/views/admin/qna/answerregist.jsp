@@ -126,7 +126,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/answerregist">
+                            <form method="post" action="/admin/qna/answerregist" enctype="multipart/form-data">
                                 <input type="hidden" name="ref_idx" value="${qnaDTO.qna_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -155,7 +155,7 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
+                                        <i class="label"></i><input type="file" name="files" multiple>
                                     </div>
 
                                 </div>
