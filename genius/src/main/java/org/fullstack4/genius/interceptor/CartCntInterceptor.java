@@ -36,7 +36,6 @@ public class CartCntInterceptor implements HandlerInterceptor {
         if (session != null) {
             member_id =  CommonUtil.parseString(session.getAttribute("member_id"));
         }
-        log.info("member_id : " + member_id);
         if (!member_id.equals("")) {
             int cartCnt = cartMapper.CartTotalCount(member_id);
             session.setAttribute("cartCnt", cartCnt);
