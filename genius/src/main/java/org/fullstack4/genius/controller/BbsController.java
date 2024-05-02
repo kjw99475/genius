@@ -69,9 +69,50 @@ public class BbsController {
         BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
         BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
 
+        if(bbsDTO.getFileYN().equals("Y")){
+            List<BbsFileDTO> fileDTOList = bbsFileServiceIf.getFileList(bbsDTO.getBbs_idx(), bbsDTO.getCategory_code());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("bbsDTO", bbsDTO);
         model.addAttribute("prebbsDTO", prebbsDTO);
         model.addAttribute("postbbsDTO", postbbsDTO);
+    }
+    @GetMapping("/noticeFileDownload")
+    public String GETNoticeFileDownload(@RequestParam("file_idx") int file_idx,
+                                     @RequestParam("bbs_idx") String bbs_idx,
+                                     HttpServletRequest req,
+                                     HttpServletResponse res,
+                                     Model model) throws UnsupportedEncodingException {
+        BbsFileDTO fileDTO = bbsFileServiceIf.getFile(file_idx);
+        log.info("filedto : " + fileDTO);
+        String upload_path = req.getServletContext().getRealPath("");
+
+        File file = new File(upload_path+"resources\\upload\\bbs\\"+fileDTO.getSave_name());
+
+        String original_name = fileDTO.getOriginal_name();
+        original_name = URLEncoder.encode(original_name,"utf-8");
+        log.info("filename : " + fileDTO.getPath()+fileDTO.getSave_name().substring(0,fileDTO.getSave_name().lastIndexOf(".")));
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + original_name + "\";");
+        res.setHeader("Content-Transfer-Encoding", "binary");
+        res.setHeader("Content-Type", fileDTO.getSave_name().substring(fileDTO.getSave_name().lastIndexOf("."),fileDTO.getSave_name().length()));
+        res.setHeader("Content-Length", "" + file.length());
+        res.setHeader("Pragma", "no-cache;");
+        res.setHeader("Expires", "-1;");
+
+        try(
+                FileInputStream fis = new FileInputStream(file);
+                OutputStream out = res.getOutputStream();
+        ){
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+            while((readCount = fis.read(buffer)) != -1){
+                out.write(buffer,0,readCount);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/bbs/qnaViewQ?qna_idx="+bbs_idx;
     }
 
     @GetMapping("/qnaList")
@@ -147,6 +188,7 @@ public class BbsController {
         model.addAttribute("nextDTO", nextDTO);
         model.addAttribute("qnaDTO", qnaDTO);
     }
+
 
     @GetMapping("/qnaRegistQ")
     public void GETQnaRegistQ() {
