@@ -19,6 +19,7 @@ public interface QnaMapper {
     int totalCount();
     int qnaTotalCount(PageRequestDTO requestDTO);
     int readCount(int idx);
+    int answerRegist(QnaVO qnaVO);
     List<QnaVO> qnaListByPage(PageRequestDTO requestDTO);
     List<QnaVO> qnaListByMyPage(PageRequestDTO requestDTO);
     List<QnaVO> myListAll();

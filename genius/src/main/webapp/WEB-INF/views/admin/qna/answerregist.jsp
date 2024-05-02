@@ -127,9 +127,7 @@
 
                             <!--Form -->
                             <form method="post" action="/admin/qna/answerregist">
-                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
-
-
+                                <input type="hidden" name="ref_idx" value="${qnaDTO.qna_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -142,7 +140,7 @@
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control" id="title"
-                                               value="${qnaDTO.title}">
+                                               value="">
                                     </div>
                                 </div>
 
@@ -165,13 +163,13 @@
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
+                                        <textarea id="summernote" name="contents" ></textarea>
                                     </div>
                                 </div>
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}'">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->
