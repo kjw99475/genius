@@ -81,7 +81,7 @@
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img class="img-w150" src="${list.book_img}" alt="">
+                                        <img class="img-w150" src="/resources/upload/book/${list.book_img}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <p>${list.book_name}</p>
