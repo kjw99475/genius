@@ -63,7 +63,7 @@
                             <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                 <div class="col">
                                     <div class="row mb-2">
-                                        <label class="fw-bold p-3">등록일</label>
+                                        <label class="fw-bold p-3">검색 기간</label>
                                         <div class="row justify-content-start align-items-center">
                                             <div class="col-3">
                                                 <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
