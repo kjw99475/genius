@@ -75,7 +75,7 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label ">이미지</div>
                                     <div class="col-lg-10 col-md-8">
-                                        <img src="${bookDTO.book_img}" alt="이미지">
+                                        <img src="/resources/upload/book/${bookDTO.book_img}" alt="이미지">
                                     </div>
                                 </div>
 
