@@ -112,9 +112,6 @@
                 backgroundColor: {
                     fill: '#f8f8f8'
                 },
-                chartArea: {
-                    height: 300
-                },
                 slices: {
                     0: {color: '#ADDCCA'},
                     1: {color: '#DCEBC2'},
@@ -139,11 +136,13 @@
                 pieSliceText: 'none'
             };
             var categoryOptions2 = {
+                axisTitlesPosition: 'in',
                 animation: {
                     startup: true,
                     duration: 400,
                     easing: 'in'
                 },
+                color: '#000',
                 'width': 700,
                 'height': 400,
                 backgroundColor: {
@@ -155,10 +154,9 @@
                     showColorCode: true
                 },
                 legend: {
-                    position: 'none'
-                },
+                    position: 'none',
+                }
             };
-
             var monthOptions = {
                 animation: {
                     startup: true,
@@ -188,7 +186,7 @@
             chart3.draw(categoryData3, categoryOptions1);
             var chart4 = new google.visualization.BarChart(document.getElementById('category_div4'));
             chart4.draw(categoryData4, categoryOptions2);
-            var chart5 = new google.visualization.LineChart(document.getElementById('month_div'));
+            var chart5 = new google.visualization.LineChart(document.getElementById('month_div1'));
             chart5.draw(monthData, monthOptions);
         }
     </script>
@@ -283,10 +281,10 @@
                                     <h5>카테고리 별 매출</h5>
                                     <ul class="nav nav-pills justify-content-end category-parent">
                                         <li class="nav-item">
-                                            <a class="nav-link active-geni active" aria-current="page" href="#"  data-parent="category-parent"  data-target="todayCategory" onclick="showThis(this)">오늘</a>
+                                            <a class="nav-link active-geni active" aria-current="page" href="#"  data-parent="category-parent" data-type="category"  data-target="todayCategory" onclick="showThis(this)">오늘</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#" data-parent="category-parent"  data-target="totalCategory" onclick="showThis(this)">누적</a>
+                                            <a class="nav-link text-geni" href="#" data-parent="category-parent"  data-target="totalCategory" data-type="category" onclick="showThis(this)">누적</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -298,7 +296,7 @@
                                     </div>
                                     <!--구글 차트 End-->
                                 </div>
-                                <div id="totalCategory" class="d-flex justify-content-center category d-none" style="gap: 20px">
+                                <div id="totalCategory" class="d-flex justify-content-center category" style="gap: 20px;" >
                                     <!--구글 차트 Start-->
                                     <div id="category_div3" class="rounded-4 overflow-hidden">
                                     </div>
@@ -316,41 +314,41 @@
                             <div class="card-body pb-0">
                                 <div class="card-title d-flex justify-content-between">
                                     <h5>베스트 셀러</h5>
-                                    <ul class="nav nav-pills justify-content-end">
-                                        <li class="nav-item ">
-                                            <a class="nav-link active-geni active" aria-current="page" href="#"data-target="today" onclick="showThis(this)">오늘</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#"data-target="total" onclick="showThis(this)">누적</a>
-                                        </li>
-                                    </ul>
                                 </div>
 
-                                <table class="table table-borderless">
+                                <table class="table">
                                     <thead>
-                                    <tr>
-                                        <th scope="col">Preview</th>
-                                        <th scope="col">상품명</th>
-                                        <th scope="col">가격</th>
-                                        <th scope="col">판매 개수</th>
-                                        <th scope="col">판매 금액</th>
-                                    </tr>
+                                        <tr>
+                                            <th class="bg-geni-dark text-white" scope="col">순위</th>
+                                            <th colspan="2" class="bg-geni-dark text-white" scope="col">상품명</th>
+                                            <th class="bg-geni-dark text-white" scope="col">상품코드</th>
+                                            <th class="bg-geni-dark text-white" scope="col">판매 개수</th>
+                                            <th class="bg-geni-dark text-white" scope="col">총 매출 액</th>
+                                            <th class="bg-geni-dark text-white" scope="col">카테고리</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/resources/admin/img/product-1.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">{상품명}</a></td>
-                                        <td>\{가격}</td>
-                                        <td class="fw-bold">{개수}</td>
-                                        <td>\{판매 금액}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/resources/admin/img/product-2.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                                        <td>$46</td>
-                                        <td class="fw-bold">98</td>
-                                        <td>$4,508</td>
-                                    </tr>
+                                        <c:choose>
+                                            <c:when test="${!empty bookDTOList}">
+                                                <c:forEach var="bookDTO" items="${bookDTOList}" varStatus="status">
+                                                    <tr>
+                                                        <td class="fw-bold">${status.index + 1}</td>
+                                                        <th scope="row"><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="${bookDTO['book_img']}" alt=""></a></th>
+                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}" class="text-success fw-bold">${bookDTO['book_name']}</a></td>
+                                                        <td>${bookDTO['book_code']}</td>
+                                                        <td class="fw-bold">${bookDTO['sales_amount']}건</td>
+                                                        <td>${CommonUtil.comma(bookDTO['sales_price'])}원</td>
+                                                        <td>${bookDTO['class_name']} &gt; ${bookDTO['subject_name']}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="7">데이터가 없습니다.</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </tbody>
                                 </table>
 
@@ -365,21 +363,27 @@
                             <div class="card-body">
                                 <div class="card-title d-flex justify-content-between">
                                     <h5>월 별 매출</h5>
-                                    <ul class="nav nav-pills justify-content-end">
+                                    <ul class="nav nav-pills justify-content-end month-parent">
                                         <li class="nav-item">
-                                            <a class="nav-link active-geni active" aria-current="page" href="#" data-target="today" onclick="showThis(this)">오늘</a>
+                                            <a class="nav-link active-geni active" href="#" data-parent="month-parent" data-type="month" data-target="todayMonth" onclick="showThis(this)">오늘</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
+                                            <a class="nav-link text-geni" href="#" data-parent="month-parent" data-type="month" data-target="totalMonth" onclick="showThis(this)">누적</a>
                                         </li>
                                     </ul>
                                 </div>
-
-                                <!--구글 차트 Start-->
-                                <div id="month_div" class="rounded-4 overflow-hidden">
+                                <div id="todayMonth" class="d-flex justify-content-center month" style="gap: 20px;" >
+                                    <!--구글 차트 Start-->
+                                    <div id="month_div1" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
                                 </div>
-                                <!--구글 차트 End-->
-
+                                <div id="totalMonth" class="d-flex justify-content-center month" style="gap: 20px;" >
+                                    <!--구글 차트 Start-->
+                                    <div id="month_div2" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
+                                </div>
                             </div>
 
                         </div>
@@ -406,19 +410,23 @@
 <!--================ 푸터 End =================-->
 <script>
     // 영역 조작
+    window.onload = ()=>{
+        document.querySelector('#totalCategory').classList.add('d-none');
+    };
     function showThis(element) {
         event.preventDefault();
         event.stopPropagation();
         let target = element.dataset.target;
-        let rankes = document.querySelectorAll('.category');
         let parent = element.dataset.parent;
+        let type = element.dataset.type;
+        let lists = document.querySelectorAll('.'+type);
         let buttons = document.querySelectorAll('.'+parent+' .nav-link');
         for(let button of buttons) {
             button.classList.remove('active-geni', 'active', 'text-white');
             button.classList.add('text-geni');
         }
-        for(let rank of rankes) {
-            rank.classList.add('d-none');
+        for(let list of lists) {
+            list.classList.add('d-none');
         }
         element.classList.remove('text-geni');
         element.classList.add('active-geni', 'active');
