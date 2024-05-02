@@ -63,6 +63,12 @@
                         class="org.fullstack4.genius.interceptor.LoginCheckInterceptor">
             </beans:bean>
         </interceptor>
+        <interceptor>
+            <mapping path="/**" />
+            <beans:bean id="cartCntInterceptor"
+                        class="org.fullstack4.genius.interceptor.CartCntInterceptor">
+            </beans:bean>
+        </interceptor>
     </interceptors>
 
     <resources mapping="/resources/**" location="/resources/"></resources>
