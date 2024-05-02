@@ -238,12 +238,19 @@ public class HyunbeenTest {
 
     @Test
     public void detailOrder(){
-        OrderDTO orderDTO = OrderDTO.builder()
-                .order_num("240501155033-47610")
-                .order_refund_request("Y")
-                .build();
-        int result = order.requestRefund(orderDTO);
+//        OrderDTO orderDTO = OrderDTO.builder()
+//                .order_num("240501155033-47610")
+//                .order_refund_request("Y")
+//                .build();
+//        int result = order.requestRefund(orderDTO);
+//
+//        log.info("========="+orderDTO.toString());
 
-        log.info("========="+orderDTO.toString());
+        int total_price = 300;
+        int result = payment.revenue(total_price);
+        log.info("===================================");
+        log.info("total_price: " + total_price);
+        log.info("result: " + result);
+        log.info("==================================");
     }
 }

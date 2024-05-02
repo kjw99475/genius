@@ -140,6 +140,7 @@ public class OrderController {
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
                 paymentServiceIf.releaseBook(detailorderDTO);
                 paymentServiceIf.salesBook(detailorderDTO);
+                paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
                 resultMap.put("result", "success");
             }else {
                 resultMap.put("result", "fail");
@@ -242,6 +243,7 @@ public class OrderController {
                     orderService.detailregist(detailorderDTO);
                     paymentServiceIf.releaseBook(detailorderDTO);
                     paymentServiceIf.salesBook(detailorderDTO);
+                    paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
                 }
                 log.info("4##############################");
                 int result123 = paymentServiceIf.usepoint(paymentDTO);
