@@ -66,6 +66,13 @@
                     </div>
                 </div>
             </form>
+            <c:if test="${dtolist eq ''}">
+                <div class="row justify-content-end align-items-center pb-3">
+                    <div class="col-auto">
+                        결제 내역이 없습니다.
+                    </div>
+                </div>
+            </c:if>
             <div class="accordion" id="accordionExample">
                 <c:forEach items="${dtolist}" var="list" varStatus="status">
                 <div class="card">
