@@ -18,6 +18,7 @@
         FROM tbl_review
         WHERE review_idx = #{idx}
     </delete>
+
     <update id="updateAvg">
         UPDATE tbl_book
         set rank_avg = (

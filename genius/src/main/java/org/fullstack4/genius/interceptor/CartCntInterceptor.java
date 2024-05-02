@@ -3,8 +3,6 @@ package org.fullstack4.genius.interceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
-import org.fullstack4.genius.Common.CookieUtil;
-import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.mapper.CartMapper;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.stereotype.Component;
@@ -38,7 +36,6 @@ public class CartCntInterceptor implements HandlerInterceptor {
         if (session != null) {
             member_id =  CommonUtil.parseString(session.getAttribute("member_id"));
         }
-        log.info("member_id : " + member_id);
         if (!member_id.equals("")) {
             int cartCnt = cartMapper.CartTotalCount(member_id);
             session.setAttribute("cartCnt", cartCnt);

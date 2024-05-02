@@ -8,6 +8,6 @@ import java.util.List;
 public interface BbsFileServiceIf {
 
     int regist(BbsFileDTO bbsFileDTO);
-    List<BbsFileDTO> getFileList(int bbs_idx);
+    List<BbsFileDTO> getFileList(int bbs_idx, String category_code);
     BbsFileDTO getFile(int file_idx);
 }

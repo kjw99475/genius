@@ -321,9 +321,15 @@
                     "delivery":JSON.stringify(check_list)
                 },
                 success : function(data) {
-                    alert("수정 성공");
-                    console.log("성공");
-                    location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
+                    if(data.result =="success"){
+                        alert("선택하신 주문처리가 완료되었습니다.");
+                        console.log("성공");
+                        location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
+                    }else{
+                        alert("주문처리에 실패하였습니다.");
+                        console.log("성공");
+                        location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
+                    }
                 },
                 fail : function (data){
                     console.log("실패");

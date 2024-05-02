@@ -57,7 +57,7 @@
     </select>
 
     <select id="qnaListByPage" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
         FROM tbl_qna as tq inner join tbl_member as tm
             ON tq.member_id = tm.member_id
         <include refid="whereCondition"></include>
@@ -65,7 +65,7 @@
         LIMIT #{page_skip_count}, #{page_size}
     </select>
     <select id="view" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date, tq.fileYN
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date, tq.fileYN
         FROM tbl_qna as tq inner join tbl_member as tm
         ON tq.member_id = tm.member_id
         WHERE qna_idx = #{idx}
@@ -99,6 +99,11 @@
         SELECT COUNT(*)
         FROM tbl_qna
     </select>
+    <delete id="answerDelete">
+        DELETE
+        FROM tbl_qna
+        WHERE ref_idx = #{idx}
+    </delete>
 
     <update id="modify">
         UPDATE tbl_qna SET

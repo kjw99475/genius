@@ -20,6 +20,7 @@ public interface QnaServiceIf {
     int readCount(int idx);
     int totalCount();
     int answerRegist(QnaDTO qnaDTO);
+    int answerDelete(int idx);
     int qnaTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<QnaDTO> qnaListByPage(PageRequestDTO requestDTO);
 }

@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
-import org.fullstack4.genius.dto.OrderDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
-import org.fullstack4.genius.dto.PaymentDTO;
+import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.mapper.CartMapper;
+import org.fullstack4.genius.mapper.OrderMapper;
 import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 public class PaymentServiceImpl implements PaymentServiceIf{
 
     private final PaymentMapper paymentMapper;
+    private final OrderMapper orderMapper;
+    private final CartMapper cartMapper;
     private final ModelMapper modelMapper;
     @Override
     public int charge(PaymentDTO paymentDTO) {
@@ -138,6 +140,46 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     public int releaseBook(OrderDTO orderDTO) {
         OrderVO vo = modelMapper.map(orderDTO,OrderVO.class);
         int result = paymentMapper.releaseBook(vo);
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public int testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1,
+                            List<CartDTO> dtolist,
+                           String member_id,String order_num,int total_price) {
+
+        PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+        OrderVO orderVO = modelMapper.map(orderDTO1, OrderVO.class);
+
+        int result = paymentMapper.memberPay(paymentVO);
+        log.info("======================================텟"+orderVO.toString());
+        int result4 = orderMapper.regist(orderVO);
+        int result5 = orderMapper.deliveryRegist(orderVO);
+        for(int i=0; i<dtolist.size(); i++) {
+            OrderDTO detailorderDTO = OrderDTO.builder()
+                    .member_id(member_id)
+                    .order_num(order_num)
+                    .book_code(dtolist.get(i).getBook_code())
+                    .book_name(dtolist.get(i).getBook_name())
+                    .category_class_code(dtolist.get(i).getCategory_class_code())
+                    .category_subject_code(dtolist.get(i).getCategory_subject_code())
+                    .order_state("배송 전")
+                    .price(dtolist.get(i).getPrice())
+                    .total_price(dtolist.get(i).getPrice() * dtolist.get(i).getQuantity())
+                    .amount(dtolist.get(i).getQuantity())
+                    .build();
+            OrderVO detailOrderVO = modelMapper.map(detailorderDTO, OrderVO.class);
+            int result1 = orderMapper.detailregist(detailOrderVO);
+            int result2 = paymentMapper.releaseBook(detailOrderVO);
+            int result3 = paymentMapper.salesBook(detailOrderVO);
+
+
+        }
+
+        int result6 = paymentMapper.revenue(total_price);
+        int result7 = paymentMapper.usepoint(paymentVO);
+
         return result;
     }
 

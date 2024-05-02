@@ -168,7 +168,14 @@
                                         <td>${qnaDTO.member_name}</td>
                                         <td>${qnaDTO.reg_date}</td>
                                         <td>${qnaDTO.read_cnt}</td>
-                                        <td>${qnaDTO.answerYN}</td>
+                                        <td>
+                                            <c:if test="${qnaDTO.answerYN == 'N'}">
+                                                질문글
+                                            </c:if>
+                                            <c:if test="${qnaDTO.answerYN == 'Y'}">
+                                                답변글
+                                            </c:if>
+                                        </td>
                                         <td>${qnaDTO.answerYN}</td>
                                     </tr>
                                 </c:forEach>
