@@ -24,7 +24,6 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
     private final MemberServiceIf memberServiceIf;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("AutoLoginInterceptor   >>>>>>> preHandle");
         HttpSession session = request.getSession(false);
         String member_id = "";
         if (session != null) {
@@ -47,7 +46,6 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("AutoLoginInterceptor   >>>>>>> postHandle");
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
     }
 
