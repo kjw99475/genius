@@ -59,8 +59,8 @@
         <div class="container">
             <div>
                 <div class="input-group d-flex justify-content-end mb-2">
-<%--                    <c:if test="${sessionScope.member_id == bbsDTO.member_id}">--%>
-                    <c:if test="${sessionScope.member_id ne null}">
+                    <c:if test="${sessionScope.member_id == bbsDTO.member_id}">
+<%--                    <c:if test="${sessionScope.member_id ne null}">--%>
                         <form action="/bbs/boardDelete" method="post" id="deleteFrm" name="deleteFrm">
                             <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                             <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/boardModify?bbs_idx=${bbsDTO.bbs_idx}'">수정</button>
