@@ -25,4 +25,5 @@ public class QnaVO {
     private LocalDate reg_date;
     private LocalDate modify_date;
     private String member_name;
+    private String fileYN;
 }
