@@ -5,7 +5,6 @@
   Time: 오후 7:33
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,9 +15,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / F.A.Q - modify</title>
+    <title>Admin / QnA - answer modify</title>
     <!-- Favicons -->
-    <link href="/resources/admin/img/favicon.png" rel="icon" type="image/png">
+    <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -42,6 +41,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -52,12 +52,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>F.A.Q 수정</h1>
+        <h1>QnA 등록</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item"><a href="/admin/faq/list">F.A.Q</a></li>
-                <li class="breadcrumb-item active">F.A.Q 수정</li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
+                <li class="breadcrumb-item active">QnA 답변 수정</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -66,27 +66,83 @@
         <div class="row">
             <div class="col-xl-12">
 
+<%--                Start QnA-Q--%>
+                <div class="card">
+                    <div class="card-body pt-3">
+
+                        <div class="tab-pane fade show active profile-overview" >
+
+                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+
+
+                                <div class="row mb-3">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="category_code" type="text" class="form-control"
+                                               value="Question" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="title" type="text" class="form-control"
+                                               value="${qnaDTO.title}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="member_id" type="text" class="form-control"
+                                               value="${qnaDTO.member_id}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
+                                    <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
+                                        ${qnaDTO.contents}
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+<%--            End QnA-Q--%>
+
+
+
                 <div class="card">
                     <div class="card-body pt-3">
 
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/faq/contentmodify">
-                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
+                            <form method="post" action="/admin/qna/answerregist">
+                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+
+
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="bc02" readonly>
+                                               value="Answer" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${bbsDTO.bbs_title}">
+                                        <input name="title" type="text" class="form-control" id="title"
+                                               value="${qnaDTO.title}">
                                     </div>
                                 </div>
 
@@ -94,37 +150,22 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${bbsDTO.member_id}" readonly>
+                                               value="${sessionScope.member_id}" readonly>
                                     </div>
                                 </div>
 
-                                <%--<div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" >
-                                    </div>
-                                </div>--%>
-
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <c:choose>
-                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
-                                                <input name="file" type="file" class="form-control" id="file"
-                                                       value="${bbsDTO.fileYN}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <input name="file" type="file" class="form-control" id="file">
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
                                     </div>
+
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <textarea id="summernote" name="bbs_contents">${bbsDTO.bbs_contents}</textarea>
+                                    <div class="col-md-8 col-lg-10">
+                                        <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
                                     </div>
                                 </div>
 
@@ -132,6 +173,7 @@
                                     <button type="submit" class="btn btn-success me-2">수정 완료</button>
                                     <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
                                 </div>
+
                             </form><!-- EndForm -->
 
                         </div>
@@ -147,6 +189,10 @@
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->
+
+<!--================ 푸터 Start =================-->
+<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+<!--================ 푸터 End =================-->
 
 <script>
     //서머노트
@@ -185,11 +231,8 @@
             }
         });
     }
-</script>
 
-<!--================ 푸터 Start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
-<!--================ 푸터 End =================-->
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>

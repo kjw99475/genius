@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin / QnA - regist</title>
+    <title>Admin / QnA - answer regist</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -126,7 +126,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/contentregist">
+                            <form method="post" action="/admin/qna/answerregist">
                                 <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
 
 
@@ -154,14 +154,6 @@
                                     </div>
                                 </div>
 
-                                <%--<div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${qnaDTO.reg_date}">
-                                    </div>
-                                </div>--%>
-
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
@@ -179,7 +171,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->
