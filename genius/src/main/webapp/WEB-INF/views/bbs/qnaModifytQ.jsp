@@ -83,6 +83,17 @@
                     <div class="ml-5">
                         <label>파일 리스트</label>
                         <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                            <c:forEach items="${fileList}" var="file">
+                                <li class="card d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="ml-5">
+                        <label>기존 파일 리스트</label>
+                        <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                            <c:forEach items="${fileList}" var="file">
+                                <li class="card d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -154,6 +165,7 @@
     function fileList(element) {
         document.querySelector('#file-list').innerHTML = "";
         let fileList = document.querySelector('#file-list');
+        console.log(element.files);
         for (let i=0; i < element.files.length; i++) {
             let list = document.createElement('li');
             list.classList.add('card', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
