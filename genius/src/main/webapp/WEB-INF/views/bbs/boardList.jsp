@@ -87,6 +87,7 @@
                 <tbody>
 
                 <c:set value="${responseDTO.total_count}" var="total_count" />
+                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="5">검색 결과가 없습니다.</td></tr></c:if>
                 <c:choose>
                     <c:when test="${responseDTO ne null}">
                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">

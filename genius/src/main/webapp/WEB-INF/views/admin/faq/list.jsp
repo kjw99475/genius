@@ -59,9 +59,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">FAQ 관리</h5>
-                        <p>FAQ를 관리하는 페이지 입니다.</p>
-                        <div class="row">
+                        <div class="row mt-4">
                             <form>
                                 <div class="row mb-3">
 
@@ -129,6 +127,7 @@
                                 <tbody>
 
                                 <c:set value="${responseDTO.total_count}" var="total_count" />
+                                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="5">검색 결과가 없습니다.</td></tr></c:if>
                                 <c:choose>
                                     <c:when test="${responseDTO ne null}">
                                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">

@@ -20,5 +20,32 @@
         INNER JOIN tbl_order AS TOR ON TR.order_num = TOR.order_num
         INNER JOIN tbl_member AS TM ON TOR.member_id = TM.member_id
     </select>
-    
+    <select id="todayClass" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT  TC.category_code, TC.name AS category_name, CASE WHEN SUM(TR.amount * TR.price) IS NULL THEN 0 ELSE SUM(TR.amount * TR.price) END AS result
+        FROM (
+            SELECT category_class_code, release_date, amount, price FROM tbl_release WHERE DATE(release_date) = DATE(NOW())
+        ) AS TR
+        RIGHT OUTER JOIN tbl_class_category AS TC ON TR.category_class_code = TC.category_code
+        GROUP BY TC.category_code
+    </select>
+    <select id="totalClass" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT  TC.category_code, TC.name AS category_name, CASE WHEN SUM(TR.amount * TR.price) IS NULL THEN 0 ELSE SUM(TR.amount * TR.price) END AS result
+        FROM tbl_release AS TR
+        RIGHT OUTER JOIN tbl_class_category AS TC ON TR.category_class_code = TC.category_code
+        GROUP BY TC.category_code
+    </select>
+    <select id="todaySubject" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT  TS.category_code, TS.name AS category_name, CASE WHEN SUM(TR.amount * TR.price) IS NULL THEN 0 ELSE SUM(TR.amount * TR.price) END AS result
+        FROM (
+            SELECT category_subject_code, release_date, amount, price FROM tbl_release WHERE DATE(release_date) = DATE(NOW())
+        ) AS TR
+        RIGHT OUTER JOIN tbl_subject_category AS TS ON TR.category_subject_code = TS.category_code
+        GROUP BY TS.category_code
+    </select>
+    <select id="totalSubject" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT  TS.category_code, TS.name AS category_name, CASE WHEN SUM(TR.amount * TR.price) IS NULL THEN 0 ELSE SUM(TR.amount * TR.price) END AS result
+        FROM tbl_release AS TR
+        RIGHT OUTER JOIN tbl_subject_category AS TS ON TR.category_subject_code = TS.category_code
+        GROUP BY TS.category_code
+    </select>
 </mapper>

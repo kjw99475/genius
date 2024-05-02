@@ -18,6 +18,7 @@ public interface BookServiceIf {
     int modify(BookDTO bookDTO);
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);
+    int BookInventoryUpdate(BookDTO bookDTO);
     PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO);
     List<Map<String, String>> bookSubjectCategoryList();
     List<Map<String, String>> bookClassCategoryList();

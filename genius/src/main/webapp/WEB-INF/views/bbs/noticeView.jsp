@@ -62,10 +62,6 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row">게시글 번호</th>
-                    <td>${param.no}</td>
-                </tr>
-                <tr>
                     <th scope="row">제목</th>
                     <td>${bbsDTO.bbs_title}</td>
                 </tr>

@@ -143,7 +143,7 @@ public class AdminOrderController {
                     dto.setAmount(Integer.parseInt("-"+orderDTOImp.get(i).getAmount()));
                     log.info("테슽테틋ㅅ: " + dto.toString());
                     paymentServiceIf.salesBook(dto);
-//                    paymentServiceIf.releaseBook(dto);
+                    paymentServiceIf.deleteBookRelease(dto);
                 }
 
                 paymentServiceIf.memberPay(paymentDTO);

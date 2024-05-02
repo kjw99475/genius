@@ -41,46 +41,165 @@
 
         // Load the Visualization API and the corechart package.
         google.charts.load('current', {'packages':['corechart']});
+        google.charts.load('current', {'packages':['bar']});
 
         // Set a callback to run when the Google Visualization API is loaded.
         google.charts.setOnLoadCallback(drawChart);
-
         // Callback that creates and populates a data table,
         // instantiates the pie chart, passes in the data and
         // draws it.
-        function drawChart() {
 
+        function drawChart() {
             // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-                ['Mushrooms', 3],
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
+            var categoryData1 = new google.visualization.DataTable();
+            categoryData1.addColumn('string', 'Topping');
+            categoryData1.addColumn('number', 'Slices');
+            <c:if test="${!empty classMap.todayClass}">
+            categoryData1.addRows([
+                <c:forEach var="todayClass" items="${classMap.todayClass}">
+                ['${todayClass['category_name']}', ${todayClass['result']}],
+                </c:forEach>
+            ]);
+            </c:if>
+
+            var categoryData3 = new google.visualization.DataTable();
+            categoryData3.addColumn('string', 'Topping');
+            categoryData3.addColumn('number', 'Slices');
+            <c:if test="${!empty classMap.totalClass}">
+            categoryData3.addRows([
+                <c:forEach var="totalClass" items="${classMap.totalClass}">
+                ['${totalClass['category_name']}', ${totalClass['result']}],
+                </c:forEach>
+            ]);
+            </c:if>
+
+            let color = ['#F58A94', '#F7A8A4', '#FED2B7', '#FFFAA8', '#DCEBC2', '#ADDCCA', '#A1C2FF', '#3D80D9', '#747EE8', '#A25FFF', '#E1C6FF', '#3E5969', '#CCC7C4', '#7F6657'];
+
+            <c:if test="${!empty subjectMap.todaySubject}">
+            var categoryData2 = new google.visualization.arrayToDataTable([
+                ['과목', '매출', {role: 'style'}],
+                <c:forEach var="todaySubject" items="${subjectMap.todaySubject}" varStatus="status">
+                ['${todaySubject['category_name']}', ${todaySubject['result']}, color[${status.index}]],
+                </c:forEach>
+            ]);
+            </c:if>
+            <c:if test="${!empty subjectMap.todaySubject}">
+            var categoryData4 = new google.visualization.arrayToDataTable([
+                ['과목', '매출', {role: 'style'}],
+                <c:forEach var="totalSubject" items="${subjectMap.totalSubject}" varStatus="status">
+                ['${totalSubject['category_name']}', ${totalSubject['result']}, color[${status.index}]],
+                </c:forEach>
+            ]);
+            </c:if>
+
+            var monthData = google.visualization.arrayToDataTable([
+                ['Year', 'Sales', 'Expenses'],
+                ['2004', 1000, 400],
+                ['2005', 1170, 460],
+                ['2006', 660, 1120],
+                ['2007', 1030, 540]
             ]);
 
             // Set chart options
-            var options = {'title':'How Much Pizza I Ate Last Night',
-                'width':400,
-                'height':300};
+            var categoryOptions1 = {
+                animation: {
+                    startup: true,
+                    duration: 500,
+                    easing: 'in'
+                },
+                'width': 700,
+                'height': 400,
+                backgroundColor: {
+                    fill: '#f8f8f8'
+                },
+                chartArea: {
+                    height: 300
+                },
+                slices: {
+                    0: {color: '#ADDCCA'},
+                    1: {color: '#DCEBC2'},
+                    2: {color: '#FED2B7'},
+                    3: {color: '#F7A8A4'},
+                    4: {color: '#F58A94'},
+                    5: {color: '#E1C6FF'},
+                    6: {color: '#FFFAA8'},
+                    7: {color: '#A1C2FF'},
+                    8: {color: '#CCC7C4'}
+                },
+                tooltip: {
+                    ignoreBounds: 'false',
+                    textStyle: {ontSize: 16},
+                    showColorCode: true
+                },
+                legend: {
+                    position: 'right',
+                    textStyle: {fontSize: 14},
+                    alignment: 'center'
+                },
+                pieSliceText: 'none'
+            };
+            var categoryOptions2 = {
+                animation: {
+                    startup: true,
+                    duration: 400,
+                    easing: 'in'
+                },
+                'width': 700,
+                'height': 400,
+                backgroundColor: {
+                    fill: '#f8f8f8'
+                },
+                tooltip: {
+                    ignoreBounds: 'false',
+                    textStyle: {ontSize: 16},
+                    showColorCode: true
+                },
+                legend: {
+                    position: 'none'
+                },
+            };
 
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            var monthOptions = {
+                animation: {
+                    startup: true,
+                    duration: 500,
+                    easing: 'in'
+                },
+                curveType: 'function',
+                legend: {position: 'bottom'},
+                backgroundColor: {
+                    fill: '#f8f8f8'
+                },
+                tooltip: {
+                    ignoreBounds: 'false',
+                    textStyle: {ontSize: 16},
+                    showColorCode: true
+                },
+                height: 500,
+                colors: ['#ADDCCA', '#DCEBC2'],
+                lineWidth: 5
+            };
+
+            var chart1 = new google.visualization.PieChart(document.getElementById('category_div1'));
+            chart1.draw(categoryData1, categoryOptions1);
+            var chart2 = new google.visualization.BarChart(document.getElementById('category_div2'));
+            chart2.draw(categoryData2, categoryOptions2);
+            var chart3 = new google.visualization.PieChart(document.getElementById('category_div3'));
+            chart3.draw(categoryData3, categoryOptions1);
+            var chart4 = new google.visualization.BarChart(document.getElementById('category_div4'));
+            chart4.draw(categoryData4, categoryOptions2);
+            var chart5 = new google.visualization.LineChart(document.getElementById('month_div'));
+            chart5.draw(monthData, monthOptions);
         }
     </script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Dashboard</h1>
         <nav>
@@ -90,14 +209,11 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section dashboard">
         <div class="row">
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-                    <!--Div that will hold the pie chart-->
-                    <div id="chart_div"></div>
                     <!-- Sales Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card sales-card">
@@ -156,48 +272,59 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- End Customers Card -->
+                    </div>
+                    <!-- End Customers Card -->
 
                     <!-- Recent Sales -->
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
-
                             <div class="card-body">
-                                <h5 class="card-title">카테고리별 매출 <span>| Today</span></h5>
-
-                                <table class="table table-borderless ">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">카테고리</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">{category_class_code}</th>
-                                        <td>Brandon Jacob</td>
-                                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                        <td>$64</td>
-                                        <td><span class="badge bg-success">Approved</span></td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-
+                                <div class="card-title d-flex justify-content-between">
+                                    <h5>카테고리 별 매출</h5>
+                                    <ul class="nav nav-pills justify-content-end category-parent">
+                                        <li class="nav-item">
+                                            <a class="nav-link active-geni active" aria-current="page" href="#"  data-parent="category-parent"  data-target="todayCategory" onclick="showThis(this)">오늘</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-geni" href="#" data-parent="category-parent"  data-target="totalCategory" onclick="showThis(this)">누적</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="todayCategory" class="d-flex justify-content-center category" style="gap: 20px">
+                                    <!--구글 차트 Start-->
+                                    <div id="category_div1" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <div id="category_div2" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
+                                </div>
+                                <div id="totalCategory" class="d-flex justify-content-center category d-none" style="gap: 20px">
+                                    <!--구글 차트 Start-->
+                                    <div id="category_div3" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <div id="category_div4" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
+                                </div>
                             </div>
-
                         </div>
                     </div><!-- End Recent Sales -->
 
                     <!-- Top Selling -->
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Top Selling <span>| Today</span></h5>
+                                <div class="card-title d-flex justify-content-between">
+                                    <h5>베스트 셀러</h5>
+                                    <ul class="nav nav-pills justify-content-end">
+                                        <li class="nav-item ">
+                                            <a class="nav-link active-geni active" aria-current="page" href="#"data-target="today" onclick="showThis(this)">오늘</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-geni" href="#"data-target="total" onclick="showThis(this)">누적</a>
+                                        </li>
+                                    </ul>
+                                </div>
 
                                 <table class="table table-borderless">
                                     <thead>
@@ -235,79 +362,23 @@
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
-                                <h5 class="card-title">Reports <span>/Today</span></h5>
+                                <div class="card-title d-flex justify-content-between">
+                                    <h5>월 별 매출</h5>
+                                    <ul class="nav nav-pills justify-content-end">
+                                        <li class="nav-item">
+                                            <a class="nav-link active-geni active" aria-current="page" href="#" data-target="today" onclick="showThis(this)">오늘</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                <!-- Line Chart -->
-                                <div id="reportsChart"></div>
-
-                                <script>
-                                    document.addEventListener("DOMContentLoaded", () => {
-                                        new ApexCharts(document.querySelector("#reportsChart"), {
-                                            series: [{
-                                                name: 'Sales',
-                                                data: [31, 40, 28, 51, 42, 82, 56],
-                                            }, {
-                                                name: 'Revenue',
-                                                data: [11, 32, 45, 32, 34, 52, 41]
-                                            }, {
-                                                name: 'Customers',
-                                                data: [15, 11, 32, 18, 9, 24, 11]
-                                            }],
-                                            chart: {
-                                                height: 350,
-                                                type: 'area',
-                                                toolbar: {
-                                                    show: false
-                                                },
-                                            },
-                                            markers: {
-                                                size: 4
-                                            },
-                                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                            fill: {
-                                                type: "gradient",
-                                                gradient: {
-                                                    shadeIntensity: 1,
-                                                    opacityFrom: 0.3,
-                                                    opacityTo: 0.4,
-                                                    stops: [0, 90, 100]
-                                                }
-                                            },
-                                            dataLabels: {
-                                                enabled: false
-                                            },
-                                            stroke: {
-                                                curve: 'smooth',
-                                                width: 2
-                                            },
-                                            xaxis: {
-                                                type: 'datetime',
-                                                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                                            },
-                                            tooltip: {
-                                                x: {
-                                                    format: 'dd/MM/yy HH:mm'
-                                                },
-                                            }
-                                        }).render();
-                                    });
-                                </script>
-                                <!-- End Line Chart -->
+                                <!--구글 차트 Start-->
+                                <div id="month_div" class="rounded-4 overflow-hidden">
+                                </div>
+                                <!--구글 차트 End-->
 
                             </div>
 
@@ -333,7 +404,28 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    // 영역 조작
+    function showThis(element) {
+        event.preventDefault();
+        event.stopPropagation();
+        let target = element.dataset.target;
+        let rankes = document.querySelectorAll('.category');
+        let parent = element.dataset.parent;
+        let buttons = document.querySelectorAll('.'+parent+' .nav-link');
+        for(let button of buttons) {
+            button.classList.remove('active-geni', 'active', 'text-white');
+            button.classList.add('text-geni');
+        }
+        for(let rank of rankes) {
+            rank.classList.add('d-none');
+        }
+        element.classList.remove('text-geni');
+        element.classList.add('active-geni', 'active');
+        document.querySelector('#'+target).classList.remove('d-none');
+    }
 
+</script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

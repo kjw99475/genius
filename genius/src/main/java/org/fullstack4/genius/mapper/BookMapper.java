@@ -13,9 +13,10 @@ public interface BookMapper {
 
     List<BookVO> listAll();
     BookVO view(String book_code);
-    int modify(BookVO bbsVO);
+    int modify(BookVO bookVO);
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);
+    int BookInventoryUpdate(BookVO bookVO);
     List<BookVO> BookListByPage(PageRequestDTO requestDTO);
     List<Map<String, String>> bookSubjectCategoryList();
     List<Map<String, String>> bookClassCategoryList();

@@ -68,6 +68,13 @@ public class BookServiceImpl implements BookServiceIf {
     }
 
     @Override
+    public int BookInventoryUpdate(BookDTO bookDTO) {
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        int result = bookMapper.BookInventoryUpdate(bookVO);
+        return result;
+    }
+
+    @Override
     public PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO) {
         List<BookVO> voList = bookMapper.BookListByPage(requestDTO);
         List<BookDTO> dtoList = voList.stream()
