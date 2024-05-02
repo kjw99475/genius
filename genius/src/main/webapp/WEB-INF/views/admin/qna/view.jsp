@@ -119,7 +119,7 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/'">
+                                            <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/answerregist'">
                                                 답변 등록
                                             </button>
                                             <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/qna/list'">

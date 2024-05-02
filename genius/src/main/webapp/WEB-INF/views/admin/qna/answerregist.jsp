@@ -56,8 +56,8 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item"><a href="admin/qna/list">QnA</a></li>
-                <li class="breadcrumb-item active">QnA 등록</li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
+                <li class="breadcrumb-item active">QnA 답변</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -65,6 +65,60 @@
     <section class="section profile">
         <div class="row">
             <div class="col-xl-12">
+
+<%--                Start QnA-Q--%>
+                <div class="card">
+                    <div class="card-body pt-3">
+
+                        <div class="tab-pane fade show active profile-overview" >
+
+                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+
+
+                                <div class="row mb-3">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="category_code" type="text" class="form-control"
+                                               value="Question" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="title" type="text" class="form-control"
+                                               value="${qnaDTO.title}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="member_id" type="text" class="form-control"
+                                               value="${qnaDTO.member_id}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
+                                    <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
+                                        ${qnaDTO.contents}
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+<%--            End QnA-Q--%>
+
+
 
                 <div class="card">
                     <div class="card-body pt-3">
@@ -80,7 +134,7 @@
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="QnA" disabled>
+                                               value="Answer" disabled>
                                     </div>
                                 </div>
 

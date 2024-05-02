@@ -39,15 +39,6 @@ public class AdminQnaController {
 
         model.addAttribute("responseDTO", responseDTO);
     }
-    @GetMapping("/contentQuestion")
-    public void GETContentQuestion(){
-
-    }
-
-    @PostMapping("/contentQuestion")
-    public void POSTContentQuestion(){
-
-    }
 
     @GetMapping("/contentregist")
     public void GETContentRegist(){
@@ -89,15 +80,6 @@ public class AdminQnaController {
     }
 
 
-    @GetMapping("/modifyQuestion")
-    public void GETModifyQuestion(){
-
-    }
-
-    @PostMapping("/modifyQuestion")
-    public void POSTModifyQuestion(){
-
-    }
     @GetMapping("/contentmodify")
     public void GETContentModify(@RequestParam(name = "qna_idx")int qna_idx,
                                  Model model){
@@ -125,11 +107,6 @@ public class AdminQnaController {
         }
     }
 
-
-    @GetMapping("/modify")
-    public void GETModify(){
-
-    }
     @PostMapping("delete")
     public String GETDelete(HttpServletRequest req){
         String[] del = req.getParameterValues("del_chk");
@@ -140,6 +117,27 @@ public class AdminQnaController {
         }
 
         return "redirect:/admin/qna/list";
+    }
+
+
+    @GetMapping("/answerregist")
+    public void GETAnswerRegist(){
+
+    }
+
+    @PostMapping("/answerregist")
+    public void PostAnswerRegist(){
+
+    }
+
+    @GetMapping("/answermodify")
+    public void GETAnswerModify(){
+
+    }
+
+    @PostMapping("/answermodify")
+    public void PostAnswerModify(){
+
     }
 
 
