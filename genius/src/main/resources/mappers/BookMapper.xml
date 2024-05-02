@@ -140,4 +140,16 @@
         SET sales_status = #{sales_status},sales_start_date=#{sales_start_date},sales_end_date=#{sales_end_date},quantity=#{quantity}
         where book_code = #{book_code}
     </update>
+
+    <insert id="InsertRestore">
+        INSERT INTO tbl_store(book_code,book_name,price,amount,store_date,category_class_code,category_subject_code)
+        VALUES(#{book_code}
+        ,#{book_name}
+        ,#{price}
+        ,#{amount}
+        ,NOW()
+        ,#{category_class_code}
+        ,#{category_subject_code}
+        )
+    </insert>
 </mapper>

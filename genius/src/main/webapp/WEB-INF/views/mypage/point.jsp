@@ -98,6 +98,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <c:if test="${mypaymentlist eq []}">
+                            <tr>
+                                <td colspan="4">
+                                    <div class="row justify-content-center align-items-center pb-3 border-bottom">
+                                        <div class="col-auto">
+                                            결제 내역이 없습니다.
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:if>
                             <c:forEach items= "${mypaymentlist}" var="list">
                             <tr class="bg-white">
                                 <td class="border-0 pt-3 pb-3">

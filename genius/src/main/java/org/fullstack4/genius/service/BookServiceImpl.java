@@ -27,7 +27,8 @@ public class BookServiceImpl implements BookServiceIf {
 
     @Override
     public int regist(BookDTO bookDTO,FileDTO imgfileDTO,FileDTO videofileDTO) {
-        if (imgfileDTO!= null) {
+        log.info("테스트 "+imgfileDTO);
+        if (imgfileDTO.getUploadFolder()!= null) {
             // 파일이 교체된 경우
             Map<String, String> map = FileUtil.FileUpload(imgfileDTO);
 
@@ -36,7 +37,7 @@ public class BookServiceImpl implements BookServiceIf {
             }
 
         }
-        if (videofileDTO!= null) {
+        if (videofileDTO.getUploadFolder()!= null) {
             // 파일이 교체된 경우
             Map<String, String> map = FileUtil.FileUpload(videofileDTO);
 
@@ -47,6 +48,13 @@ public class BookServiceImpl implements BookServiceIf {
         }
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
         int result = bookMapper.regist(bookVO);
+        return result;
+    }
+
+    @Override
+    public int InsertRestore(BookDTO bookDTO) {
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        int result = bookMapper.InsertRestore(bookVO);
         return result;
     }
 
@@ -70,7 +78,8 @@ public class BookServiceImpl implements BookServiceIf {
     @Override
     public int modify(BookDTO bookDTO, FileDTO imgfileDTO,FileDTO videofileDTO) {
         int result = 0;
-        if (imgfileDTO!= null) {
+        log.info("테스트 "+imgfileDTO);
+        if (imgfileDTO.getUploadFolder()!= null) {
             // 파일이 교체된 경우
             Map<String, String> map = FileUtil.FileUpload(imgfileDTO);
 
@@ -79,7 +88,8 @@ public class BookServiceImpl implements BookServiceIf {
             }
 
         }
-        if (videofileDTO!= null) {
+        log.info("테스트 "+videofileDTO);
+        if (videofileDTO.getUploadFolder()!= null) {
             // 파일이 교체된 경우
             Map<String, String> map = FileUtil.FileUpload(videofileDTO);
 

@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / book - view</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -67,68 +67,68 @@
                             <form name="frm_book_delete" method="post" id="frm_book_delete" action="/admin/book/delete">
                                 <!-- <h5 class="card-title">Profile Details</h5> -->
                                 <input type="hidden" name="book_idx" value="${bookDTO.book_idx}">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-4 label ">상품번호</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.book_code}</div>
-                                </div>
+                                <input type="hidden" name="book_code" value="${bookDTO.book_code}">
 
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-4 label ">이미지</div>
-                                    <div class="col-lg-10 col-md-8">
-                                        <img src="/resources/upload/book/${bookDTO.book_img}" alt="이미지">
+                                    <div class="col-lg-2 col-md-4 label">책이름</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="book_name" type="text" class="form-control" id="book_name" value="${bookDTO.book_name}" disabled />
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">책이름</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.book_name}</div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-lg-2 col-md-4 label">정가</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.price}</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="price" type="text" class="form-control" id="price" value="${bookDTO.price}" disabled />
+                                    </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label">할인율</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.discount_per}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">할인가</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.discount_price}</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="discount_per" type="text" class="form-control" id="discount_per" value="${bookDTO.discount_per}" disabled />
+                                    </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label">저자</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.author}</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="author" type="text" class="form-control" id="author" value="${bookDTO.author}" disabled />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 label">출판일</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="publication_date" type="date" class="form-control" id="publication_date" value="${bookDTO.publication_date}" disabled />
+                                    </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label">출판사</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.publisher}</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input name="publisher" type="text" class="form-control" id="publisher" value="${bookDTO.publisher}" disabled />
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">학년 카테고리</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.category_class_code}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">과목 카테고리</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.category_subject_code}</div>
+                                    <div class="col-lg-2 col-md-4 label ">이미지</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <img src="/resources/upload/book/${bookDTO.book_img}" alt="이미지">
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-4 label">판매상태</div>
-                                    <div class="col-lg-10 col-md-8">${bookDTO.sales_status}</div>
-                                </div>
                             </form>
                             </div>
                         </div>
 
-                        <div class="text-center mt-5">
-                            <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
-                            <button type="button" class="btn btn-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
+                        <div class="d-flex justify-content-between mt-5">
+                            <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/book/itemlist'">목록</button>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
+                                <button type="button" class="btn btn-outline-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
+                            </div>
                         </div>
                     </div><!-- End Bordered Tabs -->
 

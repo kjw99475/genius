@@ -62,19 +62,33 @@ public class AdminBookController {
                                  @RequestParam("file") MultipartFile file,
                                  @RequestParam("videofile") MultipartFile videofile){
 
-        String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
 
-        FileDTO fileDTO = FileDTO.builder()
-                .file(file)
-                .uploadFolder(uploadFolder)
-                .build();
+        FileDTO fileDTO = new FileDTO();
+        log.info("=================이미지=================="+file.getSize());
+        BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
+        if(file.getSize() >0) {
+            log.info("===================================");
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+            fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+        }else{
+            bookDTO.setBook_img(OrgBookDTO.getBook_img());
+        }
 
-
-        String uploadFolder1 =  CommonUtil.getUploadFolder(request, "video");
-        FileDTO fileDTO1 = FileDTO.builder()
-                .file(videofile)
-                .uploadFolder(uploadFolder1)
-                .build();
+        log.info("=================비디오=================="+videofile.getSize());
+        FileDTO fileDTO1 = new FileDTO();
+        if(videofile.getSize()>0) {
+            log.info("=================비디오==================");
+            String uploadFolder1 = CommonUtil.getUploadFolder(request, "video");
+            fileDTO1 = FileDTO.builder()
+                    .file(videofile)
+                    .uploadFolder(uploadFolder1)
+                    .build();
+        }else{
+            bookDTO.setVideo(OrgBookDTO.getVideo());
+        }
 
         if(bindingResult.hasErrors()){
             log.info("Errors");
@@ -122,21 +136,32 @@ public class AdminBookController {
         log.info("AdminBookController : POSTItemModify");
         System.out.println("111");
         log.info(bookDTO);
+        BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
+        FileDTO fileDTO = new FileDTO();
+        log.info("=================이미지=================="+file.getSize());
+        if(file.getSize() >0) {
+            log.info("===================================");
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+            fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+        }else{
+            bookDTO.setBook_img(OrgBookDTO.getBook_img());
+        }
 
-        String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
-
-        FileDTO fileDTO = FileDTO.builder()
-                .file(file)
-                .uploadFolder(uploadFolder)
-                .build();
-
-
-        String uploadFolder1 =  CommonUtil.getUploadFolder(request, "video");
-        FileDTO fileDTO1 = FileDTO.builder()
-                .file(videofile)
-                .uploadFolder(uploadFolder1)
-                .build();
-
+        log.info("=================비디오=================="+videofile.getSize());
+        FileDTO fileDTO1 = new FileDTO();
+        if(videofile.getSize()>0) {
+            log.info("=================비디오==================");
+            String uploadFolder1 = CommonUtil.getUploadFolder(request, "video");
+            fileDTO1 = FileDTO.builder()
+                    .file(videofile)
+                    .uploadFolder(uploadFolder1)
+                    .build();
+        }else{
+            bookDTO.setVideo(OrgBookDTO.getVideo());
+        }
 
         if(bindingResult.hasErrors()){
             log.info("AdminBookController >> POSTItemModify >> list Error");

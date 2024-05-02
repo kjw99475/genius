@@ -242,7 +242,7 @@
 
                                 <div class="text-center mt-5">
                                     <button type="submit" id="bookRegistBtn" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-light" onclick="location.href='/admin/book/itemlist'">취소</button>
                                 </div>
                             </form><!-- End Profile Edit Form -->
 

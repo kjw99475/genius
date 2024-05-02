@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -90,18 +91,26 @@ public class AdminInventoryController {
         log.info("=======================인벤토리 테스트 끝=============");
 
         int result = 0;
+        int result1 = 0;
         for(int i=0;i<bookCodeList.length;i++){
             if(!bookCodeList[i].equals("")) {
+                BookDTO orgBookdto = bookServiceIf.view(bookCodeList[i]);
                 BookDTO dto = BookDTO.builder()
                         .book_code(bookCodeList[i])
+                        .book_name(orgBookdto.getBook_name())
+                        .price(orgBookdto.getPrice())
+                        .category_class_code(orgBookdto.getCategory_class_code())
+                        .category_subject_code(orgBookdto.getCategory_subject_code())
                         .sales_status(salesStatusList[i])
                         .sales_start_date(LocalDate.parse(salesStartDateList[i]))
                         .sales_end_date(LocalDate.parse(salesEndDateList[i]))
                         .quantity(Integer.parseInt(salesQuantityList[i]))
+                        .amount(Integer.parseInt(salesQuantityList[i])- orgBookdto.getQuantity())
                         .build();
 
                 log.info("==========dto" + i + ": ==" + dto.toString());
                 result = bookServiceIf.BookInventoryUpdate(dto);
+                result1 = bookServiceIf.InsertRestore(dto);
             }
         }
 //        int result = 0;

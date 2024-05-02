@@ -52,20 +52,31 @@
     <!-- ============= 결제 내역 Start ============= -->
     <section class="section-margin--small">
         <div class="container">
-            <form action="/mypage/payhistory${pageDTO.linked_params}" id="payfrm">
-                <div class="row justify-content-end align-items-center pb-3">
+            <div class="filter-bar">
+                <div class="input-group d-flex justify-content-end">
+                    <form action="/mypage/payhistory${pageDTO.linked_params}" id="payfrm">
+                        <div class="sorting d-flex">
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="startDay" name="search_date1">
+                            </div>
+                            <div>~</div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="endDay" name="search_date2">
+                            </div>
+                            <div>
+                                <button class="btn btn-success" type="button" id="paybtn">조회</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <c:if test="${dtolist eq []}">
+                <div class="row justify-content-center align-items-center pb-3 border-bottom">
                     <div class="col-auto">
-                        <input type="date" class="form-control" id="startDay" name="search_date1">
-                    </div>
-                    <div>~</div>
-                    <div class="col-auto">
-                        <input type="date" class="form-control" id="endDay" name="search_date2">
-                    </div>
-                    <div>
-                        <button class="btn btn-success" type="button" id="paybtn">조회</button>
+                        결제 내역이 없습니다.
                     </div>
                 </div>
-            </form>
+            </c:if>
             <div class="accordion" id="accordionExample">
                 <c:forEach items="${dtolist}" var="list" varStatus="status">
                 <div class="card">
@@ -115,7 +126,7 @@
                                     <td>
                                         <div class="media align-items-center">
                                             <div class="d-flex">
-                                                <img class="img-w100" src="${List.book_img}" alt="">
+                                                <img class="img-w100" src="/resources/upload/book/${List.book_img}" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <p>${List.book_name}</p>

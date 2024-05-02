@@ -368,7 +368,7 @@
                                                 <c:forEach var="bookDTO" items="${bookDTOList}" varStatus="status">
                                                     <tr>
                                                         <td class="fw-bold text-center">${status.index + 1}</td>
-                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="${bookDTO['book_img']}" alt=""></a></td>
+                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="/resources/upload/book/${bookDTO['book_img']}" alt=""></a></td>
                                                         <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}" class="text-success fw-bold">${bookDTO['book_name']}</a></td>
                                                         <td class="text-center">${bookDTO['book_code']}</td>
                                                         <td class="fw-bold text-center">${bookDTO['sales_amount']}건</td>

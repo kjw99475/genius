@@ -94,7 +94,7 @@
                     <ul class="nav-shop">
                         <li class="nav-item" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i>
                             <c:if test="${!empty sessionScope['member_id']}">
-                                <span class="nav-shop__circle">3</span>
+                                <span class="nav-shop__circle">${empty sessionScope.cartCnt ? 0 : sessionScope.cartCnt}</span>
                             </c:if>
                         </button> </li>
                     </ul>

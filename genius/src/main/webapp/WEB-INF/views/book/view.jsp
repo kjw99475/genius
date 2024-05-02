@@ -186,8 +186,8 @@
                                 <c:forEach items="${responseDTO.dtoList}" var="review">
                                     <div class="review_item">
                                         <div class="media">
-                                            <div class="d-flex">
-                                                <img height="50" src="/resources/upload/profile/${review.profile}" alt="">
+                                            <div class="d-flex rounded-circle flow-hidden h-50px w-50px mr-2">
+                                                <img src="/resources/upload/profile/${review.profile}" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <h4>${review.member_id}</h4>
@@ -223,25 +223,6 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-
-<%--                                <div class="review_item">--%>
-<%--                                    <div class="media">--%>
-<%--                                        <div class="d-flex">--%>
-<%--                                            <img src="/resources/img/product/review-2.png" alt="">--%>
-<%--                                        </div>--%>
-<%--                                        <div class="media-body">--%>
-<%--                                            <h4>Blake Ruiz</h4>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et--%>
-<%--                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea--%>
-<%--                                        commodo</p>--%>
-<%--                                </div>--%>
                                 <nav class="blog-pagination justify-content-center d-flex">
                                     <ul class="pagination">
                                         <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
