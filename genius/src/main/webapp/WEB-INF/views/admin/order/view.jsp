@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Admin / order - detail</title>
     <!-- Favicons -->
     <link href="/resources/admin/img/favicon.png" rel="icon">
     <link href="/resources/admin/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -55,8 +55,8 @@
         <h1>주문관리 상세</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/admin/admin">Home</a></li>
-                <li class="breadcrumb-item"><a href="/admin/order/list">주문관리</a></li>
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item"><a href="/admin/order/list">주문 관리</a></li>
                 <li class="breadcrumb-item active">상세</li>
             </ol>
         </nav>

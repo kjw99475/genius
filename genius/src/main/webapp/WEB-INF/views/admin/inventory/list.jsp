@@ -79,8 +79,8 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <label class="fw-bold p-3" style="margin-right: 80px">학년</label>
-                                        <label class="fw-bold p-3" style="margin-right: 80px">과목</label>
+                                        <label class="fw-bold p-3" style="margin-right: 70px">학년</label>
+                                        <label class="fw-bold p-3" style="margin-right: 70px">과목</label>
                                         <label class="fw-bold p-3">키워드 검색</label>
                                     </div>
                                     <div class="d-flex align-items-center" style="gap: 10px">
