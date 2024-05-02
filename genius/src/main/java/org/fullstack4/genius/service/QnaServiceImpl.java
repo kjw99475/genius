@@ -78,8 +78,9 @@ public class QnaServiceImpl implements QnaServiceIf {
 
     @Override
     public int delete(int idx) {
-
-        return qnaMapper.delete(idx);
+        int result = qnaMapper.delete(idx);
+        int result2 = qnaMapper.answerDelete(idx);
+        return result;
     }
 
     @Override
@@ -98,6 +99,12 @@ public class QnaServiceImpl implements QnaServiceIf {
         QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
         int result = qnaMapper.answerRegist(qnaVO);
         return qnaVO.getQna_idx();
+    }
+
+    @Override
+    public int answerDelete(int idx) {
+        int result = qnaMapper.answerDelete(idx);
+        return result;
     }
 
     @Override

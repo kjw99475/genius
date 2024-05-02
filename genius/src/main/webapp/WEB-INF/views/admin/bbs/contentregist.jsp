@@ -70,7 +70,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/bbs/contentregist">
+                            <form method="post" action="/admin/bbs/contentregist" enctype="multipart/form-data">
 <%--                                <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">--%>
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -107,15 +107,7 @@
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <c:choose>
-                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
-                                                <input name="file" type="file" class="form-control" id="file"
-                                                       value="${bbsDTO.fileYN}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <input name="file" type="file" class="form-control" id="file">
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <input name="files" type="file" class="form-control" id="file" multiple>
                                     </div>
                                 </div>
 

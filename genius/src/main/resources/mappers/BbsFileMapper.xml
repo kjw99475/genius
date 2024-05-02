@@ -7,10 +7,11 @@
         SELECT file_idx, bbs_idx, save_name, original_name, path
         FROM tbl_bbs_file
         WHERE bbs_idx = #{bbs_idx}
+        AND category_code = #{category_code}
     </select>
     <insert id="regist">
-        INSERT INTO tbl_bbs_file(bbs_idx, save_name, original_name, path)
-        VALUES(#{bbs_idx}, #{save_name}, #{original_name}, #{path})
+        INSERT INTO tbl_bbs_file(bbs_idx, save_name, original_name, path, category_code)
+        VALUES(#{bbs_idx}, #{save_name}, #{original_name}, #{path}, #{category_code})
     </insert>
     <select id="getFile" resultType="org.fullstack4.genius.domain.BbsFileVO">
         SELECT file_idx, bbs_idx, save_name, original_name, path

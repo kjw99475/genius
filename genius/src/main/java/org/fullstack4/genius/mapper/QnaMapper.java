@@ -15,6 +15,7 @@ public interface QnaMapper {
     QnaVO view(int idx);
     int modify(QnaVO qnaVO);
     int delete(int idx);
+    int answerDelete(int idx);
     int refModify(int idx);
     int totalCount();
     int qnaTotalCount(PageRequestDTO requestDTO);
