@@ -10,12 +10,12 @@
             <if test=' search_word != null and search_word != "" '>
                 <choose>
                     <when test="type == 0">
-                        AND member_id LIKE CONCAT('%', #{search_word}, '%')
+                        AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
                         OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
                         OR bbs_contents LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 1">
-                        AND member_id LIKE CONCAT('%', #{search_word}, '%')
+                        AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
                     </when>
                     <when test="type == 2">
                         AND bbs_title LIKE CONCAT('%', #{search_word}, '%')
@@ -27,17 +27,17 @@
             </if>
             <if test="search_date1 != null or search_date2 != null">
                 <if test="search_date1 != null">
-                    AND reg_date <![CDATA[>=]]> #{search_date1}
+                    AND bbs.reg_date <![CDATA[>=]]> #{search_date1}
                 </if>
                 <if test="search_date2 != null">
-                    AND reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                    AND bbs.reg_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
                 </if>
             </if>
         </where>
     </sql>
     
     <select id="view" resultType="org.fullstack4.genius.domain.BbsVO">
-        SELECT bbs.bbs_idx, bbs_title, bbs.category_code, bbs.member_id, mem.member_name, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
+        SELECT bbs.bbs_idx, bbs.bbs_title, bbs.category_code, bbs.member_id, mem.member_name, bbs.fileYN, bbs_contents, bbs.reg_date, bbs.read_cnt, bbs.modify_date
         FROM tbl_bbs AS bbs
         INNER JOIN tbl_member AS mem
         ON mem.member_id = bbs.member_id AND mem.status = "Y"
@@ -46,7 +46,7 @@
 
     <select id="preView" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
-        FROM tbl_bbs
+        FROM tbl_bbs AS bbs
         WHERE category_code = #{category_code} AND bbs_idx <![CDATA[<]]> #{bbs_idx}
         ORDER BY bbs_idx DESC
         LIMIT 1
@@ -54,7 +54,7 @@
 
     <select id="postView" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, fileYN, reg_date, modify_date
-        FROM tbl_bbs
+        FROM tbl_bbs AS bbs
         WHERE category_code = #{category_code} AND bbs_idx <![CDATA[>]]> #{bbs_idx}
         ORDER BY bbs_idx ASC
         LIMIT 1
@@ -62,7 +62,7 @@
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.BbsVO">
         SELECT bbs_idx, bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt, modify_date
-        FROM tbl_bbs
+        FROM tbl_bbs AS bbs
         WHERE category_code = #{category_code}
         ORDER BY bbs_idx DESC
     </select>
@@ -71,8 +71,8 @@
         SELECT bbs_idx, bbs_title, category_code, bbs.member_id, mem.member_name, fileYN, bbs_contents, bbs.reg_date, read_cnt, bbs.modify_date
         FROM tbl_bbs AS bbs
         inner JOIN tbl_member AS mem
-        ON mem.member_id = bbs.member_id AND mem.status = "Y"
-        <include refid="whereCondition"></include>
+        ON mem.member_id = bbs.member_id
+          <include refid="whereCondition"></include>
         ORDER BY bbs_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
@@ -97,12 +97,17 @@
         WHERE bbs_idx = #{bbs_idx}
     </delete>
 
-
-
     <select id="bbsTotalCount">
         SELECT COUNT(*)
-        FROM tbl_bbs
+        FROM tbl_bbs AS bbs
+        INNER JOIN tbl_member AS mem
+        ON mem.member_id = bbs.member_id
         <include refid="whereCondition"></include>
     </select>
 
+    <update id="readCount">
+        UPDATE tbl_bbs SET
+        read_cnt = read_cnt + 1
+        WHERE bbs_idx = #{bbs_idx}
+    </update>
 </mapper>

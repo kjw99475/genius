@@ -235,4 +235,15 @@ public class HyunbeenTest {
 //        log.info("===================================");
 
     }
+
+    @Test
+    public void detailOrder(){
+        OrderDTO orderDTO = OrderDTO.builder()
+                .order_num("240501155033-47610")
+                .order_refund_request("Y")
+                .build();
+        int result = order.requestRefund(orderDTO);
+
+        log.info("========="+orderDTO.toString());
+    }
 }

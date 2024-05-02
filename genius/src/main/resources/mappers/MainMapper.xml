@@ -50,8 +50,9 @@
         LIMIT 0,5;
     </select>
     <select id="banner" resultType="org.fullstack4.genius.domain.BannerVO">
-        SELECT banner_img_idx, banner_status, save_name, original_name, path, member_id, reg_date, modify_date
-        FROM tbl_banner
-        WHERE banner_status = 'Y'
+        SELECT TB.banner_img_idx, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TB.reg_date, TB.modify_date, TB.`order`, TB.post_start_date, TB.post_end_date
+        FROM tbl_banner AS TB
+        WHERE banner_status = 'Y' AND (DATE(NOW()) BETWEEN post_start_date AND post_end_date)
+        ORDER BY TB.`order` ASC
     </select>
 </mapper>

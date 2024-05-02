@@ -101,9 +101,45 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
+    public List<OrderDTO> AdminOrderdetail(String order_num) {
+        List<OrderVO> orderVO = orderMapper.AdminOrderdetail(order_num);
+        List<OrderDTO> orderDTO = orderVO.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return orderDTO;
+    }
+
+    @Override
+    public int updateOrderState(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.updateOrderState(vo);
+
+        return result;
+    }
+
+    @Override
     public int updateDcompany(OrderDTO orderDTO) {
         OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
         int result = orderMapper.updateDcompany(vo);
+
+        return result;
+    }
+
+    @Override
+    public int requestRefund(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.requestRefund(orderVO);
+        log.info(orderVO.toString());
+
+        return result;
+    }
+
+    @Override
+    public int responseRefund(OrderDTO orderDTO) {
+        OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.responseRefund(orderVO);
+        log.info(orderVO.toString());
 
         return result;
     }

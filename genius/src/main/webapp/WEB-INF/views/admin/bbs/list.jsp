@@ -63,6 +63,7 @@
                         <p>자료실을 관리하는 페이지 입니다.</p>
                         <div class="row">
                             <form>
+                                <input type="hidden" value="bc01" name="category_code">
                                 <div class="row mb-3">
 
                                     <div class="col">

@@ -15,6 +15,7 @@ public interface BbsServiceIf {
     BbsDTO postView(int idx, String category_code);
     int modify(BbsDTO bbsDTO);
     int delete(int idx);
+    int readCount(int idx);
     int bbsTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<BbsDTO> bbsListByPage(PageRequestDTO requestDTO);
 }

@@ -81,6 +81,11 @@ public class BbsServiceImpl implements BbsServiceIf {
         return result;
     }
 
+    public int readCount(int idx) {
+        int result = bbsMapper.readCount(idx);
+        return result;
+    }
+
     @Override
     public int bbsTotalCount(PageRequestDTO requestDTO) {
         int total_count = bbsMapper.bbsTotalCount(requestDTO);

@@ -140,4 +140,15 @@ public class CommonUtil {
             return null;
         }
     }
+
+    public static String parsingURI(String uri) {
+        String myUri = "";
+        myUri = uri.substring(uri.indexOf("/") + 1);
+        myUri = myUri.substring(myUri.indexOf("/"));
+        return myUri;
+    }
+
+    public static String comma(String str) {
+        return String.format("%,d", parseInt(str));
+    }
 }

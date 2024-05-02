@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css"/>
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <style>
+        .collapse {
+            transition: none;
+        }
+    </style>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -46,120 +52,95 @@
         </div>
     </section>
     <section class="section-margin--small mb-5">
+
         <div class="container">
+
+
             <div class="filter-bar">
                 <div class="input-group d-flex justify-content-end">
+                    <form>
                     <div class="sorting d-flex">
-                        <select name="sales_status">
-                            <option value="1">전체</option>
-                            <option value="2">작성자</option>
-                            <option value="3">제목</option>
-                            <option value="4">내용</option>
+                        <select name="type">
+                            <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                            <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                            <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                            <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
                         </select>
                         <div class="col-auto">
-                            <input type="date" class="form-control" id="startDay" name="startDay">
+                            <input type="date" class="form-control" name="search_date1" value="${responseDTO.search_date1}">
                         </div>
                         <div>~</div>
                         <div class="col-auto">
-                            <input type="date" class="form-control" id="endDay" name="endDay">
+                            <input type="date" class="form-control" name="search_date2" value="${responseDTO.search_date2}">
                         </div>
                         <div class="filter-bar-search">
-                            <input type="text" placeholder="Search" style="width: 100%">
+                            <input type="text" placeholder="Search" name="search_word" style="width: 100%" value="${responseDTO.search_word}">
                         </div>
                         <div>
-                            <button type="button" class="btn btn-success">검색</button>
+                            <button type="submit" class="btn btn-success">검색</button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
-
-
-
 
 
             <table class="table table-hover accordion">
                 <thead class="filter-bar">
                 <tr>
-                    <th scope="col">번호</th>
-                    <th scope="col" style="width:50%">제목</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">작성일</th>
-                    <th scope="col">조회</th>
+                    <th scope="col" style="width: 9.8%">번호</th>
+                    <th scope="col" style="width: 90.2%" >제목</th>
                 </tr>
                 </thead>
                 <tbody id="accordionExample">
-                <tr>
-                    <th scope="row">6</th>
-                    <td><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Mark</button><span class="ti-file"></span></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <td colspan="4" id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"><div>test</div></td>
-                </tr>
-                </tbody>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>Jacob<span class="ti-file"></span></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Larry the<span class="ti-file"></span></td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Larry the Bird</td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>12</td>
-                </tr>
+
+<c:choose>
+                <c:when test="${responseDTO ne null}">
+                    <c:set value="${responseDTO.total_count}" var="total_count" />
+                    <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
+                        <tr>
+                            <th scope="row" class=" align-content-center">${total_count -responseDTO.page_skip_count -loop.index}</th>
+                            <td><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${bbsDTO.bbs_idx}" aria-expanded="true" aria-controls="${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" id="collapse${bbsDTO.bbs_idx}" class="collapse" aria-labelledby="heading${bbsDTO.bbs_idx}" data-parent="#accordionExample"><div>${bbsDTO.bbs_contents}</div></td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+    <c:otherwise>
+        <tr><td colspan="2">결과가 없습니다.</td></tr>
+    </c:otherwise>
+</c:choose>
                 </tbody>
             </table>
             </div>
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
+                    <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
+                       class="page-link" aria-label="Previous">&laquo;
+                    </a>
                 </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">01</a>
-                </li>
-                <li class="page-item active">
-                    <a href="#" class="page-link">02</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">03</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">04</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">09</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                <c:forEach begin="${responseDTO.page_block_start}"
+                           end="${responseDTO.page_block_end}"
+                           var="page_num">
+                    <c:choose>
+                        <c:when test="${responseDTO.page == page_num}">
+                            <li class="page-item active">
+                                <a href="#" class="page-link">${page_num}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item">
+                                <a href="${responseDTO.linked_params}&page=${page_num}" class="page-link">${page_num}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
+                    <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
+                        " class="page-link" aria-label="Next">&raquo;</a>
                 </li>
             </ul>
         </nav>

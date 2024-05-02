@@ -141,10 +141,18 @@
                                 <td>${bookDTO.publisher}</td>
                                 <td>${bookDTO.category_class_code}</td>
                                 <td>${bookDTO.category_subject_code}</td>
-                                <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td>
+                                <td>
+                                    <select name="type" class="form-select">
+                                        <option value="1" <c:if test="${bookDTO.sales_status == '1'}"> selected</c:if>>판매중</option>
+                                        <option value="2" <c:if test="${bookDTO.sales_status == '2'}"> selected</c:if>>판매준비중</option>
+                                        <option value="3" <c:if test="${bookDTO.sales_status == '3'}"> selected</c:if>>판매종료</option>
+                                        <option value="4" <c:if test="${bookDTO.sales_status == '4'}"> selected</c:if>>품절</option>
+                                    </select>
+                                </td>
+<%--                                <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td>--%>
                                 <!--상태에 따라 bg-수정 -->
-                                <td>${bookDTO.sales_start_date}</td>
-                                <td>${bookDTO.sales_end_date}</td>
+                                <td><input type="date" name="sales_start_date" value="${bookDTO.sales_start_date}"/></td>
+                                <td><input type="date" name="sales_end_date" value="${bookDTO.sales_end_date}"/></td>
                                 <td>${bookDTO.quantity}</td>
                             </tr>
                         </c:forEach>

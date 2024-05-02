@@ -16,7 +16,7 @@
 
     <insert id="usepoint">
         INSERT INTO tbl_payment(payment_num,member_id,price,method,company,reg_date,use_type,title)
-        VALUES (#{payment_num},#{member_id},#{price},#{method},'사이트 거래',NOW(),'사용','포인트 사용')
+        VALUES (#{payment_num},#{member_id},#{price},#{method},#{company},NOW(),#{use_type},#{title})
     </insert>
 
     <insert id="refund">
@@ -59,7 +59,7 @@
     </select>
 
     <select id="viewOrder" resultType="org.fullstack4.genius.domain.OrderVO">
-        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         where member_id=#{param1} and cancel_YN ='N'
     </select>
@@ -89,7 +89,7 @@
     </select>
 
     <select id="viewOrderListbypage" resultType="org.fullstack4.genius.domain.OrderVO">
-        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state
+        SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         <where>
             member_id=#{member_id} and cancel_YN = 'N'
@@ -123,4 +123,17 @@
         ORDER BY payment_idx DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
+    <insert id="releaseBook">
+        INSERT INTO tbl_release(order_num,book_code,book_name,price,amount,release_date,category_class_code,category_subject_code)
+        VALUES(#{order_num},#{book_code},#{book_name},#{price},#{amount},NOW(),#{category_class_code},#{category_subject_code})
+    </insert>
+    <update id="salesBook">
+        UPDATE tbl_book
+        SET quantity = quantity - #{amount}
+        where book_code = #{book_code}
+    </update>
+    <delete id="deleteBookRelease">
+        DELETE FROM tbl_release
+        WHERE order_num = #{order_num}
+    </delete>
 </mapper>

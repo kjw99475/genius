@@ -3,7 +3,9 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.service.BbsServiceIf;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.fullstack4.genius.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.util.List;
@@ -26,16 +29,43 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BbsController {
     private final QnaServiceIf qnaServiceIf;
+    private final BbsServiceIf bbsServiceIf;
 
     @GetMapping("/noticeList")
-    public void GETNoticeList() {
+    public void GETNoticeList(@Valid PageRequestDTO pageRequestDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
+                              Model model
+    ) {
+        String category_code = "bc02";
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+//        pageRequestDTO.setPage_size(page_size);
+        pageRequestDTO.setPage_block_size(10);
+        pageRequestDTO.setCategory_code(category_code);
 
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
 
     @GetMapping("/noticeView")
-    public void GETNoticeView() {
+    public void GETNoticeView(@RequestParam(name="bbs_idx") int bbs_idx,
+                              Model model
+    ) {
+        String category_code = "bc02";
 
+        int readCnt = bbsServiceIf.readCount(bbs_idx);
+        BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
+        BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
+
+        model.addAttribute("bbsDTO", bbsDTO);
+        model.addAttribute("prebbsDTO", prebbsDTO);
+        model.addAttribute("postbbsDTO", postbbsDTO);
     }
 
     @GetMapping("/qnaList")
@@ -47,8 +77,6 @@ public class BbsController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-        List<QnaDTO> qnaDTOList = qnaServiceIf.listAll();
-        log.info(qnaDTOList);
         pageRequestDTO.setPage_size(10);
         pageRequestDTO.setPage_block_size(10);
         PageResponseDTO<QnaDTO> responseDTO = qnaServiceIf.qnaListByPage(pageRequestDTO);
@@ -111,13 +139,24 @@ public class BbsController {
 
     @PostMapping("/qnaRegistQ")
     public String POSTQnaRegistQ(@Valid QnaDTO qnaDTO,
+                               @RequestParam("file") MultipartFile file,
                                BindingResult bindingResult,
+                               HttpServletRequest request,
                                RedirectAttributes redirectAttributes,
                                Model model) {
-        if(bindingResult.hasErrors()){
-            log.info("BookController >> list Error");
-            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//        if(bindingResult.hasErrors()){
+//            log.info("BookController >> list Error");
+//            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//        }
+
+        if(!file.isEmpty()){
+            log.info("fileY");
+            String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFoler)
+                    .build();
         }
         log.info("========================");
         log.info("postQnaRegist >> qnaDTO" + qnaDTO);
@@ -173,37 +212,119 @@ public class BbsController {
     }
 
     @GetMapping("/faqList")
-    public void FaqList() {
+    public void FaqList(@Valid PageRequestDTO pageRequestDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model
+    ) {
+        String category_code = "bc03";
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+//        pageRequestDTO.setPage_size(page_size);
+        pageRequestDTO.setPage_block_size(10);
+        pageRequestDTO.setCategory_code(category_code);
 
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @GetMapping("/boardList")
-    public void GETBoardList() {
+    public void GETBoardList(@Valid PageRequestDTO pageRequestDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model
+    ) {
+        String category_code = "bc01";
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+//        pageRequestDTO.setPage_size(page_size);
+        pageRequestDTO.setPage_block_size(10);
+        pageRequestDTO.setCategory_code(category_code);
 
+        PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @GetMapping("/boardView")
-    public void GETBoardView() {
+    public void GETBoardView(int bbs_idx
+            , Model model
+    ) {
+        String category_code = "bc01";
+
+        int readCnt = bbsServiceIf.readCount(bbs_idx);
+        BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        BbsDTO prebbsDTO = bbsServiceIf.preView(bbs_idx, category_code);
+        BbsDTO postbbsDTO = bbsServiceIf.postView(bbs_idx, category_code);
+
+        model.addAttribute("bbsDTO", bbsDTO);
+        model.addAttribute("prebbsDTO", prebbsDTO);
+        model.addAttribute("postbbsDTO", postbbsDTO);
 
     }
 
     @GetMapping("/boardRegist")
-    public void GETboardRegist() {
+    public void GETboardRegist(BbsDTO bbsDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+    ) {
 
     }
 
     @PostMapping("/boardRegist")
-    public void POSTboardRegist() {
+    public String POSTboardRegist(BbsDTO bbsDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+    ) {
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
 
+        int result = bbsServiceIf.regist(bbsDTO);
+        if(result > 0) {
+            log.info("등록 성공 ===============");
+            return "redirect:/bbs/boardList";
+        } else {
+            log.info("등록 실패 ===============");
+            return "redirect:/bbs/boardRegist";
+        }
     }
     @GetMapping("/boardModify")
-    public void GETboardModify() {
-
+    public void GETboardModify(int bbs_idx
+            , Model model){
+        BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        model.addAttribute("bbsDTO", bbsDTO);
     }
 
     @PostMapping("/boardModify")
-    public void POSTboardModify() {
-
+    public String POSTboardModify(BbsDTO bbsDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes){
+        int result = bbsServiceIf.modify(bbsDTO);
+        if(result > 0) {
+            log.info("수정 성공==============");
+            return "redirect:/bbs/boardView?bbs_idx=" +bbsDTO.getBbs_idx();
+        } else {
+            log.info("수정 실패==============");
+            return "redirect:/bbs/boardModify?bbs_idx=" + bbsDTO.getBbs_idx();
+        }
+    }
+    @PostMapping("/boardDelete")
+    public String boardDelete(int bbs_idx) {
+        int result = bbsServiceIf.delete(bbs_idx);
+        if(result > 0) {
+            log.info("삭제 성공 >> " + bbs_idx);
+            return "redirect:/bbs/boardList";
+        } else {
+            log.info("삭제 실패 >> " + bbs_idx);
+            return "redirect:/bbs/boardView?bbs_idx=" + bbs_idx;
+        }
     }
 
 

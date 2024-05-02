@@ -43,7 +43,7 @@ public class AdminBbsController {
 
         PageResponseDTO<BbsDTO> responseDTO = bbsServiceIf.bbsListByPage(pageRequestDTO);
         //List<BbsDTO> bbsDTOList = bbsServiceIf.listAll(category_code);
-
+        log.info("페이지리퀘" + pageRequestDTO.toString());
         model.addAttribute("responseDTO", responseDTO);
     }
 
@@ -68,9 +68,10 @@ public class AdminBbsController {
     @GetMapping("/contentregist")
     public void GETContentRegist(BbsDTO bbsDTO
                                 , BindingResult bindingResult
-                                , RedirectAttributes redirectAttributes){
-
-
+                                , RedirectAttributes redirectAttributes
+                                , Model model
+    ){
+        model.addAttribute("bbsDTO", bbsDTO);
     }
 
     @PostMapping("/contentregist")

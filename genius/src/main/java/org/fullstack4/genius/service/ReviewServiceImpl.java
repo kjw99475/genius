@@ -6,6 +6,7 @@ import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.ReviewVO;
 import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.ReviewDTO;
 import org.fullstack4.genius.mapper.BookMapper;
 import org.fullstack4.genius.mapper.ReviewMapper;
@@ -63,11 +64,24 @@ public class ReviewServiceImpl implements ReviewServiceIf{
 
     @Override
     public int reviewTotalCount(PageRequestDTO requestDTO) {
-        return 0;
+        int total_count = reviewMapper.reviewTotalCount(requestDTO);
+        return total_count;
     }
 
     @Override
-    public List<ReviewDTO> reviewListByPage(PageRequestDTO requestDTO) {
-        return null;
+    public PageResponseDTO<ReviewDTO> reviewListByPage(PageRequestDTO requestDTO) {
+        List<ReviewVO> voList = reviewMapper.reviewListByPage(requestDTO);
+        List<ReviewDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,ReviewDTO.class))
+                .collect(Collectors.toList());
+        int total_count = reviewMapper.reviewTotalCount(requestDTO);
+
+        PageResponseDTO<ReviewDTO> responseDTO = PageResponseDTO.<ReviewDTO>withAll()
+                .requestDTO(requestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+
+        return responseDTO;
     }
 }

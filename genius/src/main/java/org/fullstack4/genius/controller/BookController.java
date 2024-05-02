@@ -52,6 +52,7 @@ public class BookController {
 
     @GetMapping("/view")
     public void GETView(@RequestParam(name="book_code", defaultValue = "b0001") String book_code,
+                        @Valid PageRequestDTO pageRequestDTO,
             Model model){
         log.info("BookController >> view()");
         BookDTO bookDTO = bookServiceIf.view(book_code);
@@ -60,14 +61,14 @@ public class BookController {
         for(ReviewDTO dto :reviewDTOList){
             rank_arr[dto.getRank()]++;
         }
-        String rank_str = Arrays.toString(rank_arr);
-        rank_str = rank_str.substring(1, rank_str.length()-1);
-        log.info("====================");
-        log.info(rank_str);
-        log.info("====================");
+        pageRequestDTO.setBook_code(book_code);
+        pageRequestDTO.setPage_size(5);
+        PageResponseDTO<ReviewDTO> responseDTO = reviewServiceIf.reviewListByPage(pageRequestDTO);
+
         model.addAttribute("rank_arr", rank_arr);
         model.addAttribute("reviewList", reviewDTOList);
         model.addAttribute("bookDTO", bookDTO);
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @PostMapping("/view")
