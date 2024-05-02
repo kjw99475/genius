@@ -61,7 +61,7 @@
                         <form action="/bbs/qnaDelete" method="post" id="deleteFrm" name="deleteFrm">
                             <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
                             <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaModifytQ?qna_idx=${qnaDTO.qna_idx}'">수정</button>
-                            <button type="submit" id="qnaDelBtn" class="btn btn-success mt-3">삭제</button>
+                            <button type="submit" id="qnaDelBtn" class="btn btn-outline-success mt-3">삭제</button>
                         </form>
                     </c:if>
                 </div>
@@ -72,10 +72,10 @@
                     <col style="width:auto;"/>
                 </colgroup>
                 <tbody>
-                <tr>
-                    <th scope="row">게시글 번호</th>
-                    <td>${param.no}</td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <th scope="row">게시글 번호</th>--%>
+<%--                    <td>${param.no}</td>--%>
+<%--                </tr>--%>
                 <tr>
                     <th scope="row">제목</th>
                     <td>${qnaDTO.title}</td>
@@ -97,7 +97,7 @@
                     <c:forEach items="${fileList}" var="file">
                         <tr>
                             <th class="bg-table text-center" scope="row">첨부파일</th>
-                            <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" onclick="javascript:alert('파일한개');">${file.original_name}</a> </td>
+                            <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" >${file.original_name}</a> </td>
                         </tr>
                     </c:forEach>
                 </c:if>
@@ -126,30 +126,30 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
-                    <td class="card-product__title">
-                        <c:if test="${prevDTO != null}">
-                            <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>
-                                    <c:if test="${prevDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${prevDTO.qna_idx}&no=${param.no -1}</c:if>">
-                                ${prevDTO.title}
-                            </a>
-                        </c:if>
-                        <c:if test="${prevDTO == null}">
-                                이전 글이 없습니다.
-                        </c:if>
-                    </td>
-                </tr>
-                <tr>
                     <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
                     <td class="card-product__title">
                         <c:if test="${nextDTO != null}">
-                            <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>
-                                    <c:if test="${nextDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${nextDTO.qna_idx}&no=${param.no +1}</c:if>">
+                            <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}</c:if>
+                                    <c:if test="${nextDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${nextDTO.qna_idx}</c:if>">
                                     ${nextDTO.title}
                             </a>
                         </c:if>
                         <c:if test="${nextDTO == null}">
                             다음 글이 없습니다.
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
+                    <td class="card-product__title">
+                        <c:if test="${prevDTO != null}">
+                            <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}</c:if>
+                                    <c:if test="${prevDTO.answerYN == 'N'}">/bbs/qnaViewQ?qna_idx=${prevDTO.qna_idx}</c:if>">
+                                ${prevDTO.title}
+                            </a>
+                        </c:if>
+                        <c:if test="${prevDTO == null}">
+                                이전 글이 없습니다.
                         </c:if>
                     </td>
                 </tr>

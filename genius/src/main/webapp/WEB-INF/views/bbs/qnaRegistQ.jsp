@@ -57,19 +57,13 @@
     <!-- ================ 내용 Start ================= -->
     <section class="section-margin--small mb-5">
         <div class="container ">
-            <div>
-                <div class="input-group d-flex justify-content-end mb-2">
-                    <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
-                    <button type="button" class="btn btn-success mt-3" onclick="location.href='/bbs/qnaRegistQ'">등록</button>
-                </div>
-            </div>
-            <hr>
+
             <form method="post" action="/bbs/qnaRegistQ" id="registFrm" name="registFrm" enctype="multipart/form-data">
                 <div class="border-gray mb-5">
-                    <div class="form-row ml-5">
+                    <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
-                            <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" name="title" value=""/>
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" name="title" value="${qnaDTO.title}"/>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputZip">아이디</label>
@@ -79,19 +73,25 @@
                     <div class="form-row ml-5">
                         <div class="form-group col-md-10 d-flex flex-column">
                             <%--                            <label for="inputState">게시판 종류를 선택하세요</label>--%>
-                            <select id="inputState" class="form-control">
-                                <option>Choose...</option>
-                                <option>자유 게시판</option>
-                                <option selected>QnA</option>
-                            </select>
+<%--                            <select id="inputState" class="form-control" readonly>--%>
+<%--                                <option selected>QnA</option>--%>
+<%--                            </select>--%>
+                                <input type="text" class="form-control" id="inputCity" name="title" value="Question" readonly/>
+                        </div>
+                    </div>
+
+                    <div class="form-row ml-5">
+                        <div class="form-group col-md-10 d-flex flex-column">
+                            <label for="file">파일</label>
+                            <input type="file" class="form-control" name="files" id="file" multiple="multiple">
                         </div>
                     </div>
                 </div>
-                <input type="file" name="files"  multiple="multiple">
-                <textarea id="summernote" name="contents"></textarea>
+
+                <textarea id="summernote" name="contents">${qnaDTO.content}</textarea>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
-                        <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
+                        <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
                         <button type="button" id="registBtn" class="btn btn-success mt-3">등록</button>
                     </div>
                 </div>
