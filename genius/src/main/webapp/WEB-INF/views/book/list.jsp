@@ -110,33 +110,28 @@
                     <form id="search_form">
                         <input type="hidden" id="category_class_code" name="class_code" value="${responseDTO.class_code}">
                         <input type="hidden" id="category_subject_code" name="subject_code" value="${responseDTO.subject_code}">
-                        <div class="pb-2 d-flex justify-content-between">
-                            <div class="d-flex justify-content-start">
-                                <div class="sorting">
-                                    <select name="sort">
-                                        <option value="1" <c:if test="${responseDTO.sort == '1'}"> selected</c:if>>출판일 최신순</option>
-                                        <option value="2" <c:if test="${responseDTO.sort == '2'}"> selected</c:if>>판매량순</option>
-                                        <option value="3" <c:if test="${responseDTO.sort == '3'}"> selected</c:if>>낮은가격순</option>
-                                        <option value="4" <c:if test="${responseDTO.sort == '4'}"> selected</c:if>>높은가격순</option>
-                                    </select>
-                                </div>
-                                <div class="sorting ">
-                                    <select name="status">
-                                        <option value="0" <c:if test="${responseDTO.status == '0'}"> selected</c:if>>판매상태 전체</option>
-                                        <option value="1" <c:if test="${responseDTO.status == '1'}"> selected</c:if>>판매중</option>
-                                        <option value="2" <c:if test="${responseDTO.status == '2'}"> selected</c:if>>판매준비중</option>
-                                        <option value="3" <c:if test="${responseDTO.status == '3'}"> selected</c:if>>판매종료</option>
-                                        <option value="4" <c:if test="${responseDTO.status == '4'}"> selected</c:if>>품절</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sorting">
-                                <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
-                            </div>
-                        </div>
                         <!-- Start Filter Bar -->
-                        <div class="filter-bar">
-                            <div class="input-group d-flex justify-content-end">
+                        <div class="filter-bar mb-0">
+                            <div class="input-group d-flex justify-content-between">
+                                <div class="d-flex justify-content-start">
+                                    <div class="sorting mr-0">
+                                        <select name="sort">
+                                            <option value="1" <c:if test="${responseDTO.sort == '1'}"> selected</c:if>>출판일 최신순</option>
+                                            <option value="2" <c:if test="${responseDTO.sort == '2'}"> selected</c:if>>판매량순</option>
+                                            <option value="3" <c:if test="${responseDTO.sort == '3'}"> selected</c:if>>낮은가격순</option>
+                                            <option value="4" <c:if test="${responseDTO.sort == '4'}"> selected</c:if>>높은가격순</option>
+                                        </select>
+                                    </div>
+                                    <div class="sorting ">
+                                        <select name="status">
+                                            <option value="0" <c:if test="${responseDTO.status == '0'}"> selected</c:if>>판매상태 전체</option>
+                                            <option value="1" <c:if test="${responseDTO.status == '1'}"> selected</c:if>>판매중</option>
+                                            <option value="2" <c:if test="${responseDTO.status == '2'}"> selected</c:if>>판매준비중</option>
+                                            <option value="3" <c:if test="${responseDTO.status == '3'}"> selected</c:if>>판매종료</option>
+                                            <option value="4" <c:if test="${responseDTO.status == '4'}"> selected</c:if>>품절</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="sorting d-flex">
                                     <select name="type">
                                         <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
@@ -153,6 +148,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pb-2 d-flex justify-content-between">
+
+                            <div class="sorting">
+                                <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
+                            </div>
+                        </div>
+
                     </form>
                     <!-- End Filter Bar -->
                     <!-- Start Best Seller -->
@@ -167,7 +169,7 @@
                                                 <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-bag"></i></button></li>
                                                 <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
                                             </ul>
-                                            <div class="form-check targetTo z-100">
+                                            <div class="form-check targetTo ">
                                                 <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
                                             </div>
                                         </div>
@@ -198,33 +200,6 @@
                                     </div>
                                 </div>
                             </c:forEach>
-
-<%--                            <div class="col-md-6 col-lg-4">--%>
-<%--                                <div class="card text-center card-product">--%>
-<%--                                    <div class="card-product__img target" for="ch2">--%>
-<%--                                        <img class="card-img img-h350" src="/resources/img/product/product2.jpg" alt="">--%>
-<%--                                        <ul class="card-product__imgOverlay">--%>
-<%--                                            <li><button><i class="ti-bag"></i></button></li>--%>
-<%--                                            <li><button><i class="ti-shopping-cart"></i></button></li>--%>
-<%--                                        </ul>--%>
-<%--                                        <div class="form-check targetTo z-100">--%>
-<%--                                            <input class="form-check-input lg-checkbox" type="checkbox" value="" id="ch2">--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="card-body">--%>
-<%--                                        <p>카테고리1 > 카테고리2</p>--%>
-<%--                                        <h4 class="card-product__title"><a href="#">책 제목</a></h4>--%>
-<%--                                        <p class="card-product__price text-geni"><s class="text-muted h6">10,000원</s> 15,000원</p>--%>
-<%--                                        <p class="card-product__rank stars">--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                            <i class="fa fa-star"></i>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
                         </div>
                     </section>
                     <!-- End Best Seller -->
