@@ -2,19 +2,24 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.StatisticsDTO;
 import org.fullstack4.genius.mapper.AdminMainMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class AdminMainServiceImpl implements AdminMainServiceIf {
     private final AdminMainMapper adminMainMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public StatisticsDTO summary() {
@@ -28,7 +33,6 @@ public class AdminMainServiceImpl implements AdminMainServiceIf {
                 .totalOrderPrice(total.getTotalOrderPrice())
                 .totalOrderMember(total.getTotalOrderMember())
                 .build();
-        log.info("summary : " + summary);
         return summary;
     }
 
@@ -50,5 +54,15 @@ public class AdminMainServiceImpl implements AdminMainServiceIf {
         subjectMap.put("todaySubject", todaySubject);
         subjectMap.put("totalSubject", totalSubject);
         return subjectMap;
+    }
+
+    @Override
+    public List<BookDTO> bestSeller() {
+        List<BookVO> bookVOList = adminMainMapper.bestSeller();
+        List<BookDTO> bookDTOList = null;
+        if (bookVOList != null) {
+            bookDTOList = bookVOList.stream().map(vo -> modelMapper.map(vo, BookDTO.class)).collect(Collectors.toList());
+        }
+        return bookDTOList;
     }
 }

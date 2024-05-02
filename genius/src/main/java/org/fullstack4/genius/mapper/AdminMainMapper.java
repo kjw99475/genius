@@ -1,6 +1,7 @@
 package org.fullstack4.genius.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.dto.StatisticsDTO;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface AdminMainMapper {
     List<StatisticsDTO> totalClass();
     List<StatisticsDTO> todaySubject();
     List<StatisticsDTO> totalSubject();
+    List<BookVO> bestSeller();
 }

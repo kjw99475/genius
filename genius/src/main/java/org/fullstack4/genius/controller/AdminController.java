@@ -2,6 +2,7 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.StatisticsDTO;
 import org.fullstack4.genius.service.AdminMainServiceIf;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,12 @@ public class AdminController {
         StatisticsDTO summary = adminMainServiceIf.summary();
         Map<String, List<StatisticsDTO>> classMap = adminMainServiceIf.classRevenue();
         Map<String, List<StatisticsDTO>> subjectMap = adminMainServiceIf.subjectRevenue();
+        List<BookDTO> bookDTOList = adminMainServiceIf.bestSeller();
+        log.info("bookDTOList : " + bookDTOList);
+        model.addAttribute("summary", summary);
         model.addAttribute("classMap", classMap);
         model.addAttribute("subjectMap", subjectMap);
-        model.addAttribute("summary", summary);
+        model.addAttribute("bookDTOList", bookDTOList);
     }
 
 
