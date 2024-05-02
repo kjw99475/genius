@@ -75,9 +75,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${list}" var="list">
-
                         <tr>
+                            <td colspan="5">
+                                <c:if test="${list eq []}">
+                                    <div class="row justify-content-center align-items-center pb-3 border-bottom">
+                                        <div class="col-auto">
+                                            장바구니에 상품이 없습니다.
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </td>
+                        </tr>
+                        <c:forEach items="${list}" var="list">
+                            <tr>
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
@@ -115,6 +125,7 @@
                             </tr>
                         </tbody>
                     </table>
+
                     <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
                         <button type="button" class="btn btn-default rounded" onclick="deleteChoices()">삭제</button>
                         <button type="button"  class="btn btn-success rounded purchase">구매하기</button>

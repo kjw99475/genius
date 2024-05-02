@@ -52,22 +52,26 @@
     <!-- ============= 결제 내역 Start ============= -->
     <section class="section-margin--small">
         <div class="container">
-            <form action="/mypage/payhistory${pageDTO.linked_params}" id="payfrm">
-                <div class="row justify-content-end align-items-center pb-3">
-                    <div class="col-auto">
-                        <input type="date" class="form-control" id="startDay" name="search_date1">
-                    </div>
-                    <div>~</div>
-                    <div class="col-auto">
-                        <input type="date" class="form-control" id="endDay" name="search_date2">
-                    </div>
-                    <div>
-                        <button class="btn btn-success" type="button" id="paybtn">조회</button>
-                    </div>
+            <div class="filter-bar">
+                <div class="input-group d-flex justify-content-end">
+                    <form action="/mypage/payhistory${pageDTO.linked_params}" id="payfrm">
+                        <div class="sorting d-flex">
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="startDay" name="search_date1">
+                            </div>
+                            <div>~</div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control" id="endDay" name="search_date2">
+                            </div>
+                            <div>
+                                <button class="btn btn-success" type="button" id="paybtn">조회</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <c:if test="${dtolist eq ''}">
-                <div class="row justify-content-end align-items-center pb-3">
+            </div>
+            <c:if test="${dtolist eq []}">
+                <div class="row justify-content-center align-items-center pb-3 border-bottom">
                     <div class="col-auto">
                         결제 내역이 없습니다.
                     </div>
