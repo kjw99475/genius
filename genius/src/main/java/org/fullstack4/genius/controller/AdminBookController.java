@@ -57,7 +57,25 @@ public class AdminBookController {
     @PostMapping("/itemRegist")
     public String POSTItemRegist(@Valid BookDTO bookDTO,
                                BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes){
+                               RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("videofile") MultipartFile videofile){
+
+        String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+
+        FileDTO fileDTO = FileDTO.builder()
+                .file(file)
+                .uploadFolder(uploadFolder)
+                .build();
+
+
+        String uploadFolder1 =  CommonUtil.getUploadFolder(request, "video");
+        FileDTO fileDTO1 = FileDTO.builder()
+                .file(videofile)
+                .uploadFolder(uploadFolder1)
+                .build();
+
         if(bindingResult.hasErrors()){
             log.info("Errors");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -65,7 +83,7 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
-        int result = bookServiceIf.regist(bookDTO);
+        int result = bookServiceIf.regist(bookDTO,fileDTO,fileDTO1);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
         } else {
