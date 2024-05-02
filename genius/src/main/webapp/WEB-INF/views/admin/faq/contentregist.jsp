@@ -51,11 +51,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>자료실 등록</h1>
+        <h1>F.A.Q 등록</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
+                <li class="breadcrumb-item"><a href="/admin/faq/list">F.A.Q</a></li>
                 <li class="breadcrumb-item active">F.A.Q 등록</li>
             </ol>
         </nav>

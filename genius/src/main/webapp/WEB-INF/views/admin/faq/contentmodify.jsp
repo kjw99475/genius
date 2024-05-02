@@ -56,7 +56,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">F.A.Q</li>
+                <li class="breadcrumb-item"><a href="/admin/faq/list">F.A.Q</a></li>
                 <li class="breadcrumb-item active">F.A.Q 수정</li>
             </ol>
         </nav>

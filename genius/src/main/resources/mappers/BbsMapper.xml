@@ -10,9 +10,10 @@
             <if test=' search_word != null and search_word != "" '>
                 <choose>
                     <when test="type == 0">
-                        AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
-                        OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
-                        OR bbs_contents LIKE CONCAT('%', #{search_word}, '%')
+                        AND
+                        ( mem.member_name LIKE CONCAT('%', #{search_word}, '%')
+                            OR bbs_title LIKE CONCAT('%', #{search_word}, '%')
+                            OR bbs_contents LIKE CONCAT('%', #{search_word}, '%') )
                     </when>
                     <when test="type == 1">
                         AND mem.member_name LIKE CONCAT('%', #{search_word}, '%')
