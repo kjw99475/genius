@@ -92,14 +92,14 @@
                         <div><div class=""><p>${bbsDTO.bbs_contents}</p><p><br></p></div></div>
                     </td>
                 </tr>
-                <tr>
-                    <th class="bg-table text-center" scope="row">첨부파일</th>
-                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
-                </tr>
-                <tr>
-                    <th class="bg-table text-center" scope="row">첨부파일</th>
-                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
-                </tr>
+                <c:if test="${fileList ne null}">
+                    <c:forEach items="${fileList}" var="file">
+                        <tr>
+                            <th class="bg-table text-center" scope="row">첨부파일</th>
+                            <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/bbsFileDownload?file_idx=${file.file_idx}&bbs_idx=${bbsDTO.bbs_idx}">${file.original_name}</a> </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
                 <tr>
                     <th scope="row">조회수</th>
                     <td><span>${bbsDTO.read_cnt}</span>

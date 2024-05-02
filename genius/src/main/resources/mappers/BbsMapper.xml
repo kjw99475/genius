@@ -78,7 +78,7 @@
         LIMIT #{page_skip_count}, #{page_size}
     </select>
 
-    <insert id="regist">
+    <insert id="regist" parameterType="org.fullstack4.genius.domain.BbsVO" useGeneratedKeys="true" keyProperty="bbs_idx" keyColumn="bbs_idx">
         INSERT INTO tbl_bbs (bbs_title, category_code, member_id, fileYN, bbs_contents, reg_date, read_cnt)
         VALUES(#{bbs_title}, #{category_code}, #{member_id}, #{fileYN}, #{bbs_contents}, NOW(), 0)
     </insert>
