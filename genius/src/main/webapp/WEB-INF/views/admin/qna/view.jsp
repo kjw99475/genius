@@ -48,7 +48,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">QnA</li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
                 <li class="breadcrumb-item active">QnA 상세</li>
             </ol>
         </nav>
@@ -65,51 +65,53 @@
 
                             <!--Form -->
                             <form method="post" id="frm_qna_delete" action="/admin/qna/delete">
+                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+
+
                                 <div class="row mb-3">
-                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <label for="category_code" class="col-md-4 col-lg-2 col-form-label label">카테고리</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
-                                               value="qna" readonly>
+                                               value="QnA" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="bbs_title" type="text" class="form-control" id="bbs_title"
-                                               value="${qnaDTO.title}" readonly>
+                                    <label for="title" class="col-md-4 col-lg-2 col-form-label label">제목</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="title" type="text" class="form-control" id="title"
+                                               value="${qnaDTO.title}" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${qnaDTO.member_id}" readonly>
+                                               value="${qnaDTO.member_id}" disabled>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-10">
+                                <%--<div class="row mb-3">
+                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label label">작성일</label>
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${qnaDTO.reg_date}" readonly>
+                                               value="${qnaDTO.reg_date}">
                                     </div>
+                                </div>--%>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
+                                    </div>
+
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <p>${qnaDTO.contents}</p>
-<%--                                        <input name="bbs_contents" type="text" class="form-control" id="bbs_contents"--%>
-<%--                                               value="${qnaDTO.contents}" readonly>--%>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file" value="" readonly>
+                                    <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
+                                    <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
+                                        ${qnaDTO.contents}
                                     </div>
                                 </div>
 
@@ -117,10 +119,10 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/list'">
+                                            <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/answerregist'">
                                                 답변 등록
                                             </button>
-                                            <button type="button" class="btn btn-success" onclick="location.href='/admin/qna/list'">
+                                            <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/qna/list'">
                                                 목록
                                             </button>
                                         </div>
@@ -130,7 +132,7 @@
                                             <button type="button" class="btn btn-success me-2"
                                                     onclick="location.href='/admin/qna/contentmodify?qna_idx=${qnaDTO.qna_idx}'">수정
                                             </button>
-                                            <button type="button" class="btn btn-success" onclick="qna_delete()">
+                                            <button type="button" class="btn btn-outline-success" onclick="qna_delete()">
                                                 삭제
                                             </button>
                                         </div>
@@ -139,34 +141,55 @@
 
                             </form><!-- EndForm -->
 
-                            <div class="mt-5">
-                                <table class="table">
-                                    <tr>
-                                        <td class="col-2">이전글</td>
-                                        <c:if test="${prevDTO != null}">
-                                            <td class="col-1">${param.no - 1}</td>
-                                            <td class="col-6" onclick="location.href='/admin/qna/view?qna_idx=${prevDTO.qna_idx}&no=${param.no-1}'">${prevDTO.title}</td>
-                                            <td class="col-3">${prevDTO.reg_date}</td>
-                                        </c:if>
-                                        <c:if test="${prevDTO == null}">
-                                            <td colspan="3">이전 글이 없습니다.</td>
-                                        </c:if>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-2">다음글</td>
-                                        <c:if test="${nextDTO != null}">
-                                            <td class="col-1">${param.no +1}</td>
-                                            <td class="col-6"  onclick="location.href='/admin/qna/view?qna_idx=${nextDTO.qna_idx}&no=${param.no+1}'">${nextDTO.title}</td>
-                                            <td class="col-3">${nextDTO.reg_date}</td>
-                                        </c:if>
-                                        <c:if test="${nextDTO == null}">
-                                            <td colspan="3">다음 글이 없습니다.</td>
-                                        </c:if>
-                                    </tr>
-                                </table>
+
+<%--                            <div class="mt-5">--%>
+<%--                                <table class="table table-borderless text-start">--%>
+<%--                                    <colgroup>--%>
+<%--                                        <col width="20%">--%>
+<%--                                        <col width="65%">--%>
+<%--                                        <col width="15%">--%>
+<%--                                    </colgroup>--%>
+
+<%--                                    <c:choose>--%>
+<%--                                        <c:when test="${nextDTO eq null}">--%>
+<%--                                            <tr class=" border-bottom mb-0">--%>
+<%--                                                <td>다음글</td>--%>
+<%--                                                <td>다음 글이 없습니다.</td>--%>
+<%--                                                <td></td>--%>
+<%--                                            </tr>--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:otherwise>--%>
+<%--                                            <tr class=" border-bottom mb-0" onclick="location.href='/admin/qna/view?qna_idx='+${nextDTO.qna_idx}">--%>
+<%--                                                <td>다음글</td>--%>
+<%--                                                <td>${nextDTO.title}<c:if--%>
+<%--                                                        test="${nextDTO.fileYN eq 'Y'}"><span--%>
+<%--                                                        class="bi bi-paperclip"></span></c:if></td>--%>
+<%--                                                <td>${nextDTO.reg_date}</td>--%>
+<%--                                            </tr>--%>
+<%--                                        </c:otherwise>--%>
+<%--                                    </c:choose>--%>
+
+<%--                                    <c:choose>--%>
+<%--                                        <c:when test="${prevDTO eq null}">--%>
+<%--                                            <tr>--%>
+<%--                                                <td>이전글</td>--%>
+<%--                                                <td>이전 글이 없습니다.</td>--%>
+<%--                                                <td></td>--%>
+<%--                                            </tr>--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:otherwise>--%>
+<%--                                            <tr onclick="location.href='/admin/qna/view?qna_idx='+${prevDTO.qna_idx}">--%>
+<%--                                                <td>이전글</td>--%>
+<%--                                                <td>${prevDTO.title}--%>
+<%--                                                    <c:if test="${prevDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>--%>
+<%--                                                <td>${prevDTO.reg_date}</td>--%>
+<%--                                            </tr>--%>
+<%--                                        </c:otherwise>--%>
+<%--                                    </c:choose>--%>
+
+<%--                                </table>--%>
                             </div>
 
-                            </form><!-- EndForm -->
 
                         </div>
                     </div>

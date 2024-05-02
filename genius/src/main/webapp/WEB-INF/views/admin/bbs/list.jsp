@@ -59,41 +59,44 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row mt-4">
-                            <form>
-                                <div class="row mb-3">
-
+                            <form action="/admin/bbs/list">
+                                <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                     <div class="col">
-                                        <div class="row mb-3">
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date1" id="search_date1" value="${responseDTO.search_date1}" >
+                                        <div class="row mb-2">
+                                            <label class="fw-bold p-3">게시기간</label>
+                                            <div class="row justify-content-start align-items-center">
+                                                <div class="col-3">
+                                                    <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
+                                                </div>
+                                                ~
+                                                <div class="col-3">
+                                                    <input class="form-control" type="date" name="search_date2" id="banner_end" value="${responseDTO['search_date2']}">
+                                                </div>
                                             </div>
-                                            ~
-                                            <div class="col-3"><input class="form-control" type="date" name="search_date2" id="search_date2" value="${responseDTO.search_date2}">
-                                            </div>
+
                                         </div>
                                     </div>
-
-                                    <div class="row">
-
-                                        <div class="col-2">
-                                            <select name="type" id="search_category" class="form-select">
-                                                <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
-                                                <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
-                                                <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
-                                                <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO.search_word}">
-                                        </div>
+                                    <div class="row mb-2">
                                         <div class="col">
-                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                            <div class="row">
+                                                <label class="fw-bold p-3">키워드 검색</label>
+                                                <div class="d-flex align-items-center" style="gap: 10px">
+                                                    <select name="type" id="search_category" class="form-select w-200px">
+                                                        <option value="0" <c:if test="${responseDTO.type eq '0'}">selected</c:if>>전체</option>
+                                                        <option value="1" <c:if test="${responseDTO.type eq '1'}">selected</c:if>>작성자</option>
+                                                        <option value="2" <c:if test="${responseDTO.type eq '2'}">selected</c:if>>제목</option>
+                                                        <option value="3" <c:if test="${responseDTO.type eq '3'}">selected</c:if>>내용</option>
+                                                    </select>
+                                                    <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
+                                                    <div class="w-200px">
+                                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 <%--                            </form>--%>
-                        </div>
 
                         <div class="col-2 mb-2">
 <%--                            <form id="frm_page_size" >--%>
@@ -107,32 +110,36 @@
 
                         <form id="frm_bbs_delete" method="post" action="/admin/bbs/delete_chk">
                             <!-- Table with stripped rows -->
-                            <table class="table">
+                            <table class="w-100 table">
                                 <colgroup>
-                                    <col width="10%">
-                                    <col width="50%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="10%">
+                                    <col class="w-5" />
+                                    <col class="w-5" />
+                                    <col class="w-50" />
+                                    <col class="w-15" />
+                                    <col class="w-15" />
+                                    <col class="w-10" />
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="chk_all" class="me-2">번호</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
+                                    <th scope="col" class="bg-geni-dark text-white">
+                                        <div><input class="form-check-input" type="checkbox" id="chk_all" ></div>
+                                    </th>
+                                    <th scope="col" class="bg-geni-dark text-white">No</th>
+                                    <th scope="col" class="bg-geni-dark text-white">제목</th>
+                                    <th scope="col" class="bg-geni-dark text-white">작성자</th>
+                                    <th scope="col" class="bg-geni-dark text-white">작성일</th>
+                                    <th scope="col" class="bg-geni-dark text-white">조회수</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:set value="${responseDTO.total_count}" var="total_count" />
-                                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="5">검색 결과가 없습니다.</td></tr></c:if>
+                                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="6">검색 결과가 없습니다.</td></tr></c:if>
                                 <c:choose>
                                     <c:when test="${responseDTO ne null}">
                                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                                             <tr onclick="location.href='/admin/bbs/view?bbs_idx='+${bbsDTO.bbs_idx}">
-<%--                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}">${responseDTO.total_count -responseDTO.page_skip_count -loop.idx}</td>--%>
-                                                <td><input class="chk_del me-2" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()">${total_count -responseDTO.page_skip_count -loop.index}</td>
+                                                <td><input class="chk_del form-check-input" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()"></td>
+                                                <td>${total_count -responseDTO.page_skip_count -loop.index}</td>
                                                 <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                                 <td>${bbsDTO.member_name}</td>
                                                 <td>${bbsDTO.reg_date}</td>
@@ -141,7 +148,7 @@
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
-                                        <tr><td colspan="5">결과가 없습니다.</td></tr>
+                                        <tr><td colspan="6">결과가 없습니다.</td></tr>
                                     </c:otherwise>
                                 </c:choose>
                                 </tbody>
