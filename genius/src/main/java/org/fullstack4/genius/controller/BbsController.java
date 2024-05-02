@@ -4,9 +4,11 @@ package org.fullstack4.genius.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BbsServiceIf;
 import org.fullstack4.genius.service.BookServiceIf;
+import org.fullstack4.genius.service.QnaFileServiceIf;
 import org.fullstack4.genius.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +19,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +37,7 @@ import java.util.UUID;
 public class BbsController {
     private final QnaServiceIf qnaServiceIf;
     private final BbsServiceIf bbsServiceIf;
+    private final QnaFileServiceIf qnaFileServiceIf;
 
     @GetMapping("/noticeList")
     public void GETNoticeList(@Valid PageRequestDTO pageRequestDTO,
@@ -102,6 +110,11 @@ public class BbsController {
             }
             listIdx++;
         }
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("prevDTO", prevDTO);
         model.addAttribute("nextDTO", nextDTO);
         model.addAttribute("qnaDTO", qnaDTO);
@@ -136,6 +149,41 @@ public class BbsController {
     public void GETQnaRegistQ() {
 
     }
+    @GetMapping("/qnaFileDownload")
+    public String GETQnaFileDownload(@RequestParam("file_idx") int file_idx,
+                                        @RequestParam("qna_idx") String qna_idx,
+                                     HttpServletResponse res,
+                                     Model model) throws UnsupportedEncodingException {
+        QnaFileDTO fileDTO = qnaFileServiceIf.getFile(file_idx);
+        log.info("filedto : " + fileDTO);
+
+
+        File file = new File("D:\\java4\\spring\\chunjaeProject\\genius\\genius\\src\\main\\webapp\\resources\\upload\\qna\\"+fileDTO.getSave_name());
+
+        String original_name = fileDTO.getOriginal_name();
+        original_name = URLEncoder.encode(original_name,"utf-8");
+        log.info("filename : " + fileDTO.getPath()+fileDTO.getSave_name().substring(0,fileDTO.getSave_name().lastIndexOf(".")));
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + original_name + "\";");
+        res.setHeader("Content-Transfer-Encoding", "binary");
+        res.setHeader("Content-Type", fileDTO.getSave_name().substring(fileDTO.getSave_name().lastIndexOf("."),fileDTO.getSave_name().length()));
+        res.setHeader("Content-Length", "" + file.length());
+        res.setHeader("Pragma", "no-cache;");
+        res.setHeader("Expires", "-1;");
+
+        try(
+                FileInputStream fis = new FileInputStream(file);
+                OutputStream out = res.getOutputStream();
+                ){
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+            while((readCount = fis.read(buffer)) != -1){
+                out.write(buffer,0,readCount);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/bbs/qnaViewQ?qna_idx="+qna_idx;
+    }
 
     @PostMapping("/qnaRegistQ")
     public String POSTQnaRegistQ(@Valid QnaDTO qnaDTO,
@@ -150,18 +198,36 @@ public class BbsController {
 //            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 //        }
 
+
         if(!file.isEmpty()){
-            log.info("fileY");
-            String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
-            FileDTO fileDTO = FileDTO.builder()
-                    .file(file)
-                    .uploadFolder(uploadFoler)
-                    .build();
+            qnaDTO.setFileYN("Y");
+        }
+        else{
+            qnaDTO.setFileYN("N");
         }
         log.info("========================");
         log.info("postQnaRegist >> qnaDTO" + qnaDTO);
         log.info("========================");
         int result = qnaServiceIf.regist(qnaDTO);
+        log.info("fileY");
+        String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
+        FileDTO fileDTO = FileDTO.builder()
+                .file(file)
+                .uploadFolder(uploadFoler)
+                .build();
+
+        Map<String, String> map = FileUtil.FileUpload(fileDTO);
+        log.info("=======================");
+        log.info("upload : " + map);
+        log.info("=======================");
+        if(map.get("result").equals("success")) {
+            QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
+                    .path("/resources/upload/qna/")
+                    .qna_idx(result)
+                    .original_name(map.get("orgName"))
+                    .save_name(map.get("newName")).build();
+            qnaFileServiceIf.regist(qnaFileDTO);
+        }
 
         if(result>0){
             return "redirect:/bbs/qnaList";

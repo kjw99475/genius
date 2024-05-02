@@ -2,16 +2,20 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.mapper.BbsMapper;
+import org.fullstack4.genius.mapper.QnaFileMapper;
 import org.fullstack4.genius.mapper.QnaMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -21,18 +25,23 @@ public class QnaServiceImpl implements QnaServiceIf {
 
     private final QnaMapper qnaMapper;
     private final ModelMapper modelMapper;
+    private final QnaFileMapper qnaFileMapper;
 
     @Override
     public int regist(QnaDTO qnaDTO) {
         QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
         int result = qnaMapper.regist(qnaVO);
         int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
+        if(qnaDTO.getFileYN()=="Y"){
+
+
+        }
 
         log.info("======================");
         log.info("QnaServiceImpl >> regist >> result : " + result + ", result2 : " + result2);
         log.info("======================");
 
-        return result;
+        return qnaVO.getQna_idx();
     }
 
     @Override
