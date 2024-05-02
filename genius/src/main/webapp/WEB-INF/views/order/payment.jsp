@@ -226,7 +226,7 @@
             },
             success : function(data) {
                 if(data.result == "success"){
-                    alert("성공");
+                    alert("결제에 성공하였습니다.");
                     location.href="/mypage/payhistory";
                 }else{
                     alert("포인트가 모자랍니다");
