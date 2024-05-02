@@ -111,8 +111,8 @@
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
-                                    <div class="col-md-8 col-lg-9 overflow-auto" style="max-height: 700px;">
-                                        <p>${bbsDTO.bbs_contents}</p>
+                                    <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
+                                        ${bbsDTO.bbs_contents}
                                     </div>
                                 </div>
 
