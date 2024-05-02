@@ -115,7 +115,6 @@ public class BannerController {
                                    RedirectAttributes redirectAttributes) {
         String requestURL = CommonUtil.parsingURI(request.getRequestURI());
         log.info("==============================POSTDeleteBanner");
-        log.info("requestURL : " + requestURL);
         if(requestURL.equals("/banner/bannerDeleteAll")) {
             log.info("banner_img_idx : " + banner_img_idx);
             String[] idxes = banner_img_idx.split(",");
