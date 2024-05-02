@@ -317,7 +317,7 @@
                     "SalesQuantityList":JSON.stringify(sales_quantity_list),
                 },
                 success : function(data) {
-                    alert("수정 성공");
+                    alert("수정에 성공하였습니다.");
                     console.log("성공");
                     location.href="/admin/inventory/list${responseDTO.linked_params}&page=${responseDTO.page}"
                 },

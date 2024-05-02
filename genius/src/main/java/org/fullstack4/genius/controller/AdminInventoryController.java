@@ -109,8 +109,8 @@ public class AdminInventoryController {
                         .build();
 
                 log.info("==========dto" + i + ": ==" + dto.toString());
-                result = bookServiceIf.BookInventoryUpdate(dto);
-                result1 = bookServiceIf.InsertRestore(dto);
+                result += bookServiceIf.BookInventoryUpdate(dto);
+                result1 += bookServiceIf.InsertRestore(dto);
             }
         }
 //        int result = 0;
@@ -121,7 +121,7 @@ public class AdminInventoryController {
 //            }
 //        }
 //
-        if(result >0) {
+        if(result >bookCodeList.length-1) {
             resultMap.put("result", "success");
         }
         else{
