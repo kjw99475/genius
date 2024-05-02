@@ -65,4 +65,16 @@ public class AdminMainServiceImpl implements AdminMainServiceIf {
         }
         return bookDTOList;
     }
+
+    @Override
+    public Map<String, List<StatisticsDTO>> totalRevenue() {
+        Map<String, List<StatisticsDTO>> totalRevenueMap = new HashMap<>();
+        List<StatisticsDTO> dayTotalRevenue = adminMainMapper.dayTotalRevenue();
+        List<StatisticsDTO> monthTotalRevenue = adminMainMapper.monthTotalRevenue();
+        List<StatisticsDTO> yearTotalRevenue = adminMainMapper.yearTotalRevenue();
+        totalRevenueMap.put("dayTotalRevenue", dayTotalRevenue);
+        totalRevenueMap.put("monthTotalRevenue", monthTotalRevenue);
+        totalRevenueMap.put("yearTotalRevenue", yearTotalRevenue);
+        return totalRevenueMap;
+    }
 }
