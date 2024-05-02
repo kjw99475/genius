@@ -95,7 +95,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
-                                               value="${sessionScope.member_id}" disabled>
+                                               value="${bbsDTO.member_name}" disabled>
                                     </div>
                                 </div>
 
