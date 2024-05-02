@@ -3,8 +3,6 @@ package org.fullstack4.genius.interceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
-import org.fullstack4.genius.Common.CookieUtil;
-import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.mapper.CartMapper;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.stereotype.Component;
