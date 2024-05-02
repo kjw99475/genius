@@ -4,22 +4,19 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.OrderDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.Common.CommonUtil;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log4j2
 @Controller
@@ -98,18 +95,37 @@ public class AdminBookController {
 
     @PostMapping("/itemModify")
     public String POSTItemModify(@Valid BookDTO bookDTO,
+                                 HttpServletRequest request,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("videofile") MultipartFile videofile,
                                  Model model){
         log.info("AdminBookController : POSTItemModify");
         System.out.println("111");
         log.info(bookDTO);
+
+        String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
+
+        FileDTO fileDTO = FileDTO.builder()
+                .file(file)
+                .uploadFolder(uploadFolder)
+                .build();
+
+
+        String uploadFolder1 =  CommonUtil.getUploadFolder(request, "video");
+        FileDTO fileDTO1 = FileDTO.builder()
+                .file(videofile)
+                .uploadFolder(uploadFolder1)
+                .build();
+
+
         if(bindingResult.hasErrors()){
             log.info("AdminBookController >> POSTItemModify >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
         }
-        int result = bookServiceIf.modify(bookDTO);
+        int result = bookServiceIf.modify(bookDTO,fileDTO,fileDTO1);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
         if(result >0){
             return "redirect:/admin/book/itemview?book_code="+bookDTO.getBook_code();

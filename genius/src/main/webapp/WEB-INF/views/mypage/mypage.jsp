@@ -92,7 +92,7 @@
                                         <c:otherwise>
                                             <div class="col-md-12 form-group">
                                                 <label for="pwd">비밀번호</label>
-                                                <input type="password" class="form-control" id="pwd" name="pwd" value="${memberDTO.pwd}" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                                <input type="password" class="form-control" id="pwd1" name="pwd" value="${memberDTO.pwd}" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                                             </div>
                                             <div class="col-md-12 form-group">
                                                 <label for="pwdCheck">비밀번호 확인</label>

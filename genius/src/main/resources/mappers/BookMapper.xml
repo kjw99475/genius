@@ -41,9 +41,9 @@
     </sql>
     <insert id="regist">
         INSERT INTO tbl_book(book_code, book_name, author, price, quantity, category_class_code, category_subject_code, publisher
-                            ,book_info, isbn, contents, publication_date)
+                            ,book_info, isbn, contents, publication_date,book_img)
         VALUES(#{book_code}, #{book_name}, #{author}, #{price}, #{quantity}, #{category_class_code}, #{category_subject_code}, #{publisher},
-                            #{book_info}, #{isbn}, #{contents}, #{publication_date})
+                            #{book_info}, #{isbn}, #{contents}, #{publication_date},#{file})
     </insert>
 
     <select id="listAll" resultType="org.fullstack4.genius.domain.BookVO">
