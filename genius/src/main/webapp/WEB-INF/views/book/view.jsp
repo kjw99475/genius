@@ -187,7 +187,7 @@
                                     <div class="review_item">
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="/resources/img/product/review-1.png" alt="">
+                                                <img height="50" src="/resources/upload/profile/${review.profile}" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <h4>${review.member_id}</h4>
