@@ -34,6 +34,7 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -42,94 +43,120 @@
 
 <!--================ 본문 start =================-->
 <main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>배너 관리</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
+                <li class="breadcrumb-item active">상품 관리</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
     <!-- 상품 리스트 -->
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
             <div class="card-body">
-                <h5 class="card-title">상품 관리 <span>| 리스트 </span></h5>
 
-                <form>
-                    <div class="row mb-6">
-                            <div class="col-1">
-                                <select name="class_code" class="form-select" id="category_class_code">
-                                    <option value="">전체</option>
-                                    <c:forEach items="${classList}" var="list">
-                                        <option value="${list.category_code}"
-                                                <c:if test="${list.category_code eq responseDTO.class_code}">
-                                                    selected
-                                                </c:if>
-                                        >${list.name}</option>
-                                    </c:forEach>
-                                </select>
+                <form action="/admin/book/itemlist">
+                    <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
+                        <div class="col">
+                            <div class="row mb-2">
+                                <label class="fw-bold p-3">검색 기간</label>
+                                <div class="row justify-content-start align-items-center">
+                                    <div class="col-3">
+                                        <input class="form-control" type="date" name="search_data1" id="banner_start" value="${responseDTO['search_data1']}">
+                                    </div>
+                                    ~
+                                    <div class="col-3">
+                                        <input class="form-control" type="date" name="search_data2" id="banner_end" value="${responseDTO['search_data2']}">
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-1">
-                                <select name="subject_code" class="form-select" id="category_subject_code">
-                                    <option value="">전체</option>
-                                    <c:forEach items="${subjectList}" var="list">
-                                        <option value="${list.category_code}"
-                                                <c:if test="${list.category_code eq responseDTO.subject_code}">
-                                                    selected
-                                                </c:if>
-                                        >${list.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="col-1">
-                                <select name="type" class="form-select" id="search_category">
-                                    <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
-                                    <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>책이름</option>
-                                    <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>작성자</option>
-                                    <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>출판사</option>
-                                    <option value="4" <c:if test="${responseDTO.type == '4'}"> selected</c:if>>상품번호</option>
-                                </select>
-                            </div>
+                        </div>
+                        <div class="row mb-2">
                             <div class="col">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="검색어" name="search_word"
-                                               id="search_word">
-                                    </div>
                                     <div class="col">
-                                        <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success"
-                                                onclick="location.href='/admin/book/itemRegist'">등록
-                                        </button>
+                                    <label class="fw-bold p-3" style="margin-right: 80px">학년</label>
+                                    <label class="fw-bold p-3" style="margin-right: 80px">과목</label>
+                                    <label class="fw-bold p-3">키워드 검색</label>
+                                    </div>
+                                    <div class="d-flex align-items-center" style="gap: 10px">
+
+                                        <select name="class_code" class="form-select w-200px" id="category_class_code">
+                                            <option value="">전체</option>
+                                            <c:forEach items="${classList}" var="list">
+                                                <option value="${list.category_code}"
+                                                        <c:if test="${list.category_code eq responseDTO.class_code}">
+                                                            selected
+                                                        </c:if>
+                                                >${list.name}</option>
+                                            </c:forEach>
+                                        </select>
+
+                                        <select name="subject_code" class="form-select w-200px" id="category_subject_code">
+                                            <option value="">전체</option>
+                                            <c:forEach items="${subjectList}" var="list">
+                                                <option value="${list.category_code}"
+                                                        <c:if test="${list.category_code eq responseDTO.subject_code}">
+                                                            selected
+                                                        </c:if>
+                                                >${list.name}</option>
+                                            </c:forEach>
+                                        </select>
+
+                                        <select name="type" class="form-select w-200px" id="search_category">
+                                            <option value="0" <c:if test="${responseDTO.type == '0'}"> selected</c:if>>전체</option>
+                                            <option value="1" <c:if test="${responseDTO.type == '1'}"> selected</c:if>>책이름</option>
+                                            <option value="2" <c:if test="${responseDTO.type == '2'}"> selected</c:if>>작성자</option>
+                                            <option value="3" <c:if test="${responseDTO.type == '3'}"> selected</c:if>>출판사</option>
+                                            <option value="4" <c:if test="${responseDTO.type == '4'}"> selected</c:if>>상품번호</option>
+                                        </select>
+
+
+                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
+                                        <div class="w-200px">
+                                            <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    <div class="col-2 mb-2">
-                        <select name="page_size" class="form-select" onchange="this.form.submit()">
-                            <option value="10" <c:if test="${responseDTO.page_size eq '10'}">selected</c:if> >10개씩 보기</option>
-                            <option value="50" <c:if test="${responseDTO.page_size eq '50'}">selected</c:if> >50개씩 보기</option>
-                            <option value="100" <c:if test="${responseDTO.page_size eq '100'}">selected</c:if> >100개씩 보기</option>
-                        </select>
                     </div>
                 </form>
+                <div class="d-flex justify-content-between">
+                    <div class="col-2 mb-2">
+                        <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                            <option value="10" <c:if test="${responseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                            <option value="50" <c:if test="${responseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                            <option value="100" <c:if test="${responseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
+                        </select>
+                    </div>
+                </div>
 
-
-
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">상품번호</th>
-                            <th scope="col">책이름</th>
-                            <th scope="col">정가</th>
-                            <th scope="col">할인율</th>
-                            <th scope="col">할인가</th>
-                            <th scope="col">저자</th>
-                            <th scope="col">출판사</th>
-                            <th scope="col">카테고리1</th>
-                            <th scope="col">카테고리2</th>
-                            <th scope="col">판매상태</th>
+                            <th scope="col" class="bg-geni-dark text-white">상품번호</th>
+                            <th scope="col" class="bg-geni-dark text-white">책이름</th>
+                            <th scope="col" class="bg-geni-dark text-white">정가</th>
+                            <th scope="col" class="bg-geni-dark text-white">할인율</th>
+                            <th scope="col" class="bg-geni-dark text-white">할인가</th>
+                            <th scope="col" class="bg-geni-dark text-white">저자</th>
+                            <th scope="col" class="bg-geni-dark text-white">출판사</th>
+                            <th scope="col" class="bg-geni-dark text-white">카테고리-학년</th>
+                            <th scope="col" class="bg-geni-dark text-white">카테고리-과목</th>
+                            <th scope="col" class="bg-geni-dark text-white">판매상태</th>
                         </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
-                        <tr onclick="location.href='/admin/book/itemview?book_code=${bookDTO.book_code}'">
+                        <tr>
                             <th scope="row">${bookDTO.book_code}</th>
-                            <td>${bookDTO.book_name}</td>
+                            <td><a href="/admin/book/itemview?book_code=${bookDTO.book_code}">${bookDTO.book_name}</a></td>
                             <td>${bookDTO.price}</td>
                             <td>${bookDTO.discount_per}</td>
                             <td>${bookDTO.discount_price}</td>
@@ -219,6 +246,15 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
+
+<script>
+    // 페이지 개수 보기
+    function modifyPageSize(element) {
+        let pageSize = element.value;
+        let queryString = '?page_size='+pageSize+"&search_data1=${responseDTO['search_data1']}&search_data2=${responseDTO['search_data2']}&class_code=${responseDTO['class_code']}&subject_code=${responseDTO['subject_code']}&type=${responseDTO['type']}&search_word=${responseDTO['search_word']}";
+        location.href = '/admin/book/itemlist'+queryString;
+    }
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
