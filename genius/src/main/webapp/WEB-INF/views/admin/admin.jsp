@@ -92,13 +92,30 @@
             ]);
             </c:if>
 
-            var monthData = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
+            <c:if test="${!empty totalRevenueMap.dayTotalRevenue}">
+            var dayData = google.visualization.arrayToDataTable([
+                ['일자', '매출액'],
+                <c:forEach var="dto" items="${totalRevenueMap.dayTotalRevenue}">
+                ['${dto.date}', ${dto.totalRevenue}],
+                </c:forEach>
             ]);
+            </c:if>
+            <c:if test="${!empty totalRevenueMap.monthTotalRevenue}">
+            var monthData = google.visualization.arrayToDataTable([
+                ['월', '매출액'],
+                <c:forEach var="dto" items="${totalRevenueMap.monthTotalRevenue}">
+                ['${dto.date}', ${dto.totalRevenue}],
+                </c:forEach>
+            ]);
+            </c:if>
+            <c:if test="${!empty totalRevenueMap.yearTotalRevenue}">
+            var yearData = google.visualization.arrayToDataTable([
+                ['연도', '매출액'],
+                <c:forEach var="dto" items="${totalRevenueMap.yearTotalRevenue}">
+                ['${dto.date}', ${dto.totalRevenue}],
+                </c:forEach>
+            ]);
+            </c:if>
 
             // Set chart options
             var categoryOptions1 = {
@@ -133,7 +150,10 @@
                     textStyle: {fontSize: 14},
                     alignment: 'center'
                 },
-                pieSliceText: 'none'
+                pieSliceText: 'none',
+                chartArea: {
+                    height: 400
+                }
             };
             var categoryOptions2 = {
                 axisTitlesPosition: 'in',
@@ -151,13 +171,16 @@
                 tooltip: {
                     ignoreBounds: 'false',
                     textStyle: {ontSize: 16},
-                    showColorCode: true
                 },
                 legend: {
                     position: 'none',
+                },
+                chartArea: {
+                    height: 330,
+                    backgroundColor: '#FFFFFFEF'
                 }
             };
-            var monthOptions = {
+            var revenueOptions = {
                 animation: {
                     startup: true,
                     duration: 500,
@@ -178,16 +201,20 @@
                 lineWidth: 5
             };
 
-            var chart1 = new google.visualization.PieChart(document.getElementById('category_div1'));
-            chart1.draw(categoryData1, categoryOptions1);
-            var chart2 = new google.visualization.BarChart(document.getElementById('category_div2'));
-            chart2.draw(categoryData2, categoryOptions2);
-            var chart3 = new google.visualization.PieChart(document.getElementById('category_div3'));
-            chart3.draw(categoryData3, categoryOptions1);
-            var chart4 = new google.visualization.BarChart(document.getElementById('category_div4'));
-            chart4.draw(categoryData4, categoryOptions2);
-            var chart5 = new google.visualization.LineChart(document.getElementById('month_div1'));
-            chart5.draw(monthData, monthOptions);
+            var categoryClassToday = new google.visualization.PieChart(document.getElementById('category_div1'));
+            categoryClassToday.draw(categoryData1, categoryOptions1);
+            var categorySubjectToday = new google.visualization.BarChart(document.getElementById('category_div2'));
+            categorySubjectToday.draw(categoryData2, categoryOptions2);
+            var categoryClassTotal = new google.visualization.PieChart(document.getElementById('category_div3'));
+            categoryClassTotal.draw(categoryData3, categoryOptions1);
+            var categorySubjectTotal = new google.visualization.BarChart(document.getElementById('category_div4'));
+            categorySubjectTotal.draw(categoryData4, categoryOptions2);
+            var revenueDay = new google.visualization.LineChart(document.getElementById('revenue_div1'));
+            revenueDay.draw(dayData, revenueOptions);
+            var revenueMonth = new google.visualization.LineChart(document.getElementById('revenue_div2'));
+            revenueMonth.draw(monthData, revenueOptions);
+            var revenueYear = new google.visualization.LineChart(document.getElementById('revenue_div3'));
+            revenueYear.draw(yearData, revenueOptions);
         }
     </script>
 </head>
@@ -216,7 +243,7 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
-                                <h5 class="card-title">판매량 <span>| 오늘 / 누적</span></h5>
+                                <h4 class="card-title">판매량 <span>| 오늘 / 누적</span></h4>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
@@ -236,7 +263,7 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">매출액 <span>| 오늘 / 누적</span></h5>
+                                <h4 class="card-title">매출액 <span>| 오늘 / 누적</span></h4>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-credit-card-fill"></i>
@@ -256,7 +283,7 @@
                     <div class="col-xxl-4 col-xl-12">
                         <div class="card info-card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">고객수 <span>| 오늘 / 누적</span></h5>
+                                <h4 class="card-title">고객수 <span>| 오늘 / 누적</span></h4>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
@@ -278,7 +305,7 @@
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body">
                                 <div class="card-title d-flex justify-content-between">
-                                    <h5>카테고리 별 매출</h5>
+                                    <h4>카테고리 별 매출</h4>
                                     <ul class="nav nav-pills justify-content-end category-parent">
                                         <li class="nav-item">
                                             <a class="nav-link active-geni active" aria-current="page" href="#"  data-parent="category-parent" data-type="category"  data-target="todayCategory" onclick="showThis(this)">오늘</a>
@@ -313,12 +340,20 @@
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
                                 <div class="card-title d-flex justify-content-between">
-                                    <h5>베스트 셀러</h5>
+                                    <h4>베스트 셀러</h4>
                                 </div>
-
                                 <table class="table">
+                                    <colgroup>
+                                        <col class="w-5" />
+                                        <col class="w-10" />
+                                        <col class="w-25" />
+                                        <col class="w-15" />
+                                        <col class="w-15" />
+                                        <col class="w-15" />
+                                        <col class="w-25" />
+                                    </colgroup>
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th class="bg-geni-dark text-white" scope="col">순위</th>
                                             <th colspan="2" class="bg-geni-dark text-white" scope="col">상품명</th>
                                             <th class="bg-geni-dark text-white" scope="col">상품코드</th>
@@ -332,13 +367,13 @@
                                             <c:when test="${!empty bookDTOList}">
                                                 <c:forEach var="bookDTO" items="${bookDTOList}" varStatus="status">
                                                     <tr>
-                                                        <td class="fw-bold">${status.index + 1}</td>
-                                                        <th scope="row"><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="${bookDTO['book_img']}" alt=""></a></th>
+                                                        <td class="fw-bold text-center">${status.index + 1}</td>
+                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="${bookDTO['book_img']}" alt=""></a></td>
                                                         <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}" class="text-success fw-bold">${bookDTO['book_name']}</a></td>
-                                                        <td>${bookDTO['book_code']}</td>
-                                                        <td class="fw-bold">${bookDTO['sales_amount']}건</td>
-                                                        <td>${CommonUtil.comma(bookDTO['sales_price'])}원</td>
-                                                        <td>${bookDTO['class_name']} &gt; ${bookDTO['subject_name']}</td>
+                                                        <td class="text-center">${bookDTO['book_code']}</td>
+                                                        <td class="fw-bold text-center">${bookDTO['sales_amount']}건</td>
+                                                        <td class="text-center">${CommonUtil.comma(bookDTO['sales_price'])}원</td>
+                                                        <td class="text-center">${bookDTO['class_name']} &gt; ${bookDTO['subject_name']}</td>
                                                     </tr>
                                                 </c:forEach>
                                             </c:when>
@@ -351,9 +386,7 @@
 
                                     </tbody>
                                 </table>
-
                             </div>
-
                         </div>
                     </div><!-- End Top Selling -->
 
@@ -362,25 +395,34 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title d-flex justify-content-between">
-                                    <h5>월 별 매출</h5>
-                                    <ul class="nav nav-pills justify-content-end month-parent">
+                                    <h4>매출 그래프</h4>
+                                    <ul class="nav nav-pills justify-content-end revenue-parent">
                                         <li class="nav-item">
-                                            <a class="nav-link active-geni active" href="#" data-parent="month-parent" data-type="month" data-target="todayMonth" onclick="showThis(this)">오늘</a>
+                                            <a class="nav-link text-geni" href="#" data-parent="revenue-parent" data-type="revenue" data-target="revenueDay" onclick="showThis(this)">일간</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#" data-parent="month-parent" data-type="month" data-target="totalMonth" onclick="showThis(this)">누적</a>
+                                            <a class="nav-link active-geni active" href="#" data-parent="revenue-parent" data-type="revenue" data-target="revenueMonth" onclick="showThis(this)">월간</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-geni" href="#" data-parent="revenue-parent" data-type="revenue" data-target="revenueYear" onclick="showThis(this)">연간</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div id="todayMonth" class="d-flex justify-content-center month" style="gap: 20px;" >
+                                <div id="revenueDay" class="revenue">
                                     <!--구글 차트 Start-->
-                                    <div id="month_div1" class="rounded-4 overflow-hidden">
+                                    <div id="revenue_div1" class="rounded-4 overflow-hidden">
                                     </div>
                                     <!--구글 차트 End-->
                                 </div>
-                                <div id="totalMonth" class="d-flex justify-content-center month" style="gap: 20px;" >
+                                <div id="revenueMonth" class="revenue">
                                     <!--구글 차트 Start-->
-                                    <div id="month_div2" class="rounded-4 overflow-hidden">
+                                    <div id="revenue_div2" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
+                                </div>
+                                <div id="revenueYear" class="revenue">
+                                    <!--구글 차트 Start-->
+                                    <div id="revenue_div3" class="rounded-4 overflow-hidden">
                                     </div>
                                     <!--구글 차트 End-->
                                 </div>
@@ -392,9 +434,6 @@
                 </div>
             </div>
             <!-- End Left side columns -->
-
-
-
         </div>
     </section>
 
@@ -412,6 +451,9 @@
     // 영역 조작
     window.onload = ()=>{
         document.querySelector('#totalCategory').classList.add('d-none');
+        for (let e of document.querySelectorAll('.revenue:not(#revenueMonth)')) {
+            e.classList.add('d-none');
+        }
     };
     function showThis(element) {
         event.preventDefault();

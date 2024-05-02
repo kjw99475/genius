@@ -11,4 +11,5 @@ public interface AdminMainServiceIf {
     Map<String, List<StatisticsDTO>> classRevenue();
     Map<String, List<StatisticsDTO>> subjectRevenue();
     List<BookDTO> bestSeller();
+    Map<String, List<StatisticsDTO>> totalRevenue();
 }
