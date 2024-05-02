@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,7 @@
                         <h5 class="mb-0 p-3 d-flex justify-content-between"  data-toggle="collapse" data-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
                             <div class="d-flex flex-column" style="gap:10px">
                                 <span><small>${list.order_date}</small><small> | 총 ${detaillist[status.index].size()}건</small></span>
-                                <span> ${list.total_price}원</span>
+                                <span> ${CommonUtil.comma(list.total_price)}원</span>
                             </div>
                             <div class="d-flex flex-column align-items-end" style="gap:10px">
                                 <small>${list.order_state}</small>
@@ -122,13 +123,13 @@
                                         </div>
                                     </td>
                                     <td class="align-middle">
-                                        <p>${List.price}원</p>
+                                        <p>${CommonUtil.comma(List.price)}원</p>
                                     </td>
                                     <td class="align-middle">
                                         <p>${List.amount}</p>
                                     </td>
                                     <td class="align-middle">
-                                        <p>${List.total_price}원</p>
+                                        <p>${CommonUtil.comma(List.total_price)}원</p>
                                     </td>
                                 </tr>
                                 </c:forEach>

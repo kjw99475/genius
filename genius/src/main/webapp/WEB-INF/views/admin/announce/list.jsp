@@ -137,10 +137,10 @@
                             <c:choose>
                                 <c:when test="${responseDTO ne null}">
                                     <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
-                                        <tr onclick="location.href='/admin/announce/view?bbs_idx='+${bbsDTO.bbs_idx}">
+                                        <tr>
                                             <td><input class="chk_del form-check-input" name="chk_del" type="checkbox" value="${bbsDTO.bbs_idx}" onclick="event.stopPropagation()"></td>
                                             <td>${total_count -responseDTO.page_skip_count -loop.index}</td>
-                                            <td>${bbsDTO.bbs_title}<c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
+                                            <td><a href="/admin/announce/view?bbs_idx=${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</a><c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                             <td>${bbsDTO.member_name}</td>
                                             <td>${bbsDTO.reg_date}</td>
                                             <td>${bbsDTO.read_cnt}</td>

@@ -137,7 +137,7 @@
                                             </div>
 
                                             <div class="p-1 border-gray rounded-bottom-2" style="min-height: 200px">
-                                                <img id="preview" class="d-block w-100" src="${bookDTO.book_img}">
+                                                <img id="preview" class="d-block w-100" src="/resources/upload/book/${bookDTO.book_img}">
 <%--                                                /resources/img/no_image.png--%>
                                             </div>
                                         </div>

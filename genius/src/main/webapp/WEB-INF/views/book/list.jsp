@@ -7,6 +7,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="org.fullstack4.genius.Common.CommonUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -161,7 +162,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card text-center card-product" data-code ="${list.book_code}">
                                         <div class="card-product__img target" for="ch1">
-                                            <img class="card-img img-h350" src="${list.book_img}" alt="">
+                                            <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
                                             <ul class="card-product__imgOverlay">
                                                 <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-bag"></i></button></li>
                                                 <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
@@ -173,11 +174,25 @@
                                         <div class="card-body">
                                             <p>${list.class_name} > ${list.subject_name}</p>
                                             <h4 class="card-product__title"><a href="#">${list.book_name}</a></h4>
-                                            <p class="card-product__price text-geni"><s class="text-muted h6">${list.price}</s> ${list.discount_price}</p>
+                                            <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(list.price)}</s> ${CommonUtil.comma(list.discount_price)}</p>
                                             <p class="card-product__rank stars">
-                                                <c:forEach begin="1" end="${list.rank_avg}" step="1">
-                                                    <i class="fa fa-star"></i>
-                                                </c:forEach>
+                                                <c:choose>
+                                                    <c:when test="${list.rank_avg > 0}">
+                                                        <c:forEach begin="1" end="5" step="1" varStatus="status">
+                                                            <c:if test="${status.index <= list.rank_avg}">
+                                                                <i class="fa fa-star"></i>
+                                                            </c:if>
+                                                            <c:if test="${status.index > list.rank_avg}">
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:forEach begin="1" end="5" step="1">
+                                                            <i class="fa fa-star text-secondary"></i>
+                                                        </c:forEach>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </p>
                                         </div>
                                     </div>
