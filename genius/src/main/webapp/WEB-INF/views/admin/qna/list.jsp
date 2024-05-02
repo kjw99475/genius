@@ -64,7 +64,7 @@
                                 <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                                     <div class="col">
                                         <div class="row mb-2">
-                                            <label class="fw-bold p-3">게시기간</label>
+                                            <label class="fw-bold p-3">검색 기간</label>
                                             <div class="row justify-content-start align-items-center">
                                                 <div class="col-3">
                                                     <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
@@ -80,7 +80,10 @@
                                     <div class="row mb-2">
                                         <div class="col">
                                             <div class="row">
-                                                <label class="fw-bold p-3 ">답변 상태 검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;키워드 검색</label>
+                                                <div class="col">
+                                                    <label class="fw-bold p-3 me-3">답변 상태 검색</label>
+                                                    <label class="fw-bold p-3 ">키워드 검색</label>
+                                                </div>
                                                 <div class="d-flex align-items-center" style="gap: 10px">
                                                     <select name="answerYN" id="answerYN" class="form-select w-200px">
                                                         <option value="" selected>답변상태</option>
@@ -123,10 +126,11 @@
                                 <colgroup>
                                     <col class="w-5">
                                     <col class="w-5">
-                                    <col class="w-30">
+                                    <col class="w-25">
                                     <col class="w-10">
                                     <col class="w-10">
                                     <col class="w-10">
+                                    <col class="w-5">
                                     <col class="w-10">
 <%--                                    <col width="8%">--%>
 <%--                                    <col width="7%">--%>
@@ -149,6 +153,7 @@
                                     <th scope="col" class="bg-geni-dark text-white">작성자</th>
                                     <th scope="col" class="bg-geni-dark text-white">작성일</th>
                                     <th scope="col" class="bg-geni-dark text-white">조회수</th>
+                                    <th scope="col" class="bg-geni-dark text-white">구분</th>
                                     <th scope="col" class="bg-geni-dark text-white">답변여부</th>
                                 </tr>
                                 </thead>
@@ -163,6 +168,7 @@
                                         <td>${qnaDTO.member_name}</td>
                                         <td>${qnaDTO.reg_date}</td>
                                         <td>${qnaDTO.read_cnt}</td>
+                                        <td>${qnaDTO.answerYN}</td>
                                         <td>${qnaDTO.answerYN}</td>
                                     </tr>
                                 </c:forEach>
