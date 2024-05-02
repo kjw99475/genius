@@ -123,7 +123,7 @@
                         <th scope="col">배송시작일</th>
                         <th scope="col">배송종료일</th>
                         <th scope="col">주문상태</th>
-                        <th scope="col">환불요청</th>
+                        <th scope="col">환불승인</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -137,7 +137,7 @@
                                 <td>${orderDTO.total_price}</td>
                                 <td>${orderDTO.amount}</td>
                                 <td>
-                                    <select class="deliverySelect" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>>
+                                    <select class="deliverySelect form-select" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>>
                                         <option value="" <c:if test="${orderDTO.delivery_company == '' or orderDTO.delivery_company == null}">selected</c:if>>선택</option>
                                         <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국'}">selected</c:if>>우체국</option>
                                         <option value="CJ대한통운" <c:if test="${orderDTO.delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
@@ -150,12 +150,20 @@
                                     </select>
                                 <td>${orderDTO.delivery_start_date}</td>
                                 <td>${orderDTO.delivery_end_date}</td>
-                                <td class="delivery_state"><span class="badge bg-warning">${orderDTO.order_state}</span></td>
-                                <c:if test="${orderDTO.order_refund_request eq 'N'}">
+                                <td class="delivery_state">
+                                    <span <c:if test="${orderDTO.order_state eq '배송 전'}">class="badge bg-warning"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '배송 중'}">class="badge bg-primary"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '배송 완료'}">class="badge bg-success"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '환불 완료'}">class="badge bg-secondary"</c:if>
+                                    >
+                                            ${orderDTO.order_state}
+                                    </span>
+                                </td>
+                                <c:if test="${orderDTO.order_refund_response eq 'N'}">
                                     <td class="delivery_state"><span class="badge bg-warning">N</span></td>
                                 </c:if>
-                                <c:if test="${orderDTO.order_refund_request eq 'Y'}">
-                                    <td class="delivery_state"><span class="badge bg-warning">Y</span></td>
+                                <c:if test="${orderDTO.order_refund_response eq 'Y'}">
+                                    <td class="delivery_state"><span class="badge bg-success">Y</span></td>
                                 </c:if>
                             </tr>
                         </c:forEach>

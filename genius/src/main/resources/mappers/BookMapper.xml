@@ -134,4 +134,10 @@
         SELECT category_code, name
         FROM tbl_class_category
     </select>
+
+    <update id="BookInventoryUpdate">
+        UPDATE tbl_book
+        SET sales_status = #{sales_status},sales_start_date=#{sales_start_date},sales_end_date=#{sales_end_date},quantity=#{quantity}
+        where book_code = #{book_code}
+    </update>
 </mapper>

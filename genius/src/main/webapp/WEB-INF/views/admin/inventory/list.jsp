@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
-                                        <button type="button" class="btn btn-success">적용</button>
+                                        <button type="button" class="btn btn-success" onclick="BookInventroyModify()">적용</button>
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +114,7 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">상품번호</th>
                         <th scope="col">책이름</th>
                         <th scope="col">정가</th>
@@ -132,6 +133,7 @@
                     <tbody>
                         <c:forEach items="${responseDTO.dtoList}" var="bookDTO">
                             <tr>
+                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${bookDTO.book_code}" id="ch1"></td>
                                 <th scope="row">${bookDTO.book_code}</th>
                                 <td>${bookDTO.book_name}</td>
                                 <td>${bookDTO.price}</td>
@@ -142,7 +144,7 @@
                                 <td>${bookDTO.category_class_code}</td>
                                 <td>${bookDTO.category_subject_code}</td>
                                 <td>
-                                    <select name="type" class="form-select">
+                                    <select name="type" class="form-select sales_status">
                                         <option value="1" <c:if test="${bookDTO.sales_status == '1'}"> selected</c:if>>판매중</option>
                                         <option value="2" <c:if test="${bookDTO.sales_status == '2'}"> selected</c:if>>판매준비중</option>
                                         <option value="3" <c:if test="${bookDTO.sales_status == '3'}"> selected</c:if>>판매종료</option>
@@ -151,9 +153,9 @@
                                 </td>
 <%--                                <td><span class="badge bg-warning">${bookDTO.sales_status}</span></td>--%>
                                 <!--상태에 따라 bg-수정 -->
-                                <td><input type="date" name="sales_start_date" value="${bookDTO.sales_start_date}"/></td>
-                                <td><input type="date" name="sales_end_date" value="${bookDTO.sales_end_date}"/></td>
-                                <td>${bookDTO.quantity}</td>
+                                <td><input type="date" name="sales_start_date" class="sales_start" value="${bookDTO.sales_start_date}"/></td>
+                                <td><input type="date" name="sales_end_date" class="sales_end" value="${bookDTO.sales_end_date}"/></td>
+                                <td><input type="number" name="quantity" class="sales_quantity" value="${bookDTO.quantity}" class="input-text qty" maxlength="10" min="0"/></td>
                             </tr>
                         </c:forEach>
                     <tr>
@@ -223,6 +225,7 @@
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
+<script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/admin/vendor/chart.js/chart.umd.js"></script>
@@ -234,5 +237,77 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script>
+<script>
+    function BookInventroyModify() {
+
+
+        var sales_status_list =[];
+        var book_code_list = [];
+        var sales_start_list = [];
+        var sales_end_list = [];
+        var sales_quantity_list = [];
+
+        let checknull = true;
+
+
+        let sales_status = document.querySelectorAll('.sales_status');
+        let book_code = document.querySelectorAll('.choose');
+        let sales_start = document.querySelectorAll('.sales_start');
+        let sales_end = document.querySelectorAll('.sales_end');
+        let sales_quantity = document.querySelectorAll('.sales_quantity');
+
+
+        for(let i = 0; i<book_code.length; i++){
+            if(book_code[i].checked){
+                sales_status_list.push(sales_status[i].value);
+                book_code_list.push(book_code[i].value);
+                sales_start_list.push(sales_start[i].value);
+                sales_end_list.push(sales_end[i].value);
+                sales_quantity_list.push(sales_quantity[i].value);
+
+            }
+        }
+
+        // for(let choice of delivery){
+        //     list1.push(choice.value);
+        // }
+
+        for(let i =0; i<book_code_list.length; i++){
+            console.log(sales_start_list[i]);
+            console.log(sales_end_list[i]);
+            if(sales_start_list[i] == null || sales_start_list[i]=="" || sales_end_list[i] == null || sales_end_list[i] == ""){
+                checknull = false;
+            }
+
+        }
+
+        if(checknull){
+            // for(let i = 0; i<chooses.length; i++){
+            $.ajax({
+                url:"/admin/inventory/inventoryupdate.dox",
+                dataType:"json",
+                type : "GET",
+                data : {
+                    "BookCodeList":JSON.stringify(book_code_list),
+                    "SalesStatusList":JSON.stringify(sales_status_list),
+                    "SalesStartDateList":JSON.stringify(sales_start_list),
+                    "SalesEndDateList":JSON.stringify(sales_end_list),
+                    "SalesQuantityList":JSON.stringify(sales_quantity_list),
+                },
+                success : function(data) {
+                    alert("수정 성공");
+                    console.log("성공");
+                    location.href="/admin/inventory/list${responseDTO.linked_params}&page=${responseDTO.page}"
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }else if(!checknull){
+            alert("날짜를 정해주세요");
+        }
+    }
+</script>
 </body>
 </html>

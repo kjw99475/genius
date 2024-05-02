@@ -21,6 +21,7 @@ public interface PaymentMapper {
     int refund(PaymentVO Paymentvo);
     int delete(PaymentVO Paymentvo);
 
+    int deleteBookRelease(OrderVO orderVO);
     int salesBook(OrderVO orderVO);
     int releaseBook(OrderVO orderVO);
     int OrderTotalCount(PageRequestDTO requestDTO);
