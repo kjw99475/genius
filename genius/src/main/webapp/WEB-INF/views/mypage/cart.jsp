@@ -312,23 +312,30 @@
     /* 선택삭제 로직 */
     function deleteChoices() {
         let chooses = document.querySelectorAll('.choose');
+        let checklist = [];
         for(let choice of chooses) {
             if(choice.checked) {
-                $.ajax({
-                    url:"/mypage/cartdelete.dox",
-                    dataType:"json",
-                    type : "POST",
-                    data : {
-                        "member_id":"${sessionScope['member_id']}",
-                        "cart_idx":choice.value
-                    },
-                    success : function(data) {
-
-                    }
-                });
-                let parent = choice.parentElement.parentElement;
-                parent.parentElement.removeChild(parent);
+                checklist.push(choice.value);
             }
+        }
+        if(checklist.length>0){
+            $.ajax({
+                url:"/mypage/cartdelete.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "member_id":"${sessionScope['member_id']}",
+                    "cart_idx":JSON.stringify(checklist)
+                },
+                success : function(data) {
+                    if(data.result = "success") {
+                        alert("성공적으로 삭제되었습니다.");
+                        location.href = "/mypage/cart";
+                    }
+                }
+            });
+        }else{
+            alert("선택하신 항목이 없습니다.");
         }
         let total = document.querySelector('#total');
         total.value = calculateTotal();

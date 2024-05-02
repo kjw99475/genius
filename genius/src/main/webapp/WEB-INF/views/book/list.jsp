@@ -271,28 +271,38 @@
     /* 체크박스 장바구니 선택 로직*/
     function cartChoices() {
         let chooses = document.querySelectorAll('.choose');
+        let idxList = [];
         for(let choice of chooses) {
             if(choice.checked) {
-                    $.ajax({
-                        url:"/mypage/addcart.dox",
-                        dataType:"json",
-                        type : "POST",
-                        data : {
-                            "member_id":"${sessionScope['member_id']}",
-                            "book_code":choice.value,
-                            "quantity" :1
-                        },
-                        success : function(data) {
-                            alert("장바구니 성공");///문제가 있을수 있어용
-                        },
-                        fail : function (data){
-
-                        }
-
-                    });
-
+                idxList.push(choice.value);
                 console.log(choice.value);
             }
+        }
+        if(idxList.length>0){
+            $.ajax({
+                url:"/mypage/addcart.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "member_id":"${sessionScope['member_id']}",
+                    "book_code":JSON.stringify(idxList),
+                    "quantity" :1
+                },
+                success : function(data) {
+                    if(data.result == "success") {
+                        alert("장바구니에 성공적으로 상품이 담겼습니다.");
+                        location.href="/mypage/cart";
+                    }else{
+                        alert("장바구니에 상품이 담기지 못했습니다");
+                    }
+                },
+                fail : function (data){
+                    alert("일시적인 오류가 발생했습니다");
+                }
+
+            });
+        }else{
+            alert("체크하신 상품이 없습니다.");
         }
 
     }
