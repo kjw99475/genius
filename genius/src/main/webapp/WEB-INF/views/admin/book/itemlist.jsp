@@ -137,7 +137,7 @@
                     </div>
                 </div>
 
-                <table class="table table-bordered">
+                <table class="table table-bordered w-100">
                     <thead>
                         <tr>
                             <th scope="col" class="bg-geni-dark text-white">상품번호</th>
