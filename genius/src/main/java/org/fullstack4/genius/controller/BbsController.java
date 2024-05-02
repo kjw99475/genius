@@ -140,6 +140,11 @@ public class BbsController {
             }
             listIdx++;
         }
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("prevDTO", prevDTO);
         model.addAttribute("nextDTO", nextDTO);
         model.addAttribute("qnaDTO", qnaDTO);
@@ -187,7 +192,7 @@ public class BbsController {
 
     @PostMapping("/qnaRegistQ")
     public String POSTQnaRegistQ(@Valid QnaDTO qnaDTO,
-                               @RequestParam("file") MultipartFile file,
+                               MultipartHttpServletRequest files,
                                BindingResult bindingResult,
                                HttpServletRequest request,
                                RedirectAttributes redirectAttributes,
@@ -198,35 +203,41 @@ public class BbsController {
 //            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 //        }
 
-
-        if(!file.isEmpty()){
-            qnaDTO.setFileYN("Y");
+        List<MultipartFile> list = files.getFiles("files");
+        log.info("fileupload list >> " + list);
+        log.info("list size : " + list.size());
+        qnaDTO.setFileYN("N");
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()!=0){
+                qnaDTO.setFileYN("Y");
+                break;
+            }
         }
-        else{
-            qnaDTO.setFileYN("N");
-        }
-        log.info("========================");
-        log.info("postQnaRegist >> qnaDTO" + qnaDTO);
-        log.info("========================");
         int result = qnaServiceIf.regist(qnaDTO);
-        log.info("fileY");
         String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
-        FileDTO fileDTO = FileDTO.builder()
-                .file(file)
-                .uploadFolder(uploadFoler)
-                .build();
-
-        Map<String, String> map = FileUtil.FileUpload(fileDTO);
-        log.info("=======================");
-        log.info("upload : " + map);
-        log.info("=======================");
-        if(map.get("result").equals("success")) {
-            QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
-                    .path("/resources/upload/qna/")
-                    .qna_idx(result)
-                    .original_name(map.get("orgName"))
-                    .save_name(map.get("newName")).build();
-            qnaFileServiceIf.regist(qnaFileDTO);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()==0){
+                break;
+            }
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(list.get(i))
+                    .uploadFolder(uploadFoler)
+                    .build();
+            log.info("========================");
+            log.info("postQnaRegist >> qnaDTO" + qnaDTO);
+            log.info("========================");
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            log.info("=======================");
+            log.info("upload : " + map);
+            log.info("=======================");
+            if(map.get("result").equals("success")) {
+                QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
+                        .path("/resources/upload/qna/")
+                        .qna_idx(result)
+                        .original_name(map.get("orgName"))
+                        .save_name(map.get("newName")).build();
+                qnaFileServiceIf.regist(qnaFileDTO);
+            }
         }
 
         if(result>0){

@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="file" name="file">
+                <input type="file" name="files"  multiple="multiple">
                 <textarea id="summernote" name="contents"></textarea>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
