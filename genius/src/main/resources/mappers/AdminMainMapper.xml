@@ -48,4 +48,18 @@
         RIGHT OUTER JOIN tbl_subject_category AS TS ON TR.category_subject_code = TS.category_code
         GROUP BY TS.category_code
     </select>
+    <select id="bestSeller" resultType="org.fullstack4.genius.domain.BookVO">
+        SELECT TB.book_idx, TB.book_code, TB.book_name, TB.book_img
+        , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name'
+        , TB.price, TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
+        , SUM(TR.amount) AS sales_amount
+        , SUM(TR.amount * TR.price) AS sales_price
+        FROM tbl_book AS TB
+        INNER JOIN tbl_release AS TR ON TB.book_code = TR.book_code
+        INNER JOIN tbl_class_category AS TC ON TB.category_class_code = TC.category_code
+        INNER JOIN tbl_subject_category AS TS ON TB.category_subject_code = TS.category_code
+        GROUP BY TB.book_idx
+        ORDER BY sales_amount DESC, publication_date DESC
+        LIMIT 0,5
+    </select>
 </mapper>
