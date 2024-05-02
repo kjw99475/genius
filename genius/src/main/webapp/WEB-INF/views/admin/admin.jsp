@@ -51,45 +51,64 @@
 
         function drawChart() {
             // Create the data table.
-            var data1 = new google.visualization.DataTable();
-            data1.addColumn('string', 'Topping');
-            data1.addColumn('number', 'Slices');
-            data1.addRows([
-                ['Mushrooms', 3] ,
-                ['Onions', 1],
-                ['Olives', 1],
-                ['Zucchini', 1],
-                ['Pepperoni', 2]
+            var categoryData1 = new google.visualization.DataTable();
+            categoryData1.addColumn('string', 'Topping');
+            categoryData1.addColumn('number', 'Slices');
+            <c:if test="${!empty classMap.todayClass}">
+            categoryData1.addRows([
+                <c:forEach var="todayClass" items="${classMap.todayClass}">
+                ['${todayClass['category_name']}', ${todayClass['result']}],
+                </c:forEach>
             ]);
+            </c:if>
 
-            let color = ['#F58A94', '#F7A8A4', '#FED2B7', '#FFFAA8', '#DCEBC2', '#ADDCCA', '#A1C2FF', '#3D80D9', '#747EE8', '#A25FFF', '#E1C6FF', '#3E5969','#CCC7C4', '#7F6657'];
-
-            var data2 = new google.visualization.arrayToDataTable([
-                ['Year', 'Visitations', { role: 'style' } ],
-                ['2004', 1000,'#ADDCCA'] ,
-                ['2005', 1170,'#DCEBC2'],
-                ['2006',  860,'#FED2B7'],
-                ['2007', 1030, '#F7A8A4'],
-                ['2007', 1030, '#FFFAA8']
+            var categoryData3 = new google.visualization.DataTable();
+            categoryData3.addColumn('string', 'Topping');
+            categoryData3.addColumn('number', 'Slices');
+            <c:if test="${!empty classMap.totalClass}">
+            categoryData3.addRows([
+                <c:forEach var="totalClass" items="${classMap.totalClass}">
+                ['${totalClass['category_name']}', ${totalClass['result']}],
+                </c:forEach>
             ]);
+            </c:if>
 
-            var data3 = google.visualization.arrayToDataTable([
+            let color = ['#F58A94', '#F7A8A4', '#FED2B7', '#FFFAA8', '#DCEBC2', '#ADDCCA', '#A1C2FF', '#3D80D9', '#747EE8', '#A25FFF', '#E1C6FF', '#3E5969', '#CCC7C4', '#7F6657'];
+
+            <c:if test="${!empty subjectMap.todaySubject}">
+            var categoryData2 = new google.visualization.arrayToDataTable([
+                ['과목', '매출', {role: 'style'}],
+                <c:forEach var="todaySubject" items="${subjectMap.todaySubject}" varStatus="status">
+                ['${todaySubject['category_name']}', ${todaySubject['result']}, color[${status.index}]],
+                </c:forEach>
+            ]);
+            </c:if>
+            <c:if test="${!empty subjectMap.todaySubject}">
+            var categoryData4 = new google.visualization.arrayToDataTable([
+                ['과목', '매출', {role: 'style'}],
+                <c:forEach var="totalSubject" items="${subjectMap.totalSubject}" varStatus="status">
+                ['${totalSubject['category_name']}', ${totalSubject['result']}, color[${status.index}]],
+                </c:forEach>
+            ]);
+            </c:if>
+
+            var monthData = google.visualization.arrayToDataTable([
                 ['Year', 'Sales', 'Expenses'],
-                ['2004',  1000,      400],
-                ['2005',  1170,      460],
-                ['2006',  660,       1120],
-                ['2007',  1030,      540]
+                ['2004', 1000, 400],
+                ['2005', 1170, 460],
+                ['2006', 660, 1120],
+                ['2007', 1030, 540]
             ]);
 
             // Set chart options
-            var options1 = {
+            var categoryOptions1 = {
                 animation: {
                     startup: true,
                     duration: 500,
                     easing: 'in'
                 },
-                'width':700,
-                'height':400,
+                'width': 700,
+                'height': 400,
                 backgroundColor: {
                     fill: '#f8f8f8'
                 },
@@ -97,15 +116,15 @@
                     height: 300
                 },
                 slices: {
-                    0: { color: '#ADDCCA' },
-                    1: { color: '#DCEBC2' },
-                    2: { color: '#FED2B7' },
-                    3: { color: '#F7A8A4' },
-                    4: { color: '#F58A94' },
-                    5: { color: '#E1C6FF' },
-                    6: { color: '#FFFAA8' },
-                    7: { color: '#A1C2FF' },
-                    8: { color: '#CCC7C4'}
+                    0: {color: '#ADDCCA'},
+                    1: {color: '#DCEBC2'},
+                    2: {color: '#FED2B7'},
+                    3: {color: '#F7A8A4'},
+                    4: {color: '#F58A94'},
+                    5: {color: '#E1C6FF'},
+                    6: {color: '#FFFAA8'},
+                    7: {color: '#A1C2FF'},
+                    8: {color: '#CCC7C4'}
                 },
                 tooltip: {
                     ignoreBounds: 'false',
@@ -119,14 +138,14 @@
                 },
                 pieSliceText: 'none'
             };
-            var options2 = {
+            var categoryOptions2 = {
                 animation: {
-                    startup : true,
+                    startup: true,
                     duration: 400,
                     easing: 'in'
                 },
-                'width':700,
-                'height':400,
+                'width': 700,
+                'height': 400,
                 backgroundColor: {
                     fill: '#f8f8f8'
                 },
@@ -140,14 +159,14 @@
                 },
             };
 
-            var options3 = {
+            var monthOptions = {
                 animation: {
                     startup: true,
                     duration: 500,
                     easing: 'in'
                 },
                 curveType: 'function',
-                legend: { position: 'bottom' },
+                legend: {position: 'bottom'},
                 backgroundColor: {
                     fill: '#f8f8f8'
                 },
@@ -157,22 +176,26 @@
                     showColorCode: true
                 },
                 height: 500,
-                colors : ['#ADDCCA', '#DCEBC2'],
+                colors: ['#ADDCCA', '#DCEBC2'],
                 lineWidth: 5
             };
 
-            var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
-            chart1.draw(data1, options1);
-            var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
-            chart2.draw(data2, options2);
-            var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
-            chart3.draw(data3, options3);
+            var chart1 = new google.visualization.PieChart(document.getElementById('category_div1'));
+            chart1.draw(categoryData1, categoryOptions1);
+            var chart2 = new google.visualization.BarChart(document.getElementById('category_div2'));
+            chart2.draw(categoryData2, categoryOptions2);
+            var chart3 = new google.visualization.PieChart(document.getElementById('category_div3'));
+            chart3.draw(categoryData3, categoryOptions1);
+            var chart4 = new google.visualization.BarChart(document.getElementById('category_div4'));
+            chart4.draw(categoryData4, categoryOptions2);
+            var chart5 = new google.visualization.LineChart(document.getElementById('month_div'));
+            chart5.draw(monthData, monthOptions);
         }
     </script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -258,20 +281,28 @@
                             <div class="card-body">
                                 <div class="card-title d-flex justify-content-between">
                                     <h5>카테고리 별 매출</h5>
-                                    <ul class="nav nav-pills justify-content-end">
+                                    <ul class="nav nav-pills justify-content-end category-parent">
                                         <li class="nav-item">
-                                            <a class="nav-link active-geni active" aria-current="page" href="#" data-target="today" onclick="showThis(this)">오늘</a>
+                                            <a class="nav-link active-geni active" aria-current="page" href="#"  data-parent="category-parent"  data-target="todayCategory" onclick="showThis(this)">오늘</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
+                                            <a class="nav-link text-geni" href="#" data-parent="category-parent"  data-target="totalCategory" onclick="showThis(this)">누적</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="d-flex justify-content-center" style="gap: 20px">
+                                <div id="todayCategory" class="d-flex justify-content-center category" style="gap: 20px">
                                     <!--구글 차트 Start-->
-                                    <div id="chart_div1" class="rounded-4 overflow-hidden">
+                                    <div id="category_div1" class="rounded-4 overflow-hidden">
                                     </div>
-                                    <div id="chart_div2" class="rounded-4 overflow-hidden">
+                                    <div id="category_div2" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <!--구글 차트 End-->
+                                </div>
+                                <div id="totalCategory" class="d-flex justify-content-center category d-none" style="gap: 20px">
+                                    <!--구글 차트 Start-->
+                                    <div id="category_div3" class="rounded-4 overflow-hidden">
+                                    </div>
+                                    <div id="category_div4" class="rounded-4 overflow-hidden">
                                     </div>
                                     <!--구글 차트 End-->
                                 </div>
@@ -286,11 +317,11 @@
                                 <div class="card-title d-flex justify-content-between">
                                     <h5>베스트 셀러</h5>
                                     <ul class="nav nav-pills justify-content-end">
-                                        <li class="nav-item">
-                                            <a class="nav-link active-geni active" aria-current="page" href="#" data-target="today" onclick="showThis(this)">오늘</a>
+                                        <li class="nav-item ">
+                                            <a class="nav-link active-geni active" aria-current="page" href="#"data-target="today" onclick="showThis(this)">오늘</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
+                                            <a class="nav-link text-geni" href="#"data-target="total" onclick="showThis(this)">누적</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -345,7 +376,7 @@
                                 </div>
 
                                 <!--구글 차트 Start-->
-                                <div id="chart_div3" class="rounded-4 overflow-hidden">
+                                <div id="month_div" class="rounded-4 overflow-hidden">
                                 </div>
                                 <!--구글 차트 End-->
 
@@ -373,7 +404,28 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script>
+    // 영역 조작
+    function showThis(element) {
+        event.preventDefault();
+        event.stopPropagation();
+        let target = element.dataset.target;
+        let rankes = document.querySelectorAll('.category');
+        let parent = element.dataset.parent;
+        let buttons = document.querySelectorAll('.'+parent+' .nav-link');
+        for(let button of buttons) {
+            button.classList.remove('active-geni', 'active', 'text-white');
+            button.classList.add('text-geni');
+        }
+        for(let rank of rankes) {
+            rank.classList.add('d-none');
+        }
+        element.classList.remove('text-geni');
+        element.classList.add('active-geni', 'active');
+        document.querySelector('#'+target).classList.remove('d-none');
+    }
 
+</script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

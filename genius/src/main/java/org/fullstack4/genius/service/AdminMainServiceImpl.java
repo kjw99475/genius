@@ -6,6 +6,10 @@ import org.fullstack4.genius.dto.StatisticsDTO;
 import org.fullstack4.genius.mapper.AdminMainMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -15,9 +19,7 @@ public class AdminMainServiceImpl implements AdminMainServiceIf {
     @Override
     public StatisticsDTO summary() {
         StatisticsDTO today = adminMainMapper.todaySummary();
-        log.info("today : " + today);
         StatisticsDTO total = adminMainMapper.totalSummary();
-        log.info("total : " + total);
         StatisticsDTO summary = StatisticsDTO.builder()
                 .todayOrderCnt(today.getTodayOrderCnt())
                 .todayOrderPrice(today.getTodayOrderPrice())
@@ -28,5 +30,25 @@ public class AdminMainServiceImpl implements AdminMainServiceIf {
                 .build();
         log.info("summary : " + summary);
         return summary;
+    }
+
+    @Override
+    public Map<String, List<StatisticsDTO>> classRevenue() {
+        Map<String, List<StatisticsDTO>> classMap = new HashMap<>();
+        List<StatisticsDTO> todayClass = adminMainMapper.todayClass();
+        List<StatisticsDTO> totalClass = adminMainMapper.totalClass();
+        classMap.put("todayClass", todayClass);
+        classMap.put("totalClass", totalClass);
+        return classMap;
+    }
+
+    @Override
+    public Map<String, List<StatisticsDTO>> subjectRevenue() {
+        Map<String, List<StatisticsDTO>> subjectMap = new HashMap<>();
+        List<StatisticsDTO> todaySubject = adminMainMapper.todaySubject();
+        List<StatisticsDTO> totalSubject = adminMainMapper.totalSubject();
+        subjectMap.put("todaySubject", todaySubject);
+        subjectMap.put("totalSubject", totalSubject);
+        return subjectMap;
     }
 }
