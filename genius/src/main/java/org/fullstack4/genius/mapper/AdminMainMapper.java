@@ -15,4 +15,7 @@ public interface AdminMainMapper {
     List<StatisticsDTO> todaySubject();
     List<StatisticsDTO> totalSubject();
     List<BookVO> bestSeller();
+    List<StatisticsDTO> dayTotalRevenue();
+    List<StatisticsDTO> monthTotalRevenue();
+    List<StatisticsDTO> yearTotalRevenue();
 }

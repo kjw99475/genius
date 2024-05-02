@@ -113,7 +113,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade active show tab-div" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="p-4">
-                        <video src="${bookDTO.video}" class="w-100" controls></video>
+                        <video src="/resources/upload/video/${bookDTO.video}" class="w-100" controls></video>
                     </div>
                     <div>
                         <p>${bookDTO.book_info}</p>

@@ -62,4 +62,21 @@
         ORDER BY sales_amount DESC, publication_date DESC
         LIMIT 0,5
     </select>
+    <select id="dayTotalRevenue" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT `date` AS 'date', revenue_total AS 'totalRevenue'
+        FROM tbl_revenue_statics
+        WHERE `date` <![CDATA[>=]]> SUBDATE(DATE(NOW()), 30) AND `date` != DATE(NOW())
+    </select>
+    <select id="monthTotalRevenue" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT to_char(`date`, 'YYYY-MM') AS 'date', SUM(revenue_total) AS 'totalRevenue'
+        FROM tbl_revenue_statics
+        WHERE to_char(`date`, 'YYYY-MM') <![CDATA[>=]]> to_char(date_sub(NOW(), INTERVAL 6 MONTH), 'YYYY-MM') AND to_char(`date`, 'YYYY-MM') != to_char(NOW(), 'YYYY-MM')
+        GROUP BY to_char(`date`, 'YYYY-MM')
+    </select>
+    <select id="yearTotalRevenue" resultType="org.fullstack4.genius.dto.StatisticsDTO">
+        SELECT to_char(`date`, 'YYYY') AS 'date', SUM(revenue_total) AS 'totalRevenue'
+        FROM tbl_revenue_statics
+        WHERE to_char(`date`, 'YYYY') <![CDATA[>=]]> to_char(date_sub(NOW(), INTERVAL 20 YEAR), 'YYYY') AND to_char(`date`, 'YYYY') != to_char(NOW(), 'YYYY')
+        GROUP BY to_char(`date`, 'YYYY')
+    </select>
 </mapper>

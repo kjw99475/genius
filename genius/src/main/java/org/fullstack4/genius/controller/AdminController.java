@@ -26,11 +26,12 @@ public class AdminController {
         Map<String, List<StatisticsDTO>> classMap = adminMainServiceIf.classRevenue();
         Map<String, List<StatisticsDTO>> subjectMap = adminMainServiceIf.subjectRevenue();
         List<BookDTO> bookDTOList = adminMainServiceIf.bestSeller();
-        log.info("bookDTOList : " + bookDTOList);
+        Map<String, List<StatisticsDTO>> totalRevenueMap = adminMainServiceIf.totalRevenue();
         model.addAttribute("summary", summary);
         model.addAttribute("classMap", classMap);
         model.addAttribute("subjectMap", subjectMap);
         model.addAttribute("bookDTOList", bookDTOList);
+        model.addAttribute("totalRevenueMap", totalRevenueMap);
     }
 
 

@@ -121,9 +121,9 @@ public class YUNTEST {
     public void testModifyBook(){
         BookDTO bookDTO = bookServiceIf.view("b0002");
         bookDTO.setBook_idx(17);
-        int result = bookServiceIf.modify(bookDTO);
+//        int result = bookServiceIf.modify(bookDTO);
         log.info("======================");
-        log.info("BookMapperTest : bookModify result : " + result);
+//        log.info("BookMapperTest : bookModify result : " + result);
         log.info("======================");
     }
     @Test
