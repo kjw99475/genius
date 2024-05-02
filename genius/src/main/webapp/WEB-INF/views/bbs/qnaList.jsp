@@ -113,7 +113,7 @@
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
-                <button type="button" class="btn btn-success mr-3" onclick="location.href='/mypage/myquestions'">나의 문의내역</button>
+                <button type="button" class="btn btn-outline-success mr-3" onclick="location.href='/mypage/myquestions'">나의 문의내역</button>
                 <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaRegistQ'">질문 글쓰기</button>
             </div>
         </div>
