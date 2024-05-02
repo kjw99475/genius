@@ -20,8 +20,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +79,12 @@ public class AdminQnaController {
             }
             listIdx++;
         }
+        log.info("adminqnaController");
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("prevDTO", prevDTO);
         model.addAttribute("nextDTO", nextDTO);
         model.addAttribute("qnaDTO", qnaDTO);
@@ -121,6 +133,42 @@ public class AdminQnaController {
         }
 
         return "redirect:/admin/qna/list";
+    }
+    @GetMapping("/qnaFileDownload")
+    public String GETQnaFileDownload(@RequestParam("file_idx") int file_idx,
+                                     @RequestParam("qna_idx") String qna_idx,
+                                     HttpServletRequest req,
+                                     HttpServletResponse res,
+                                     Model model) throws UnsupportedEncodingException {
+        QnaFileDTO fileDTO = qnaFileServiceIf.getFile(file_idx);
+        log.info("filedto : " + fileDTO);
+        String upload_path = req.getServletContext().getRealPath("");
+
+        File file = new File(upload_path+"resources\\upload\\qna\\"+fileDTO.getSave_name());
+
+        String original_name = fileDTO.getOriginal_name();
+        original_name = URLEncoder.encode(original_name,"utf-8");
+        log.info("filename : " + fileDTO.getPath()+fileDTO.getSave_name().substring(0,fileDTO.getSave_name().lastIndexOf(".")));
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + original_name + "\";");
+        res.setHeader("Content-Transfer-Encoding", "binary");
+        res.setHeader("Content-Type", fileDTO.getSave_name().substring(fileDTO.getSave_name().lastIndexOf("."),fileDTO.getSave_name().length()));
+        res.setHeader("Content-Length", "" + file.length());
+        res.setHeader("Pragma", "no-cache;");
+        res.setHeader("Expires", "-1;");
+
+        try(
+                FileInputStream fis = new FileInputStream(file);
+                OutputStream out = res.getOutputStream();
+        ){
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+            while((readCount = fis.read(buffer)) != -1){
+                out.write(buffer,0,readCount);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/admin/qna/view?qna_idx="+qna_idx;
     }
 
 
