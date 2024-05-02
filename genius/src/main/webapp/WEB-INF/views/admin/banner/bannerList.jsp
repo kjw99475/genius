@@ -217,8 +217,8 @@
     // 페이지 개수 보기
     function modifyPageSize(element) {
         let pageSize = element.value;
-        let queryString = "?page_size='+pageSize+'&search_word=${pageResponseDTO['search_word']}&search_data1=${pageResponseDTO['search_data1']}&search_data2=${pageResponseDTO['search_data2']}&status=${pageResponseDTO['status']}";
-        location.href = '/admin/banner/bannerList';
+        let queryString = '?page_size='+pageSize+"&search_word=${pageResponseDTO['search_word']}&search_data1=${pageResponseDTO['search_data1']}&search_data2=${pageResponseDTO['search_data2']}&status=${pageResponseDTO['status']}";
+        location.href = '/admin/banner/bannerList' + queryString;
     }
 
     // 현재 페이지 전체 선택

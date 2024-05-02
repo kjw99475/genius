@@ -64,7 +64,7 @@
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img bg-light">
-                <img class="card-img img-h350" src="${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
+                <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-bag"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -84,7 +84,7 @@
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img bg-light">
-                <img class="card-img img-h350" src="${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
+                <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-bag"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -118,7 +118,7 @@
                 <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
                   <div class="card text-center card-product">
                     <div class="card-product__img">
-                      <img class="img-fluid img-h350" src="${dto['book_img']}" alt="">
+                      <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                       <ul class="card-product__imgOverlay">
                         <li><button><i class="ti-bag"></i></button></li>
                         <li><button><i class="ti-shopping-cart"></i></button></li>
@@ -137,7 +137,7 @@
               <div class="owl-item <c:if test="${status.count le 4}"> active </c:if>" style="width: 255px; margin-right: 30px;">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img class="img-fluid img-h350" src="${dto['book_img']}" alt="">
+                    <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                     <ul class="card-product__imgOverlay">
                       <li><button><i class="ti-bag"></i></button></li>
                       <li><button><i class="ti-shopping-cart"></i></button></li>
