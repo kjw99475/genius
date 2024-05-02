@@ -157,13 +157,14 @@ public class BbsController {
     @GetMapping("/qnaFileDownload")
     public String GETQnaFileDownload(@RequestParam("file_idx") int file_idx,
                                         @RequestParam("qna_idx") String qna_idx,
+                                     HttpServletRequest req,
                                      HttpServletResponse res,
                                      Model model) throws UnsupportedEncodingException {
         QnaFileDTO fileDTO = qnaFileServiceIf.getFile(file_idx);
         log.info("filedto : " + fileDTO);
+        String upload_path = req.getServletContext().getRealPath("");
 
-
-        File file = new File("D:\\java4\\spring\\chunjaeProject\\genius\\genius\\src\\main\\webapp\\resources\\upload\\qna\\"+fileDTO.getSave_name());
+        File file = new File(upload_path+"resources\\upload\\qna\\"+fileDTO.getSave_name());
 
         String original_name = fileDTO.getOriginal_name();
         original_name = URLEncoder.encode(original_name,"utf-8");
