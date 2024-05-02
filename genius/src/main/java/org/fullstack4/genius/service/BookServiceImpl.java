@@ -52,6 +52,13 @@ public class BookServiceImpl implements BookServiceIf {
     }
 
     @Override
+    public int InsertRestore(BookDTO bookDTO) {
+        BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
+        int result = bookMapper.InsertRestore(bookVO);
+        return result;
+    }
+
+    @Override
     public List<BookDTO> listAll() {
         List<BookDTO> bookDTOList = bookMapper.listAll().stream()
                 .map(bookVO -> modelMapper.map(bookVO,BookDTO.class))

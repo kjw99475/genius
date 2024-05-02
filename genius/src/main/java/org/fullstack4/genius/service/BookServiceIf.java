@@ -2,6 +2,7 @@ package org.fullstack4.genius.service;
 
 
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.FileDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public interface BookServiceIf {
     int regist(BookDTO BookDTO,FileDTO imgfileDTO,FileDTO videofileDTO);
-
+    int InsertRestore(BookDTO bookDTO);
     List<BookDTO> listAll();
     BookDTO view(String book_code);
     int modify(BookDTO bookDTO, FileDTO imgfileDTO,FileDTO videofileDTO);
