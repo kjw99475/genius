@@ -30,7 +30,7 @@ public class BbsServiceImpl implements BbsServiceIf {
         int result = bbsMapper.regist(bbsVO);
         log.info("result >>" + result);
         log.info("=============================");
-        return result;
+        return bbsVO.getBbs_idx();
     }
 
     @Override
@@ -100,9 +100,6 @@ public class BbsServiceImpl implements BbsServiceIf {
 //        return bbsDTOList;
 
         List<BbsVO> voList = bbsMapper.bbsListByPage(requestDTO);
-        log.info("========================");
-        log.info("voList : " + voList);
-        log.info("========================");
         List<BbsDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo,BbsDTO.class))
                 .collect(Collectors.toList());
