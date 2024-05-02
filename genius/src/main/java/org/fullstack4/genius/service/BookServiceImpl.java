@@ -26,7 +26,25 @@ public class BookServiceImpl implements BookServiceIf {
 
 
     @Override
-    public int regist(BookDTO bookDTO) {
+    public int regist(BookDTO bookDTO,FileDTO imgfileDTO,FileDTO videofileDTO) {
+        if (imgfileDTO!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(imgfileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setBook_img(map.get("newName"));
+            }
+
+        }
+        if (videofileDTO!= null) {
+            // 파일이 교체된 경우
+            Map<String, String> map = FileUtil.FileUpload(videofileDTO);
+
+            if (map.get("result").equals("success")) {
+                bookDTO.setVideo(map.get("newName"));
+            }
+
+        }
         BookVO bookVO = modelMapper.map(bookDTO, BookVO.class);
         int result = bookMapper.regist(bookVO);
         return result;

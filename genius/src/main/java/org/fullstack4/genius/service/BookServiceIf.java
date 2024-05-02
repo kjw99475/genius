@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookServiceIf {
-    int regist(BookDTO BookDTO);
+    int regist(BookDTO BookDTO,FileDTO imgfileDTO,FileDTO videofileDTO);
 
     List<BookDTO> listAll();
     BookDTO view(String book_code);

@@ -65,7 +65,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!-- Profile Edit Form -->
-                            <form id="frm_book_regist" method="post" action="/admin/book/itemRegist">
+                            <form id="frm_book_regist" method="post" action="/admin/book/itemRegist" enctype="multipart/form-data">
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">상품 코드</label>
                                     <div class="col-md-8 col-lg-10">
@@ -121,10 +121,25 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">책 이미지</label>
+                                    <label class="col-md-4 col-lg-2 col-form-label">책 이미지</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="file" type="file" class="form-control" id="file"
-                                               value="${bookDTO.book_img}">
+                                               value="" onchange="changeImg(event)" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-2 col-form-label">책 이미지</label>
+                                    <div class="col-md-8 col-lg-10">
+                                        <div class="row m-1">
+                                            <div class="p-1 border-gray bg-light text-dark rounded-top-2" id="previous">
+                                                <span class="d-block p-1 text-center">이미지 미리보기</span>
+                                            </div>
+
+                                            <div class="p-1 border-gray rounded-bottom-2" style="min-height: 200px">
+                                                <img id="preview" class="d-block w-100" src="/resources/img/no_image.png">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -220,8 +235,8 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">상품소개영상</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="video" type="file" class="form-control" id="Phone" value="video"
-                                               maxlength="13">
+                                        <input type="file" class="form-control" id="video" value="video" name="videofile"
+                                               maxlength="20" accept="video/*">
                                     </div>
                                 </div>
 
@@ -311,6 +326,7 @@
 <!--================ 푸터 End =================-->
 
 <!-- Vendor JS Files -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/admin/vendor/chart.js/chart.umd.js"></script>
@@ -322,5 +338,15 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script>
+<script>
+    function changeImg(e) {
+        let files = e.target.files;
+        let reader = new FileReader();
+        reader.onload = (e)=>{
+            $('#preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(files[0]);
+    }
+</script>
 </body>
 </html>

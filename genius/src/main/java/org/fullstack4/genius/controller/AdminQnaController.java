@@ -121,13 +121,26 @@ public class AdminQnaController {
 
 
     @GetMapping("/answerregist")
-    public void GETAnswerRegist(){
+    public void GETAnswerRegist(@RequestParam(name = "qna_idx")int qna_idx,
+                                Model model){
+        QnaDTO qnaDTO = qnaService.view(qna_idx);
 
+        model.addAttribute("qnaDTO", qnaDTO);
     }
 
     @PostMapping("/answerregist")
-    public void PostAnswerRegist(){
+    public String PostAnswerRegist(@Valid QnaDTO qnaDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes){
+        int result = qnaService.answerRegist(qnaDTO);
 
+        if(result >0){
+            return "redirect:/admin/qna/view?qna_idx="+result;
+        }
+        else{
+
+            return "redirect:/admin/qna/view?qna_idx="+qnaDTO.getRef_idx();
+        }
     }
 
     @GetMapping("/answermodify")

@@ -86,6 +86,10 @@
         INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id, fileYN)
         VALUES('N', #{title}, #{contents}, NOW(), 0, #{member_id}, #{fileYN})
     </insert>
+    <insert id="answerRegist" parameterType="org.fullstack4.genius.domain.QnaVO" useGeneratedKeys="true" keyProperty="qna_idx" keyColumn="qna_idx">
+        INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id, fileYN, ref_idx)
+        VALUES('Y', #{title}, #{contents}, NOW(), 0, #{member_id}, #{fileYN}, #{ref_idx})
+    </insert>
     <update id="refModify">
         UPDATE tbl_qna SET
             ref_idx = #{qna_idx}

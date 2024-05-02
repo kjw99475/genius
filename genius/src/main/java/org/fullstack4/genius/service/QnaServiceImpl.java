@@ -32,10 +32,6 @@ public class QnaServiceImpl implements QnaServiceIf {
         QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
         int result = qnaMapper.regist(qnaVO);
         int result2 = qnaMapper.refModify(qnaVO.getQna_idx());
-        if(qnaDTO.getFileYN()=="Y"){
-
-
-        }
 
         log.info("======================");
         log.info("QnaServiceImpl >> regist >> result : " + result + ", result2 : " + result2);
@@ -95,6 +91,13 @@ public class QnaServiceImpl implements QnaServiceIf {
     @Override
     public int totalCount() {
         return qnaMapper.totalCount();
+    }
+
+    @Override
+    public int answerRegist(QnaDTO qnaDTO) {
+        QnaVO qnaVO = modelMapper.map(qnaDTO, QnaVO.class);
+        int result = qnaMapper.answerRegist(qnaVO);
+        return qnaVO.getQna_idx();
     }
 
     @Override
