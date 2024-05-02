@@ -56,9 +56,55 @@ public class AdminQnaController {
     }
 
     @PostMapping("/contentregist")
-    public void POSTContentRegist(@Valid QnaDTO qnaDTO,
+    public String POSTContentRegist(@Valid QnaDTO qnaDTO,
+                                  MultipartHttpServletRequest files,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+                                  HttpServletRequest request,
+                                  RedirectAttributes redirectAttributes,
+                                  Model model){
+        List<MultipartFile> list = files.getFiles("files");
+        log.info("fileupload list >> " + list);
+        log.info("list size : " + list.size());
+        qnaDTO.setFileYN("N");
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()!=0){
+                qnaDTO.setFileYN("Y");
+                break;
+            }
+        }
+        int result = qnaService.regist(qnaDTO);
+        String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getSize()==0){
+                break;
+            }
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(list.get(i))
+                    .uploadFolder(uploadFoler)
+                    .build();
+            log.info("========================");
+            log.info("postQnaRegist >> qnaDTO" + qnaDTO);
+            log.info("========================");
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            log.info("=======================");
+            log.info("upload : " + map);
+            log.info("=======================");
+            if(map.get("result").equals("success")) {
+                QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
+                        .path("/resources/upload/qna/")
+                        .qna_idx(result)
+                        .original_name(map.get("orgName"))
+                        .save_name(map.get("newName")).build();
+                qnaFileServiceIf.regist(qnaFileDTO);
+            }
+        }
+
+        if(result>0){
+            return "redirect:/admin/qna/list";
+        }else{
+            redirectAttributes.addFlashAttribute(qnaDTO);
+            return "redirect:/admin/qna/contentregist";
+        }
 
     }
 

@@ -72,7 +72,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/contentregist">
+                            <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
                                 <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
 
 
@@ -111,7 +111,7 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="">파일명.ext</a>
+                                        <input type="file" name="files" multiple>
                                     </div>
 
                                 </div>
