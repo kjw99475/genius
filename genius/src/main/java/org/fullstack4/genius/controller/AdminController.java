@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+import java.util.Map;
+
 @Log4j2
 @Controller
 @RequestMapping(value="/admin")
@@ -19,6 +22,10 @@ public class AdminController {
     @GetMapping("/admin")
     public void GETAdmin(Model model){
         StatisticsDTO summary = adminMainServiceIf.summary();
+        Map<String, List<StatisticsDTO>> classMap = adminMainServiceIf.classRevenue();
+        Map<String, List<StatisticsDTO>> subjectMap = adminMainServiceIf.subjectRevenue();
+        model.addAttribute("classMap", classMap);
+        model.addAttribute("subjectMap", subjectMap);
         model.addAttribute("summary", summary);
     }
 
