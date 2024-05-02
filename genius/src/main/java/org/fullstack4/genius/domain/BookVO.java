@@ -38,4 +38,6 @@ public class BookVO {
     private String contents;
     private String class_name;
     private String subject_name;
+    private String sales_amount;
+    private String sales_price;
 }

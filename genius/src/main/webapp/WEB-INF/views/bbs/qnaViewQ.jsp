@@ -93,14 +93,22 @@
                         <div><div class=""><p>${qnaDTO.contents}</p><p><br></p></div></div>
                     </td>
                 </tr>
-                <tr>
-                    <th class="bg-table text-center" scope="row">첨부파일</th>
-                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>
-                </tr>
-                <tr>
-                    <th class="bg-table text-center" scope="row">첨부파일</th>
-                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>
-                </tr>
+                <c:if test="${fileList ne null}">
+                    <c:forEach items="${fileList}" var="file">
+                        <tr>
+                            <th class="bg-table text-center" scope="row">첨부파일</th>
+                            <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" onclick="javascript:alert('파일한개');">${file.original_name}</a> </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+<%--                <tr>--%>
+<%--                    <th class="bg-table text-center" scope="row">첨부파일</th>--%>
+<%--                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>--%>
+<%--                </tr>--%>
+<%--                <tr>--%>
+<%--                    <th class="bg-table text-center" scope="row">첨부파일</th>--%>
+<%--                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>--%>
+<%--                </tr>--%>
                 <tr>
                     <th scope="row">조회수</th>
                     <td><span>${qnaDTO.read_cnt}</span>
