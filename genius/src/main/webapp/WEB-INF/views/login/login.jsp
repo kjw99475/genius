@@ -51,6 +51,9 @@
                             <div class="col-md-12 form-group">
                                 <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                             </div>
+                            <div id="err_login" class="text-danger text-center col-md-12">
+
+                            </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">
                                     <input type="checkbox" id="auto_login" name="auto_login">
@@ -62,12 +65,12 @@
                                 <c:set var="client_id">9GW7lkN31ckPUUZa1KsK</c:set>
                                 <c:set var="redirect_uri">http://localhost:8080/login/naver</c:set>
                                 <c:set var="state">genius</c:set>
-                                <button type="button" class="btn btn-success w-100"
-                                        onclick="location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&state=${state}&redirect_uri=${redirect_uri}'">네이버 로그인</button>
                                 <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
                                 <div class="d-flex justify-content-center" style="gap:10px">
                                     <a href="/login/findId">아이디 찾기</a><a href="/login/findPwd">비밀번호 찾기</a>
                                 </div>
+                                <button type="button" class="border-0 flow-hidden w-100 bg-transparent p-0 m-0"
+                                        onclick="location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&state=${state}&redirect_uri=${redirect_uri}'"><img class="w-200px" src="/resources/img/btnG_완성형.png" ></button>
                             </div>
                         </form>
                     </div>
@@ -88,7 +91,7 @@
 <!--================ 푸터 End =================-->
 <script>
     if(${!empty loginErr}) {
-        alert("${loginErr}");
+        $('#err_login').append("${loginErr}");
     }
 </script>
 
