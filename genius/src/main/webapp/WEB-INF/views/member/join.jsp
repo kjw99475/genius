@@ -59,27 +59,27 @@
                                                 <button class="btn btn-outline-success" type="button" id="button-addon1" onclick="idDupCheck(document.getElementById('member_id'))">중복확인</button>
                                             </div>
                                         </div>
-                                        <small id="err_member_id" class="text-danger"></small>
+                                        <small id="err_member_id" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="member_name">이름</label>
-                                        <input type="text" class="form-control" id="member_name" name="member_name" data-name="이름" placeholder="이름" value="${memberDTO['member_name']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
-                                        <small id="err_member_name" class="text-danger"></small>
+                                        <input type="text" class="form-control" id="member_name" name="member_name" data-name="이름" placeholder="이름" value="${memberDTO['member_name']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'" onkeyup="replaceName(this)">
+                                        <small id="err_member_name" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwd">비밀번호</label>
                                         <input type="password" class="form-control" id="pwd" name="pwd"data-name="비밀번호" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
-                                        <small id="err_pwd" class="text-danger"></small>
+                                        <small id="err_pwd" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwdCheck">비밀번호 확인</label>
                                         <input type="password" data-name="비밀번호 확인" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
-                                        <small id="err_pwdCheck" class="text-danger"></small>
+                                        <small id="err_pwdCheck" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
                                         <input type="date" class="form-control" id="birthday"data-name="생년월일" name="birthday" placeholder="생년월일" value="${memberDTO['birthday']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
-                                        <small id="err_birthday" class="text-danger"></small>
+                                        <small id="err_birthday" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>성별</label>
@@ -87,7 +87,7 @@
                                             <label for="female"><input type="radio" class="pixel-radio" id="female" data-name="성별" name="gender" value="여" <c:if test="${memberDTO['gender'] eq '여'}">checked</c:if> >여</label>
                                             <label for="male"><input type="radio" class="pixel-radio" id="male" data-name="성별" name="gender" value="남" <c:if test="${memberDTO['gender'] eq '남'}">checked</c:if> >남</label>
                                         </div>
-                                        <small id="err_gender" class="text-danger"></small>
+                                        <small id="err_gender" class="info text-danger"></small>
                                     </div>
 
                                     <div class="col-md-12 form-group">
@@ -99,12 +99,12 @@
                                                 <button class="btn btn-outline-success" type="button" id="button-addon3" onclick="emailDupCheck(document.getElementById('email'))">중복확인</button>
                                             </div>
                                         </div>
-                                        <small id="err_email" class="text-danger"></small>
+                                        <small id="err_email" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
-                                        <input type="tel" class="form-control" id="phone" data-name="연락처" name="phone" value="${memberDTO['phone']}"  placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
-                                        <small id="err_phone" class="text-danger"></small>
+                                        <input type="tel" class="form-control" id="phone" data-name="연락처" name="phone" value="${memberDTO['phone']}"  placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'" onkeyup="replacePhone(this)">
+                                        <small id="err_phone" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>주소</label>
@@ -116,15 +116,15 @@
                                                         <button class="btn btn-outline-success"  type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                     </div>
                                                 </div>
-                                                <small id="err_zip_code" class="text-danger"></small>
+                                                <small id="err_zip_code" class="info text-danger"></small>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="addr1" class="form-control" data-name="주소" value="${memberDTO['addr1']}" id="sample4_roadAddress" placeholder="도로명주소">
-                                                <small id="err_addr1" class="text-danger"></small>
+                                                <small id="err_addr1" class="info text-danger"></small>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="addr2" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
-                                                <small id="err_addr2" class="text-danger"></small>
+                                                <small id="err_addr2" class="info text-danger"></small>
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
@@ -135,7 +135,7 @@
                                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
                                         이용약관 동의
                                     </h3>
-                                    <small id="err_terms" class="text-danger"></small>
+                                    <small id="err_terms" class="info text-danger"></small>
                                     <div class="form-group m-0 p-2">
                                         <input type="checkbox" id="agreeAll" name="agreeAll" onchange="" <c:if test="${memberDTO['terms1'] eq 'Y' && memberDTO['terms2'] eq 'Y' && memberDTO['terms3'] eq 'Y' && memberDTO['terms4'] eq 'Y'}">checked</c:if> >
                                         <label class="m-0 text-dark" for="agreeAll">아래 모든 내용에 모두 동의합니다.</label>
@@ -563,25 +563,23 @@
             },
             success: function (data) {
                 let target = $('#err_member_id');
-                console.log("item : " + item.value);
-                console.log("data : " + data);
+                $(target).addClass('text-danger');
+                $(target).removeClass('text-primary');
                 if(!$(item).val().trim()) {
                     $(target).text('아이디를 입력해주세요');
-                    $(target).css('color', '#e30000');
-                    $(target).css('display', 'block');
-                    $('#auth').val('false');
+                    $('#idAuthYN').val('false');
+                } else if(!idRegCheck($(item))) {
+                    $(target).text('아이디는 영문 소문자와 숫자로 최소 8글자 이상, 20글자 이하로 작성하세요');
+                    $('#idAuthYN').val('false');
                 } else {
-                    $(target).css('display', 'none');
                     if (data != 0) {
                         $(target).text('이미 등록된 아이디 입니다.');
-                        $(target).css('color', '#e30000');
-                        $(target).css('display', 'block');
-                        $('#auth').val('false');
+                        $('#idAuthYN').val('false');
                     } else {
+                        $(target).removeClass('text-danger');
+                        $(target).addClass('text-primary');
                         $(target).text('사용 가능한 아이디 입니다.');
-                        $(target).css('color', '#057cfc');
-                        $(target).css('display', 'block');
-                        $('#auth').val('true');
+                        $('#idAuthYN').val('true');
                     }
                 }
             },
@@ -605,25 +603,23 @@
             },
             success: function (data) {
                 let target = $('#err_email');
-                console.log("item : " + item.value);
-                console.log("data : " + data);
+                $(target).addClass('text-danger');
+                $(target).removeClass('text-primary');
                 if(!$(item).val().trim()) {
                     $(target).text('이메일을 입력해주세요');
-                    $(target).css('color', '#e30000');
-                    $(target).css('display', 'block');
-                    $('#auth').val('false');
+                    $('#emailAuthYN').val('false');
+                } else if(!emailRegCheck($(item))) {
+                    $(target).text('올바른 이메일 형식을 사용해주세요. 예시: genius@genius.co.kr');
+                    $('#emailAuthYN').val('false');
                 } else {
-                    $(target).css('display', 'none');
                     if (data != 0) {
                         $(target).text('이미 등록된 이메일 입니다.');
-                        $(target).css('color', '#e30000');
-                        $(target).css('display', 'block');
-                        $('#auth').val('false');
+                        $('#emailAuthYN').val('false');
                     } else {
+                        $(target).removeClass('text-danger');
+                        $(target).addClass('text-primary');
                         $(target).text('사용 가능한 이메일 입니다.');
-                        $(target).css('color', '#057cfc');
-                        $(target).css('display', 'block');
-                        $('#auth').val('true');
+                        $('#emailAuthYN').val('true');
                     }
                 }
             },
@@ -640,18 +636,27 @@
     document.querySelector('#frm').addEventListener('submit', checkForm);
     function checkForm() {
         event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
         // 공란 검사
         for (let element of checkTarget) {
             let target = $('input[name='+element+']');
             if (element == 'gender') {
-                if(!$(target).checked) {
+                if(!$('input#male').is(":checked") && !$('input#female').is(":checked")) {
                     $('#err_'+element).text($(target).data('name') + "을 선택해주세요");
                     $(target).focus();
                     return false;
                 }
             } else if(element == 'terms1' ||element == 'terms2' ) {
-                if(!$(target).checked) {
+                if(!$(target).is(":checked")) {
                     $('#err_terms').text("필수 이용약관을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else if(element == 'addr1') {
+                if (!nullCheck2($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
                     $(target).focus();
                     return false;
                 }
@@ -663,7 +668,55 @@
                 }
             }
         }
-        return false;
+        // 정규식 검사
+        if(!idRegCheck($('input[name=member_id]'))){
+            $('#err_member_id').text("아이디는 영문 소문자와 숫자로 최소 8글자 이상, 20글자 이하로 작성하세요");
+            $('input[name=member_id]').focus();
+            return false;
+        }
+        if(!nameRegCheck($('input[name=member_name]'))){
+            $('#err_member_name').text("이름은 한글로 최소 2글자 이상, 20글자 이하로 작성하세요.");
+            $('input[name=member_name]').focus();
+            return false;
+        }
+        if(!passwordRegCheck($('input[name=pwd]'))){
+            $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+            $('input[name=pwd]').focus();
+            return false;
+        }
+        if(!emailRegCheck($('input[name=email]'))){
+            $('#err_email').text("올바른 이메일 형식을 사용해주세요. 예시: genius@genius.co.kr");
+            $('input[name=email]').focus();
+            return false;
+        }
+        if(!phoneRegCheck($('input[name=phone]'))){
+            $('#err_phone').text("'-' 없이 올바른 전화번호 형식을 사용해주세요. 예시: 01012345678");
+            $('input[name=phone]').focus();
+            return false;
+        }
+        // 유효한 생년월일 검사
+        if(!dateCheck($('input[name=birthday]'))) {
+            $('#err_birthday').text("생년월일은 오늘보다 미래일 수 없습니다.");
+            $('input[name=birthday]').focus();
+            return false;
+        }
+        // 중복 체크 및 일치 여부 검사
+        if($('input[name=idAuthYN]').val() != 'true'){
+            $('#err_member_id').text("아이디 중복을 확인해주세요");
+            $('input[name=member_id]').focus();
+            return false;
+        }
+        if(!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))){
+            $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+            $('input[name=pwdCheck]').focus();
+            return false;
+        }
+        if($('input[name=emailAuthYN]').val() != 'true'){
+            $('#err_email').text("이메일 중복을 확인해주세요");
+            $('input[name=email]').focus();
+            return false;
+        }
+        document.querySelector('#frm').submit();
     }
 
     // Back단 유효성 검사
@@ -674,7 +727,6 @@
                 errArr.push('${item.getField()}');
             }
         </c:forEach>
-        alert(errArr);
         if (errArr.length > 0) {
             for (let err of errArr) {
                 if (err == 'terms1' || err == 'terms2' ) {

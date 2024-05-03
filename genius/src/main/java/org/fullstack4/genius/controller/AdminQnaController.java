@@ -305,6 +305,7 @@ public class AdminQnaController {
             }
         }
         int result = qnaService.answerRegist(qnaDTO);
+        int result2 = qnaService.answerStatus(qnaDTO.getRef_idx());
         String uploadFoler = CommonUtil.getUploadFolder(request,"qna");
         for(int i=0;i<list.size();i++){
             if(list.get(i).getSize()==0){

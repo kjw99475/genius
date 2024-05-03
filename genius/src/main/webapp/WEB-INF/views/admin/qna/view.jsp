@@ -126,7 +126,7 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
-                                            <c:if test="${qnaDTO.answerYN == 'N'}">
+                                            <c:if test="${qnaDTO.answerStatus == '0'}">
                                             <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/answerregist?qna_idx=${qnaDTO.qna_idx}'">
                                                 답변 등록
                                             </button>
@@ -151,52 +151,6 @@
                             </form><!-- EndForm -->
 
 
-<%--                            <div class="mt-5">--%>
-<%--                                <table class="table table-borderless text-start">--%>
-<%--                                    <colgroup>--%>
-<%--                                        <col width="20%">--%>
-<%--                                        <col width="65%">--%>
-<%--                                        <col width="15%">--%>
-<%--                                    </colgroup>--%>
-
-<%--                                    <c:choose>--%>
-<%--                                        <c:when test="${nextDTO eq null}">--%>
-<%--                                            <tr class=" border-bottom mb-0">--%>
-<%--                                                <td>다음글</td>--%>
-<%--                                                <td>다음 글이 없습니다.</td>--%>
-<%--                                                <td></td>--%>
-<%--                                            </tr>--%>
-<%--                                        </c:when>--%>
-<%--                                        <c:otherwise>--%>
-<%--                                            <tr class=" border-bottom mb-0" onclick="location.href='/admin/qna/view?qna_idx='+${nextDTO.qna_idx}">--%>
-<%--                                                <td>다음글</td>--%>
-<%--                                                <td>${nextDTO.title}<c:if--%>
-<%--                                                        test="${nextDTO.fileYN eq 'Y'}"><span--%>
-<%--                                                        class="bi bi-paperclip"></span></c:if></td>--%>
-<%--                                                <td>${nextDTO.reg_date}</td>--%>
-<%--                                            </tr>--%>
-<%--                                        </c:otherwise>--%>
-<%--                                    </c:choose>--%>
-
-<%--                                    <c:choose>--%>
-<%--                                        <c:when test="${prevDTO eq null}">--%>
-<%--                                            <tr>--%>
-<%--                                                <td>이전글</td>--%>
-<%--                                                <td>이전 글이 없습니다.</td>--%>
-<%--                                                <td></td>--%>
-<%--                                            </tr>--%>
-<%--                                        </c:when>--%>
-<%--                                        <c:otherwise>--%>
-<%--                                            <tr onclick="location.href='/admin/qna/view?qna_idx='+${prevDTO.qna_idx}">--%>
-<%--                                                <td>이전글</td>--%>
-<%--                                                <td>${prevDTO.title}--%>
-<%--                                                    <c:if test="${prevDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>--%>
-<%--                                                <td>${prevDTO.reg_date}</td>--%>
-<%--                                            </tr>--%>
-<%--                                        </c:otherwise>--%>
-<%--                                    </c:choose>--%>
-
-<%--                                </table>--%>
                             </div>
 
 
