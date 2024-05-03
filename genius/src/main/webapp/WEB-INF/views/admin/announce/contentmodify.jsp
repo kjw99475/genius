@@ -67,7 +67,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/announce/contentmodify">
+                            <form method="post" action="/admin/announce/contentmodify" enctype="multipart/form-data">
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -127,8 +127,10 @@
                                     <label for="file-list" class="col-md-4 col-lg-2 col-form-label">기존 파일 리스트</label>
                                     <div class="col-md-8 col-lg-9">
                                         <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
-                                            <li class="card shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>파일명</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
-                                            <input id="file-idx" type="hidden" name="orgFiles" value="">
+                                            <c:forEach items="${fileList}" var="file">
+                                                <li class="card shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="${file.file_idx}" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                                <input id="file-${file.file_idx}" type="hidden" name="orgFiles" value="${file.file_idx}">
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
