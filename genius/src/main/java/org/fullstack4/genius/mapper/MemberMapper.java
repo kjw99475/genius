@@ -29,4 +29,5 @@ public interface MemberMapper {
     int emailCheck(String email);
     List<MemberVO> list(PageRequestDTO pageRequestDTO);
     int totalCount(PageRequestDTO pageRequestDTO);
+    String getProfile(String member_id);
 }

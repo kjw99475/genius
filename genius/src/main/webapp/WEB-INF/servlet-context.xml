@@ -69,6 +69,12 @@
                         class="org.fullstack4.genius.interceptor.CartCntInterceptor">
             </beans:bean>
         </interceptor>
+        <interceptor>
+            <mapping path="/admin/**" />
+            <beans:bean id="adminProfileInterceptor"
+                        class="org.fullstack4.genius.interceptor.AdminProfileInterceptor">
+            </beans:bean>
+        </interceptor>
     </interceptors>
 
     <resources mapping="/resources/**" location="/resources/"></resources>
