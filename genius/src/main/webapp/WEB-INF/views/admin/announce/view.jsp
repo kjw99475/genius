@@ -105,23 +105,13 @@
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
-
-                                    <c:if test="${fileList ne null}">
-                                        <div class="col-lg-9"></div>
-                                        <c:forEach items="${fileList}" var="file">
-                                            <div class="row mb-3">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-md-8 col-lg-9 border border-gray rounded p-2" style="margin-left:13px">
-                                                    <a href="/admin/announce/announceFileDownload?file_idx=${file.file_idx}&bbs_idx=${bbsDTO.bbs_idx}">${file.original_name}</a>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <c:if test="${fileList eq null}">
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="text" class="form-control" value="등록된 파일이 없습니다." disabled>
-                                        </div>
-                                    </c:if>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
+                                            <c:forEach items="${fileList}" var="file">
+                                                <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span><a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" >${file.original_name}</a></span></li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="row mb-3">

@@ -57,7 +57,7 @@
     </select>
 
     <select id="qnaListByPage" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, fileYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
         FROM tbl_qna as tq inner join tbl_member as tm
             ON tq.member_id = tm.member_id
         <include refid="whereCondition"></include>
