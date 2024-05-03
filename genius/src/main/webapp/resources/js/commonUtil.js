@@ -1,14 +1,14 @@
 // --------------------------------------------------- 체크용 함수 (boolean 값 리턴)
 // 공란 or 띄어쓰기만 들어간 값 체크 (null 체크용)
 function nullCheck(str) {
-    if (!str) {
-        if(!str.trim()) {
+    if ($(str).val()) {
+        if($(str).val().indexOf(" ") < 0) {
             return true;
         } else {
             return false;
         }
     } else {
-        return true;
+        return false;
     }
 }
 
@@ -37,6 +37,26 @@ function passwordRegCheck(element) {
     }
 }
 
+// 아이디 체크
+function idRegCheck(element) {
+    let reg = /^[a-z0-9]{8,20}$/;
+    if (!reg.test($(element).val())){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// 아이디 체크
+function nameRegCheck(element) {
+    let reg = /^[ㄱ-ㅎ|가-힣]+$/;
+    if (!reg.test($(element).val())){
+        return false;
+    } else {
+        return true;
+    }
+}
+
 // 비밀번호 일치 여부 체크
 function passwordMatch(element, target) {
     if($(element).val() != $(target).val()) {
@@ -48,7 +68,7 @@ function passwordMatch(element, target) {
 
 // 핸드폰 번호 체크
 function phoneRegCheck(element) {
-    let reg = /^01([0|1])-?([0-9]{3,4})-?([0-9]{4})$/;
+    let reg = /^[0-9]{10,11}$/;
     if (!reg.test($(element).val())){
         return false;
     } else {

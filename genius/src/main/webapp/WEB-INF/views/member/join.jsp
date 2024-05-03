@@ -47,84 +47,84 @@
                             <form action="/member/join" method="post" id="frm">
                                 <div class="mb-5">
                                     <h3 class="p-0 mb-4">
-                                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
+                                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"  fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
                                         회원정보 입력
                                     </h3>
                                     <div class="col-md-12 form-group">
                                         <label for="member_id">아이디</label>
                                         <div class="input-group mb-3">
-                                            <input type="text" name="member_id" class="form-control" placeholder="아이디" id="member_id" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#idAuthYN'), document.querySelector('#err_member_id'))">
+                                            <input type="text" name="member_id" class="form-control" data-name="아이디" placeholder="아이디" value="${memberDTO['member_id']}" id="member_id" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#idAuthYN'), document.querySelector('#err_member_id'))">
                                             <input type="hidden" name="idAuthYN" value="false" id="idAuthYN">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-success" type="button" id="button-addon1" onclick="idDupCheck(document.getElementById('member_id'))">중복확인</button>
                                             </div>
                                         </div>
-                                        <small id="err_member_id"></small>
+                                        <small id="err_member_id" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="member_name">이름</label>
-                                        <input type="text" class="form-control" id="member_name" name="member_name" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
-                                        <small id="err_member_name"></small>
+                                        <input type="text" class="form-control" id="member_name" name="member_name" data-name="이름" placeholder="이름" value="${memberDTO['member_name']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                                        <small id="err_member_name" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwd">비밀번호</label>
-                                        <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
-                                        <small id="err_pwd"></small>
+                                        <input type="password" class="form-control" id="pwd" name="pwd"data-name="비밀번호" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                        <small id="err_pwd" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwdCheck">비밀번호 확인</label>
-                                        <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
-                                        <small id="err_pwdCheck"></small>
+                                        <input type="password" data-name="비밀번호 확인" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                        <small id="err_pwdCheck" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
-                                        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
-                                        <small id="err_birthday"></small>
+                                        <input type="date" class="form-control" id="birthday"data-name="생년월일" name="birthday" placeholder="생년월일" value="${memberDTO['birthday']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
+                                        <small id="err_birthday" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>성별</label>
                                         <div class="d-flex" style="gap: 20px">
-                                            <label for="female"><input type="radio" class="pixel-radio" id="female" name="gender" value="여">여</label>
-                                            <label for="male"><input type="radio" class="pixel-radio" id="male" name="gender" value="남">남</label>
+                                            <label for="female"><input type="radio" class="pixel-radio" id="female" data-name="성별" name="gender" value="여" <c:if test="${memberDTO['gender'] eq '여'}">checked</c:if> >여</label>
+                                            <label for="male"><input type="radio" class="pixel-radio" id="male" data-name="성별" name="gender" value="남" <c:if test="${memberDTO['gender'] eq '남'}">checked</c:if> >남</label>
                                         </div>
-                                        <small id="err_gender"></small>
+                                        <small id="err_gender" class="text-danger"></small>
                                     </div>
 
                                     <div class="col-md-12 form-group">
                                         <label for="email">이메일</label>
                                         <div class="input-group mb-3">
-                                            <input type="email" name="email" class="form-control" placeholder="이메일" id="email" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#emailAuthYN'), document.querySelector('#err_email'))">
+                                            <input type="email" name="email" class="form-control" data-name="이메일" placeholder="이메일" value="${memberDTO['email']}" id="email" aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="resetAuthYN(document.querySelector('#emailAuthYN'), document.querySelector('#err_email'))">
                                             <input type="hidden" name="emailAuthYN" value="false" id="emailAuthYN">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-success" type="button" id="button-addon3" onclick="emailDupCheck(document.getElementById('email'))">중복확인</button>
                                             </div>
                                         </div>
-                                        <small id="err_email"></small>
+                                        <small id="err_email" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
-                                        <small id="err_phone"></small>
+                                        <input type="tel" class="form-control" id="phone" data-name="연락처" name="phone" value="${memberDTO['phone']}"  placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
+                                        <small id="err_phone" class="text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>주소</label>
                                         <div>
                                             <div class="mb-3">
                                                 <div class="input-group">
-                                                    <input type="text" name="zip_code" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                    <input type="text" name="zip_code" data-name="우편번호" class="form-control" placeholder="우편번호" value="${memberDTO['zip_code']}" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
+                                                        <button class="btn btn-outline-success"  type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                     </div>
                                                 </div>
-                                                <small id="err_zip_code"></small>
+                                                <small id="err_zip_code" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
-                                                <small id="err_addr1"></small>
+                                                <input type="text" name="addr1" class="form-control" data-name="주소" value="${memberDTO['addr1']}" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <small id="err_addr1" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" name="addr2" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
-                                                <small id="err_addr2"></small>
+                                                <small id="err_addr2" class="text-danger"></small>
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
@@ -132,12 +132,12 @@
                                 </div>
                                 <div>
                                     <h3 class="p-0 mb-4">
-                                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
+                                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path serif:id="shape 17" d="M24 24.001c-.045 0-7.457.003-12 0h12zm-12 0c-4.551.003-11.979 0-12 0h12zm-12-12c-.032-8.648 3.365-11.993 12-12 8.635.007 12.032 3.352 12 12 .032 8.648-3.365 11.994-12 12-8.635-.006-12.032-3.352-12-12zm24-12h-12c4.543-.003 11.955 0 12 0zm-12 0c-4.551-.003-11.979 0-12 0h12z"/></svg>
                                         이용약관 동의
                                     </h3>
-                                    <small id="err_terms"></small>
+                                    <small id="err_terms" class="text-danger"></small>
                                     <div class="form-group m-0 p-2">
-                                        <input type="checkbox" id="agreeAll" name="agreeAll" onchange="">
+                                        <input type="checkbox" id="agreeAll" name="agreeAll" onchange="" <c:if test="${memberDTO['terms1'] eq 'Y' && memberDTO['terms2'] eq 'Y' && memberDTO['terms3'] eq 'Y' && memberDTO['terms4'] eq 'Y'}">checked</c:if> >
                                         <label class="m-0 text-dark" for="agreeAll">아래 모든 내용에 모두 동의합니다.</label>
                                     </div>
                                     <div class="accordion" id="accordionExample">
@@ -147,8 +147,8 @@
                                                     [필수] 이용약관
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms1" name="terms1" value="Y" onclick="event.stopPropagation();">
-                                                    <label class="m-0" for="terms1" onclick="event.stopPropagation();">동의함</label>
+                                                    <input class="terms" type="checkbox" id="terms1" name="terms1" value="Y" onclick="event.stopPropagation();" <c:if test="${memberDTO['terms1'] eq 'Y'}">checked</c:if> >
+                                                    <label class="m-0" for="terms1" onclick="event.stopPropagation();" >동의함</label>
                                                 </div>
                                             </div>
                                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -350,7 +350,7 @@
                                                     [필수] 개인정보 수집 및 이용 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms2" name="terms2" value="Y" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms2" name="terms2" value="Y" onclick="event.stopPropagation();" <c:if test="${memberDTO['terms2'] eq 'Y'}">checked</c:if> >
                                                     <label class="m-0" for="terms2" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>
@@ -471,7 +471,7 @@
                                                     [선택] 쇼핑정보 수신 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms3" name="terms3" value="Y" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms3" name="terms3" value="Y" onclick="event.stopPropagation();" <c:if test="${memberDTO['terms3'] eq 'Y'}">checked</c:if> >
                                                     <label class="m-0" for="terms3" onclick="event.stopPropagation();">동의함</label>
                                                 </div>
                                             </div>
@@ -479,7 +479,6 @@
                                                 <div class="card-body pre-scrollable">
                                                     <p>할인쿠폰 및 혜택, 이벤트, 신상품 소식 등 쇼핑몰에서 제공하는 유익한 쇼핑정보를 SMS나 이메일로 받아보실 수 있습니다.</p>
                                                     <p>단, 주문/거래 정보 및 주요 정책과 관련된 내용은 수신동의 여부와 관계없이 발송됩니다.</p>
-                                                    <p>선택 약관에 동의하지 않으셔도 회원가입은 가능하며, 회원가입 후 회원정보수정 페이지에서 언제든지 수신여부를 변경하실 수 있습니다.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -489,8 +488,13 @@
                                                     [선택] SMS 및 이메일 수신 동의
                                                 </p>
                                                 <div class="form-group m-0">
-                                                    <input class="terms" type="checkbox" id="terms4" name="terms4" value="Y" onclick="event.stopPropagation();">
+                                                    <input class="terms" type="checkbox" id="terms4" name="terms4" value="Y" onclick="event.stopPropagation();" <c:if test="${memberDTO['terms4'] eq 'Y'}">checked</c:if> >
                                                     <label class="m-0" for="terms4" onclick="event.stopPropagation();">동의함</label>
+                                                </div>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body pre-scrollable">
+                                                    <p>Genius에서 전하는 모든 소식을 SMS 및 이메일로 수신해보세요!.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -519,6 +523,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     // 이용약관 전체동의
     const agreeAll = document.getElementById('agreeAll');
@@ -628,6 +633,62 @@
                 console.log("error! : " + error);
             }
         });
+    }
+
+    // Front 유효성 검사
+    let checkTarget = ['member_id', 'member_name', 'pwd', 'pwdCheck', 'birthday', 'gender', 'email', 'phone', 'zip_code', 'addr1', 'terms1', 'terms2'];
+    document.querySelector('#frm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if (element == 'gender') {
+                if(!$(target).checked) {
+                    $('#err_'+element).text($(target).data('name') + "을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else if(element == 'terms1' ||element == 'terms2' ) {
+                if(!$(target).checked) {
+                    $('#err_terms').text("필수 이용약관을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else {
+                if (!nullCheck($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Back단 유효성 검사
+    if(${!empty err}) {
+        let errArr = [];
+        <c:forEach var="item" items="${err}">
+            if(${item.getField() != null}) {
+                errArr.push('${item.getField()}');
+            }
+        </c:forEach>
+        alert(errArr);
+        if (errArr.length > 0) {
+            for (let err of errArr) {
+                if (err == 'terms1' || err == 'terms2' ) {
+                    $('#err_terms').text("필수 이용약관을 확인해주세요");
+                } else if(err == 'idAuthYN') {
+                    $('#err_member_id').text("아이디 중복을 확인해주세요");
+                } else if(err == 'emailAuthYN') {
+                    $('#err_email').text("이메일 중복을 확인해주세요");
+                } else {
+                    $('#err_'+err).text("입력 내용을 확인해주세요");
+                }
+            }
+            alert("모든 항목을 입력해주세요!");
+        }
     }
 
 </script>
