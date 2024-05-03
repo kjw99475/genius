@@ -26,7 +26,7 @@
 ### 🟢 담당
 |팀원|담당|
 |:----:|----|
-|조윤|- 팀장 <br>- DB 설계<br>- 도서 상품관리/재고관리 관리자 기능 로직 구현<br>- 사용자 도서 판매 리스트 및 상세 조회 로직 구현<br>- QnA 게시판 관리자 및 사용자 등록/수정/삭제 로직 구현<br>- 멀티 파일 업로드 및 다운로드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+|조윤|- 팀장 <br>- DB 설계<br>- 도서 상품관리/재고관리 관리자 기능 로직 구현<br>- 사용자 도서 판매 리스트 및 상세 조회 로직 구현<br>- QnA 게시판 관리자 및 사용자 등록/수정/삭제 로직 구현<br>- 멀티 파일 업로드 및 다운로드|
 |이현빈|- DB 설계<br>- 초기 프로젝트 세팅<br>- 도서 재고관리/주문관리 관리자 기능 로직 구현<br>- 사용자 장바구니 / 결제 화면 로직 구현 / 결제 모듈 연동 <br>- 사용자 게시판 UI 작업|
 |장지현|- 사용자 UI 작업(사용자 전반)<br>- 네이버 로그인 API 연동<br>- 회원관련 전체 로직 구현<br>- 사용자/관리자 메인 화면 조회 로직 및 통계 로직 구현<br>- 배너 관리 로직 구현|
 |김지원|- 관리자 UI 작업(관리자 전반)<br>- (관리자)공지사항/자료실/FAQ 관리 로직 구현<br>- (사용자)공지사항/자료실/FAQ 등록/수정/삭제 로직 구현<br>- UI 고도화 작업 수행|
