@@ -125,8 +125,8 @@
                                 <tr>
                                     <td><small>${bookdto.book_name}</small></td>
                                     <td><small>${bookdto.quantity}</small></td>
-                                    <td><small>${CommonUtil.comma(bookdto.price)}</small></td>
-                                    <td><small>${CommonUtil.comma(bookdto.price * bookdto.quantity)}</small></td>
+                                    <td><small>${CommonUtil.comma(bookdto.discount_price)}</small></td>
+                                    <td><small>${CommonUtil.comma(bookdto.discount_price * bookdto.quantity)}</small></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -211,7 +211,7 @@
         let frmData = $("form[name=userfrm]").serialize();
         frmData = decodeURIComponent(frmData);
         $.ajax({
-            url:"/order/userpayment.dox?"+frmData,
+            url:"/order/testuserpayment.dox?"+frmData,
             dataType:"json",
             type : "POST",
             data : {
@@ -222,15 +222,22 @@
 
             },
             success : function(data) {
+                console.log(data.result);
+                console.log(data.msg);
                 if(data.result == "success"){
-                    alert("성공");
+                    alert(data.msg);
                     location.href="/mypage/payhistory";
-                }else{
-                    alert("포인트가 모자랍니다");
+                }else if(data.result == "error"){
+                    alert(data.msg);
+                }
+                else if(data.result=="fail"){
+                    alert(data.msg);
                 }
             },
-            fail : function (data){
-
+            fail : function (data) {
+                alert("결제에 실패했습니다.");
+            }, error: function(xhr, status, error) {
+                alert("에러가 발생했습니다. 오류: " + xhr.responseText);
             }
 
         });

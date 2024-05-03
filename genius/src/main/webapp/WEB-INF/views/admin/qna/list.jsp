@@ -35,6 +35,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -85,10 +87,10 @@
                                                     <label class="fw-bold p-3 ">키워드 검색</label>
                                                 </div>
                                                 <div class="d-flex align-items-center" style="gap: 10px">
-                                                    <select name="answerYN" id="answerYN" class="form-select w-200px">
-                                                        <option value="" selected>답변상태</option>
-                                                        <option value="N">대기중</option>
-                                                        <option value="Y">답변완료</option>
+                                                    <select name="status" id="answerStatus" class="form-select w-200px">
+                                                        <option value="" <c:if test="${responseDTO.status eq ''}">selected</c:if>>전체</option>
+                                                        <option value="0" <c:if test="${responseDTO.status eq '0'}">selected</c:if>>대기중</option>
+                                                        <option value="1" <c:if test="${responseDTO.status eq '1'}">selected</c:if>>답변완료</option>
                                                     </select>
 
                                                     <select name="type" id="search_category" class="form-select w-200px">
@@ -132,20 +134,13 @@
                                     <col class="w-10">
                                     <col class="w-5">
                                     <col class="w-10">
-<%--                                    <col width="8%">--%>
-<%--                                    <col width="7%">--%>
-<%--                                    <col width="40%">--%>
-<%--                                    <col width="10%">--%>
-<%--                                    <col width="12%">--%>
-<%--                                    <col width="8%">--%>
-<%--                                    <col width="15%">--%>
                                 </colgroup>
                                 <thead>
 
                                 <tr>
                                     <th scope="col" class="bg-geni-dark text-white">
                                         <div>
-                                            <input id="chk_all" type="checkbox" class="me-2">
+                                            <input id="chk_all" type="checkbox" class="form-check-input">
                                         </div>
                                     </th>
                                     <th scope="col" class="bg-geni-dark text-white">No</th>
@@ -161,10 +156,10 @@
                                 <c:set value="${responseDTO.total_count}" var="total_count"/>
 
                                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
-                                    <tr onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}'">
-                                        <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
+                                    <tr>
+                                        <td><input class="chk_del form-check-input" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
                                         <td>${total_count - i.index - responseDTO.page_skip_count}</td>
-                                        <td>${qnaDTO.title}</td>
+                                        <td><a href="/admin/qna/view?qna_idx=${qnaDTO.qna_idx}">${qnaDTO.title}</a><c:if test="${qnaDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                         <td>${qnaDTO.member_name}</td>
                                         <td>${qnaDTO.reg_date}</td>
                                         <td>${qnaDTO.read_cnt}</td>
@@ -176,7 +171,16 @@
                                                 답변글
                                             </c:if>
                                         </td>
-                                        <td>${qnaDTO.answerYN}</td>
+                                        <td>
+                                            <c:if test="${qnaDTO.answerStatus == '0'}">
+                                                답변 대기</c:if>
+                                            <c:if test="${qnaDTO.answerStatus == '1'}">
+                                                답변 완료
+                                            </c:if>
+                                            <c:if test="${qnaDTO.answerStatus == '2'}">
+                                                답변
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -187,7 +191,7 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-success me-2"
                                     onclick="location.href='/admin/qna/contentregist'">등록</button>
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-outline-success"
                                     onclick="qna_delete()">삭제</button>
                         </div>
 
@@ -233,7 +237,9 @@
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_qna"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->

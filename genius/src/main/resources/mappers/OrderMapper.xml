@@ -74,8 +74,8 @@
     </select>
 
     <update id="cancelOrder">
-        UPDATE tbl_order SET cancel_YN = "Y" , cancel_date = NOW()
-        where order_idx =#{param1}
+        UPDATE tbl_order SET cancel_YN = #{cancel_YN} , cancel_date = NOW(), order_state=#{order_state}
+        where order_num =#{order_num}
     </update>
 
     <insert id="regist">
@@ -162,7 +162,7 @@
 
     <update id="requestRefund">
         UPDATE tbl_order
-        SET order_refund_request = #{order_refund_request}
+        SET order_refund_request = #{order_refund_request},order_state=#{order_state}
         WHERE order_num = #{order_num}
 
     </update>

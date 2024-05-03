@@ -36,11 +36,7 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <!-- include summernote css/js -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 <body>
@@ -164,7 +160,7 @@
 
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
                                     </div>
                                 </div>
@@ -194,6 +190,9 @@
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 
+<!-- include summernote css/js -->
+<link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
+<script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
     //서머노트
     $('#summernote').summernote({
@@ -207,7 +206,7 @@
             ['para', ['ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['codeview', 'help']]
         ]
     });
 

@@ -34,6 +34,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -140,23 +142,23 @@
                 </div>
 
                 <!-- Table with stripped rows -->
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">상품번호</th>
-                        <th scope="col">책이름</th>
-                        <th scope="col">정가</th>
-                        <th scope="col">할인율</th>
-                        <th scope="col">할인가</th>
-                        <th scope="col">저자</th>
-                        <th scope="col">출판사</th>
-                        <th scope="col">학년</th>
-                        <th scope="col">과목</th>
-                        <th scope="col">판매상태</th>
-                        <th scope="col">판매시작일</th>
-                        <th scope="col">판매종료일</th>
-                        <th scope="col">재고수량</th>
+                        <th scope="col" class="bg-geni-dark text-white">#</th>
+                        <th scope="col" class="bg-geni-dark text-white">상품번호</th>
+                        <th scope="col" class="bg-geni-dark text-white">책이름</th>
+                        <th scope="col" class="bg-geni-dark text-white">정가</th>
+                        <th scope="col" class="bg-geni-dark text-white">할인율</th>
+                        <th scope="col" class="bg-geni-dark text-white">할인가</th>
+                        <th scope="col" class="bg-geni-dark text-white">저자</th>
+                        <th scope="col" class="bg-geni-dark text-white">출판사</th>
+                        <th scope="col" class="bg-geni-dark text-white">학년</th>
+                        <th scope="col" class="bg-geni-dark text-white">과목</th>
+                        <th scope="col" class="bg-geni-dark text-white">판매상태</th>
+                        <th scope="col" class="bg-geni-dark text-white">판매시작일</th>
+                        <th scope="col" class="bg-geni-dark text-white">판매종료일</th>
+                        <th scope="col" class="bg-geni-dark text-white">재고수량</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -231,7 +233,9 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="inventory"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
@@ -317,7 +321,7 @@
                     "SalesQuantityList":JSON.stringify(sales_quantity_list),
                 },
                 success : function(data) {
-                    alert("수정 성공");
+                    alert("수정에 성공하였습니다.");
                     console.log("성공");
                     location.href="/admin/inventory/list${responseDTO.linked_params}&page=${responseDTO.page}"
                 },

@@ -43,13 +43,16 @@
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <div class="login_form_inner rounded">
                         <h3 class="d-flex justify-content-center align-items-center flex-wrap"><img src="/resources/img/login.png" width="400px"></h3>
-                        <form class="row login_form mb-5" method="post" action="/login/login" id="frm" >
+                        <form class="row login_form mb-5" method="post" action="/login/login" id="frmLogin" >
                             <input type="hidden" name="acc_url" value="/">
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+                                <input type="text" class="form-control" id="member_id" name="member_id" data-name="아이디" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                <input type="password" class="form-control" id="pwd" data-name="비밀번호" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                            </div>
+                            <div id="err_login" class="text-danger text-center col-md-12">
+
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">
@@ -62,12 +65,12 @@
                                 <c:set var="client_id">9GW7lkN31ckPUUZa1KsK</c:set>
                                 <c:set var="redirect_uri">http://localhost:8080/login/naver</c:set>
                                 <c:set var="state">genius</c:set>
-                                <button type="button" class="btn btn-success w-100"
-                                        onclick="location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&state=${state}&redirect_uri=${redirect_uri}'">네이버 로그인</button>
                                 <button type="button" class="btn btn-outline-success w-100" onclick="location.href = '/member/join'">회원가입</button>
                                 <div class="d-flex justify-content-center" style="gap:10px">
                                     <a href="/login/findId">아이디 찾기</a><a href="/login/findPwd">비밀번호 찾기</a>
                                 </div>
+                                <button type="button" class="border-0 flow-hidden w-100 bg-transparent p-0 m-0"
+                                        onclick="location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${client_id}&state=${state}&redirect_uri=${redirect_uri}'"><img class="w-200px" src="/resources/img/btnG_완성형.png" ></button>
                             </div>
                         </form>
                     </div>
@@ -86,10 +89,27 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     if(${!empty loginErr}) {
-        alert("${loginErr}");
+        $('#err_login').text('${loginErr}');
     }
+    $('#frmLogin').submit(
+        ()=>{
+            event.preventDefault();
+            $('#err_login').text("");
+            let arr = ['member_id', 'pwd'];
+            for(let el of arr) {
+                let target = $('#' + el);
+                if(!nullCheck($(target))) {
+                    $('#err_login').text($(target).data('name') + '는 공백일 수 없습니다.');
+                    $(target).focus();
+                    return;
+                }
+            }
+            $('#frmLogin').submit();
+        }
+    );
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

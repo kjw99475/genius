@@ -36,11 +36,7 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <!-- include summernote css/js -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 <body>
@@ -73,9 +69,6 @@
 
                             <!--Form -->
                             <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
-                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
-
-
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -111,9 +104,15 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="file" name="files" multiple>
+                                        <input class="p-1" type="file" name="files" id="file" multiple onchange="fileList(this)">
                                     </div>
-
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="file-list" class="form-group d-flex flex-column m-0 p-0">
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -125,7 +124,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-light" onclick="location.href='/admin/qna/list'">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->
@@ -141,13 +140,18 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_qna"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 
+<!-- include summernote css/js -->
+<link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
+<script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
     //서머노트
     $('#summernote').summernote({
@@ -161,7 +165,7 @@
             ['para', ['ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['codeview', 'help']]
         ]
     });
 
@@ -186,6 +190,30 @@
         });
     }
 
+    // 파일 리스트 조작용(파일 추가)
+    function fileList(element) {
+        document.querySelector('#file-list').innerHTML = "";
+        let fileList = document.querySelector('#file-list');
+        for (let i=0; i < element.files.length; i++) {
+            let list = document.createElement('li');
+            list.classList.add('card', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.dataset.idx = i;
+            list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
+            fileList.append(list);
+        }
+    }
+    // 파일 리스트 개별 삭제용
+    function deleteThisFile(element) {
+        event.preventDefault();
+        element.parentElement.parentElement.remove();
+        const dataTransfer = new DataTransfer();
+        let target = element.dataset.idx;
+        let files = document.querySelector('#file').files;
+        let fileArray = Array.from(files);
+        fileArray.splice(target, 1);
+        fileArray.forEach(file => {dataTransfer.items.add(file);});
+        document.querySelector('#file').files = dataTransfer.files;
+    }
 </script>
 
 <!-- Vendor JS Files -->

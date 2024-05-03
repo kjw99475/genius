@@ -37,7 +37,9 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+    <jsp:param name="menuGubun" value="bbs"/>
+</jsp:include>
 <!--================ 헤더 End =================-->
 
 <main class="site-main">
@@ -108,7 +110,6 @@
 <script>
     document.getElementById("registBtn").addEventListener("click", function(e){
         e.preventDefault();
-        console.log(document.getElementById("inputCity").value)
         document.getElementById("registFrm").submit();
     });
 

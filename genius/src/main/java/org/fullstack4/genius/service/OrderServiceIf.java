@@ -16,7 +16,7 @@ public interface OrderServiceIf {
     List<OrderDTO> listAll(String user_id);
     List<OrderDTO> orderDetail(String order_num);
     OrderDTO view(String user_id);
-    int cancelOrder(int order_idx);
+    int cancelOrder(OrderDTO orderDTO);
     int delete(OrderDTO orderDTO);
     List<OrderDTO> AdminOrderdetail(String order_num);
     int updateOrderState(OrderDTO orderDTO);

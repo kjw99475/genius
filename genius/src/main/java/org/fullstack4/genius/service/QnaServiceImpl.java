@@ -102,6 +102,12 @@ public class QnaServiceImpl implements QnaServiceIf {
     }
 
     @Override
+    public int answerStatus(int idx) {
+        int result = qnaMapper.answerStatus(idx);
+        return result;
+    }
+
+    @Override
     public int answerDelete(int idx) {
         int result = qnaMapper.answerDelete(idx);
         return result;

@@ -2,6 +2,7 @@ package org.fullstack4.genius.mapper;
 
 import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.domain.OrderVO;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface OrderMapper {
     List<OrderVO> listAll(String user_id);
     List<OrderVO> orderDetail(String order_num);
     OrderVO view(String user_id);
-    int cancelOrder(int order_idx);
+    int cancelOrder(OrderDTO orderDTO);
     int delete(int order_idx);
     int total_count();
     List<OrderVO> AdminOrderdetail(String order_num);

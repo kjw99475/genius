@@ -32,6 +32,14 @@
                     </when>
                 </choose>
             </if>
+            <if test='status != null and status !=""'>
+                <if test="status == 0">
+                    AND answerStatus = '0'
+                </if>
+                <if test="status == 1">
+                    AND answerStatus = '1'
+                </if>
+            </if>
             <if test="search_date1 != null or search_date2 != null">
                 <if test="search_date1 != null">
                     AND tq.reg_date <![CDATA[>=]]> #{search_date1}
@@ -57,7 +65,7 @@
     </select>
 
     <select id="qnaListByPage" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date
+        SELECT qna_idx, title, contents, tq.member_id, tm.member_name, answerYN, fileYN, answerStatus, category_code, read_cnt, ref_idx, tq.reg_date, tq.modify_date, answerStatus
         FROM tbl_qna as tq inner join tbl_member as tm
             ON tq.member_id = tm.member_id
         <include refid="whereCondition"></include>
@@ -76,7 +84,7 @@
         WHERE qna_idx = #{idx}
     </update>
     <select id="listAll" resultType="org.fullstack4.genius.domain.QnaVO">
-        SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date, fileYN
+        SELECT qna_idx, title, contents, member_id, answerYN, category_code, read_cnt, ref_idx, reg_date, modify_date, fileYN, answerStatus
         FROM tbl_qna
 <!--        WHERE category_code = #{category_code}-->
         ORDER BY ref_idx DESC, qna_idx
@@ -87,8 +95,8 @@
         VALUES('N', #{title}, #{contents}, NOW(), 0, #{member_id}, #{fileYN})
     </insert>
     <insert id="answerRegist" parameterType="org.fullstack4.genius.domain.QnaVO" useGeneratedKeys="true" keyProperty="qna_idx" keyColumn="qna_idx">
-        INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id, fileYN, ref_idx)
-        VALUES('Y', #{title}, #{contents}, NOW(), 0, #{member_id}, #{fileYN}, #{ref_idx})
+        INSERT INTO tbl_qna (answerYN, title, contents, reg_date, read_cnt, member_id, fileYN, ref_idx, answerStatus)
+        VALUES('Y', #{title}, #{contents}, NOW(), 0, #{member_id}, #{fileYN}, #{ref_idx}, '2')
     </insert>
     <update id="refModify">
         UPDATE tbl_qna SET
@@ -104,12 +112,16 @@
         FROM tbl_qna
         WHERE ref_idx = #{idx}
     </delete>
-
+    <update id="answerStatus">
+        UPDATE tbl_qna SET
+            answerStatus = '1'
+        WHERE qna_idx = #{qna_idx}
+    </update>
     <update id="modify">
         UPDATE tbl_qna SET
             title = #{title}
             , modify_date = NOW()
-<!--            , fileYN = #{fileYN}-->
+            , fileYN = #{fileYN}
             , contents = #{contents}
         WHERE qna_idx = #{qna_idx}
     </update>

@@ -126,8 +126,8 @@
                                     <tr>
                                         <td><small>${list.book_name}</small></td>
                                         <td><small>${list.quantity}</small></td>
-                                        <td><small>${CommonUtil.comma(list.price)}</small></td>
-                                        <td><small>${CommonUtil.comma(list.price * list.quantity)}</small></td>
+                                        <td><small>${CommonUtil.comma(list.discount_price)}</small></td>
+                                        <td><small>${CommonUtil.comma(list.discount_price * list.quantity)}</small></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -216,7 +216,8 @@
         let frmData = $("form[name=userfrm]").serialize();
         frmData = decodeURIComponent(frmData);
         $.ajax({
-            url:"/order/cartpayment.dox?"+frmData,
+            // url:"/order/cartpayment.dox?"+frmData,
+            url:"/order/testpayment.dox?"+frmData,
             dataType:"json",
             type : "POST",
             data : {
@@ -229,11 +230,13 @@
                     alert("결제에 성공하였습니다.");
                     location.href="/mypage/payhistory";
                 }else{
-                    alert("포인트가 모자랍니다");
+                    alert(data.msg);
                 }
             },
             fail : function (data){
-
+                alert("결제에 실패했습니다.");
+            }, error: function(xhr, status, error) {
+                alert("에러가 발생했습니다. 오류: " + error);
             }
 
         });

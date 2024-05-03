@@ -34,6 +34,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -207,7 +209,9 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp"/>
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_banner"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->

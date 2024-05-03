@@ -48,4 +48,9 @@ public class QnaFileServiceImpl implements QnaFileServiceIf {
 
         return qnaFileDTO;
     }
+
+    @Override
+    public int deleteFile(String file_idx) {
+        return qnaFileMapper.deleteFile(file_idx);
+    }
 }

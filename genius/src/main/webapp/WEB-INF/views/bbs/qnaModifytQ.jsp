@@ -37,7 +37,9 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+    <jsp:param name="menuGubun" value="bbs"/>
+</jsp:include>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -57,7 +59,7 @@
     <!-- ================ 내용 Start ================= -->
     <section class="section-margin--small mb-5">
         <div class="container ">
-            <form method="post" action="/bbs/qnaModifytQ" id="modifyFrm" name="modifyFrm">
+            <form enctype="multipart/form-data" method="post" action="/bbs/qnaModifytQ" id="modifyFrm" name="modifyFrm">
                 <input type="hidden" name="qna_idx" id="qna_idx", value="${qnaDTO.qna_idx}">
                 <div class="border-gray mb-5 rounded bg-light pt-3 pb-3">
                     <div class="form-row ml-5 mt-3">
@@ -85,6 +87,15 @@
                         <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
                         </ul>
                     </div>
+                    <div class="ml-5">
+                        <label>기존 파일 리스트</label>
+                        <ul id="org-file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                            <c:forEach items="${fileList}" var="file">
+                                <li class="card d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="${file.file_idx}" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                <input id="file-${file.file_idx}" type="hidden" name="orgFiles" value="${file.file_idx}">
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
                 <textarea id="summernote" name="contents">${qnaDTO.contents}</textarea>
                 <div>
@@ -96,6 +107,7 @@
             </form>
         </div>
     </section>
+    ${fileList}
 </main>
 
 <!--================ 본문 END =================-->
@@ -154,6 +166,7 @@
     function fileList(element) {
         document.querySelector('#file-list').innerHTML = "";
         let fileList = document.querySelector('#file-list');
+        console.log(element.files);
         for (let i=0; i < element.files.length; i++) {
             let list = document.createElement('li');
             list.classList.add('card', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
@@ -166,6 +179,8 @@
     function deleteThisFile(element) {
         event.preventDefault();
         element.parentElement.parentElement.remove();
+        let input = document.getElementById("file-"+element.dataset.fileidx);
+        $(input).remove();
         const dataTransfer = new DataTransfer();
         let target = element.dataset.idx;
         let files = document.querySelector('#file').files;
