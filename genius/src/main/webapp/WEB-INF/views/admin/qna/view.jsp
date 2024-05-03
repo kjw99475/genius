@@ -105,14 +105,25 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
                                     <c:if test="${fileList ne null}">
+                                        <div class="col-lg-9"></div>
                                         <c:forEach items="${fileList}" var="file">
-                                            <div class="col-md-8 col-lg-9">
-                                                <i class="bi-file-earmark-arrow-down label"></i><a href="/admin/qna/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}">${file.original_name}</a>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-2"></div>
+                                                <div class="col-md-8 col-lg-9 border border-gray rounded p-2" style="margin-left:13px">
+                                                     <a href="/admin/qna/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}">${file.original_name}</a>
+                                                </div>
                                             </div>
                                         </c:forEach>
                                     </c:if>
-                                </div>
+                                    <c:if test="${fileList eq null}">
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="text" class="form-control" value="등록된 파일이 없습니다." disabled>
+                                        </div>
+                                    </c:if>
+<%--                                    <div class="col-md-8 col-lg-9">--%>
 
+<%--                                    </div>--%>
+                                </div>
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
                                     <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
