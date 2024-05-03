@@ -167,20 +167,79 @@ public class AdminAnnounceController {
     public void GETContentModify(int bbs_idx
             , Model model){
         BbsDTO bbsDTO = bbsServiceIf.view(bbs_idx);
+        if(bbsDTO.getFileYN().equals("Y")){
+            List<BbsFileDTO> fileDTOList = bbsFileServiceIf.getFileList(bbsDTO.getBbs_idx(), bbsDTO.getCategory_code());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("bbsDTO", bbsDTO);
     }
 
     @PostMapping("/contentmodify")
-    public String POSTContentModify(BbsDTO bbsDTO
-            , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes){
-        int result = bbsServiceIf.modify(bbsDTO);
+    public String POSTContentModify(@Valid BbsDTO newBbsDTO,
+                                    MultipartHttpServletRequest files,
+                                    @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes,
+                                    HttpServletRequest request,
+                                    Model model){
+        if(bindingResult.hasErrors()){
+            log.info("BookController >> list Error");
+            redirectAttributes.addFlashAttribute("bbsDTO",newBbsDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        newBbsDTO.setFileYN("N");
+        // (지현 추가) 수정 시 파일 업로드 로직
+        // 1. 기존 파일 삭제된 건 체크 후 삭제로직 진행
+        BbsDTO orgBbsDTO = bbsServiceIf.view(newBbsDTO.getBbs_idx());
+        if(orgBbsDTO.getFileYN().equals("Y")){
+            List<BbsFileDTO> OrgfileDTOList = bbsFileServiceIf.getFileList(orgBbsDTO.getBbs_idx(), "bc02");
+            if (!orgFiles.isEmpty()) {
+                // 기존 파일을 유지하거나 일부만 지웠을 겨우
+                newBbsDTO.setFileYN("Y");
+                for(BbsFileDTO fileDTO : OrgfileDTOList) {
+                    if(!orgFiles.contains( String.valueOf(fileDTO.getFile_idx()))) {
+
+                        bbsFileServiceIf.deleteFile(String.valueOf(fileDTO.getFile_idx()));
+                    }
+                }
+            } else {
+                // 기존 파일 다 지웠을 경우
+                for(BbsFileDTO fileDTO : OrgfileDTOList) {
+                    bbsFileServiceIf.deleteFile(String.valueOf(fileDTO.getFile_idx()));
+                }
+            }
+        }
+
+        List<MultipartFile> newFileList = files.getFiles("files");
+        String uploadFolder = CommonUtil.getUploadFolder(request,"bbs");
+        for(MultipartFile file : newFileList) {
+            if(file.getSize() == 0) {
+                break;
+            }
+            newBbsDTO.setFileYN("Y");
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            if(map.get("result").equals("success")) {
+                BbsFileDTO bbsFileDTO = BbsFileDTO.builder()
+                        .path("/resources/upload/bbs/")
+                        .bbs_idx(orgBbsDTO.getBbs_idx())
+                        .category_code("bc02")
+                        .original_name(map.get("orgName"))
+                        .save_name(map.get("newName")).build();
+                bbsFileServiceIf.regist(bbsFileDTO);
+            }
+        }
+        int result = bbsServiceIf.modify(newBbsDTO);
         if(result > 0) {
             log.info("수정 성공==============");
-            return "redirect:/admin/announce/view?bbs_idx=" +bbsDTO.getBbs_idx();
+            return "redirect:/admin/announce/view?bbs_idx=" +newBbsDTO.getBbs_idx();
         } else {
             log.info("수정 실패==============");
-            return "redirect:/admin/announce/contentmodify?bbs_idx=" + bbsDTO.getBbs_idx();
+            return "redirect:/admin/announce/contentmodify?bbs_idx=" + newBbsDTO.getBbs_idx();
         }
     }
 

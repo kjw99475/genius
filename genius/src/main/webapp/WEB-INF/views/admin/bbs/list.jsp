@@ -161,7 +161,7 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-success me-2"
                                     onclick="location.href='/admin/bbs/contentregist'">등록</button>
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-outline-success"
                                     onclick="bbs_delete()">삭제</button>
                         </div>
 
@@ -212,7 +212,9 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_bbs"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->

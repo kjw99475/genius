@@ -140,7 +140,7 @@
                                 <tr>
                                     <th scope="col" class="bg-geni-dark text-white">
                                         <div>
-                                            <input id="chk_all" type="checkbox" class="me-2">
+                                            <input id="chk_all" type="checkbox" class="form-check-input">
                                         </div>
                                     </th>
                                     <th scope="col" class="bg-geni-dark text-white">No</th>
@@ -157,7 +157,7 @@
 
                                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
                                     <tr>
-                                        <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
+                                        <td><input class="chk_del form-check-input" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
                                         <td>${total_count - i.index - responseDTO.page_skip_count}</td>
                                         <td><a href="/admin/qna/view?qna_idx=${qnaDTO.qna_idx}">${qnaDTO.title}</a><c:if test="${qnaDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                         <td>${qnaDTO.member_name}</td>
@@ -182,7 +182,7 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-success me-2"
                                     onclick="location.href='/admin/qna/contentregist'">등록</button>
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-outline-success"
                                     onclick="qna_delete()">삭제</button>
                         </div>
 
@@ -228,7 +228,9 @@
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_qna"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->

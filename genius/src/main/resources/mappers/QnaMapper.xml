@@ -109,7 +109,7 @@
         UPDATE tbl_qna SET
             title = #{title}
             , modify_date = NOW()
-<!--            , fileYN = #{fileYN}-->
+            , fileYN = #{fileYN}
             , contents = #{contents}
         WHERE qna_idx = #{qna_idx}
     </update>

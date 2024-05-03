@@ -7,13 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/admin">
+            <a class="nav-link <c:if test="${param.menuGubun ne 'main'}">collapsed</c:if>" href="/admin/admin">
                 <i class="bi bi-grid"></i>
                 <span>메인</span>
             </a>
@@ -21,7 +22,7 @@
         <!-- End 메인 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/member/memberList">
+            <a class="nav-link <c:if test="${param.menuGubun ne 'member'}">collapsed</c:if>" href="/admin/member/memberList">
                 <i class="bi bi-person"></i>
                 <span>회원 관리</span>
             </a>
@@ -39,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/announce/list">
+                    <a href="/admin/announce/list" <c:if test="${param.menuGubun ne 'book'}">class="collapsed"</c:if> >
                         <i class="bi bi-circle"></i><span>공지사항 관리</span>
                     </a>
                 </li>
@@ -65,25 +66,26 @@
         <li class="nav-heading">상품</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/book/itemlist">
+            <a class="nav-link <c:if test="${param.menuGubun ne 'book'}">collapsed</c:if>" href="/admin/book/itemlist">
                 <i class="bi bi-gem"></i><span>상품 관리</span>
             </a>
         </li>
         <!-- End 상품 관리 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/inventory/list">
+            <a class="nav-link <c:if test="${param.menuGubun ne 'inventory'}">collapsed</c:if>" href="/admin/inventory/list">
                 <i class="bi bi-menu-button-wide"></i><span>재고 관리</span>
             </a>
         </li>
         <!-- End 재고 관리 Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/order/list">
+            <a class="nav-link <c:if test="${param.menuGubun ne 'order'}">collapsed</c:if>" href="/admin/order/list">
                 <i class="bi bi-bar-chart"></i><span>주문 관리</span>
             </a>
         </li>
         <!-- End 주문 관리 Nav -->
+
     </ul>
 </aside><!-- End Sidebar-->
 
@@ -98,5 +100,5 @@
 <script src="/resources/admin/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
-<script src="/resources/admin/js/main.js"></script><script src="/resources/admin/js/main.js"></script>
+<script src="/resources/admin/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
