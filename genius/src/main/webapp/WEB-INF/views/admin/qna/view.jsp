@@ -124,9 +124,11 @@
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-center">
+                                            <c:if test="${qnaDTO.answerYN == 'N'}">
                                             <button type="button" class="btn btn-success me-2" onclick="location.href='/admin/qna/answerregist?qna_idx=${qnaDTO.qna_idx}'">
                                                 답변 등록
                                             </button>
+                                            </c:if>
                                             <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/qna/list'">
                                                 목록
                                             </button>

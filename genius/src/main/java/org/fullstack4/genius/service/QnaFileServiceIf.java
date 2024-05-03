@@ -13,4 +13,5 @@ public interface QnaFileServiceIf {
     int regist(QnaFileDTO qnaFileDTO);
     List<QnaFileDTO> getFileList(int qna_idx);
     QnaFileDTO getFile(int file_idx);
+    int deleteFile(String file_idx);
 }
