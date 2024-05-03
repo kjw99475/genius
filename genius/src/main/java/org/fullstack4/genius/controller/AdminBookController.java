@@ -97,6 +97,8 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
+        bookDTO.setDiscount_price((int) (bookDTO.getPrice() - bookDTO.getPrice()* bookDTO.getDiscount_per()*0.01));
+
         int result = bookServiceIf.regist(bookDTO,fileDTO,fileDTO1);
         if(result > 0){
             return "redirect:/admin/book/itemlist";
@@ -168,6 +170,7 @@ public class AdminBookController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
         }
+        bookDTO.setDiscount_price((int) (bookDTO.getPrice() - bookDTO.getPrice()* bookDTO.getDiscount_per()*0.01));
         int result = bookServiceIf.modify(bookDTO,fileDTO,fileDTO1);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
         if(result >0){
