@@ -22,7 +22,7 @@ public class MemberDTO {
     private String member_id;
     @Pattern(regexp = "^[ㄱ-ㅎ가-힣]{2,20}$")
     private String member_name;
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,16}$")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$")
     private String pwd;
     @PastOrPresent
     private LocalDate birthday;
