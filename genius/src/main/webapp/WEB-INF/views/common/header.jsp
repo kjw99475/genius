@@ -14,6 +14,17 @@
             <div class="bg-geni full_wrap">
                 <div class="container pt-2 pb-2 text-white d-flex justify-content-between">
                     <div>
+                        <c:if test="${!empty sessionScope['member_id']}">
+                            <a href="/mypage/mypage" class="p-2 text-white <c:if test="${param.menuGubun eq 'mypage'}">geni-active</c:if>">마이페이지 </a>
+                            <a href="/mypage/payhistory" class="p-2 text-white <c:if test="${param.menuGubun eq 'payhistory'}">geni-active</c:if>">결제내역</a>
+                            <a href="/mypage/point" class="p-2 text-white <c:if test="${param.menuGubun eq 'point'}">geni-active</c:if>">포인트 충전</a>
+                            <a href="/mypage/myquestions" class="p-2 text-white <c:if test="${param.menuGubun eq 'myquestions'}">geni-active</c:if>">문의 내역</a>
+                            <c:if test="${sessionScope['admin_YN'] == 'Y'}">
+                                <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
+                            </c:if>
+                        </c:if>
+                    </div>
+                    <div>
                         <c:choose>
                             <c:when test="${!empty sessionScope['member_id']}">
                                 <a href="#" class="p-2 text-white" onclick="logout()">로그아웃</a>
@@ -40,18 +51,6 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div>
-                        <c:if test="${!empty sessionScope['member_id']}">
-                            <a href="/mypage/mypage" class="p-2 text-white <c:if test="${param.menuGubun eq 'mypage'}">geni-active</c:if>">마이페이지 </a>
-                            <a href="/mypage/payhistory" class="p-2 text-white <c:if test="${param.menuGubun eq 'payhistory'}">geni-active</c:if>">결제내역</a>
-                            <a href="/mypage/point" class="p-2 text-white <c:if test="${param.menuGubun eq 'point'}">geni-active</c:if>">포인트 충전</a>
-                            <a href="/mypage/myquestions" class="p-2 text-white <c:if test="${param.menuGubun eq 'myquestions'}">geni-active</c:if>">문의 내역</a>
-                            <c:if test="${sessionScope['admin_YN'] == 'Y'}">
-                                <a href="/admin/admin" class="p-2 text-white">관리자 사이트</a>
-                            </c:if>
-                        </c:if>
-                    </div>
-
                 </div>
             </div>
             <div class="container">
@@ -63,9 +62,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    메뉴 구분 : ${param.menuGubun}
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-
                         <li class="nav-item submenu dropdown <c:if test="${param.menuGubun eq 'company'}">active font-weight-bold</c:if> ">
                             <a href="/company/introduce" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">회사소개</a>
@@ -98,9 +95,7 @@
                                 <li class="nav-item"><a class="nav-link" href="/bbs/boardList">자료실</a></li>
                             </ul>
                         </li>
-
                     </ul>
-
                     <ul class="nav-shop">
                         <li class="nav-item  <c:if test="${param.menuGubun eq 'cart'}">geni-active2</c:if>" onclick="location.href = '/mypage/cart'"><button><i class="ti-shopping-cart"></i>
                             <c:if test="${!empty sessionScope['member_id']}">
