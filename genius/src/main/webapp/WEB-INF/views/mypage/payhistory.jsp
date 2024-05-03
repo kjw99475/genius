@@ -91,9 +91,16 @@
                             <div class="d-flex flex-column align-items-end" style="gap:10px">
                                 <small>${list.order_state}</small>
                                 <c:if test="${list.order_state eq '배송 전'}">
-                                    <button class="btn btn-success" type="button">주문취소</button>
+                                    <button class="btn btn-success" type="button" onclick="cancel('${list.order_num}','Y')"
+                                            <c:if test="${list.cancel_YN eq 'Y'}">disabled</c:if>
+                                    >주문취소</button>
                                 </c:if>
-                                <c:if test="${list.order_state ne '배송 전' and list.order_refund_request eq 'N'}">
+                                <c:if test="${list.order_state eq '주문 취소'}">
+                                    <button class="btn btn-success" type="button" onclick="cancel('${list.order_num}','Y')"
+                                            <c:if test="${list.cancel_YN eq 'Y'}">disabled</c:if>
+                                    >주문취소</button>
+                                </c:if>
+                                <c:if test="${list.order_state ne '배송 전' and list.cancel_YN eq 'N' and list.order_refund_request eq 'N'}">
                                     <button class="btn btn-success" type="button" onclick="refund('${list.order_num}','Y')">환불요청</button>
                                 </c:if>
                                 <c:if test="${list.order_state ne '배송 전' and list.order_refund_request eq 'Y'}">
@@ -239,7 +246,35 @@
                 success : function(data) {
                     if(data.result == "success"){
                         console.log("성공");
-                        alert("환불 요청했습니다");
+                        alert("환불 요청이 정상처리 되었습니다.");
+                        location.href="/mypage/payhistory${pageDTO.linked_params}&page=${pageDTO.page}"
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }
+    }
+
+    function cancel(item,item1){
+
+        if(confirm("정말 해당 주문을 취소하시겠습니까? \n 취소하신 주문은 복구되지 않습니다.")){
+            $.ajax({
+                url:"/mypage/cancelRequest.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "order_num":item,
+                    "order_cancel_request" : item1
+                },
+                success : function(data) {
+                    if(data.result == "success"){
+                        console.log("성공");
+                        alert("주문이 성공적으로 취소되었습니다.");
                         location.href="/mypage/payhistory${pageDTO.linked_params}&page=${pageDTO.page}"
                     }else{
                         alert(data.message);

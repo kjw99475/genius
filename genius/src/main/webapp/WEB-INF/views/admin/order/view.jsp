@@ -38,12 +38,12 @@
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<style>
-    .table_up th {
-        width: 32%;
-    }
+    <style>
+        .table_up th {
+            width: 32%;
+        }
 
-</style>
+    </style>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -69,134 +69,141 @@
         <div class="row">
             <div class="d-flex justify-content-end">
                 <button class="btn btn-success m-3" onclick="orderstart()" <c:if test="${orderDTO.get(0).order_state ne '배송 전'}">disabled</c:if>>배송 시작</button>
-<%--                <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전'}">disabled</c:if>>주문 취소</button>--%>
+                <%--                <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전'}">disabled</c:if>>주문 취소</button>--%>
                 <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전' or orderDTO.get(0).order_refund_request ne 'Y' or orderDTO.get(0).order_refund_response ne null}">disabled</c:if> onclick="response('${orderDTO.get(0).order_num}','Y')">환불 승인</button>
                 <button class="btn btn-success m-3" <c:if test="${orderDTO.get(0).order_state eq '배송 전' or orderDTO.get(0).order_refund_request ne 'Y' or orderDTO.get(0).order_refund_response ne null}">disabled</c:if> onclick="response('${orderDTO.get(0).order_num}','N')">환불 거절</button>
             </div>
 
             <div class="row d-flex align-items-stretch">
 
-            <div class="col-lg-4">
+                <div class="col-lg-4">
 
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">주문 정보</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">주문 정보</h5>
 
-                        <table class="table table-bordered table_up">
-                            <tbody>
-                            <tr>
-                                <th class="bg-geni-ft">주문 번호</th>
-                                <td>${orderDTO.get(0).order_num}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주문 상태</th>
-                                <td>${orderDTO.get(0).order_state}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주문일시</th>
-                                <td>${orderDTO.get(0).order_date}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주문자 ID</th>
-                                <td>${orderDTO.get(0).member_id}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주문자 이름</th>
-                                <td>${orderDTO.get(0).member_name}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주문자 전화번호</th>
-                                <td>${orderDTO.get(0).phone}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <table class="table table-bordered table_up">
+                                <tbody>
+                                <tr>
+                                    <th class="bg-geni-ft">주문 번호</th>
+                                    <td>${orderDTO.get(0).order_num}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주문 상태</th>
+                                    <td>${orderDTO.get(0).order_state}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주문일시</th>
+                                    <td>${orderDTO.get(0).order_date}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주문자 ID</th>
+                                    <td>${orderDTO.get(0).member_id}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주문자 이름</th>
+                                    <td>${orderDTO.get(0).member_name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주문자 전화번호</th>
+                                    <td>${orderDTO.get(0).phone}</td>
+                                </tr>
+                                </tbody>
+                            </table>
 
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4">
-
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">배송지 정보</h5>
-
-                        <table class="table table-bordered table_up">
-                            <tbody>
-                            <tr>
-                                <th class="bg-geni-ft">수신인</th>
-                                <td>${orderDTO.get(0).order_name}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">우편번호</th>
-                                <td>${orderDTO.get(0).order_zipcode}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주소 1</th>
-                                <td>${orderDTO.get(0).order_addr1}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">주소 2</th>
-                                <td>${orderDTO.get(0).order_addr2}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft">수신인 전화번호</th>
-                                <td>${orderDTO.get(0).order_phone}</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">배송정보</h5>
-
-                        <table class="table table-bordered table_up">
-                            <tbody>
-                            <tr>
-                                <th class="bg-geni-ft align-content-center">배송회사</th>
-                                <td>
-                                    <select class="deliverySelect form-control" <c:if test="${orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null}">disabled</c:if>>
-                                        <option value="" <c:if test="${orderDTO.get(0).delivery_company == '' or orderDTO.get(0).delivery_company == null}">selected</c:if>>선택</option>
-                                        <option value="우체국" <c:if test="${orderDTO.get(0).delivery_company == '우체국'}">selected</c:if>>우체국</option>
-                                        <option value="CJ대한통운" <c:if test="${orderDTO.get(0).delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
-                                        <option value="로젠택배" <c:if test="${orderDTO.get(0).delivery_company == '로젠택배'}">selected</c:if>>로젠택배</option>
-                                        <option value="한진택배" <c:if test="${orderDTO.get(0).delivery_company == '한진택배'}">selected</c:if>>한진택배</option>
-                                        <option value="롯데택배" <c:if test="${orderDTO.get(0).delivery_company == '롯데택배'}">selected</c:if>>롯데택배</option>
-                                        <option value="드림택배" <c:if test="${orderDTO.get(0).delivery_company == '드림택배'}">selected</c:if>>드림택배</option>
-                                        <option value="대신택배" <c:if test="${orderDTO.get(0).delivery_company == '대신택배'}">selected</c:if>>대신택배</option>
-                                        <option value="일양로지스택배" <c:if test="${orderDTO.get(0).delivery_company == '일양로지스택배'}">selected</c:if>>일양로지스택배</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th class="bg-geni-ft">배송시작일</th>
-                                <td>${orderDTO.get(0).delivery_start_date}</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-geni-ft align-content-center">배송종료일</th>
-                                <td><input class="form-control" type="date" value="${orderDTO.get(0).delivery_end_date}"></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-success m-3">배송 정보 저장하기</button>
                         </div>
-
                     </div>
                 </div>
 
-            </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">배송지 정보</h5>
+
+                            <table class="table table-bordered table_up">
+                                <tbody>
+                                <tr>
+                                    <th class="bg-geni-ft">수신인</th>
+                                    <td>${orderDTO.get(0).order_name}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">우편번호</th>
+                                    <td>${orderDTO.get(0).order_zipcode}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주소 1</th>
+                                    <td>${orderDTO.get(0).order_addr1}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">주소 2</th>
+                                    <td>${orderDTO.get(0).order_addr2}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft">수신인 전화번호</th>
+                                    <td>${orderDTO.get(0).order_phone}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">배송정보</h5>
+
+                            <table class="table table-bordered table_up">
+                                <tbody>
+                                <tr>
+                                    <th class="bg-geni-ft align-content-center">배송회사</th>
+                                    <td>
+                                        <select class="deliverySelect form-control" <c:if test="${(orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null) or orderDTO.get(0).order_state =='주문 취소'}">disabled</c:if>>
+                                            <option value="" <c:if test="${orderDTO.get(0).delivery_company == '' or orderDTO.get(0).delivery_company == null}">selected</c:if>>선택</option>
+                                            <option value="우체국" <c:if test="${orderDTO.get(0).delivery_company == '우체국'}">selected</c:if>>우체국</option>
+                                            <option value="CJ대한통운" <c:if test="${orderDTO.get(0).delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
+                                            <option value="로젠택배" <c:if test="${orderDTO.get(0).delivery_company == '로젠택배'}">selected</c:if>>로젠택배</option>
+                                            <option value="한진택배" <c:if test="${orderDTO.get(0).delivery_company == '한진택배'}">selected</c:if>>한진택배</option>
+                                            <option value="롯데택배" <c:if test="${orderDTO.get(0).delivery_company == '롯데택배'}">selected</c:if>>롯데택배</option>
+                                            <option value="드림택배" <c:if test="${orderDTO.get(0).delivery_company == '드림택배'}">selected</c:if>>드림택배</option>
+                                            <option value="대신택배" <c:if test="${orderDTO.get(0).delivery_company == '대신택배'}">selected</c:if>>대신택배</option>
+                                            <option value="일양로지스택배" <c:if test="${orderDTO.get(0).delivery_company == '일양로지스택배'}">selected</c:if>>일양로지스택배</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th class="bg-geni-ft">배송시작일</th>
+                                    <td>${orderDTO.get(0).delivery_start_date}</td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-geni-ft align-content-center">배송종료일</th>
+                                    <td><input class="form-control" type="date" value="${orderDTO.get(0).delivery_end_date}"
+                                               <c:if test="${(orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null) or orderDTO.get(0).order_state =='주문 취소'}">disabled</c:if>
+                                    ></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-success m-3" onclick="endDateSave()"
+                                        <c:if test="${(orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null) or orderDTO.get(0).order_state =='주문 취소'}">
+                                            disabled
+                                        </c:if>>
+                                    배송 정보 저장하기
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="col-lg-12">
@@ -211,8 +218,8 @@
                                 <col width="10%">
                                 <col width="15%">
                                 <col width="10%">
-<%--                                <col width="10%">--%>
-<%--                                <col width="10%">--%>
+                                <%--                                <col width="10%">--%>
+                                <%--                                <col width="10%">--%>
                             </colgroup>
                             <thead>
                             <tr>
@@ -221,32 +228,32 @@
                                 <th scope="col" class="bg-geni-ft">수량</th>
                                 <th scope="col" class="bg-geni-ft">적용가</th>
                                 <th scope="col" class="bg-geni-ft">개별 총계</th>
-<%--                                <th scope="col">총수량</th>--%>
-<%--                                <th scope="col">총 합계</th>--%>
+                                <%--                                <th scope="col">총수량</th>--%>
+                                <%--                                <th scope="col">총 합계</th>--%>
                             </tr>
                             </thead>
                             <tbody>
                             <c:set var="total_amount" value="0"/>
-                                <c:forEach items="${orderDTO}" var="list">
+                            <c:forEach items="${orderDTO}" var="list">
                                 <tr>
                                     <td>${list.book_code}</td>
                                     <td>${list.book_name}</td>
                                     <td>${list.amount}</td>
                                     <td>${list.price}</td>
                                     <td>${list.amount * list.price}</td>
-<%--                                    <td>${list.total_price}</td>--%>
-<%--                                    <td>${list.total_price}</td>--%>
+                                        <%--                                    <td>${list.total_price}</td>--%>
+                                        <%--                                    <td>${list.total_price}</td>--%>
                                     <c:set var="total_amount" value="${total_amount+list.amount}"/>
                                 </tr>
                             </c:forEach>
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td><strong>총 수량 :</strong>${total_amount}</td>
-                                    <td></td>
-                                    <td><strong>총 합계 :</strong>${orderDTO.get(0).total_price}</td>
-                                </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td><strong>총 수량 :</strong>${total_amount}</td>
+                                <td></td>
+                                <td><strong>총 합계 :</strong>${orderDTO.get(0).total_price}</td>
+                            </tr>
                             </tfoot>
                         </table>
 
@@ -335,6 +342,10 @@
 
             });
         }
+    }
+
+    function endDateSave(){
+
     }
 </script>
 </body>

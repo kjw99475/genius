@@ -41,7 +41,7 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/header.jsp"/>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
@@ -63,72 +63,72 @@
 
             <div class="card-body">
 
-                    <form action="/admin/order/list" name="searchfrm" id="searchfrm">
-                        <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
-                            <div class="col">
-                                <div class="row mb-2">
-                                    <label class="fw-bold p-3">검색 기간</label>
-                                    <div class="row justify-content-start align-items-center">
-                                        <div class="col-3">
-                                            <input class="form-control" type="date" name="search_data1" id="banner_start" value="${pageDTO['search_data1']}">
-                                        </div>
-                                        ~
-                                        <div class="col-3">
-                                            <input class="form-control" type="date" name="search_data2" id="banner_end" value="${pageDTO['search_data2']}">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                <form action="/admin/order/list" name="searchfrm" id="searchfrm">
+                    <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
+                        <div class="col">
                             <div class="row mb-2">
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label class="fw-bold p-3" style="margin-right: 45px">주문상태</label>
-                                            <label class="fw-bold p-3">키워드 검색</label>
-                                        </div>
-                                        <div class="d-flex align-items-center" style="gap: 10px">
-
-                                            <select name="type" class="form-select w-200px" id="category_class_code">
-<%--                                                <option value="" selected hidden>주문상태</option>--%>
-                                                <option value="" <c:if test="${pageDTO['type'] == ''}">selected</c:if>>전체</option>
-                                                <option value="1" <c:if test="${pageDTO['type'] == '1'}">selected</c:if>>배송 전</option>
-                                                <option value="2" <c:if test="${pageDTO['type'] == '2'}">selected</c:if>>배송 중</option>
-                                                <option value="3" <c:if test="${pageDTO['type'] == '3'}">selected</c:if>>배송 완료</option>
-                                            </select>
-
-
-                                            <select name="type2" class="form-select w-200px" id="search_category">
-<%--                                                <option value="" selected hidden>검색 옵션</option>--%>
-                                                <option value="" <c:if test="${pageDTO['type2'] == ''}">selected</c:if>>전체</option>
-                                                <option value="1" <c:if test="${pageDTO['type2'] == '1'}">selected</c:if>>주문번호</option>
-                                                <option value="2" <c:if test="${pageDTO['type2'] == '2'}">selected</c:if>>주문자 ID</option>
-                                                <option value="3" <c:if test="${pageDTO['type2'] == '3'}">selected</c:if>>배송회사</option>
-                                            </select>
-
-                                            <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${pageDTO['search_word']}">
-
-                                            <div class="w-200px">
-                                                <button type="button" class="bi bi-search btn btn-success" onclick="search()"> 검색</button>
-                                            </div>
-                                            <div class="w-200px">
-                                                <button type="button" class="btn btn-success" onclick="cartChoices()">배송 시작</button>
-                                            </div>
-                                        </div>
+                                <label class="fw-bold p-3">검색 기간</label>
+                                <div class="row justify-content-start align-items-center">
+                                    <div class="col-3">
+                                        <input class="form-control" type="date" name="search_data1" id="banner_start" value="${pageDTO['search_data1']}">
+                                    </div>
+                                    ~
+                                    <div class="col-3">
+                                        <input class="form-control" type="date" name="search_data2" id="banner_end" value="${pageDTO['search_data2']}">
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                    </form>
-                    <div class="d-flex justify-content-between">
-                        <div class="col-2 mb-2">
-                            <select name="page_size" id="page-size" class="form-select" onchange="page_size(this)">
-                                <option value="10" <c:if test="${pageDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
-                                <option value="50" <c:if test="${pageDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
-                                <option value="100" <c:if test="${pageDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
-                            </select>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="fw-bold p-3" style="margin-right: 45px">주문상태</label>
+                                        <label class="fw-bold p-3">키워드 검색</label>
+                                    </div>
+                                    <div class="d-flex align-items-center" style="gap: 10px">
+
+                                        <select name="type" class="form-select w-200px" id="category_class_code">
+                                            <%--                                                <option value="" selected hidden>주문상태</option>--%>
+                                            <option value="" <c:if test="${pageDTO['type'] == ''}">selected</c:if>>전체</option>
+                                            <option value="1" <c:if test="${pageDTO['type'] == '1'}">selected</c:if>>배송 전</option>
+                                            <option value="2" <c:if test="${pageDTO['type'] == '2'}">selected</c:if>>배송 중</option>
+                                            <option value="3" <c:if test="${pageDTO['type'] == '3'}">selected</c:if>>배송 완료</option>
+                                        </select>
+
+
+                                        <select name="type2" class="form-select w-200px" id="search_category">
+                                            <%--                                                <option value="" selected hidden>검색 옵션</option>--%>
+                                            <option value="" <c:if test="${pageDTO['type2'] == ''}">selected</c:if>>전체</option>
+                                            <option value="1" <c:if test="${pageDTO['type2'] == '1'}">selected</c:if>>주문번호</option>
+                                            <option value="2" <c:if test="${pageDTO['type2'] == '2'}">selected</c:if>>주문자 ID</option>
+                                            <option value="3" <c:if test="${pageDTO['type2'] == '3'}">selected</c:if>>배송회사</option>
+                                        </select>
+
+                                        <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${pageDTO['search_word']}">
+
+                                        <div class="w-200px">
+                                            <button type="button" class="bi bi-search btn btn-success" onclick="search()"> 검색</button>
+                                        </div>
+                                        <div class="w-200px">
+                                            <button type="button" class="btn btn-success" onclick="cartChoices()">배송 시작</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </form>
+                <div class="d-flex justify-content-between">
+                    <div class="col-2 mb-2">
+                        <select name="page_size" id="page-size" class="form-select" onchange="page_size(this)">
+                            <option value="10" <c:if test="${pageDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                            <option value="50" <c:if test="${pageDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                            <option value="100" <c:if test="${pageDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
+                        </select>
+                    </div>
+                </div>
 
 
 
@@ -153,14 +153,14 @@
                     <c:if test="${orderDTOlist ne null}">
                         <c:forEach items="${orderDTOlist}" var="orderDTO">
                             <tr>
-                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>></td>
+                                <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1" <c:if test="${(orderDTO.delivery_company != '' and orderDTO.delivery_company != null) or orderDTO.order_state =='주문 취소'}">disabled</c:if>></td>
                                 <th scope="row"><a href='/admin/order/view?order_num=${orderDTO.order_num}'>${orderDTO.order_num}</a></th>
                                 <td>${orderDTO.member_id}</td>
                                 <td>${orderDTO.order_date}</td>
                                 <td>${orderDTO.total_price}</td>
                                 <td>${orderDTO.amount}</td>
                                 <td>
-                                    <select class="deliverySelect form-select" <c:if test="${orderDTO.delivery_company != '' and orderDTO.delivery_company != null}">disabled</c:if>>
+                                    <select class="deliverySelect form-select" <c:if test="${(orderDTO.delivery_company != '' and orderDTO.delivery_company != null) or orderDTO.order_state =='주문 취소'}">disabled</c:if>>
                                         <option value="" <c:if test="${orderDTO.delivery_company == '' or orderDTO.delivery_company == null}">selected</c:if>>선택</option>
                                         <option value="우체국" <c:if test="${orderDTO.delivery_company == '우체국'}">selected</c:if>>우체국</option>
                                         <option value="CJ대한통운" <c:if test="${orderDTO.delivery_company == 'CJ대한통운'}">selected</c:if>>CJ대한통운</option>
@@ -174,10 +174,13 @@
                                 <td>${orderDTO.delivery_start_date}</td>
                                 <td>${orderDTO.delivery_end_date}</td>
                                 <td class="delivery_state">
-                                    <span <c:if test="${orderDTO.order_state eq '배송 전'}">class="badge bg-warning"</c:if>
+                                    <span <c:if test="${orderDTO.order_state eq '주문 취소'}">class="badge bg-danger"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '배송 전'}">class="badge bg-warning"</c:if>
                                           <c:if test="${orderDTO.order_state eq '배송 중'}">class="badge bg-primary"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '환불 요청'}">class="badge bg-danger-subtle"</c:if>
                                           <c:if test="${orderDTO.order_state eq '배송 완료'}">class="badge bg-success"</c:if>
                                           <c:if test="${orderDTO.order_state eq '환불 완료'}">class="badge bg-secondary"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '환불 불가'}">class="badge bg-black"</c:if>
                                     >
                                             ${orderDTO.order_state}
                                     </span>

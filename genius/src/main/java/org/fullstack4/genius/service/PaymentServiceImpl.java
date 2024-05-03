@@ -166,9 +166,17 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             log.info("주문량: "+detailVO.getAmount());
             log.info("재고: "+bookVO.getAmount());
             if(detailVO.getAmount()>bookVO.getQuantity()){
-                throw new InsufficientStockException("도서 재고가 부족합니다.");
+                throw new InsufficientStockException("주문하신 도서 수량이 재고보다 많습니다.\n도서명:"+bookVO.getBook_name() +",재고 :"+bookVO.getQuantity());
             }
-
+            if(bookVO.getSales_status().equals("2")){
+                throw new InsufficientStockException("해당 상품은 판매 준비중입니다.\n도서명:"+bookVO.getBook_name());
+            }
+            if(bookVO.getSales_status().equals("3")){
+                throw new InsufficientStockException("해당 상품은 판매 종료되었습니다.\n도서명:"+bookVO.getBook_name());
+            }
+            if(bookVO.getSales_status().equals("4")){
+                throw new InsufficientStockException("해당 상품은 품절되었습니다. \n도서명:"+bookVO.getBook_name());
+            }
             Date date = new Date();
             LocalDate convertedDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             int compare = convertedDate.compareTo(bookVO.getSales_start_date());
@@ -177,7 +185,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             log.info("compare2: " + compare2);
 
             if(compare<0 || compare2>0){
-                throw new InsufficientStockException("현재 판매중인 상품이 아닙니다.");
+                throw new InsufficientStockException("현재 판매중인 상품이 아닙니다.\n도서명:"+bookVO.getBook_name());
             }
 
                 int result = paymentMapper.memberPay(paymentVO);
@@ -229,7 +237,16 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             BookVO bookVO = bookMapper.view(detailorderDTO.getBook_code());
             OrderVO detailOrderVO = modelMapper.map(detailorderDTO, OrderVO.class);
             if(detailOrderVO.getAmount()>bookVO.getQuantity()){
-                throw new InsufficientStockException("재고가 부족한 상품이 있습니다.");
+                throw new InsufficientStockException("주문하신 도서 수량이 재고보다 많습니다.\n도서명:"+bookVO.getBook_name() +",재고 :"+bookVO.getQuantity());
+            }
+            if(bookVO.getSales_status().equals("2")){
+                throw new InsufficientStockException("판매 준비중인 상품이 있습니다.\n도서명:"+bookVO.getBook_name());
+            }
+            if(bookVO.getSales_status().equals("3")){
+                throw new InsufficientStockException("판매 종료된 상품이 있습니다.\n도서명:"+bookVO.getBook_name());
+            }
+            if(bookVO.getSales_status().equals("4")){
+                throw new InsufficientStockException("품절된 상품이 있습니다.\n도서명:"+bookVO.getBook_name());
             }
 
 
@@ -240,7 +257,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             log.info("compare2: " + compare2);
 
             if(compare<0 || compare2>0){
-                throw new InsufficientStockException("현재 판매중이 아닌 상품이 있습니다.");
+                throw new InsufficientStockException("현재 판매중이 아닌 상품이 있습니다.\n도서명:"+bookVO.getBook_name());
             }
             int result1 = orderMapper.detailregist(detailOrderVO);
             int result2 = paymentMapper.releaseBook(detailOrderVO);

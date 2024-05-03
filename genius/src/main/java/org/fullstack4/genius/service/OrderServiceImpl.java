@@ -88,9 +88,9 @@ public class OrderServiceImpl  implements OrderServiceIf {
     }
 
     @Override
-    public int cancelOrder(int order_idx) {
+    public int cancelOrder(OrderDTO orderDTO) {
 
-        int result = orderMapper.cancelOrder(order_idx);
+        int result = orderMapper.cancelOrder(orderDTO);
         return result;
 
     }
