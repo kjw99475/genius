@@ -54,10 +54,7 @@
         </div>
     </section>
     <section class="section-margin--small mb-5">
-
         <div class="container">
-
-
             <div class="filter-bar">
                 <div class="input-group d-flex justify-content-end">
                     <form>
@@ -85,9 +82,7 @@
                     </form>
                 </div>
             </div>
-
-
-            <table class="table table-hover accordion">
+            <table class="table table-hover accordion border-bottom">
                 <thead class="filter-bar">
                 <tr>
                     <th scope="col" style="width: 9.8%">번호</th>
@@ -95,11 +90,10 @@
                 </tr>
                 </thead>
                 <tbody id="accordionExample">
-
                 <c:set value="${responseDTO.total_count}" var="total_count" />
                 <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="2">검색 결과가 없습니다.</td></tr></c:if>
                 <c:choose>
-                    <c:when test="${responseDTO ne null}">
+                    <c:when test="${!empty responseDTO.dtoList}">
 
                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                             <tr>

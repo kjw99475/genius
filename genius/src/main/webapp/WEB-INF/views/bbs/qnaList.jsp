@@ -76,7 +76,7 @@
                     </div>
                 </form>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover border-bottom">
                 <thead class="filter-bar">
                 <tr>
                     <th scope="col">번호</th>
@@ -87,31 +87,36 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:set value="${responseDTO.total_count}" var="total_count"/>
-
-                <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
-                    <c:if test="${qnaDTO.answerYN == 'N'}">
-                        <tr>
-                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
-                            <td>${qnaDTO.member_name}</td>
-                            <td>${qnaDTO.reg_date}</td>
-                            <td>${qnaDTO.read_cnt}</td>
-                        </tr>
-                    </c:if>
-                    <c:if test="${qnaDTO.answerYN == 'Y'}">
-                        <tr>
-                            <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
-                            <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
-                            <td>${qnaDTO.member_id}</td>
-                            <td>${qnaDTO.reg_date}</td>
-                            <td>${qnaDTO.read_cnt}</td>
-                        </tr>
-                    </c:if>
-                </c:forEach>
-
-
-
+                <c:choose>
+                <c:when test="${!empty responseDTO.dtoList}">
+                    <c:set value="${responseDTO.total_count}" var="total_count"/>
+                    <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
+                        <c:if test="${qnaDTO.answerYN == 'N'}">
+                            <tr>
+                                <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                                <td><a class="text-dark" href="/bbs/qnaViewQ?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}">${qnaDTO.title}</a></td>
+                                <td>${qnaDTO.member_name}</td>
+                                <td>${qnaDTO.reg_date}</td>
+                                <td>${qnaDTO.read_cnt}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${qnaDTO.answerYN == 'Y'}">
+                            <tr>
+                                <th scope="row">${total_count - i.index - responseDTO.page_skip_count}</th>
+                                <td><a class="text-dark" href="/bbs/qnaViewA?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}"><span class="badge badge-success">답변</span>${qnaDTO.title}</a></td>
+                                <td>${qnaDTO.member_id}</td>
+                                <td>${qnaDTO.reg_date}</td>
+                                <td>${qnaDTO.read_cnt}</td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr class="bg-white text-center">
+                        <td class="p-3" colspan="5">등록된 글이 없습니다.</td>
+                    </tr>
+                </c:otherwise>
+                </c:choose>
                 </tbody>
             </table>
             <div class="input-group d-flex justify-content-end">
