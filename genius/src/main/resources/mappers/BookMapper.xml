@@ -36,6 +36,14 @@
             <if test='subject_code != null and subject_code !=""'>
                 AND category_subject_code = #{subject_code}
             </if>
+            <if test="search_date1 != null or search_date2 != null">
+                <if test="search_date1 != null">
+                    AND publication_date <![CDATA[>=]]> #{search_date1}
+                </if>
+                <if test="search_date2 != null">
+                    AND publication_date <![CDATA[<]]> #{search_date2} + INTERVAL 1 DAY
+                </if>
+            </if>
 
         </where>
     </sql>

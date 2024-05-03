@@ -70,11 +70,11 @@
                                 <label class="fw-bold p-3">검색 기간</label>
                                 <div class="row justify-content-start align-items-center">
                                     <div class="col-3">
-                                        <input class="form-control" type="date" name="search_data1" id="banner_start" value="${pageDTO['search_data1']}">
+                                        <input class="form-control" type="date" name="search_date1" id="banner_start" value="${pageDTO['search_date1']}">
                                     </div>
                                     ~
                                     <div class="col-3">
-                                        <input class="form-control" type="date" name="search_data2" id="banner_end" value="${pageDTO['search_data2']}">
+                                        <input class="form-control" type="date" name="search_date2" id="banner_end" value="${pageDTO['search_date2']}">
                                     </div>
                                 </div>
 
@@ -179,7 +179,7 @@
                                     <span <c:if test="${orderDTO.order_state eq '주문 취소'}">class="badge bg-danger"</c:if>
                                           <c:if test="${orderDTO.order_state eq '배송 전'}">class="badge bg-warning"</c:if>
                                           <c:if test="${orderDTO.order_state eq '배송 중'}">class="badge bg-primary"</c:if>
-                                          <c:if test="${orderDTO.order_state eq '환불 요청'}">class="badge bg-danger-subtle"</c:if>
+                                          <c:if test="${orderDTO.order_state eq '환불 요청'}">class="badge bg-danger-subtle text-black"</c:if>
                                           <c:if test="${orderDTO.order_state eq '배송 완료'}">class="badge bg-success"</c:if>
                                           <c:if test="${orderDTO.order_state eq '환불 완료'}">class="badge bg-secondary"</c:if>
                                           <c:if test="${orderDTO.order_state eq '환불 불가'}">class="badge bg-black"</c:if>

@@ -73,6 +73,11 @@
                             <li>출판일 : ${bookDTO.publication_date}</li>
                             <li>출판사 : ${bookDTO.publisher}</li>
                             <li>ISBN : ${bookDTO.isbn}</li>
+                            <li>재고 : <strong>${bookDTO.quantity}</strong></li>
+                            <li>판매 상태 : <c:if test="${bookDTO.sales_status == '1'}"><span class="badge bg-success text-white" style="padding:5px;">판매중</span></c:if>
+                                           <c:if test="${bookDTO.sales_status == '2'}"><span class="badge bg-warning text-white" style="padding:5px;">판매준비중</span></c:if>
+                                           <c:if test="${bookDTO.sales_status == '3'}"><span class="badge bg-dark text-white" style="padding:5px;">판매종료</span></c:if>
+                                           <c:if test="${bookDTO.sales_status == '4'}"><span class="badge bg-danger text-white" style="padding:5px;">품절</span></c:if></li>
                             <li>평점 :
                                 <span class="card-product__rank stars">
                                     <c:choose>

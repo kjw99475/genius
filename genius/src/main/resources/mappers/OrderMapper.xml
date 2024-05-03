@@ -6,7 +6,6 @@
 
     <sql id="whereCondition">
         <where>
-                1=1
                 <if test=' search_word != null and search_word != "" '>
                     <choose>
                         <when test="type2 == '' or type2 == null">
