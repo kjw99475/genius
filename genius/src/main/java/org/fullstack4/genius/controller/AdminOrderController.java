@@ -4,14 +4,19 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.OrderServiceIf;
 import org.fullstack4.genius.service.PaymentServiceIf;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,28 +78,36 @@ public class AdminOrderController {
         log.info("========================"+ Arrays.toString(deliveryList)+"===================");
         log.info("=======================딜리버리 테스트 끝=============");
 
-        int result = 0;
-        int result1 = 0;
-        for(int i=0;i<ordernumList.length;i++){
-            if(!deliveryList[i].equals("")) {
-                OrderDTO dto = OrderDTO.builder()
-                        .order_num(ordernumList[i])
-                        .delivery_company(deliveryList[i])
-                        .delivery_state("배송 중")
-                        .order_state("배송 중")
-                        .build();
-                result1 += orderService.updateOrderState(dto);
-                result += orderService.updateDcompany(dto);
-            }
-        }
-
-        if(result >0) {
+//        int result = 0;
+//        int result1 = 0;
+//        for(int i=0;i<ordernumList.length;i++){
+//            if(!deliveryList[i].equals("")) {
+//                OrderDTO dto = OrderDTO.builder()
+//                        .order_num(ordernumList[i])
+//                        .delivery_company(deliveryList[i])
+//                        .delivery_state("배송 중")
+//                        .order_state("배송 중")
+//                        .build();
+//                result1 += orderService.updateOrderState(dto);
+//                result += orderService.updateDcompany(dto);
+//            }else{
+//
+//            }
+//        }
+//
+//        if(result >0) {
+//            resultMap.put("result", "success");
+//        }
+//        else{
+//            resultMap.put("result", "fail");
+//        }
+        try {
+            orderService.testUpdate(ordernumList,deliveryList);
             resultMap.put("result", "success");
-        }
-        else{
+        } catch (InsufficientStockException e) {
             resultMap.put("result", "fail");
+            resultMap.put("msg", e.getMessage());
         }
-        resultMap.put("result", "success");
         // 갯수 세기
         return new Gson().toJson(resultMap);
     }
@@ -156,6 +169,38 @@ public class AdminOrderController {
             resultMap.put("message", "오류");
         }
 
+        return new Gson().toJson(resultMap);
+    }
+
+    @RequestMapping(value = "/endDateSave.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String endDateSave(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        log.info("###################"+map.toString());
+        if(!map.get("end_date").toString().equals("")) {
+            Date date = new Date();
+            LocalDate convertedDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int compare = convertedDate.compareTo(LocalDate.parse(map.get("end_date").toString()));
+            if(compare < 0) {
+                OrderDTO orderDTO = OrderDTO.builder()
+                        .delivery_end_date(LocalDate.parse(map.get("end_date").toString()))
+                        .order_num(map.get("order_num").toString())
+                        .build();
+                int result = orderService.deliveryEndDate(orderDTO);
+                if (result > 0) {
+                    resultMap.put("result", "success");
+                } else {
+                    resultMap.put("result", "fail");
+                }
+            }
+            else{
+                resultMap.put("result", "fail");
+                resultMap.put("message", "오늘 날짜 이전은 선택할 수 없습니다.");
+            }
+        }else{
+            resultMap.put("result", "fail");
+            resultMap.put("message", "종료일을 똑바로 입력하세요");
+        }
         return new Gson().toJson(resultMap);
     }
 

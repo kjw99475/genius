@@ -21,6 +21,7 @@ public interface OrderMapper {
     List<OrderVO> AdminOrderdetail(String order_num);
     int updateOrderState(OrderVO orderVO);
     int updateDcompany(OrderVO orderVO);
+    int deliveryEndDate(OrderVO orderVO);
     int requestRefund(OrderVO orderVO);
     int responseRefund(OrderVO orderVO);
     int OrderTotalCount(PageRequestDTO requestDTO);

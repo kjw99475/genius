@@ -90,11 +90,13 @@
                                     <div class="d-flex align-items-center" style="gap: 10px">
 
                                         <select name="type" class="form-select w-200px" id="category_class_code">
-                                            <%--                                                <option value="" selected hidden>주문상태</option>--%>
                                             <option value="" <c:if test="${pageDTO['type'] == ''}">selected</c:if>>전체</option>
                                             <option value="1" <c:if test="${pageDTO['type'] == '1'}">selected</c:if>>배송 전</option>
                                             <option value="2" <c:if test="${pageDTO['type'] == '2'}">selected</c:if>>배송 중</option>
                                             <option value="3" <c:if test="${pageDTO['type'] == '3'}">selected</c:if>>배송 완료</option>
+                                            <option value="4" <c:if test="${pageDTO['type'] == '4'}">selected</c:if>>환불 요청</option>
+                                            <option value="5" <c:if test="${pageDTO['type'] == '5'}">selected</c:if>>환불 완료</option>
+                                            <option value="6" <c:if test="${pageDTO['type'] == '6'}">selected</c:if>>환불 불가</option>
                                         </select>
 
 
@@ -185,14 +187,17 @@
                                             ${orderDTO.order_state}
                                     </span>
                                 </td>
-                                <c:if test="${orderDTO.order_refund_response eq 'N'}">
-                                    <td class="delivery_state"><span class="badge bg-warning">N</span></td>
+                                <c:if test="${orderDTO.order_refund_request eq 'N' and orderDTO.order_refund_response eq null}">
+                                    <td class="delivery_state"><span class="badge bg-warning">요청 없음</span></td>
                                 </c:if>
-                                <c:if test="${orderDTO.order_refund_response eq 'Y'}">
-                                    <td class="delivery_state"><span class="badge bg-success">Y</span></td>
+                                <c:if test="${orderDTO.order_refund_request eq 'Y' and orderDTO.order_refund_response eq null}">
+                                    <td class="delivery_state"><span class="badge bg-primary">요청 처리중</span></td>
                                 </c:if>
-                                <c:if test="${orderDTO.order_refund_response eq null}">
-                                    <td class="delivery_state"></td>
+                                <c:if test="${orderDTO.order_refund_request eq 'Y' and orderDTO.order_refund_response eq 'Y'}">
+                                    <td class="delivery_state"><span class="badge bg-success">승인</span></td>
+                                </c:if>
+                                <c:if test="${orderDTO.order_refund_request eq 'Y' and orderDTO.order_refund_response eq 'N'}">
+                                    <td class="delivery_state"><span class="badge bg-black">미 승인</span></td>
                                 </c:if>
                             </tr>
                         </c:forEach>
@@ -329,12 +334,12 @@
                 },
                 success : function(data) {
                     if(data.result =="success"){
-                        alert("선택하신 주문처리가 완료되었습니다.");
+                        alert("배송이 시작되었습니다.");
                         console.log("성공");
                         location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
                     }else{
                         alert("주문처리에 실패하였습니다.");
-                        console.log("성공");
+                        console.log("실패");
                         location.href="/admin/order/list${pageDTO.linked_params}&page=${pageDTO.page}"
                     }
                 },
