@@ -94,26 +94,45 @@
                                     </div>
                                 </div>
 
-                                <%--<div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" >
-                                    </div>
-                                </div>--%>
+<%--                                <div class="row mb-3">--%>
+<%--                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>--%>
+<%--                                    <div class="col-md-8 col-lg-9">--%>
+<%--                                        <c:choose>--%>
+<%--                                            <c:when test="${bbsDTO.fileYN == 'Y'}">--%>
+<%--                                                <input name="file" type="file" class="form-control" id="file"--%>
+<%--                                                       value="${bbsDTO.fileYN}">--%>
+<%--                                            </c:when>--%>
+<%--                                            <c:otherwise>--%>
+<%--                                                <input name="file" type="file" class="form-control" id="file">--%>
+<%--                                            </c:otherwise>--%>
+<%--                                        </c:choose>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
 
                                 <div class="row mb-3">
-                                    <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <c:choose>
-                                            <c:when test="${bbsDTO.fileYN == 'Y'}">
-                                                <input name="file" type="file" class="form-control" id="file"
-                                                       value="${bbsDTO.fileYN}">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <input name="file" type="file" class="form-control" id="file">
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <input class="p-1" type="file" name="files" id="file"  multiple="multiple" onchange="fileList(this)">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="file-list" class="form-group d-flex flex-column m-0 p-0">
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">기존 파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
+
+                                                <li class="card shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>파일명</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                                <input id="file-idx" type="hidden" name="orgFiles" value="">
+
+                                        </ul>
                                     </div>
                                 </div>
 
@@ -187,6 +206,34 @@
                 console.log(data);
             }
         });
+    }
+
+    // 파일 리스트 조작용(파일 추가)
+    function fileList(element) {
+        document.querySelector('#file-list').innerHTML = "";
+        let fileList = document.querySelector('#file-list');
+        console.log(element.files);
+        for (let i=0; i < element.files.length; i++) {
+            let list = document.createElement('li');
+            list.classList.add('card','shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.dataset.idx = i;
+            list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
+            fileList.append(list);
+        }
+    }
+    // 파일 리스트 개별 삭제용
+    function deleteThisFile(element) {
+        event.preventDefault();
+        element.parentElement.parentElement.remove();
+        let input = document.getElementById("file-"+element.dataset.fileidx);
+        $(input).remove();
+        const dataTransfer = new DataTransfer();
+        let target = element.dataset.idx;
+        let files = document.querySelector('#file').files;
+        let fileArray = Array.from(files);
+        fileArray.splice(target, 1);
+        fileArray.forEach(file => {dataTransfer.items.add(file);});
+        document.querySelector('#file').files = dataTransfer.files;
     }
 
 </script>
