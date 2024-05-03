@@ -2,6 +2,7 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
 import org.fullstack4.genius.dto.*;
@@ -9,11 +10,9 @@ import org.fullstack4.genius.mapper.CartMapper;
 import org.fullstack4.genius.mapper.OrderMapper;
 import org.fullstack4.genius.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -145,23 +144,33 @@ public class PaymentServiceImpl implements PaymentServiceIf{
 
     @Override
     @Transactional
-    public int testUserPayment(PaymentDTO paymentDTO, OrderDTO orderDTO,
-                           OrderDTO detailorderDTO,
-                           String member_id,String order_num,int total_price){
+    public void testUserPayment(PaymentDTO paymentDTO, OrderDTO orderDTO,
+                                OrderDTO detailorderDTO,
+                                String member_id, String order_num, int total_price) throws InsufficientStockException {
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
             OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
             OrderVO detailVO = modelMapper.map(detailorderDTO, OrderVO.class);
 
-        int result = paymentMapper.memberPay(paymentVO);
-        result += orderMapper.regist(orderVO);
-        result += orderMapper.deliveryRegist(orderVO);
-        result += orderMapper.detailregist(detailVO);
-        result += paymentMapper.usepoint(paymentVO);
-        result += paymentMapper.releaseBook(detailVO);
-        result += paymentMapper.salesBook(detailVO);
-        result += paymentMapper.revenue(total_price);
+            String msg = "";
 
-        return result;
+            log.info("======orderVO=======:"+orderVO.toString());
+            log.info("======detailVO=======:"+detailVO.toString());
+            log.info("======paymentVO=======:"+paymentVO.toString());
+                int result = paymentMapper.memberPay(paymentVO);
+                int result1 = orderMapper.regist(orderVO);
+                int result2 = orderMapper.deliveryRegist(orderVO);
+                int result3 = orderMapper.detailregist(detailVO);
+                int result4 = paymentMapper.usepoint(paymentVO);
+                int result5 = paymentMapper.releaseBook(detailVO);
+                int result6 = paymentMapper.salesBook(detailVO);
+                int result7 = paymentMapper.revenue(total_price);
+                if(result >0 && result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0
+                && result5 > 0 && result6 > 0 && result7 > 0){
+                    log.info("결제 성공");
+                }
+
+
+
     }
 
     @Override
@@ -186,8 +195,8 @@ public class PaymentServiceImpl implements PaymentServiceIf{
                     .category_class_code(dtolist.get(i).getCategory_class_code())
                     .category_subject_code(dtolist.get(i).getCategory_subject_code())
                     .order_state("배송 전")
-                    .price(dtolist.get(i).getPrice())
-                    .total_price(dtolist.get(i).getPrice() * dtolist.get(i).getQuantity())
+                    .price(dtolist.get(i).getDiscount_price())
+                    .total_price(dtolist.get(i).getDiscount_price() * dtolist.get(i).getQuantity())
                     .amount(dtolist.get(i).getQuantity())
                     .build();
             OrderVO detailOrderVO = modelMapper.map(detailorderDTO, OrderVO.class);

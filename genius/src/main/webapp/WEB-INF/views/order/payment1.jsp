@@ -222,8 +222,10 @@
 
             },
             success : function(data) {
+                console.log(data.result);
+                console.log(data.msg);
                 if(data.result == "success"){
-                    alert("결제에 성공하였습니다.");
+                    alert(data.msg);
                     location.href="/mypage/payhistory";
                 }else{
                     alert(data.msg);
@@ -232,7 +234,7 @@
             fail : function (data) {
                 alert("결제에 실패했습니다.");
             }, error: function(xhr, status, error) {
-                alert("에러가 발생했습니다. 오류: " + error);
+                alert("에러가 발생했습니다. 오류: " + xhr.responseText);
             }
 
         });

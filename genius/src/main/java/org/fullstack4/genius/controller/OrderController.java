@@ -3,6 +3,7 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.*;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class OrderController {
         for(int i = 0; i<Cart_idx.size()-1; i++) {
             CartDTO cartDTO = cartService.view(Integer.parseInt(Cart_idx.get(i)));
             dtolist.add(cartDTO);
-            totalprice += cartDTO.getPrice()*cartDTO.getQuantity();
+            totalprice += cartDTO.getDiscount_price()*cartDTO.getQuantity();
         }
         log.info("#######################"+dto.toString());
         log.info("#######################"+dtolist.toString());
@@ -63,7 +64,7 @@ public class OrderController {
         bookDTO.setQuantity(quantity);
         log.info("payment: memberdto :"+memberDTO.toString());
         log.info("payment: bookdto :"+bookDTO.toString());
-        int totalprice = bookDTO.getPrice()*quantity;
+        int totalprice = bookDTO.getDiscount_price()*quantity;
         model.addAttribute("memberdto", memberDTO);
         model.addAttribute("bookdto",bookDTO);
         model.addAttribute("totalprice", totalprice);
@@ -191,23 +192,25 @@ public class OrderController {
                 .category_class_code(bookDTO.getCategory_class_code())
                 .category_subject_code(bookDTO.getCategory_subject_code())
                 .order_state("배송 전")
-                .price(bookDTO.getPrice())
+                .price(bookDTO.getDiscount_price())
                 .total_price(Integer.parseInt(map.get("price").toString()))
                 .amount(Integer.parseInt(map.get("quantity").toString()))
                 .build();
 
         int result = 0;
-        if(dto.getPoint()>Integer.parseInt(map.get("price").toString())) {
-            result = paymentServiceIf.testUserPayment(paymentDTO,orderDTO,detailorderDTO,member_id, order_num, Integer.parseInt(map.get("price").toString()));
-            if(result == 8){
+        try {
+            if (dto.getPoint() > Integer.parseInt(map.get("price").toString())) {
+                paymentServiceIf.testUserPayment(paymentDTO, orderDTO, detailorderDTO, member_id, order_num, Integer.parseInt(map.get("price").toString()));
                 resultMap.put("result", "success");
-            }else{
+                resultMap.put("msg","정상적으로 결제되었습니다");
+            } else {
                 resultMap.put("result", "fail");
-                resultMap.put("msg","오류가 발생했습니다.");
+                resultMap.put("msg", "포인트가 모자랍니다.");
             }
-        }else{
-            resultMap.put("result","fail");
-            resultMap.put("msg","포인트가 모자랍니다.");
+        }catch(InsufficientStockException e) {
+            resultMap.put("result", "error");
+            resultMap.put("msg",e.getMessage());
+            return new Gson().toJson(resultMap);
         }
         return new Gson().toJson(resultMap);
     }
@@ -263,7 +266,7 @@ public class OrderController {
                 .category_class_code(bookDTO.getCategory_class_code())
                 .category_subject_code(bookDTO.getCategory_subject_code())
                 .order_state("배송 전")
-                .price(bookDTO.getPrice())
+                .price(bookDTO.getDiscount_price())
                 .total_price(Integer.parseInt(map.get("price").toString()))
                 .amount(Integer.parseInt(map.get("quantity").toString()))
                 .build();
