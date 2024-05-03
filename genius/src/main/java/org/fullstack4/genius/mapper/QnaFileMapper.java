@@ -9,4 +9,5 @@ public interface QnaFileMapper {
     int regist(QnaFileVO qnaFileVO);
     List<QnaFileVO> getFileList(int qna_idx);
     QnaFileVO getFile(int file_idx);
+    int deleteFile(String file_idx);
 }
