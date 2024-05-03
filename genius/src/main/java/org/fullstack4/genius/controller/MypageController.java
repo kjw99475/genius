@@ -120,7 +120,7 @@ public class MypageController {
         }
 
         log.info("===================================시작=============================");
-        log.info("responseDTO : " + responseDTO);
+        log.info("responseDTO : " + responseDTO.getDtoList());
         log.info("detaillist : " + detaillist);
         log.info("===================================끝=============================");
 
@@ -307,11 +307,59 @@ public class MypageController {
         log.info("###################"+map.toString());
         OrderDTO orderDTO = OrderDTO.builder()
                 .order_num(map.get("order_num").toString())
+                .order_state("환불 요청")
                 .order_refund_request(map.get("order_refund_request").toString())
                 .build();
         int result = orderService.requestRefund(orderDTO);
         log.info(result);
         if(result > 0) {
+            resultMap.put("result", "success");
+        }
+        else{
+            resultMap.put("result", "fail");
+            resultMap.put("message", "오류");
+        }
+
+        return new Gson().toJson(resultMap);
+    }
+
+    @RequestMapping(value = "/cancelRequest.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String cancelRequest(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        log.info("###################"+map.toString());
+
+        String order_num = map.get("order_num").toString();
+        List<OrderDTO> orderDTOImp = orderService.AdminOrderdetail(order_num);
+
+        OrderDTO orderDTO = OrderDTO.builder()
+                .order_num(map.get("order_num").toString())
+                .order_state("주문 취소")
+                .cancel_YN(map.get("order_cancel_request").toString())
+                .build();
+        int result = orderService.cancelOrder(orderDTO);
+        log.info(result);
+        if(result > 0) {
+            PaymentDTO paymentDTO = PaymentDTO.builder()
+                    .payment_num(order_num)
+                    .member_id(orderDTOImp.get(0).getMember_id())
+                    .price(orderDTOImp.get(0).getTotal_price())
+                    .method("포인트")
+                    .company("genius")
+                    .use_type("주문 취소")
+                    .title("포인트 환불")
+                    .build();
+
+            for(int i = 0; i<orderDTOImp.size();i++){
+                OrderDTO dto = orderDTOImp.get(i);
+                dto.setAmount(Integer.parseInt("-"+orderDTOImp.get(i).getAmount()));
+                log.info("테슽테틋ㅅ: " + dto.toString());
+                paymentService.salesBook(dto);
+                paymentService.deleteBookRelease(dto);
+            }
+
+            paymentService.memberPay(paymentDTO);
+            paymentService.usepoint(paymentDTO);
             resultMap.put("result", "success");
         }
         else{

@@ -92,7 +92,7 @@
         SELECT order_idx,order_num,member_id,order_date,cancel_YN,cancel_date,total_price,order_state,order_refund_request,order_refund_response
         FROM tbl_order
         <where>
-            member_id=#{member_id} and cancel_YN = 'N'
+            member_id=#{member_id}
             <if test="search_date1 != null or search_date2 != null">
                 <if test="search_date1 != null">
                     AND order_date <![CDATA[>=]]> #{search_date1}

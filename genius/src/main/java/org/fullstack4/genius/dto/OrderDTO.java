@@ -34,8 +34,8 @@ public class OrderDTO {
     private int total_price;
     private int amount;
     private int total_amount;
-    private String cancle_YN;
-    private LocalDate cancle_date;
+    private String cancel_YN;
+    private LocalDate cancel_date;
     private LocalDate delivery_start_date;
     private LocalDate delivery_end_date;
     private String delivery_addr1;
