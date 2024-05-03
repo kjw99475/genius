@@ -8,7 +8,7 @@ function nullCheck(str) {
             return false;
         }
     } else {
-        return false;
+        return true;
     }
 }
 
