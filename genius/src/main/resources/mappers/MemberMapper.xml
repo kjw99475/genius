@@ -97,4 +97,9 @@
         FROM tbl_member
         <include refid="whereCondition" />
     </select>
+    <select id="getProfile" resultType="String">
+        SELECT profile
+        FROM tbl_member
+        WHERE member_id = #{member_id}
+    </select>
 </mapper>

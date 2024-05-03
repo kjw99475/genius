@@ -125,8 +125,8 @@
                                 <tr>
                                     <td><small>${bookdto.book_name}</small></td>
                                     <td><small>${bookdto.quantity}</small></td>
-                                    <td><small>${CommonUtil.comma(bookdto.price)}</small></td>
-                                    <td><small>${CommonUtil.comma(bookdto.price * bookdto.quantity)}</small></td>
+                                    <td><small>${CommonUtil.comma(bookdto.discount_price)}</small></td>
+                                    <td><small>${CommonUtil.comma(bookdto.discount_price * bookdto.quantity)}</small></td>
                                 </tr>
                                 </tbody>
                             </table>

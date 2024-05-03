@@ -126,8 +126,8 @@
                                     <tr>
                                         <td><small>${list.book_name}</small></td>
                                         <td><small>${list.quantity}</small></td>
-                                        <td><small>${CommonUtil.comma(list.price)}</small></td>
-                                        <td><small>${CommonUtil.comma(list.price * list.quantity)}</small></td>
+                                        <td><small>${CommonUtil.comma(list.discount_price)}</small></td>
+                                        <td><small>${CommonUtil.comma(list.discount_price * list.quantity)}</small></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
