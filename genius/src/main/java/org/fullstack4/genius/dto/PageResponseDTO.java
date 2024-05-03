@@ -88,6 +88,13 @@ public class PageResponseDTO<E> {
         if(subject_code != null && subject_code != "") sb.append("&subject_code=" + subject_code);
         if(member_id != null) sb.append("&member_id=" + member_id);
 
+//        StringBuilder sb = new StringBuilder("?page_size=" + this.page_size);
+//        if(search_type != null) sb.append("&search_type=" + search_type_st + "&search_word=" + this.search_word);
+//        if(!search_data1.equals("")) sb.append("&search_data1=" + search_data1);
+//        if(!search_data2.equals("")) sb.append("&search_data2=" + search_data2);
+//        this.linked_params =  sb.toString();
+        // 수정 예정
+
         this.linked_params =  sb.toString();  // 쿼리스트링
         this.dtoList = dtoList;
         log.info("PageResponseDTO End");
