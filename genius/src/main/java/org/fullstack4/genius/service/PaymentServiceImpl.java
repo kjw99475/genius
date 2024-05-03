@@ -3,9 +3,11 @@ package org.fullstack4.genius.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.InsufficientStockException;
+import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.PaymentVO;
 import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.mapper.BookMapper;
 import org.fullstack4.genius.mapper.CartMapper;
 import org.fullstack4.genius.mapper.OrderMapper;
 import org.fullstack4.genius.mapper.PaymentMapper;
@@ -13,6 +15,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +31,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     private final OrderMapper orderMapper;
     private final CartMapper cartMapper;
     private final ModelMapper modelMapper;
+    private final BookMapper bookMapper;
     @Override
     public int charge(PaymentDTO paymentDTO) {
         PaymentVO vo = modelMapper.map(paymentDTO, PaymentVO.class);
@@ -143,7 +149,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {InsufficientStockException.class, Exception.class})
     public void testUserPayment(PaymentDTO paymentDTO, OrderDTO orderDTO,
                                 OrderDTO detailorderDTO,
                                 String member_id, String order_num, int total_price) throws InsufficientStockException {
@@ -156,6 +162,24 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             log.info("======orderVO=======:"+orderVO.toString());
             log.info("======detailVO=======:"+detailVO.toString());
             log.info("======paymentVO=======:"+paymentVO.toString());
+            BookVO bookVO = bookMapper.view(detailVO.getBook_code());
+            log.info("주문량: "+detailVO.getAmount());
+            log.info("재고: "+bookVO.getAmount());
+            if(detailVO.getAmount()>bookVO.getQuantity()){
+                throw new InsufficientStockException("도서 재고가 부족합니다.");
+            }
+
+            Date date = new Date();
+            LocalDate convertedDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int compare = convertedDate.compareTo(bookVO.getSales_start_date());
+            int compare2 = convertedDate.compareTo(bookVO.getSales_end_date());
+            log.info("compare: " + compare);
+            log.info("compare2: " + compare2);
+
+            if(compare<0 || compare2>0){
+                throw new InsufficientStockException("현재 판매중인 상품이 아닙니다.");
+            }
+
                 int result = paymentMapper.memberPay(paymentVO);
                 int result1 = orderMapper.regist(orderVO);
                 int result2 = orderMapper.deliveryRegist(orderVO);
@@ -174,10 +198,10 @@ public class PaymentServiceImpl implements PaymentServiceIf{
     }
 
     @Override
-    @Transactional
-    public int testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1,
+    @Transactional(rollbackFor = {InsufficientStockException.class, Exception.class})
+    public void testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1,
                             List<CartDTO> dtolist,
-                           String member_id,String order_num,int total_price) {
+                            String member_id, String order_num, int total_price) throws InsufficientStockException{
 
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
         OrderVO orderVO = modelMapper.map(orderDTO1, OrderVO.class);
@@ -186,6 +210,9 @@ public class PaymentServiceImpl implements PaymentServiceIf{
         log.info("======================================텟"+orderVO.toString());
         int result4 = orderMapper.regist(orderVO);
         int result5 = orderMapper.deliveryRegist(orderVO);
+
+        Date date = new Date();
+
         for(int i=0; i<dtolist.size(); i++) {
             OrderDTO detailorderDTO = OrderDTO.builder()
                     .member_id(member_id)
@@ -199,7 +226,22 @@ public class PaymentServiceImpl implements PaymentServiceIf{
                     .total_price(dtolist.get(i).getDiscount_price() * dtolist.get(i).getQuantity())
                     .amount(dtolist.get(i).getQuantity())
                     .build();
+            BookVO bookVO = bookMapper.view(detailorderDTO.getBook_code());
             OrderVO detailOrderVO = modelMapper.map(detailorderDTO, OrderVO.class);
+            if(detailOrderVO.getAmount()>bookVO.getQuantity()){
+                throw new InsufficientStockException("재고가 부족한 상품이 있습니다.");
+            }
+
+
+            LocalDate convertedDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int compare = convertedDate.compareTo(bookVO.getSales_start_date());
+            int compare2 = convertedDate.compareTo(bookVO.getSales_end_date());
+            log.info("compare: " + compare);
+            log.info("compare2: " + compare2);
+
+            if(compare<0 || compare2>0){
+                throw new InsufficientStockException("현재 판매중이 아닌 상품이 있습니다.");
+            }
             int result1 = orderMapper.detailregist(detailOrderVO);
             int result2 = paymentMapper.releaseBook(detailOrderVO);
             int result3 = paymentMapper.salesBook(detailOrderVO);
@@ -210,7 +252,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
         int result6 = paymentMapper.revenue(total_price);
         int result7 = paymentMapper.usepoint(paymentVO);
 
-        return result;
+
     }
 
     @Override

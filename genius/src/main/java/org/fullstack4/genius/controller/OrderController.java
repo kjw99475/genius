@@ -124,22 +124,24 @@ public class OrderController {
                 .order_phone(req.getParameter("phone"))
                 .order_zipcode(req.getParameter("order_zip_code"))
                 .build();
-        if(dto.getPoint()>Integer.parseInt(map.get("price").toString())) {
-            int result1 = paymentServiceIf.testPayment(paymentDTO, orderDTO1, dtolist, member_id, order_num, Integer.parseInt(map.get("price").toString()));
-
-            if (result1 > 0) {
+        try {
+            if (dto.getPoint() > Integer.parseInt(map.get("price").toString())) {
+                paymentServiceIf.testPayment(paymentDTO, orderDTO1, dtolist, member_id, order_num, Integer.parseInt(map.get("price").toString()));
                 for (int i = 0; i < dtolist.size(); i++) {
                     cartService.delete(dtolist.get(i));
                 }
                 resultMap.put("result", "success");
+                resultMap.put("msg", "성공적으로 결제되었습니다.");
             } else {
                 resultMap.put("result", "fail");
-                resultMap.put("msg", "오류가 발생했습니다.");
+                resultMap.put("msg", "포인트가 부족합니다.");
             }
-        }else{
-            resultMap.put("result", "fail");
-            resultMap.put("msg", "포인트가 부족합니다.");
         }
+        catch(InsufficientStockException e) {
+                resultMap.put("result", "fail");
+                resultMap.put("msg", e.getMessage());
+        }
+
 
         return new Gson().toJson(resultMap);
     }
