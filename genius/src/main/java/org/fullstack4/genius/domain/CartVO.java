@@ -18,6 +18,7 @@ public class CartVO {
     private String book_img;
     private String category_class_code;
     private String category_subject_code;
+    private int discount_price;
     private int price;
     private int quantity;
     private LocalDate reg_date;

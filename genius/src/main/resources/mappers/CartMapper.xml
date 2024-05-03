@@ -35,7 +35,7 @@
     </update>
 
     <select id="view" resultType="org.fullstack4.genius.domain.CartVO">
-        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.book_img,B.category_class_code,B.category_subject_code
+        select cart_idx,member_id,A.book_code,A.quantity,reg_date,B.book_name,B.price,B.discount_price,B.book_img,B.category_class_code,B.category_subject_code
         from tbl_cart as A
         INNER JOIN tbl_book AS B on B.book_code=A.book_code
         where cart_idx=#{cart_idx}
