@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @Log4j2
@@ -15,7 +17,9 @@ import java.time.LocalDate;
 @Builder
 public class OrderDTO {
     private int order_idx;
+    @NotEmpty
     private String order_num;
+    @NotEmpty
     private String member_id;
     private String member_name;
     private String phone;

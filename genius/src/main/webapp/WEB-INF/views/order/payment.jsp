@@ -230,11 +230,13 @@
                     alert("결제에 성공하였습니다.");
                     location.href="/mypage/payhistory";
                 }else{
-                    alert("포인트가 모자랍니다");
+                    alert(data.msg);
                 }
             },
             fail : function (data){
-
+                alert("결제에 실패했습니다.");
+            }, error: function(xhr, status, error) {
+                alert("에러가 발생했습니다. 오류: " + error);
             }
 
         });
