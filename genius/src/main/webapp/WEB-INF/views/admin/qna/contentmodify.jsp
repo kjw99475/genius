@@ -68,7 +68,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/contentmodify">
+                            <form method="post" action="/admin/qna/contentmodify" enctype="multipart/form-data">
                                 <input type="hidden" value="${qnaDTO.qna_idx}" id="qna_idx" name="qna_idx">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -106,23 +106,27 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="file" type="file" class="form-control" id="file"
-                                               value="">
+                                        <input class="p-1" type="file" name="files" id="file"  multiple="multiple" onchange="fileList(this)">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label>파일 리스트</label>
-                                    <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
-                                    </ul>
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="file-list" class="form-group d-flex flex-column m-0 p-0">
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="ml-5">
-                                    <label>기존 파일 리스트</label>
-                                    <ul id="org-file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">기존 파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
                                         <c:forEach items="${fileList}" var="file">
-                                            <li class=""><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="${file.file_idx}" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
-                                            <input id="file-${file.file_idx}" type="hidden" name="orgFiles" value="${file.file_idx}">
+                                            <li class="card shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                            <input id="file-idx" type="hidden" name="orgFiles" value="${file.file_idx}">
                                         </c:forEach>
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
@@ -196,6 +200,34 @@
                 console.log(data);
             }
         });
+    }
+
+    // 파일 리스트 조작용(파일 추가)
+    function fileList(element) {
+        document.querySelector('#file-list').innerHTML = "";
+        let fileList = document.querySelector('#file-list');
+        console.log(element.files);
+        for (let i=0; i < element.files.length; i++) {
+            let list = document.createElement('li');
+            list.classList.add('card','shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.dataset.idx = i;
+            list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
+            fileList.append(list);
+        }
+    }
+    // 파일 리스트 개별 삭제용
+    function deleteThisFile(element) {
+        event.preventDefault();
+        element.parentElement.parentElement.remove();
+        let input = document.getElementById("file-"+element.dataset.fileidx);
+        $(input).remove();
+        const dataTransfer = new DataTransfer();
+        let target = element.dataset.idx;
+        let files = document.querySelector('#file').files;
+        let fileArray = Array.from(files);
+        fileArray.splice(target, 1);
+        fileArray.forEach(file => {dataTransfer.items.add(file);});
+        document.querySelector('#file').files = dataTransfer.files;
     }
 
 </script>
