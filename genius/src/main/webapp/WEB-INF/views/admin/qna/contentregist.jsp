@@ -38,10 +38,6 @@
 
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
-    <!-- include summernote css/js -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
-    <script src="/resources/js/summernote/summernote-lite.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -73,9 +69,6 @@
 
                             <!--Form -->
                             <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
-                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
-
-
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -125,7 +118,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-light" onclick="location.href='/admin/qna/list'">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->
@@ -148,6 +141,9 @@
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 
+<!-- include summernote css/js -->
+<link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
+<script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
     //서머노트
     $('#summernote').summernote({
@@ -161,7 +157,7 @@
             ['para', ['ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['codeview', 'help']]
         ]
     });
 

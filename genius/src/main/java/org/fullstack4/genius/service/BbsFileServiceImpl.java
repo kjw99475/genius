@@ -47,4 +47,9 @@ public class BbsFileServiceImpl implements BbsFileServiceIf {
 
         return bbsFileDTO;
     }
+
+    @Override
+    public int deleteFile(String file_idx) {
+        return bbsFileMapper.deleteFile(file_idx);
+    }
 }

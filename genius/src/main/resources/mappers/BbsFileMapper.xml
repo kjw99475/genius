@@ -4,7 +4,7 @@
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.genius.mapper.BbsFileMapper">
     <select id="getFileList" resultType="org.fullstack4.genius.domain.BbsFileVO">
-        SELECT file_idx, bbs_idx, save_name, original_name, path
+        SELECT file_idx, bbs_idx, save_name, original_name, path, category_code
         FROM tbl_bbs_file
         WHERE bbs_idx = #{bbs_idx}
         AND category_code = #{category_code}
@@ -18,5 +18,9 @@
         FROM tbl_bbs_file
         WHERE file_idx = #{file_idx}
     </select>
+    <delete id="deleteFile">
+        DELETE FROM tbl_bbs_file
+        WHERE file_idx = #{file_idx}
+    </delete>
 
 </mapper>

@@ -17,5 +17,8 @@
         FROM tbl_qna_file
         WHERE file_idx = #{file_idx}
     </select>
-
+    <delete id="deleteFile">
+        DELETE FROM tbl_qna_file
+        WHERE file_idx = #{file_idx}
+    </delete>
 </mapper>

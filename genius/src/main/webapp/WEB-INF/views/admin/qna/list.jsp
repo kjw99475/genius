@@ -134,13 +134,6 @@
                                     <col class="w-10">
                                     <col class="w-5">
                                     <col class="w-10">
-<%--                                    <col width="8%">--%>
-<%--                                    <col width="7%">--%>
-<%--                                    <col width="40%">--%>
-<%--                                    <col width="10%">--%>
-<%--                                    <col width="12%">--%>
-<%--                                    <col width="8%">--%>
-<%--                                    <col width="15%">--%>
                                 </colgroup>
                                 <thead>
 
@@ -163,10 +156,10 @@
                                 <c:set value="${responseDTO.total_count}" var="total_count"/>
 
                                 <c:forEach items="${responseDTO.dtoList}" var="qnaDTO" varStatus="i">
-                                    <tr onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}&no=${total_count - i.index - responseDTO.page_skip_count}'">
+                                    <tr>
                                         <td><input class="chk_del me-2" type="checkbox" name="del_chk" value="${qnaDTO.qna_idx}" ></td>
                                         <td>${total_count - i.index - responseDTO.page_skip_count}</td>
-                                        <td>${qnaDTO.title}</td>
+                                        <td><a href="/admin/qna/view?qna_idx=${qnaDTO.qna_idx}">${qnaDTO.title}</a><c:if test="${qnaDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                         <td>${qnaDTO.member_name}</td>
                                         <td>${qnaDTO.reg_date}</td>
                                         <td>${qnaDTO.read_cnt}</td>
