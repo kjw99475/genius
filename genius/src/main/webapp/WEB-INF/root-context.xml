@@ -70,6 +70,12 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="regist*" rollback-for="Exception"/>
+            <tx:method name="deliveryRegist" rollback-for="Exception"/>
+            <tx:method name="detailregist" rollback-for="Exception"/>
+            <tx:method name="releaseBook" rollback-for="Exception"/>
+            <tx:method name="salesBook" rollback-for="Exception"/>
+            <tx:method name="revenue" rollback-for="Exception"/>
+            <tx:method name="usepoint" rollback-for="Exception"/>
             <tx:method name="modify*" rollback-for="Exception"/>
             <tx:method name="delete*" rollback-for="Exception"/>
             <tx:method name="reply_regis*" rollback-for="Exception"/>

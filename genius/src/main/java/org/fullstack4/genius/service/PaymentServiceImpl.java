@@ -145,6 +145,27 @@ public class PaymentServiceImpl implements PaymentServiceIf{
 
     @Override
     @Transactional
+    public int testUserPayment(PaymentDTO paymentDTO, OrderDTO orderDTO,
+                           OrderDTO detailorderDTO,
+                           String member_id,String order_num,int total_price){
+            PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+            OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
+            OrderVO detailVO = modelMapper.map(detailorderDTO, OrderVO.class);
+
+        int result = paymentMapper.memberPay(paymentVO);
+        result += orderMapper.regist(orderVO);
+        result += orderMapper.deliveryRegist(orderVO);
+        result += orderMapper.detailregist(detailVO);
+        result += paymentMapper.usepoint(paymentVO);
+        result += paymentMapper.releaseBook(detailVO);
+        result += paymentMapper.salesBook(detailVO);
+        result += paymentMapper.revenue(total_price);
+
+        return result;
+    }
+
+    @Override
+    @Transactional
     public int testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1,
                             List<CartDTO> dtolist,
                            String member_id,String order_num,int total_price) {

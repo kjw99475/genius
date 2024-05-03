@@ -125,7 +125,7 @@
     </select>
     <insert id="releaseBook">
         INSERT INTO tbl_release(order_num,book_code,book_name,price,amount,release_date,category_class_code,category_subject_code)
-        VALUES(#{order_num},#{book_code},#{book_name},#{price},#{amount},NOW(),#{category_class_code},#{category_subject_code})
+        VALUES(#{order_num},#{book_code},#{book_name},'error',#{amount},NOW(),#{category_class_code},#{category_subject_code})
     </insert>
     <update id="salesBook">
         UPDATE tbl_book

@@ -211,7 +211,7 @@
         let frmData = $("form[name=userfrm]").serialize();
         frmData = decodeURIComponent(frmData);
         $.ajax({
-            url:"/order/userpayment.dox?"+frmData,
+            url:"/order/testuserpayment.dox?"+frmData,
             dataType:"json",
             type : "POST",
             data : {
@@ -223,14 +223,16 @@
             },
             success : function(data) {
                 if(data.result == "success"){
-                    alert("성공");
+                    alert("결제에 성공하였습니다.");
                     location.href="/mypage/payhistory";
                 }else{
-                    alert("포인트가 모자랍니다");
+                    alert(data.msg);
                 }
             },
-            fail : function (data){
-
+            fail : function (data) {
+                alert("결제에 실패했습니다.");
+            }, error: function(xhr, status, error) {
+                alert("에러가 발생했습니다. 오류: " + error);
             }
 
         });
