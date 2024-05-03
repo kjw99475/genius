@@ -144,7 +144,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">수정 완료</button>
-                                    <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/announce/view?bbs_idx=${bbsDTO.bbs_idx}'">취소</button>
                                 </div>
                             </form><!-- EndForm -->
 
@@ -159,7 +159,9 @@
 <!--================ 본문 END =================-->
 
 <!-- 사이드바 -->
-<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/sidebar.jsp">
+    <jsp:param name="menuGubun" value="bbs_announce"/>
+</jsp:include>
 <!-- 사이드바 끝 -->
 
 <!--================ 푸터 Start =================-->
