@@ -73,9 +73,6 @@
 
                             <!--Form -->
                             <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
-                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
-
-
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -125,7 +122,7 @@
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
                                     <button type="submit" class="btn btn-success me-2">등록</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-light" onclick="location.href='/admin/qna/list'">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->

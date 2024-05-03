@@ -62,6 +62,7 @@ public class AdminQnaController {
                                   HttpServletRequest request,
                                   RedirectAttributes redirectAttributes,
                                   Model model){
+
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
         log.info("list size : " + list.size());
