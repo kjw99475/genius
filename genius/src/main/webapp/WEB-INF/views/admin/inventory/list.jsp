@@ -64,14 +64,14 @@
                     <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
                         <div class="col">
                             <div class="row mb-2">
-                                <label class="fw-bold p-3">검색 기간</label>
+                                <label class="fw-bold p-3">출판일</label>
                                 <div class="row justify-content-start align-items-center">
                                     <div class="col-3">
-                                        <input class="form-control" type="date" name="search_data1" id="banner_start" value="${responseDTO['search_data1']}">
+                                        <input class="form-control" type="date" name="search_date1" id="banner_start" value="${responseDTO['search_date1']}">
                                     </div>
                                     ~
                                     <div class="col-3">
-                                        <input class="form-control" type="date" name="search_data2" id="banner_end" value="${responseDTO['search_data2']}">
+                                        <input class="form-control" type="date" name="search_date2" id="banner_end" value="${responseDTO['search_date2']}">
                                     </div>
                                 </div>
 
@@ -84,6 +84,7 @@
                                         <label class="fw-bold p-3" style="margin-right: 70px">학년</label>
                                         <label class="fw-bold p-3" style="margin-right: 70px">과목</label>
                                         <label class="fw-bold p-3">키워드 검색</label>
+<%--                                        <label class="fw-bold p-3">판매상태</label>--%>
                                     </div>
                                     <div class="d-flex align-items-center" style="gap: 10px">
 
@@ -117,7 +118,12 @@
                                             <option value="4" <c:if test="${responseDTO.type == '4'}"> selected</c:if>>상품번호</option>
                                         </select>
 
-
+<%--                                        <select name="type2" class="form-select w-200px">--%>
+<%--                                            <option value="1" <c:if test="${bookDTO.sales_status == '1'}"> selected</c:if>>판매중</option>--%>
+<%--                                            <option value="2" <c:if test="${bookDTO.sales_status == '2'}"> selected</c:if>>판매준비중</option>--%>
+<%--                                            <option value="3" <c:if test="${bookDTO.sales_status == '3'}"> selected</c:if>>판매종료</option>--%>
+<%--                                            <option value="4" <c:if test="${bookDTO.sales_status == '4'}"> selected</c:if>>품절</option>--%>
+<%--                                        </select>--%>
                                         <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
                                         <div class="w-200px">
                                             <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
@@ -153,6 +159,7 @@
                         <th scope="col" class="bg-geni-dark text-white">할인가</th>
                         <th scope="col" class="bg-geni-dark text-white">저자</th>
                         <th scope="col" class="bg-geni-dark text-white">출판사</th>
+                        <th scope="col" class="bg-geni-dark text-white">출판일</th>
                         <th scope="col" class="bg-geni-dark text-white">학년</th>
                         <th scope="col" class="bg-geni-dark text-white">과목</th>
                         <th scope="col" class="bg-geni-dark text-white">판매상태</th>
@@ -172,6 +179,7 @@
                             <td>${bookDTO.discount_price}</td>
                             <td>${bookDTO.author}</td>
                             <td>${bookDTO.publisher}</td>
+                            <td>${bookDTO.publication_date}</td>
                             <td>${bookDTO.category_class_code}</td>
                             <td>${bookDTO.category_subject_code}</td>
                             <td>

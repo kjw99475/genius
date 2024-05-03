@@ -76,7 +76,7 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover border-bottom">
                 <thead class="filter-bar">
                 <tr>
                     <th scope="col">번호</th>
@@ -87,11 +87,9 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                <c:set value="${responseDTO.total_count}" var="total_count" />
-                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="5">검색 결과가 없습니다.</td></tr></c:if>
                 <c:choose>
-                    <c:when test="${responseDTO ne null}">
+                    <c:when test="${!empty responseDTO.dtoList}">
+                        <c:set value="${responseDTO.total_count}" var="total_count" />
                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                             <tr>
                                 <th>${total_count -responseDTO.page_skip_count -loop.index}</th>
@@ -103,7 +101,9 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <tr><td colspan="5">결과가 없습니다.</td></tr>
+                        <tr class="bg-white text-center">
+                            <td colspan="5">등록된 글이 없습니다.</td>
+                        </tr>
                     </c:otherwise>
                 </c:choose>
 

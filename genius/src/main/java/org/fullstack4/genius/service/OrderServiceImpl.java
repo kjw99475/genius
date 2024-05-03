@@ -3,6 +3,7 @@ package org.fullstack4.genius.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
@@ -11,6 +12,7 @@ import org.fullstack4.genius.dto.QnaDTO;
 import org.fullstack4.genius.mapper.OrderMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,6 +47,29 @@ public class OrderServiceImpl  implements OrderServiceIf {
         int result = orderMapper.deliveryRegist(orderVO);
 
         return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {InsufficientStockException.class, Exception.class})
+    public void testUpdate(String[] ordernumList, String[] deliveryList) throws InsufficientStockException {
+        int result = 0;
+        int result1 = 0;
+        for(int i=0;i<ordernumList.length;i++){
+            if(!deliveryList[i].equals("")) {
+                OrderDTO dto = OrderDTO.builder()
+                        .order_num(ordernumList[i])
+                        .delivery_company(deliveryList[i])
+                        .delivery_state("배송 중")
+                        .order_state("배송 중")
+                        .build();
+
+                OrderVO vo = modelMapper.map(dto, OrderVO.class);
+                result1 += orderMapper.updateOrderState(vo);
+                result += orderMapper.updateDcompany(vo);
+            }else if(deliveryList[i].equals("")){
+                throw new InsufficientStockException("선택되지 않은 항목의 택배사가 있습니다.");
+            }
+        }
     }
 
     @Override
@@ -115,6 +140,13 @@ public class OrderServiceImpl  implements OrderServiceIf {
         OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
         int result = orderMapper.updateOrderState(vo);
 
+        return result;
+    }
+
+    @Override
+    public int deliveryEndDate(OrderDTO orderDTO) {
+        OrderVO vo = modelMapper.map(orderDTO, OrderVO.class);
+        int result = orderMapper.deliveryEndDate(vo);
         return result;
     }
 
