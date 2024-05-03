@@ -99,3 +99,4 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script><script src="/resources/admin/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
