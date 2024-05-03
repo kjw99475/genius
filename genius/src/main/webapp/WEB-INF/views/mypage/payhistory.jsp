@@ -31,7 +31,9 @@
 </head>
 <body>
 <!--================ 헤더 start =================-->
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+    <jsp:param name="menuGubun" value="payhistory"/>
+</jsp:include>
 <!--================ 헤더 End =================-->
 
 <!--================ 본문 start =================-->
