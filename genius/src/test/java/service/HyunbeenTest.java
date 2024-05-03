@@ -104,8 +104,8 @@ public class HyunbeenTest {
 
     @Test
     public void orderCancel(){
-        int idx = 1;
-        int result = order.cancelOrder(idx);
+        OrderDTO orderDTO = new OrderDTO();
+        int result = order.cancelOrder(orderDTO);
 
         log.info("===================================");
         log.info("result: " + result);
