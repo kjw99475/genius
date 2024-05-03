@@ -257,4 +257,9 @@ public class MemberServiceImpl implements MemberServiceIf {
         PageResponseDTO<MemberDTO> pageResponseDTO = PageResponseDTO.<MemberDTO>withAll().requestDTO(requestDTO).dtoList(memberDTOList).total_count(total_count).build();
         return pageResponseDTO;
     }
+
+    @Override
+    public String getProfile(String member_id) {
+        return memberMapper.getProfile(member_id);
+    }
 }

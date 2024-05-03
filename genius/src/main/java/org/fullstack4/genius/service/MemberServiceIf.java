@@ -24,4 +24,5 @@ public interface MemberServiceIf {
     int changePwd(MemberDTO memberDTO);
     int modifyInfo(MemberDTO memberDTO, FileDTO fileDTO);
     PageResponseDTO<MemberDTO> list(PageRequestDTO requestDTO);
+    String getProfile(String member_id);
 }
