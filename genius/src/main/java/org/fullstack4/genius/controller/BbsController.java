@@ -293,6 +293,11 @@ public class BbsController {
     public void GETQnaModifytQ(@RequestParam(name="qna_idx") int qna_idx,
                                Model model) {
         QnaDTO qnaDTO = qnaServiceIf.view(qna_idx);
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
         model.addAttribute("qnaDTO", qnaDTO);
     }
 
