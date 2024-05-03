@@ -36,12 +36,12 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
     <!-- include summernote css/js -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-
+    <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
+    <script src="/resources/js/summernote/summernote-lite.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->

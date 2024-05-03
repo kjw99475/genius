@@ -36,6 +36,8 @@
 
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <style>
     .table_up th {
         width: 32%;
