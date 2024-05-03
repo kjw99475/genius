@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
@@ -28,34 +29,33 @@
             </a>
         </li>
         <!-- End 회원 관리 Page Nav -->
-
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link <c:if test="${not fn:contains(param.menuGubun, 'bbs_')}">collapsed</c:if>" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>게시판 관리</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content collapse <c:if test="${fn:contains(param.menuGubun, 'bbs_')}">show</c:if> " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/admin/banner/bannerList">
+                    <a href="/admin/banner/bannerList"<c:if test="${param.menuGubun eq 'bbs_banner'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>배너 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/announce/list" <c:if test="${param.menuGubun ne 'book'}">class="collapsed"</c:if> >
+                    <a href="/admin/announce/list"<c:if test="${param.menuGubun eq 'bbs_announce'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>공지사항 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/qna/list">
+                    <a href="/admin/qna/list"<c:if test="${param.menuGubun eq 'bbs_qna'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>QnA 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/faq/list">
+                    <a href="/admin/faq/list"<c:if test="${param.menuGubun eq 'bbs_faq'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>F.A.Q 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/bbs/list">
+                    <a href="/admin/bbs/list"<c:if test="${param.menuGubun eq 'bbs_bbs'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>자료실 관리</span>
                     </a>
                 </li>
