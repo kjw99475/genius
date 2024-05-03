@@ -194,6 +194,7 @@ public class AdminQnaController {
         }
         List<MultipartFile> newFileList = files.getFiles("files");
         String uploadFolder = CommonUtil.getUploadFolder(request,"qna");
+        log.info("newfilelist : " + newFileList);
         for(MultipartFile file : newFileList) {
             if(file.getSize() == 0) {
                 break;
@@ -277,6 +278,11 @@ public class AdminQnaController {
     public void GETAnswerRegist(@RequestParam(name = "qna_idx")int qna_idx,
                                 Model model){
         QnaDTO qnaDTO = qnaService.view(qna_idx);
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
 
         model.addAttribute("qnaDTO", qnaDTO);
     }
