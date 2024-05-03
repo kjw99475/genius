@@ -111,10 +111,23 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <label>파일 리스트</label>
+                                    <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                                    </ul>
+                                </div>
+                                <div class="ml-5">
+                                    <label>기존 파일 리스트</label>
+                                    <ul id="org-file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                                        <c:forEach items="${fileList}" var="file">
+                                            <li class=""><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="${file.file_idx}" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                            <input id="file-${file.file_idx}" type="hidden" name="orgFiles" value="${file.file_idx}">
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                                <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="contents">${qnaDTO.contents}</textarea>
-
                                     </div>
                                 </div>
 

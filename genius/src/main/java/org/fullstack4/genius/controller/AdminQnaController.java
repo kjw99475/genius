@@ -148,6 +148,7 @@ public class AdminQnaController {
                                  Model model){
         QnaDTO qnaDTO = qnaService.view(qna_idx);
 
+
         model.addAttribute("qnaDTO", qnaDTO);
     }
 
