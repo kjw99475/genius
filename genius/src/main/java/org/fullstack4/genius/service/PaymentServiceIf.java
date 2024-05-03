@@ -22,7 +22,7 @@ public interface PaymentServiceIf {
     int deleteBookRelease(OrderDTO orderDTO);
     int salesBook(OrderDTO orderDTO);
     int releaseBook(OrderDTO orderDTO);
-    int testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1, List<CartDTO> dtolist,String member_id,String order_num,int total_price);
+    void testPayment(PaymentDTO paymentDTO, OrderDTO orderDTO1, List<CartDTO> dtolist, String member_id, String order_num, int total_price) throws InsufficientStockException;
     void testUserPayment(PaymentDTO paymentDTO, OrderDTO orderDTO, OrderDTO detailorderDTO, String member_id, String order_num, int total_price) throws InsufficientStockException;
     int OrderTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<OrderDTO> viewOrderListByPage(PageRequestDTO requestDTO);

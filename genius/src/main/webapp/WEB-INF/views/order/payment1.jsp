@@ -227,7 +227,10 @@
                 if(data.result == "success"){
                     alert(data.msg);
                     location.href="/mypage/payhistory";
-                }else{
+                }else if(data.result == "error"){
+                    alert(data.msg);
+                }
+                else if(data.result=="fail"){
                     alert(data.msg);
                 }
             },
