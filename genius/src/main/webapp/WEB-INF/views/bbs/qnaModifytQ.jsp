@@ -87,7 +87,7 @@
                     </div>
                     <div class="ml-5">
                         <label>기존 파일 리스트</label>
-                        <ul id="file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
+                        <ul id="org-file-list" class="form-group col-md-10 d-flex flex-column m-0 p-0" style="gap:5px">
                             <c:forEach items="${fileList}" var="file">
                                 <li class="card d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="${file.file_idx}" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
                                 <input id="file-${file.file_idx}" type="hidden" name="orgFiles" value="${file.file_idx}">
