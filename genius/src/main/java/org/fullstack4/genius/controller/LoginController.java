@@ -2,6 +2,7 @@ package org.fullstack4.genius.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.dto.MemberDTO;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.stereotype.Controller;
@@ -37,9 +38,10 @@ public class LoginController {
             HttpServletResponse response,
             HttpServletRequest request
     ){
-
+        member_id = CommonUtil.parseString(member_id);
+        pwd = CommonUtil.parseString(pwd);
         if(member_id.equals("") || pwd.equals("")) {
-            redirectAttributes.addFlashAttribute("loginErr", "로그인 정보를 확인해주세요.");
+            redirectAttributes.addFlashAttribute("loginErr", "공란 없이 입력해주세요");
             return "redirect:/login/login";
         }
         MemberDTO loginDTO = memberServiceIf.login(member_id, pwd);

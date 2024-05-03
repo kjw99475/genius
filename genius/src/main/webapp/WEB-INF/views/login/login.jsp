@@ -43,13 +43,13 @@
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <div class="login_form_inner rounded">
                         <h3 class="d-flex justify-content-center align-items-center flex-wrap"><img src="/resources/img/login.png" width="400px"></h3>
-                        <form class="row login_form mb-5" method="post" action="/login/login" id="frm" >
+                        <form class="row login_form mb-5" method="post" action="/login/login" id="frmLogin" >
                             <input type="hidden" name="acc_url" value="/">
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="member_id" name="member_id" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
+                                <input type="text" class="form-control" id="member_id" name="member_id" data-name="아이디" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                <input type="password" class="form-control" id="pwd" data-name="비밀번호" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                             </div>
                             <div id="err_login" class="text-danger text-center col-md-12">
 
@@ -89,10 +89,27 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     if(${!empty loginErr}) {
-        $('#err_login').append("${loginErr}");
+        $('#err_login').text('${loginErr}');
     }
+    $('#frmLogin').submit(
+        ()=>{
+            event.preventDefault();
+            let arr = ['member_id', 'pwd'];
+            for(let el of arr) {
+                let target = $('#' + el);
+                if(!nullCheck($(target))) {
+                    $('#err_login').text($(target).data('name') + '는 공백일 수 없습니다.');
+                    $(target).focus();
+                    return;
+                }
+            }
+            $('#frmLogin').submit();}
+    );
+    // $('#frmLogin').addEventListener('submit',
+    // })
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

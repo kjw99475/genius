@@ -161,7 +161,7 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success me-2"
                                 onclick="location.href='/admin/announce/contentregist'">등록</button>
-                        <button type="button" class="btn btn-success"
+                        <button type="button" class="btn btn-outline-success"
                                 onclick="bbs_delete()">삭제</button>
                     </div>
 
