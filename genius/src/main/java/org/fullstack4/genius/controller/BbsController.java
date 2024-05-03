@@ -304,7 +304,7 @@ public class BbsController {
     @PostMapping("/qnaModifytQ")
     public String POSTQnaModifyQ(@Valid QnaDTO newQnaDTO,
                                  MultipartHttpServletRequest files,
-                                 @RequestParam(name = "orgFiles") String orgFiles,
+                                 @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  HttpServletRequest request,
@@ -320,7 +320,7 @@ public class BbsController {
         QnaDTO orgQnaDTO = qnaServiceIf.view(newQnaDTO.getQna_idx());
         if(orgQnaDTO.getFileYN().equals("Y")){
             List<QnaFileDTO> OrgfileDTOList = qnaFileServiceIf.getFileList(orgQnaDTO.getQna_idx());
-            if (orgFiles.length() > 0) {
+            if (!orgFiles.isEmpty()) {
                 // 기존 파일을 유지하거나 일부만 지웠을 겨우
                 newQnaDTO.setFileYN("Y");
                 for(QnaFileDTO fileDTO : OrgfileDTOList) {
