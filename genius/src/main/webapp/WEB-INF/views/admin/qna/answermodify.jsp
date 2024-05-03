@@ -160,7 +160,7 @@
 
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
                                     </div>
                                 </div>

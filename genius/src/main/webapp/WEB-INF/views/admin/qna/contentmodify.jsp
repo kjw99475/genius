@@ -72,7 +72,7 @@
                                 <input type="hidden" value="${qnaDTO.qna_idx}" id="qna_idx" name="qna_idx">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="category_code" type="text" class="form-control" id="category_code"
                                                value="qna" readonly>
                                     </div>
@@ -80,7 +80,7 @@
 
                                 <div class="row mb-3">
                                     <label for="bbs_title" class="col-md-4 col-lg-2 col-form-label">제목</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control" id="bbs_title"
                                                value="${qnaDTO.title}">
                                     </div>
@@ -88,7 +88,7 @@
 
                                 <div class="row mb-3">
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label">작성자</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control" id="member_id"
                                                value="${qnaDTO.member_id}" readonly>
                                     </div>
@@ -97,7 +97,7 @@
 
 <%--                                <div class="row mb-3">--%>
 <%--                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">등록일</label>--%>
-<%--                                    <div class="col-md-8 col-lg-10">--%>
+<%--                                    <div class="col-md-8 col-lg-9">--%>
 <%--                                        <input name="reg_date" type="date" class="form-control" id="reg_date"--%>
 <%--                                               value="${qnaDTO.reg_date}">--%>
 <%--                                    </div>--%>
@@ -105,14 +105,14 @@
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <input name="file" type="file" class="form-control" id="file"
                                                value="">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="contents">${qnaDTO.contents}</textarea>
 
                                     </div>
