@@ -92,18 +92,18 @@
                                     </div>
                                 </div>
 
-                                <%--<div class="row mb-3">
-                                    <label for="reg_date" class="col-md-4 col-lg-2 col-form-label">작성일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input name="reg_date" type="date" class="form-control" id="reg_date"
-                                               value="${bbsDTO.reg_date}" >
-                                    </div>
-                                </div>--%>
-
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="files" type="file" class="form-control" id="file" multiple>
+                                        <input class="p-1" type="file" name="files" id="file"  multiple="multiple" onchange="fileList(this)">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="file-list" class="form-group d-flex flex-column m-0 p-0">
+                                        </ul>
                                     </div>
                                 </div>
 
