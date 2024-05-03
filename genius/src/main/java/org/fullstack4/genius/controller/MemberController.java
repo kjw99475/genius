@@ -11,12 +11,14 @@ import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -34,11 +36,17 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String POSTJoin(MemberDTO memberDTO,
+    public String POSTJoin(@Valid MemberDTO memberDTO,
+                         BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("MemberController > POSTJoin");
         log.info("============================");
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("memberDTO", memberDTO);
+            return "redirect:/member/join";
+        }
         int result = memberService.join(memberDTO);
         if (result > 0) {
             log.info("-----------회원가입 성공 > memberDTO" + memberDTO);
