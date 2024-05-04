@@ -228,7 +228,7 @@
             success : function(data) {
                 if(data.result == "success"){
                     alert("결제에 성공하였습니다.");
-                    location.href="/mypage/payhistory";
+                    location.replace("/mypage/payhistory");
                 }else{
                     alert(data.msg);
                 }
@@ -241,6 +241,8 @@
 
         });
     }
+
+
 </script>
 
 

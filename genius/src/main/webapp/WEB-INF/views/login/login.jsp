@@ -97,6 +97,7 @@
     $('#frmLogin').submit(
         ()=>{
             event.preventDefault();
+            $('#err_login').text("");
             let arr = ['member_id', 'pwd'];
             for(let el of arr) {
                 let target = $('#' + el);
@@ -106,10 +107,9 @@
                     return;
                 }
             }
-            $('#frmLogin').submit();}
+            $('#frmLogin').submit();
+        }
     );
-    // $('#frmLogin').addEventListener('submit',
-    // })
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

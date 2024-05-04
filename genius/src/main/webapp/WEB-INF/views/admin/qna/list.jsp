@@ -87,10 +87,10 @@
                                                     <label class="fw-bold p-3 ">키워드 검색</label>
                                                 </div>
                                                 <div class="d-flex align-items-center" style="gap: 10px">
-                                                    <select name="answerYN" id="answerYN" class="form-select w-200px">
-                                                        <option value="" selected>답변상태</option>
-                                                        <option value="N">대기중</option>
-                                                        <option value="Y">답변완료</option>
+                                                    <select name="status" id="answerStatus" class="form-select w-200px">
+                                                        <option value="" <c:if test="${responseDTO.status eq ''}">selected</c:if>>전체</option>
+                                                        <option value="0" <c:if test="${responseDTO.status eq '0'}">selected</c:if>>대기중</option>
+                                                        <option value="1" <c:if test="${responseDTO.status eq '1'}">selected</c:if>>답변완료</option>
                                                     </select>
 
                                                     <select name="type" id="search_category" class="form-select w-200px">
@@ -171,7 +171,16 @@
                                                 답변글
                                             </c:if>
                                         </td>
-                                        <td>${qnaDTO.answerYN}</td>
+                                        <td>
+                                            <c:if test="${qnaDTO.answerStatus == '0'}">
+                                                답변 대기</c:if>
+                                            <c:if test="${qnaDTO.answerStatus == '1'}">
+                                                답변 완료
+                                            </c:if>
+                                            <c:if test="${qnaDTO.answerStatus == '2'}">
+                                                답변
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.dto.MemberDTO;
+import org.fullstack4.genius.mapper.CartMapper;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class LoginController {
     private final MemberServiceIf memberServiceIf;
+    private final CartMapper cartMapper;
 
     @GetMapping("/login")
     public void GETLogin(){
@@ -52,10 +54,11 @@ public class LoginController {
                 cookie.setMaxAge(999999);
                 response.addCookie(cookie);
             }
-            log.info("loginDTO" + loginDTO);
+            int cartCnt = cartMapper.CartTotalCount(loginDTO.getMember_id());
             HttpSession session = request.getSession();
             session.setAttribute("member_id", loginDTO.getMember_id());
             session.setAttribute("admin_YN", loginDTO.getAdmin_YN());
+            session.setAttribute("cartCnt", cartCnt);
             return "redirect:"+acc_url;
         }
         redirectAttributes.addFlashAttribute("loginErr", "로그인 정보를 확인해주세요.");
@@ -63,7 +66,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public void LogOut(
+    public String LogOut(
             @RequestParam(name = "member_id", defaultValue = "") String member_id,
             HttpServletResponse response,
             HttpServletRequest request
@@ -77,6 +80,7 @@ public class LoginController {
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+        return "redirect:/login/login";
     }
 
     @GetMapping("/findId")

@@ -168,7 +168,7 @@
                                         <div class="card-product__img target" for="ch1">
                                             <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
                                             <ul class="card-product__imgOverlay">
-                                                <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-bag"></i></button></li>
+                                                <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-money"></i></button></li>
                                                 <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
                                             </ul>
                                             <div class="form-check targetTo ">

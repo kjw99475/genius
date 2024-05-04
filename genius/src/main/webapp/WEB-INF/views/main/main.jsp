@@ -66,7 +66,7 @@
               <div class="card-product__img bg-light">
                 <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-bag"></i></button></li>
+                  <li><button><i class="ti-money"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
                 </ul>
               </div>
@@ -86,7 +86,7 @@
               <div class="card-product__img bg-light">
                 <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-bag"></i></button></li>
+                  <li><button><i class="ti-money"></i></button></li>
                   <li><button><i class="ti-shopping-cart"></i></button></li>
                 </ul>
               </div>
@@ -120,7 +120,7 @@
                     <div class="card-product__img">
                       <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                       <ul class="card-product__imgOverlay">
-                        <li><button><i class="ti-bag"></i></button></li>
+                        <li><button><i class="ti-money"></i></button></li>
                         <li><button><i class="ti-shopping-cart"></i></button></li>
                       </ul>
                     </div>
@@ -139,7 +139,7 @@
                   <div class="card-product__img">
                     <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-bag"></i></button></li>
+                      <li><button><i class="ti-money"></i></button></li>
                       <li><button><i class="ti-shopping-cart"></i></button></li>
                     </ul>
                   </div>
@@ -158,7 +158,7 @@
                     <div class="card-product__img">
                       <img class="img-fluid img-h350" src="${dto['book_img']}" alt="">
                       <ul class="card-product__imgOverlay">
-                        <li><button><i class="ti-bag"></i></button></li>
+                        <li><button><i class="ti-money"></i></button></li>
                         <li><button><i class="ti-shopping-cart"></i></button></li>
                       </ul>
                     </div>

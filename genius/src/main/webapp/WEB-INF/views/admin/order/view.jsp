@@ -182,18 +182,16 @@
                                     <td>${orderDTO.get(0).delivery_start_date}</td>
                                 </tr>
                                 <tr>
-                                    <th class="bg-geni-ft align-content-center">배송종료일</th>
-                                    <td><input class="form-control" type="date" value="${orderDTO.get(0).delivery_end_date}"
-                                               <c:if test="${(orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null) or orderDTO.get(0).order_state =='주문 취소'}">disabled</c:if>
-                                    ></td>
+                                    <th class="bg-geni-ft align-content-center">배송 종료 예정일</th>
+                                    <td><input class="form-control" type="date" value="${orderDTO.get(0).delivery_end_date}" id="end_date" <c:if test="${orderDTO.get(0).order_state ne '배송 중'}">disabled</c:if>></td>
                                 </tr>
 
                                 </tbody>
                             </table>
 
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-success m-3" onclick="endDateSave()"
-                                        <c:if test="${(orderDTO.get(0).delivery_company != '' and orderDTO.get(0).delivery_company != null) or orderDTO.get(0).order_state =='주문 취소'}">
+                                <button class="btn btn-success m-3" onclick="endDateSave('${orderDTO.get(0).order_num}')"
+                                        <c:if test="${orderDTO.get(0).order_state ne '배송 중'}">
                                             disabled
                                         </c:if>>
                                     배송 정보 저장하기
@@ -307,9 +305,14 @@
                 "delivery":JSON.stringify(delivery)
             },
             success : function(data) {
-                alert("수정 성공");
-                console.log("성공");
-                location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}"
+                if(data.result =="success"){
+                    alert("배송이 시작되었습니다.");
+                    console.log("성공");
+                    location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}"
+                }else{
+                    console.log(data.result)
+                    alert(data.msg);
+                }
             },
             fail : function (data){
                 console.log("실패");
@@ -319,7 +322,7 @@
     }
 
     function response(item,item1){
-        if(confirm("낙장불입")){
+        if(confirm("정말로 환불 승인하시겠습니까?")){
             $.ajax({
                 url:"/admin/order/refundResponse.dox",
                 dataType:"json",
@@ -327,6 +330,34 @@
                 data : {
                     "order_num":item,
                     "order_refund_response" : item1
+                },
+                success : function(data) {
+                    if(data.result == "success"){
+                        console.log("정상적으로 환불처리 되었습니다.");
+                        location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}";
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                fail : function (data){
+                    console.log("실패했습니다.");
+                }
+
+            });
+        }
+    }
+
+    function endDateSave(item){
+        console.log(item);
+        console.log(document.querySelector("#end_date").value);
+        if(confirm("정말로 배송종료일을 변경하시겠습니까?")){
+            $.ajax({
+                url:"/admin/order/endDateSave.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "order_num":item,
+                    "end_date" : document.querySelector("#end_date").value
                 },
                 success : function(data) {
                     if(data.result == "success"){
@@ -342,10 +373,6 @@
 
             });
         }
-    }
-
-    function endDateSave(){
-
     }
 </script>
 </body>

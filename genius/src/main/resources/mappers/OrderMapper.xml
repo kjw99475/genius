@@ -6,7 +6,6 @@
 
     <sql id="whereCondition">
         <where>
-                1=1
                 <if test=' search_word != null and search_word != "" '>
                     <choose>
                         <when test="type2 == '' or type2 == null">
@@ -35,6 +34,16 @@
                     <when test="type == 3">
                         AND a.order_state = '배송 완료'
                     </when>
+                    <when test="type == 4">
+                        AND a.order_state = '환불 요청'
+                    </when>
+                    <when test="type == 5">
+                        AND a.order_state = '환불 완료'
+                    </when>
+                    <when test="type == 6">
+                        AND a.order_state = '환불 불가'
+                    </when>
+
                 </choose>
 
             <if test="search_date1 != null or search_date2 != null">
@@ -172,6 +181,12 @@
         SET order_refund_response = #{order_refund_response}
         WHERE order_num = #{order_num}
 
+    </update>
+
+    <update id = "deliveryEndDate">
+        UPDATE tbl_delivery
+        SET delivery_end_date = #{delivery_end_date}
+        WHERE order_num = #{order_num}
     </update>
 
 </mapper>

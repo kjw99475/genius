@@ -226,7 +226,7 @@
                 console.log(data.msg);
                 if(data.result == "success"){
                     alert(data.msg);
-                    location.href="/mypage/payhistory";
+                    location.replace("/mypage/payhistory");
                 }else if(data.result == "error"){
                     alert(data.msg);
                 }

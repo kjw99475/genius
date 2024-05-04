@@ -20,6 +20,7 @@ public class QnaDTO {
     private String contents;
     private String member_id;
     private String answerYN;
+    private String answerStatus;
     private String category_code;
     private int read_cnt;
     private int ref_idx;
