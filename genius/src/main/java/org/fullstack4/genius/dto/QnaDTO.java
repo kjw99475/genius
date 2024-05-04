@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Log4j2
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 @Builder
 public class QnaDTO {
     private int qna_idx;
-    @NotBlank
+    @Size(min = 2, max = 60, message = "2자에서 60자 사이로 입력해주세요.")
     private String title;
     @NotBlank
     private String contents;
