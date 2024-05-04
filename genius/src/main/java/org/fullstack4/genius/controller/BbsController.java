@@ -444,11 +444,15 @@ public class BbsController {
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes
     ) {
-
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
     }
 
     @PostMapping("/boardRegist")
-    public String POSTboardRegist(BbsDTO bbsDTO
+    public String POSTboardRegist(@Valid BbsDTO bbsDTO
             , MultipartHttpServletRequest files
             , BindingResult bindingResult
             , HttpServletRequest request
@@ -457,6 +461,7 @@ public class BbsController {
     ) {
         if(bindingResult.hasErrors()){
             log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("bbsDTO", bbsDTO);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
         List<MultipartFile> list = files.getFiles("files");

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import javax.validation.constraints.NotBlank;
+
 @Log4j2
 @Data
 @AllArgsConstructor
@@ -13,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 @Builder
 public class BannerDTO {
     private String banner_img_idx;
+    @NotBlank
     private String title;
     private String save_name;
     private String original_name;
@@ -21,7 +24,9 @@ public class BannerDTO {
     private String member_name;
     private String reg_date;
     private String modify_date;
+    @NotBlank
     private String post_start_date;
+    @NotBlank
     private String post_end_date;
     private String banner_status;
     private String order;

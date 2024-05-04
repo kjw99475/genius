@@ -57,11 +57,18 @@ public class AdminQnaController {
 
     @PostMapping("/contentregist")
     public String POSTContentRegist(@Valid QnaDTO qnaDTO,
-                                  MultipartHttpServletRequest files,
-                                  BindingResult bindingResult,
-                                  HttpServletRequest request,
-                                  RedirectAttributes redirectAttributes,
-                                  Model model){
+                                    BindingResult bindingResult,
+                                    MultipartHttpServletRequest files,
+                                    HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes,
+                                    Model model){
+
+        if(bindingResult.hasErrors()){
+            log.info("AdminQnaController >> Regist Error");
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/qna/contentregist";
+        }
 
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
@@ -83,27 +90,33 @@ public class AdminQnaController {
                     .file(list.get(i))
                     .uploadFolder(uploadFoler)
                     .build();
-            log.info("========================");
-            log.info("postQnaRegist >> qnaDTO" + qnaDTO);
-            log.info("========================");
             Map<String, String> map = FileUtil.FileUpload(fileDTO);
-            log.info("=======================");
-            log.info("upload : " + map);
-            log.info("=======================");
             if(map.get("result").equals("success")) {
                 QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
                         .path("/resources/upload/qna/")
                         .qna_idx(result)
                         .original_name(map.get("orgName"))
                         .save_name(map.get("newName")).build();
-                qnaFileServiceIf.regist(qnaFileDTO);
+                int fileResult = qnaFileServiceIf.regist(qnaFileDTO);
+                if(fileResult < 1){
+                    redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+                    redirectAttributes.addFlashAttribute("err", " 파일 업로드 실패");
+                    return "redirect:/admin/qna/contentregist";
+                }
+            }
+            else{
+                redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+                redirectAttributes.addFlashAttribute("err", " 파일 업로드 실패");
+                return "redirect:/admin/qna/contentregist";
             }
         }
-
         if(result>0){
             return "redirect:/admin/qna/list";
-        }else{
-            redirectAttributes.addFlashAttribute(qnaDTO);
+        }
+        else{
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("err", "등록 실패");
+
             return "redirect:/admin/qna/contentregist";
         }
 
@@ -152,6 +165,10 @@ public class AdminQnaController {
             log.info(fileDTOList);
             model.addAttribute("fileList", fileDTOList);
         }
+        qnaDTO.setContents(qnaDTO.getContents().replace("<p>",""));
+        log.info("contents : " + qnaDTO.getContents());
+        log.info("length : " + qnaDTO.getContents().length());
+        qnaDTO.setContents(qnaDTO.getContents().trim());
 
 
         model.addAttribute("qnaDTO", qnaDTO);
@@ -159,9 +176,9 @@ public class AdminQnaController {
 
     @PostMapping("/contentmodify")
     public String POSTContentModify(@Valid QnaDTO newQnaDTO,
+                                    BindingResult bindingResult,
                                     MultipartHttpServletRequest files,
                                     @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
-                                    BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes,
                                     HttpServletRequest request,
                                     Model mode){
@@ -289,11 +306,17 @@ public class AdminQnaController {
 
     @PostMapping("/answerregist")
     public String PostAnswerRegist(@Valid QnaDTO qnaDTO,
-                                   MultipartHttpServletRequest files,
                                    BindingResult bindingResult,
+                                   @RequestParam(name = "ref_idx")int ref_idx,
+                                   MultipartHttpServletRequest files,
                                    HttpServletRequest request,
                                    RedirectAttributes redirectAttributes,
                                    Model model){
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("newQnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/qna/answerregist?qna_idx="+ref_idx;
+        }
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
         log.info("list size : " + list.size());

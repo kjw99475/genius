@@ -23,7 +23,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     private final CartMapper cartMapper;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("LoginCheckInterceptor >>>>>>>>>>>>>>>>>>>>>>> preHandle");
         HttpSession session = request.getSession(false);
         String member_id = "";
         String admin_YN = "";
@@ -32,17 +31,16 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             admin_YN = CommonUtil.parseString(session.getAttribute("admin_YN"));
         }
         if (member_id.equals("")) {
-            log.info("로그인 정보 없어서 로그인 화면으로 이동");
             response.sendRedirect("/login/login");
             return false;
         } else {
-            log.info("로그인 정보 있음");
+            int cartCnt = cartMapper.CartTotalCount(member_id);
+            session.removeAttribute("cartCnt");
+            session.setAttribute("cartCnt", cartCnt);
             if(admin_YN.equals("Y")) {
                 String profile = memberServiceIf.getProfile(member_id);
                 session.setAttribute("profile", profile);
             } else {
-                int cartCnt = cartMapper.CartTotalCount(member_id);
-                session.setAttribute("cartCnt", cartCnt);
                 String requestURI = CommonUtil.parsingURI(request.getRequestURI());
                 if (requestURI.indexOf("admin") > 0) {
                     response.sendRedirect("/");

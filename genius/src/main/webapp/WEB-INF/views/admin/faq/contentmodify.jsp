@@ -69,7 +69,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/faq/contentmodify">
+                            <form method="post" id="modifyFrm" action="/admin/faq/contentmodify">
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
@@ -84,6 +84,9 @@
                                     <div class="col-md-8 col-lg-9">
                                         <input name="bbs_title" type="text" class="form-control" id="bbs_title"
                                                value="${bbsDTO.bbs_title}">
+                                        <div class="invalid-feedback" id="err_bbs_title" style="display: none">
+                                            2~60자 사이로 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -122,11 +125,14 @@
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="bbs_contents">${bbsDTO.bbs_contents}</textarea>
+                                        <div class="invalid-feedback" id="err_bbs_contents" style="display: none">
+                                            20자 이상 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
-                                    <button type="submit" class="btn btn-success me-2">수정 완료</button>
+                                    <button type="submit" id="modifyBtn" class="btn btn-success me-2">수정 완료</button>
                                     <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/faq/view?bbs_idx=${bbsDTO.bbs_idx}'">취소</button>
                                 </div>
                             </form><!-- EndForm -->
@@ -155,6 +161,32 @@
 <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
 <script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
+    let modifyBtn = document.getElementById("modifyBtn");
+    modifyBtn.addEventListener("click",function(e){
+        e.preventDefault();
+        if(document.getElementById("bbs_title").value.trim().length < 2 ||document.getElementById("bbs_title").value.trim().length > 60){
+            document.getElementById("err_bbs_title").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_bbs_title").style.display = "none";
+        }
+        let contentsText = (document.getElementById("summernote").value.replace(/<[^>]+>/g, '')).replaceAll("&nbsp;",'').trim();
+
+        if(contentsText.length <20){
+            document.getElementById("err_bbs_contents").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_bbs_contents").style.display = "none";
+        }
+        document.getElementById("modifyFrm").submit();
+    });
     //서머노트
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',

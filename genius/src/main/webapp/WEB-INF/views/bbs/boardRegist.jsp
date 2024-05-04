@@ -178,7 +178,7 @@
         document.querySelector('#file').files = dataTransfer.files;
     }
 
-    //유효성 검사
+    /*//유효성 검사
     document.querySelector('#registFrm').addEventListener('submit', checkForm);
     function checkForm() {
         event.preventDefault();
@@ -202,16 +202,25 @@
             return false;
         }
 
-        //서머노트 공백체크 필요..
-        // if (
-        //     !nullCheck2($('textarea[name=bbs_contents]').val().replaceAll(/&nbsp;/g, ""))
-        // ) {
-        //     $('textarea[name=bbs_contents]').focus();
-        //     return false;
+        // //서머노트 공백체크(작동x)
+        // if ($('#summernote').summernote('isEmpty')) {
+        //     alert('editor content is empty');
+        //     $('#summernote').summernote('focus');
         // }
 
         document.querySelector('#registFrm').submit();
-    }
+    }*/
+
+    //Back단 유효성 검사
+    if(${!empty errors}) {
+        let errArr = [];
+        <c:forEach var="item" items="${err}">
+        if(${item.getField() != null}) {
+            errArr.push('${item.getField()}');
+        }
+    </c:forEach>
+
+    console.log("err: "+ errArr);}
 
 </script>
 

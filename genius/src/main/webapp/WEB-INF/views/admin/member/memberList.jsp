@@ -43,7 +43,6 @@
 
 <!--================ 본문 start =================-->
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>회원 관리</h1>
         <nav>
@@ -54,17 +53,13 @@
         </nav>
     </div><!-- End Page Title -->
     <section class="section">
-
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-body">
-
                         <div class="row">
                             <form action="/admin/member/memberList" method="get">
                                 <div class="row me-2 ms-1 mb-4 mt-4 rounded-3 bg-light pt-1 pb-2">
-
                                     <div class="row mb-2">
                                         <div class="col">
                                             <div class="row">
@@ -72,14 +67,11 @@
                                                     <label class="fw-bold p-3">키워드 검색</label>
                                                 </div>
                                                 <div class="d-flex align-items-center" style="gap: 10px">
-
                                                     <select name="search_category" id="search_category" class="form-select w-200px">
                                                         <option value="all" <c:if test="${pageResponseDTO['search_category'] == null || pageResponseDTO['search_category'] == 'all'}">selected</c:if>>전체</option>
                                                         <option value="member_id" <c:if test="${pageResponseDTO['search_category'] == 'member_id'}">selected</c:if>>회원 ID</option>
                                                         <option value="member_name" <c:if test="${pageResponseDTO['search_category'] == 'member_name'}">selected</c:if>>회원 이름</option>
                                                     </select>
-
-
                                                     <input type="text" class="form-control" placeholder="검색어" name="search_word" id="search_word" value="${responseDTO['search_word']}">
                                                     <div class="w-200px">
                                                         <button type="submit" class="bi bi-search btn btn-success"> 검색</button>
@@ -90,79 +82,80 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="d-flex justify-content-between">
-                                <div class="col-2 mb-2">
-                                    <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
-                                        <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
-                                        <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
-                                        <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-2 mb-2">
+                                <select name="page_size" class="form-select" onchange="modifyPageSize(this)">
+                                    <option value="10" <c:if test="${pageResponseDTO['page_size'] == '10'}">selected</c:if>>10개씩 보기</option>
+                                    <option value="50" <c:if test="${pageResponseDTO['page_size'] == '50'}">selected</c:if>>50개씩 보기</option>
+                                    <option value="100" <c:if test="${pageResponseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
+                                </select>
                             </div>
-
+                        </div>
                         <!-- Table with stripped rows -->
-                        <table class="table lh-lg table-bordered w-100">
-                            <colgroup>
-                                <col class="w-10" />
-                                <col class="w-10" />
-                                <col class="w-10" />
-                                <col class="w-20" />
-                                <col class="w-20" />
-                                <col class="w-20" />
-                                <col class="w-10" />
-                            </colgroup>
-
-                            <thead>
-                            <tr>
-                                <th scope="col" class="bg-geni-dark text-white">NO</th>
-                                <th scope="col" class="bg-geni-dark text-white">회원번호</th>
-                                <th scope="col" class="bg-geni-dark text-white">구분</th>
-                                <th scope="col" class="bg-geni-dark text-white">회원아이디</th>
-                                <th scope="col" class="bg-geni-dark text-white">회원이름</th>
-                                <th scope="col" class="bg-geni-dark text-white">가입일</th>
-                                <th scope="col" class="bg-geni-dark text-white">상태</th>
-                                <th scope="col" class="bg-geni-dark text-white"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${!empty pageResponseDTO.dtoList}">
-                                <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
-                                <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
+                        <div class="row p-2">
+                            <table class="table table-bordered">
+                                <colgroup>
+                                    <col class="w-10" />
+                                    <col class="w-10" />
+                                    <col class="w-10" />
+                                    <col class="w-20" />
+                                    <col class="w-20" />
+                                    <col class="w-20" />
+                                    <col class="w-10" />
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="bg-geni-dark text-white">NO</th>
+                                    <th scope="col" class="bg-geni-dark text-white">회원번호</th>
+                                    <th scope="col" class="bg-geni-dark text-white">구분</th>
+                                    <th scope="col" class="bg-geni-dark text-white">회원아이디</th>
+                                    <th scope="col" class="bg-geni-dark text-white">회원이름</th>
+                                    <th scope="col" class="bg-geni-dark text-white">가입일</th>
+                                    <th scope="col" class="bg-geni-dark text-white">상태</th>
+                                    <th scope="col" class="bg-geni-dark text-white">관리</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:if test="${!empty pageResponseDTO.dtoList}">
+                                    <c:set var="i" value="${pageResponseDTO['total_count'] - ((pageResponseDTO['page_size'])* (pageResponseDTO.page - 1))}" />
+                                    <c:forEach var="dtoList" items="${pageResponseDTO.dtoList}">
+                                        <tr>
+                                            <td class="align-middle tex">${i}</td>
+                                            <td class="align-middle">${dtoList['member_idx']}</td>
+                                            <td class="align-middle">
+                                                <c:choose>
+                                                    <c:when test="${dtoList['admin_YN'] == 'Y'}">
+                                                        관리자
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        일반
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td class="align-middle">${dtoList['member_id']}</td>
+                                            <td class="align-middle">${dtoList['member_name']}</td>
+                                            <td class="align-middle">${dtoList['reg_date']}</td>
+                                            <td class="align-middle">${dtoList.status}</td>
+                                            <td class="flex justify-content-end">
+                                                <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&page=${pageResponseDTO['page']}&member_id=${dtoList['member_id']}'">수정</button>
+                                                <button type="button" class="btn btn-outline-success" onclick="leave('${dtoList['member_id']}')">탈퇴</button>
+                                            </td>
+                                        </tr>
+                                        <c:set var="i" value="${i-1}" />
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${empty pageResponseDTO.dtoList}">
                                     <tr>
-                                        <td>${i}</td>
-                                        <td>${dtoList['member_idx']}</td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${dtoList['admin_YN'] == 'Y'}">
-                                                    관리자
-                                                </c:when>
-                                                <c:otherwise>
-                                                    일반
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td>${dtoList['member_id']}</td>
-                                        <td>${dtoList['member_name']}</td>
-                                        <td>${dtoList['reg_date']}</td>
-                                        <td>${dtoList.status}</td>
-                                        <td class="flex justify-content-end">
-                                            <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&page=${pageResponseDTO['page']}&member_id=${dtoList['member_id']}'">수정</button>
-                                            <button type="button" class="btn btn-outline-success" onclick="leave('${dtoList['member_id']}')">탈퇴</button>
+                                        <td colspan="8">
+                                            내용이 없습니다.
                                         </td>
                                     </tr>
-                                    <c:set var="i" value="${i-1}" />
-                                </c:forEach>
-                            </c:if>
-                            <c:if test="${empty pageResponseDTO.dtoList}">
-                                <tr>
-                                    <td colspan="8">
-                                        내용이 없습니다.
-                                    </td>
-                                </tr>
-                            </c:if>
-                            </tbody>
-                        </table>
-                        <!-- End Table with stripped rows -->
+                                </c:if>
+                                </tbody>
+                            </table>
+                        </div>
+                            <!-- End Table with stripped rows -->
                         <div class="d-flex justify-content-center">
                             <!-- Pagination with icons -->
                             <nav aria-label="Page navigation example">

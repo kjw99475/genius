@@ -34,6 +34,13 @@
         ORDER BY TB.reg_date DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
+    <select id="orderList" resultType="org.fullstack4.genius.domain.BannerVO">
+        SELECT TB.banner_img_idx, TB.title, TB.banner_status, TB.save_name, TB.original_name, TB.path, TB.member_id, TM.member_name, DATE(TB.reg_date) AS reg_date, TB.modify_date, TB.post_start_date, TB.post_end_date, TB.`order`
+        FROM tbl_banner AS TB
+        INNER JOIN tbl_member AS TM ON TM.member_id = TB.member_id
+        WHERE TB.banner_status = 'Y'
+        ORDER BY TB.`order` ASC
+    </select>
     <select id="totalCount" resultType="int">
         SELECT COUNT(*)
         FROM tbl_banner AS TB
@@ -47,8 +54,10 @@
         WHERE TB.banner_img_idx = #{banner_img_idx}
     </select>
     <insert id="regist">
-        INSERT INTO tbl_banner (title, save_name, original_name, path, member_id, post_start_date, post_end_date)
-        VALUES (#{title}, #{save_name}, #{original_name}, #{path}, #{member_id}, #{post_start_date}, #{post_end_date})
+        INSERT INTO tbl_banner (title, save_name, original_name, path, member_id, post_start_date, post_end_date, `order`)
+        VALUES (#{title}, #{save_name}, #{original_name}, #{path}, #{member_id}, #{post_start_date}, #{post_end_date},
+            (SELECT * FROM (SELECT (MAX(`order`)+1) AS 'order' FROM tbl_banner WHERE banner_status = 'Y') AS temp)
+        )
     </insert>
     <update id="modify">
         UPDATE tbl_banner
@@ -65,6 +74,11 @@
         UPDATE tbl_banner
         SET banner_status = 'N',
             modify_date = NOW()
+        WHERE banner_img_idx = #{banner_img_idx}
+    </update>
+    <update id="changeOrder">
+        UPDATE tbl_banner
+        SET `order` = #{order}
         WHERE banner_img_idx = #{banner_img_idx}
     </update>
 </mapper>

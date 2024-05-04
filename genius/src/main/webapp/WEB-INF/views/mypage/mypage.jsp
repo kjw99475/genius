@@ -62,7 +62,7 @@
                                         <label for="profile" class="myPhoto rounded-circle border-gray w-200px h-200px flow-hidden">
                                             <img class="w-200px h-200px" id="profile_img" src="/resources/upload/profile/${memberDTO.profile}" alt="내 프로필 이미지"/></label>
                                         <div class="custom-file targetToOrg" style="bottom:0 !important; right: -5px !important;">
-                                            <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)">
+                                            <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)" accept="image/*">
                                             <label class="bg-geni text-white rounded-circle shadow-sm icon_geni middle d-flex align-items-center justify-content-center" for="profile"><i class="ti-settings"></i></label>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                         <c:otherwise>
                                             <div class="col-md-12 form-group">
                                                 <label for="pwd">비밀번호</label>
-                                                <input type="password" class="form-control" id="pwd" name="pwd" data-name="비밀번호"  value="" placeholder="비밀번호 변경할 시에만 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                                <input type="password" class="form-control" id="pwd" name="pwd" data-name="비밀번호"  value="" placeholder="비밀번호 변경할 시에만 입력해 주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                                                 <small id="err_pwd" class="info text-danger"></small>
                                             </div>
                                             <div class="col-md-12 form-group">
@@ -116,7 +116,6 @@
                                         <div class="d-flex" style="gap: 20px">
                                             <label for="female"><input type="radio" class="pixel-radio" data-name="성별" id="female" name="gender" value="여" <c:if test="${memberDTO.gender eq '여'}">checked</c:if> >여</label>
                                             <label for="male"><input type="radio" class="pixel-radio" data-name="성별" id="male" name="gender" value="남" <c:if test="${memberDTO.gender eq '남'}">checked</c:if> >남</label>
-
                                         </div>
                                         <small id="err_gender" class="info text-danger"></small>
                                     </div>
@@ -229,7 +228,7 @@
                         return false;
                     }
                 }
-            }  else if(element == 'addr1') {
+            } else if(element == 'addr1') {
                 if (!nullCheck2($(target))) {
                     $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
                     $(target).focus();

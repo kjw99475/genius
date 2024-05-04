@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Log4j2
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @Builder
 public class QnaDTO {
     private int qna_idx;
+    @Size(min = 2, max = 60)
     @NotBlank
     private String title;
     @NotBlank

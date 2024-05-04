@@ -59,13 +59,12 @@
 
     <section class="section profile">
         <div class="row">
-
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                <form enctype="multipart/form-data"  id="frm" action="/admin/member/memberModify" method="post">
+                                <form enctype="multipart/form-data"  id="frmInfo" action="/admin/member/memberModify" method="post">
                                     <input type="hidden" name="member_id" value="${memberDTO['member_id']}">
                                     <!-- <h5 class="card-title">Profile Details</h5> -->
                                     <div class="row">
@@ -74,94 +73,115 @@
                                                 <label for="profile" class="myPhoto rounded-circle border-gray w-200px h-200px flow-hidden">
                                                     <img class="w-200px h-200px" id="profile_img" src="/resources/upload/profile/${memberDTO.profile}" alt="내 프로필 이미지"/></label>
                                                 <div class="custom-file targetToOrg" style="bottom:40px !important; right: 50px !important;">
-                                                    <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)">
+                                                    <input type="file" class="d-none" id="profile" name="file" aria-describedby="inputGroupFileAddon01" onchange="changeProfileImg(event)" accept="image/*">
                                                     <label class="bg-geni text-white rounded-circle shadow-sm icon_geni middle d-flex align-items-center justify-content-center" for="profile"><i class="ti-settings"></i></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원번호</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="frm" type="text" class="form-control"
-                                                   value="${memberDTO['member_idx']}" disabled>
-                                        </div>
-                                    </div>
                                     <div class="row mb-3">
-                                        <label for="social_type" class="col-md-4 col-lg-2 col-form-label label">구분</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="frm" type="text" class="form-control"
-                                                   value="<c:choose><c:when test="${memberDTO['admin_YN'] == 'Y'}">관리자</c:when><c:otherwise>일반</c:otherwise>
-                                            </c:choose>" disabled>
+                                        <label for="admin_YN" class="col-md-4 col-lg-2 col-form-label label">구분</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <select id="admin_YN" name="admin_YN" class="form-select">
+                                                <option value="N" <c:if test="${memberDTO['admin_YN'] != 'Y'}">selected</c:if> >일반</option>
+                                                <option value="Y" <c:if test="${memberDTO['admin_YN'] == 'Y'}">selected</c:if>>관리자</option>
+                                            </select>
+                                            <small id="err_admin_YN" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원아이디</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="frm" type="text" class="form-control"
+                                        <label for="member_idx" class="col-md-4 col-lg-2 col-form-label label">회원번호</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="member_idx" data-name="회원번호" id="member_idx" type="text" class="form-control"
+                                                   value="${memberDTO['member_idx']}" disabled>
+                                            <small id="err_member_idx" class="info text-danger"></small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">회원아이디</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="member_id" data-name="아이디"  type="text" class="form-control" id="member_id"
                                                    value="${memberDTO['member_id']}" disabled>
+                                            <small id="err_member_id" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">회원이름</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="member_name" type="text" class="form-control"
-                                                   value="${memberDTO['member_name']}">
+                                        <label for="member_name" class="col-md-4 col-lg-2 col-form-label label">회원이름</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="member_name" type="text" class="form-control" id="member_name" data-name="이름"
+                                                   value="${memberDTO['member_name']}" onkeyup="replaceName(this)">
+                                            <small id="err_member_name" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">비밀번호</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="pwd" type="password" class="form-control"
-                                                   value="${memberDTO['pwd']}">
+                                        <label for="pwd" class="col-md-4 col-lg-2 col-form-label label">비밀번호</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="pwd" type="password" class="form-control" id="pwd" data-name="비밀번호" placeholder="비밀번호 변경할 시에만 입력해 주세요"
+                                                   value="">
+                                            <small id="err_pwd" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">생년월일</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="birthday" type="date" class="form-control"
+                                        <label for="pwdCheck" class="col-md-4 col-lg-2 col-form-label label">비밀번호 확인</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="pwdCheck" type="password" class="form-control" id="pwdCheck" data-name="비밀번호 확인" placeholder="비밀번호 확인"
+                                                   value="">
+                                            <small id="err_pwdCheck" class="info text-danger"></small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="birthday" class="col-md-4 col-lg-2 col-form-label label">생년월일</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="birthday" type="date" class="form-control" data-name="생년월일" id="birthday"
                                                    value="${memberDTO['birthday']}">
+                                            <small id="err_birthday" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">성별</label>
-                                        <div class="col-md-8 col-lg-10">
+                                        <label class="col-md-4 col-lg-2 col-form-label label">성별</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
                                             <div class="d-flex" style="gap: 20px">
-                                                <label for="female"><input type="radio" class="pixel-radio" id="female" name="gender" value="여" <c:if test="${memberDTO.gender eq '여'}">checked</c:if> > 여</label>
-                                                <label for="male"><input type="radio" class="pixel-radio" id="male" name="gender" value="남" <c:if test="${memberDTO.gender eq '남'}">checked</c:if> > 남</label>
+                                                <label for="female"><input type="radio" data-name="성별" class="pixel-radio" id="female" name="gender" value="여" <c:if test="${memberDTO.gender eq '여'}">checked</c:if> > 여</label>
+                                                <label for="male"><input type="radio" data-name="성별" class="pixel-radio" id="male" name="gender" value="남" <c:if test="${memberDTO.gender eq '남'}">checked</c:if> > 남</label>
                                             </div>
+                                            <small id="err_gender" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">이메일</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="email" type="email" class="form-control"
+                                        <label for="email" class="col-md-4 col-lg-2 col-form-label label">이메일</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="email" type="email" id="email" class="form-control" data-name="이메일"
                                                    value="${memberDTO['email']}" disabled>
+                                            <small id="err_email" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">연락처</label>
-                                        <div class="col-md-8 col-lg-10">
-                                            <input name="phone" type="tel" class="form-control"
-                                                   value="${memberDTO['phone']}">
+                                        <label for="phone" class="col-md-4 col-lg-2 col-form-label label">연락처</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                            <input name="phone" type="tel" class="form-control" data-name="연락처" id="phone"
+                                                   value="${memberDTO['phone']}" onkeyup="replacePhone(this)">
+                                            <small id="err_phone" class="info text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label for="frm" class="col-md-4 col-lg-2 col-form-label label">주소</label>
+                                        <label for="frmInfo" class="col-md-4 col-lg-2 col-form-label label">주소</label>
                                         <div class="col-md-8 col-lg-10">
                                             <div class="d-flex flex-column" style="gap:10px">
                                                 <div class="input-group">
-                                                    <input type="text" name="zip_code" value="${memberDTO['zip_code']}" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                    <input type="text" name="zip_code" data-name="우편번호" value="${memberDTO['zip_code']}" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                     </div>
                                                 </div>
+                                                <small id="err_zip_code" class="info text-danger"></small>
                                                 <div class="form-group">
-                                                    <input type="text" name="addr1" value="${memberDTO.addr1}" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+                                                    <input type="text" name="addr1" value="${memberDTO.addr1}" data-name="주소" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
                                                 </div>
+                                                <small id="err_addr1" class="info text-danger"></small>
                                                 <div class="form-group">
-                                                    <input type="text" name="addr2" value="${memberDTO.addr2}" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                    <input type="text" name="addr2" value="${memberDTO.addr2}" data-name="상세주소" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
                                                 </div>
+                                                <small id="err_addr2" class="info text-danger"></small>
                                                 <span id="guide" style="color:#999;display:none"></span>
                                             </div>
                                         </div>
@@ -278,6 +298,102 @@
             document.body.append(frm);
             document.querySelector('#leaveFrm').submit();
         }
+    }
+</script>
+<script src="/resources/js/commonUtil.js"></script>
+<script>
+    // 유효성 검사
+    let checkTarget = ['member_name', 'pwd', 'birthday', 'gender', 'phone', 'zip_code', 'addr1'];
+    document.querySelector('#frmInfo').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if (element == 'gender') {
+                if(!$('input#male').is(":checked") && !$('input#female').is(":checked")) {
+                    $('#err_'+element).text($(target).data('name') + "을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else if(element == 'pwd' || element == 'pwdCheck') {
+                if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                    if (!nullCheck($(target))) {
+                        $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                        $(target).focus();
+                        return false;
+                    }
+                }
+            } else if(element == 'addr1') {
+                if (!nullCheck2($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else {
+                if (!nullCheck($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            }
+        }
+        // 정규식 검사
+        if(!nameRegCheck($('input[name=member_name]'))){
+            $('#err_member_name').text("이름은 한글로 최소 2글자 이상, 20글자 이하로 작성하세요.");
+            $('input[name=member_name]').focus();
+            return false;
+        }
+        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+            if(!passwordRegCheck($('input[name=pwd]'))){
+                $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+                $('input[name=pwd]').focus();
+                return false;
+            }
+        }
+        if(!phoneRegCheck($('input[name=phone]'))){
+            $('#err_phone').text("'-' 없이 올바른 전화번호 형식을 사용해주세요. 예시: 01012345678");
+            $('input[name=phone]').focus();
+            return false;
+        }
+        // 유효한 생년월일 검사
+        if(!dateCheck($('input[name=birthday]'))) {
+            $('#err_birthday').text("생년월일은 오늘보다 미래일 수 없습니다.");
+            $('input[name=birthday]').focus();
+            return false;
+        }
+        // 중복 체크 및 일치 여부 검사
+        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+            if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
+                $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+                $('input[name=pwdCheck]').focus();
+                return false;
+            }
+        }
+        document.querySelector('#frmInfo').submit();
+    }
+
+    // Back단 유효성 검사
+    if(${!empty err}) {
+        let errArr = [];
+        <c:forEach var="item" items="${err}">
+        if(${item.getField() != null}) {
+            errArr.push('${item.getField()}');
+        }
+        </c:forEach>
+        if (errArr.length > 0) {
+            for (let err of errArr) {
+                $('#err_'+err).text("입력 내용을 확인해주세요");
+            }
+            alert("모든 항목을 입력해주세요!");
+        }
+    }
+
+    if(${!empty result}) {
+        alert("${result}");
     }
 </script>
 <!-- 다음 주소 api -->
