@@ -149,7 +149,10 @@
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control" id="title"
-                                               value="">
+                                               value="${newQnaDTO.title}">
+                                        <div class="invalid-feedback" id="err_title" style="display: none">
+                                            2~60자 사이로 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -178,7 +181,10 @@
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <textarea id="summernote" name="contents" ></textarea>
+                                        <textarea id="summernote" name="contents" >${newQnaDTO.contents}</textarea>
+                                        <div class="invalid-feedback" id="err_contents" style="display: none">
+                                            20자 이상 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -211,6 +217,11 @@
 <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
 <script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
     //서머노트
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',

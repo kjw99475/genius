@@ -142,8 +142,6 @@
             </div>
         </div>
     </section>
-    ${errors}
-    ${qnaDTO}
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
@@ -164,9 +162,9 @@
 <script>
     let registBtn = document.getElementById("registBtn");
     <c:forEach items="${errors}" var="err">
-    if(document.getElementById("err_${err.getField()}") != null) {
-        document.getElementById("err_${err.getField()}").style.display = "block";
-    }
+        if(document.getElementById("err_${err.getField()}") != null) {
+            document.getElementById("err_${err.getField()}").style.display = "block";
+        }
     </c:forEach>//서머노트
     $('#summernote').summernote({
         placeholder: '20자 이상 입력해주세요',
