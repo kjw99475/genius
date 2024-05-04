@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="pwd">비밀번호</label>
-                                        <input type="password" class="form-control" id="pwd" name="pwd"data-name="비밀번호" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                        <input type="password" class="form-control" id="pwd" name="pwd" data-name="비밀번호" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                                         <small id="err_pwd" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -78,7 +78,7 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
-                                        <input type="date" class="form-control" id="birthday"data-name="생년월일" name="birthday" placeholder="생년월일" value="${memberDTO['birthday']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
+                                        <input type="date" class="form-control" id="birthday" data-name="생년월일" name="birthday" placeholder="생년월일" value="${memberDTO['birthday']}" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
                                         <small id="err_birthday" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -123,7 +123,7 @@
                                                 <small id="err_addr1" class="info text-danger"></small>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="addr2" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                <input type="text" name="addr2" data-name="상세주소"  class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
                                                 <small id="err_addr2" class="info text-danger"></small>
                                             </div>
                                             <span id="guide" style="color:#999;display:none"></span>
