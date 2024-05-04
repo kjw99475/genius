@@ -63,6 +63,7 @@
         UPDATE tbl_member
         SET member_name = #{member_name},
             pwd = #{pwd},
+            admin_YN = #{admin_YN},
             birthday = #{birthday},
             phone = #{phone},
             gender = #{gender},
