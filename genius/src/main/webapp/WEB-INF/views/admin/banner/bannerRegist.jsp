@@ -65,39 +65,43 @@
                     <div class="card-body pt-3">
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
                             <!-- Form -->
-                            <form enctype="multipart/form-data" method="post" action="/admin/banner/bannerRegist">
+                            <form id="registFrm" enctype="multipart/form-data" method="post" action="/admin/banner/bannerRegist">
                                 <div class="row mb-3">
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="title" type="text" class="form-control" id="title"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="title" type="text" class="form-control" id="title" data-name="제목"
                                                value="${bannerDTO['title']}">
+                                        <small id="err_title" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="banner_start" class="col-md-4 col-lg-2 col-form-label">게시 시작일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="post_start_date" type="date" class="form-control" id="banner_start"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="post_start_date" type="date" class="form-control" id="banner_start" data-name="게시 시작일"
                                                value="${bannerDTO['post_start_date']}">
+                                        <small id="err_post_start_date" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="banner_end" class="col-md-4 col-lg-2 col-form-label">게시 종료일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="post_end_date" type="date" class="form-control" id="banner_end"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="post_end_date" type="date" class="form-control" id="banner_end" data-name="게시 종료일"
                                                value="${bannerDTO['post_end_date']}">
+                                        <small id="err_post_end_date" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">순서</label>
-                                    <div class="col-md-8 col-lg-10">
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
                                         <input name="order" type="text" class="form-control" id="banner_rank"
                                                value="순서는 등록 후 리스트에서 변경할 수 있습니다." disabled>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file" value="" onchange="changeImg(event)">
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="file" type="file" class="form-control" id="file" value="" onchange="changeImg(event)" data-name="파일" accept="image/*">
+                                        <small id="err_file" class="info text-danger"></small>
                                     </div>
                                 </div>
 
@@ -105,7 +109,6 @@
                                     <div class="p-1 border-gray bg-light text-dark rounded-top-2">
                                         <span class="d-block p-1 text-center">이미지 미리보기</span>
                                     </div>
-
                                     <div class="p-1 border-gray rounded-bottom-2" style="min-height: 200px">
                                         <img id="preview" class="d-block w-100" src="/resources/img/no_image.png">
                                     </div>
@@ -147,6 +150,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp"/>
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     // 미리보기 이미지 변경
     function changeImg(e) {
@@ -156,6 +160,40 @@
             $('#preview').attr('src', e.target.result);
         }
         reader.readAsDataURL(files[0]);
+    }
+
+    // 유효성 검사
+    let checkTarget = ['title', 'post_start_date', 'post_end_date', 'file'];
+    document.querySelector('#registFrm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if(element == 'file') {
+                if (!document.querySelector('input[name=file]').files.length > 0) {
+                    $('#err_'+element).text($(target).data('name') + "을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else {
+                if (!nullCheck2($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            }
+        }
+        // length 검사
+        if(!lengthCheck(1,20,$('input[name=title]'))){
+            $('#err_title').text("제목은 최소 1글자 이상, 20글자 이하로 작성하세요.");
+            $('input[name=title]').focus();
+            return false;
+        }
+        document.querySelector('#registFrm').submit();
     }
 </script>
 <!-- Vendor JS Files -->
