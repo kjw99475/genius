@@ -59,15 +59,14 @@ public class AdminMemberController {
         log.info("===========================================");
         log.info("AdminMemberController >>>>>>>>>>>>>>>>> POSTMemberModify");
         MemberDTO orgMemberDTO = memberServiceIf.view(newMemberDTO.getMember_id());
-        newMemberDTO.setMember_id(newMemberDTO.getMember_id());
-        if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty() && (CommonUtil.parseString(newMemberDTO.getPwdCheck()).isEmpty()))) {
+        if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty())) {
             newMemberDTO.setPwd(orgMemberDTO.getPwd());
             newMemberDTO.setPwdCheck(orgMemberDTO.getPwd());
         }
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("memberDTO", newMemberDTO);
-            return "redirect:/mypage/mypage";
+            redirectAttributes.addAttribute("member_id", newMemberDTO.getMember_id());
+            return "redirect:/admin/member/memberView";
         }
         FileDTO fileDTO = null;
         if(file.getSize() > 0) {

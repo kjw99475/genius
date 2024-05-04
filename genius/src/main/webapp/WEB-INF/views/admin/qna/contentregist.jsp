@@ -68,7 +68,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/contentregist" enctype="multipart/form-data">
+                            <form method="post" id="registFrm" action="/admin/qna/contentregist" enctype="multipart/form-data">
                                 <div class="row mb-3">
                                     <label for="category_code" class="col-md-4 col-lg-2 col-form-label">카테고리</label>
                                     <div class="col-md-8 col-lg-9">
@@ -81,7 +81,10 @@
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control" id="title"
-                                               value="${qnaDTO.title}">
+                                               value="${qnaDTO.title}" placeholder="2~60자 사이로 입력해주세요.">
+                                        <div class="invalid-feedback" id="err_title" style="display: none">
+                                            2~60자 사이로 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -119,11 +122,15 @@
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-10">
                                         <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
+                                        <div class="invalid-feedback" id="err_contents" style="display: none">
+                                            20자 이상 입력해주세요.
+                                        </div>
                                     </div>
+
                                 </div>
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
-                                    <button type="submit" class="btn btn-success me-2">등록</button>
+                                    <button type="submit" id="registBtn" class="btn btn-success me-2">등록</button>
                                     <button type="button" class="btn btn-light" onclick="location.href='/admin/qna/list'">취소</button>
                                 </div>
 
@@ -135,6 +142,8 @@
             </div>
         </div>
     </section>
+    ${errors}
+    ${qnaDTO}
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
@@ -153,9 +162,14 @@
 <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
 <script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
-    //서머노트
+    let registBtn = document.getElementById("registBtn");
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>//서머노트
     $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: '20자 이상 입력해주세요',
         tabsize: 2,
         height: 500,
         toolbar: [
@@ -189,6 +203,26 @@
             }
         });
     }
+    registBtn.addEventListener("click",function(e){
+        e.preventDefault();
+        if(document.getElementById("title").value.length < 2 ||document.getElementById("title").value.length > 60){
+            document.getElementById("err_title").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_title").style.display = "none";
+        }
+        let contentsText = (document.getElementById("summernote").value.replace(/<[^>]+>/g, '')).replaceAll("&nbsp;",'').trim();
+
+        if(contentsText.length <20){
+            document.getElementById("err_contents").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_contents").style.display = "none";
+        }
+        document.getElementById("registFrm").submit();
+    });
 
     // 파일 리스트 조작용(파일 추가)
     function fileList(element) {
