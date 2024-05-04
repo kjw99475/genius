@@ -66,13 +66,17 @@
               <div class="card-product__img bg-light">
                 <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-money"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${dto['book_code']}'"><i class="ti-money"></i></button></li>
+                  <li><button onclick="event.stopPropagation();addcart('${dto['book_code']}')"><i class="ti-shopping-cart"></i></button></li>
                 </ul>
               </div>
               <div class="card-body">
                 <p>${dto['class_name']} > ${dto['subject_name']}</p>
                 <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
+                <h5><c:if test="${dto.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                  <c:if test="${dto.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                  <c:if test="${dto.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                  <c:if test="${dto.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                 <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
               </div>
             </div>
@@ -86,13 +90,17 @@
               <div class="card-product__img bg-light">
                 <img class="card-img img-h350" src="/resources/upload/book/${dto['book_img']}" alt="" onclick="location.href = '/book/view?book_code=${dto["book_code"]}'">
                 <ul class="card-product__imgOverlay">
-                  <li><button><i class="ti-money"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                  <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${dto['book_code']}'"><i class="ti-money"></i></button></li>
+                  <li><button onclick="event.stopPropagation();addcart('${dto['book_code']}')"><i class="ti-shopping-cart"></i></button></li>
                 </ul>
               </div>
               <div class="card-body">
                 <p>${dto['class_name']} > ${dto['subject_name']}</p>
                 <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
+                <h5><c:if test="${dto.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                  <c:if test="${dto.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                  <c:if test="${dto.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                  <c:if test="${dto.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                 <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
               </div>
             </div>
@@ -120,13 +128,17 @@
                     <div class="card-product__img">
                       <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                       <ul class="card-product__imgOverlay">
-                        <li><button><i class="ti-money"></i></button></li>
-                        <li><button><i class="ti-shopping-cart"></i></button></li>
+                        <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${dto['book_code']}'"><i class="ti-money"></i></button></li>
+                        <li><button onclick="event.stopPropagation();addcart('${dto['book_code']}')"><i class="ti-shopping-cart"></i></button></li>
                       </ul>
                     </div>
                     <div class="card-body">
                       <p>${dto['class_name']} > ${dto['subject_name']}</p>
                       <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
+                      <h5><c:if test="${dto.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                        <c:if test="${dto.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                        <c:if test="${dto.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                        <c:if test="${dto.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                       <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
                     </div>
                   </div>
@@ -139,13 +151,17 @@
                   <div class="card-product__img">
                     <img class="img-fluid img-h350" src="/resources/upload/book/${dto['book_img']}" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-money"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
+                      <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${dto['book_code']}'"><i class="ti-money"></i></button></li>
+                      <li><button onclick="event.stopPropagation();addcart('${dto['book_code']}')"><i class="ti-shopping-cart"></i></button></li>
                     </ul>
                   </div>
                   <div class="card-body">
                     <p>${dto['class_name']} > ${dto['subject_name']}</p>
                     <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
+                    <h5><c:if test="${dto.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                      <c:if test="${dto.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                      <c:if test="${dto.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                      <c:if test="${dto.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                     <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(dto['price'])}</s> ${CommonUtil.comma(dto['discount_price'])}</p>
                   </div>
                 </div>
@@ -165,6 +181,10 @@
                     <div class="card-body">
                       <p>${dto['class_name']} > ${dto['subject_name']}</p>
                       <h4 class="card-product__title"><a href="/book/view?book_code=${dto['book_code']}">${dto['book_name']}</a></h4>
+                      <h5><c:if test="${dto.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                        <c:if test="${dto.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                        <c:if test="${dto.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                        <c:if test="${dto.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                       <p class="card-product__price text-geni"><s class="text-muted h6">${dto['price']}</s>${dto['discount_price']}</p>
                     </div>
                   </div>
@@ -266,7 +286,27 @@
     document.querySelector('#'+target).classList.remove('d-none');
   }
 
+  // 장바구니 담기
+  function addcart(item){
+    $.ajax({
+      url:"/mypage/addcart.dox",
+      dataType:"json",
+      type : "POST",
+      data : {
+        "member_id":"${sessionScope['member_id']}",
+        "book_code":item,
+        "quantity" :1
+      },
+      success : function(data) {
+        alert("장바구니 성공");///문제가 있을수 있어용
+      },
+      fail : function (data){
 
+      }
+
+    });
+
+  }
 </script>
 
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

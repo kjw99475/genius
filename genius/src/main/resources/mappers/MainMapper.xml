@@ -30,7 +30,7 @@
         LIMIT 0,8;
     </select>
     <select id="newBook" resultType="org.fullstack4.genius.domain.BookVO">
-        SELECT TB.book_idx, TB.book_img,  TB.book_name
+        SELECT TB.book_idx, TB.book_code, TB.book_name, TB.book_img
         , TB.category_class_code, TC.name AS 'class_name', TB.category_subject_code, TS.name AS 'subject_name'
         , TB.price, TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
         FROM tbl_book AS TB
