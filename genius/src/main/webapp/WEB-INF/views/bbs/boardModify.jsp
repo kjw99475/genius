@@ -65,7 +65,7 @@
                     <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
                             <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" value="${bbsDTO.bbs_title}" name="bbs_title">
+                            <input type="text" class="form-control" id="inputCity" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="최대 60자까지 입력 가능합니다.">
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputZip">아이디</label>
@@ -189,6 +189,33 @@
         fileArray.splice(target, 1);
         fileArray.forEach(file => {dataTransfer.items.add(file);});
         document.querySelector('#file').files = dataTransfer.files;
+    }
+
+    //유효성 검사
+    document.querySelector('#registFrm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        //공백 체크
+        if (!nullCheck2($('input[name=bbs_title]'))) {
+            alert("제목을 입력해주세요.");
+            $('input[name=bbs_title]').focus();
+            return false;
+        }
+        if (!nullCheck2($('textarea[name=bbs_contents]'))) {
+            alert("내용을 입력해주세요.");
+            $('textarea[name=bbs_contents]').focus();
+            return false;
+        }
+        //길이 체크
+        if ( $('input[name=bbs_title]').val().length > 60 ) {
+            console.log("길이 체크 : "+ $('input[name=bbs_title]').val().length > 100);
+            console.log("길이 : " + $('input[name=bbs_title]').val().length);
+            alert("제목의 최대 길이를 초과하였습니다.");
+            $('input[name=bbs_title]').focus();
+            return false;
+        }
+
+        document.querySelector('#registFrm').submit();
     }
 
 </script>
