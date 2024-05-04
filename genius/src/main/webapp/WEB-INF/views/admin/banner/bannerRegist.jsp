@@ -91,7 +91,7 @@
                                     <label for="banner_rank" class="col-md-4 col-lg-2 col-form-label">순서</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="order" type="text" class="form-control" id="banner_rank"
-                                               value="${bannerDTO['order']}" disabled>
+                                               value="순서는 등록 후 리스트에서 변경할 수 있습니다." disabled>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
