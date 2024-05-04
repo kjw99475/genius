@@ -90,8 +90,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
-
                 <c:choose>
                     <c:when test="${!empty responseDTO.dtoList}">
                         <c:set value="${responseDTO.total_count}" var="total_count" />
@@ -111,7 +109,6 @@
                         </tr>
                     </c:otherwise>
                 </c:choose>
-
                 </tbody>
             </table>
         </div>
