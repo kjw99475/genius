@@ -55,12 +55,14 @@ public class AdminFaqController {
     }
 
     @PostMapping("/contentregist")
-    public String POSTContentRegist(BbsDTO bbsDTO
+    public String POSTContentRegist(@Valid BbsDTO bbsDTO
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bbsDTO", bbsDTO);
+            return "redirect:/admin/faq/contentregist";
         }
 
         int result = bbsServiceIf.regist(bbsDTO);
@@ -81,9 +83,15 @@ public class AdminFaqController {
     }
 
     @PostMapping("/contentmodify")
-    public String POSTContentModify(BbsDTO bbsDTO
+    public String POSTContentModify(@Valid BbsDTO bbsDTO
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bbsDTO", bbsDTO);
+            return "redirect:/admin/faq/contentmodify?bbs_idx="+bbsDTO.getBbs_idx();
+        }
         int result = bbsServiceIf.modify(bbsDTO);
         if(result > 0) {
             log.info("수정 성공==============");

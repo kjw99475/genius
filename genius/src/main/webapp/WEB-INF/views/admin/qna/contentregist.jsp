@@ -52,7 +52,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item"><a href="admin/qna/list">QnA</a></li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
                 <li class="breadcrumb-item active">QnA 등록</li>
             </ol>
         </nav>
@@ -203,7 +203,7 @@
     }
     registBtn.addEventListener("click",function(e){
         e.preventDefault();
-        if(document.getElementById("title").value.length < 2 ||document.getElementById("title").value.length > 60){
+        if(document.getElementById("title").value.trim().length < 2 ||document.getElementById("title").value.trim().length > 60){
             document.getElementById("err_title").style.display = "block";
             return;
         }

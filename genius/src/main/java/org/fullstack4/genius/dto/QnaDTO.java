@@ -19,7 +19,8 @@ import java.time.LocalDate;
 @Builder
 public class QnaDTO {
     private int qna_idx;
-    @Size(min = 2, max = 60, message = "2자에서 60자 사이로 입력해주세요.")
+    @Size(min = 2, max = 60)
+    @NotBlank
     private String title;
     @NotBlank
     private String contents;
