@@ -4,6 +4,7 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
@@ -90,46 +91,17 @@ public class AdminInventoryController {
         log.info("========================"+ Arrays.toString(salesQuantityList)+"===================");
         log.info("=======================인벤토리 테스트 끝=============");
 
-        int result = 0;
-        int result1 = 0;
-        for(int i=0;i<bookCodeList.length;i++){
-            if(!bookCodeList[i].equals("")) {
-                BookDTO orgBookdto = bookServiceIf.view(bookCodeList[i]);
-                BookDTO dto = BookDTO.builder()
-                        .book_code(bookCodeList[i])
-                        .book_name(orgBookdto.getBook_name())
-                        .price(orgBookdto.getPrice())
-                        .category_class_code(orgBookdto.getCategory_class_code())
-                        .category_subject_code(orgBookdto.getCategory_subject_code())
-                        .sales_status(salesStatusList[i])
-                        .sales_start_date(LocalDate.parse(salesStartDateList[i]))
-                        .sales_end_date(LocalDate.parse(salesEndDateList[i]))
-                        .quantity(Integer.parseInt(salesQuantityList[i]))
-                        .amount(Integer.parseInt(salesQuantityList[i])- orgBookdto.getQuantity())
-                        .build();
-
-                log.info("==========dto" + i + ": ==" + dto.toString());
-                result += bookServiceIf.BookInventoryUpdate(dto);
-                result1 += bookServiceIf.InsertRestore(dto);
-            }
-        }
-//        int result = 0;
-//        int result1 = 0;
-//        for(int i=0;i<ordernumList.length;i++){
-//            if(!deliveryList[i].equals("")) {
-//
-//            }
-//        }
-//
-        if(result >bookCodeList.length-1) {
+        try{
+            bookServiceIf.testInventoryUpdate(bookCodeList, salesStatusList, salesStartDateList, salesEndDateList, salesQuantityList);
             resultMap.put("result", "success");
+            resultMap.put("msg", "정상적으로 적용되었습니다.");
+        }catch(InsufficientStockException e){
+            resultMap.put("result", "error");
+            resultMap.put("msg",e.getMessage());
+            return new Gson().toJson(resultMap);
         }
-        else{
-            resultMap.put("result", "fail");
-        }
-//        resultMap.put("result", "success");
-        // 갯수 세기
         return new Gson().toJson(resultMap);
+
     }
 
     @GetMapping("/modify")
