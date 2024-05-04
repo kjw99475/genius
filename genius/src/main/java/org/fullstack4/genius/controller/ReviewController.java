@@ -46,6 +46,7 @@ public class ReviewController {
 
         if(bindingResult.hasErrors()){
             log.info("Errors");
+            redirectAttributes.addFlashAttribute("registOK", 0);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("reviewDTO",reviewDTO);
 

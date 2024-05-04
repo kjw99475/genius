@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @Log4j2
@@ -16,13 +18,17 @@ import java.time.LocalDate;
 @Builder
 public class QnaDTO {
     private int qna_idx;
+    @NotBlank
     private String title;
+    @NotBlank
     private String contents;
     private String member_id;
     private String answerYN;
     private String answerStatus;
     private String category_code;
-    private int read_cnt;
+    @PositiveOrZero
+    @Builder.Default
+    private int read_cnt=0;
     private int ref_idx;
     private LocalDate reg_date;
     private LocalDate modify_date;

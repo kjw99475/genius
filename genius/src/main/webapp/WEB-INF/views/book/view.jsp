@@ -281,11 +281,18 @@
                                     <input type="hidden" value="" name="rank" id="rank"/>
                                     <input type="hidden" value="${sessionScope.member_id}" name="member_id"/>
                                     <div class="form-group">
-                                        <textarea class="form-control different-control w-100" name="review_contents" id="review_contents" cols="30" rows="5" placeholder="리뷰를 작성해주세요"></textarea>
+                                        <textarea class="form-control different-control w-100" name="review_contents" id="review_contents" cols="30" rows="5" placeholder="리뷰를 작성해주세요">${reviewDTO.review_contents}</textarea>
                                     </div>
                                     <div class="form-group text-center text-md-right mt-3">
-                                        <button type="submit" id="reviewBtn" class="button button--active button-review">작성하기</button>
-                                    </div>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.member_id != null}">
+                                                <button type="submit" id="reviewBtn" class="button button--active button-review">작성하기</button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="button" id="reviewBtn_dis" class="button button--active button-review" disabled>로그인 후 작성가능</button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </div>
                                 </form>
                             </div>
                         </div>
@@ -294,6 +301,7 @@
             </div>
         </div>
     </section>
+    ${reviewDTO}
     <!--================End Product Description Area =================-->
 </main>
 <!--================ 본문 END =================-->
@@ -308,8 +316,15 @@
 <script>
     window.onload = function() {
         // 특정 조건 확인
-        if (${param.registOK == '1'} || ${param.deleteOK == '1'} ||${responseDTO.page_flag == '1'}) {
+        if (${param.registOK == '1'} || ${param.deleteOK == '1'} ||${responseDTO.page_flag == '1'} || ${errors !=null}) {
             reviewTAB();
+            if(${reviewDTO.rank == '0'}){
+                alert('평점을 입력해주세요');
+            }
+            if(${reviewDTO.rank != '0'}){
+                document.querySelectorAll('.star-list li a')[${reviewDTO.rank}-1].click();
+                alert('리뷰를 작성해주세요');
+            }
         }
     };
     let stars = document.querySelectorAll('.star-list li a');
@@ -370,65 +385,7 @@
         });
 
     }
-    // $(document).ready(function() {
-    //     // 버튼 클릭 이벤트를 처리합니다.
-    //     $('#reviewBtn').click(function() {
-    //         // 폼 제출을 실행합니다.
-    //         //$('#frmReviewRegist').submit();
-    //     });
-    //
-    //         $('#frmReviewRegist').submit(function(event){
-    //             event.preventDefault();
-    //             let formData = $(this).serialize();
-    //             console.log(formData);
-    //             $.ajax({
-    //                 url: '/review/regist.dox',
-    //                 type:'POST',
-    //                 data: formData,
-    //                 success:function(data){
-    //                     console.log('data : ' + data);
-    //                     // console.log(response)
-    //                     // let regist = response.registOK;
-    //                     if(data == 1){
-    //                         console.log('dddd');
-    //                     }
-    //
-    //                 },
-    //                 error: function(xhr, status, error) {
-    //                     // Ajax 요청이 실패한 경우, 에러를 콘솔에 출력합니다.
-    //                     console.error(error);
-    //                 }
-    //             });
-    //         });
-    // });
-    // function reviewregist(){
-    //     $.ajax({
-    //         url:"/review/regist.dox",
-    //         dataType:"json",
-    //         type : "POST",
-    //         data : {
-    //             "member_id":"test"
-    //         },
-    //         success : function(data) {
-    //             list = data.dto;
-    //         }
-    //     });
-    // }
 
-    console.log('reviewOK : ' + reviewOK);
-    // if(reviewOK == 1){
-    //     for(let i=0;i<tabA.length;i++){
-    //         tabA[i].classList.remove('active');
-    //     }
-    //     tabA[2].classList.add('active');
-    //     for(let i=0;i<tabDiv.length;i++){
-    //         tabDiv[i].classList.remove('active', 'show');
-    //     }
-    //     tabDiv[2].classList.add('active');
-    //     tabDiv[2].classList.add('show');
-    //
-    //     document.querySelector('#review-tab').click();
-    // }
     for(let i=0;i<btnRemove.length;i++){
         btnRemove[i].addEventListener("click", function(e){
             e.preventDefault();
@@ -436,10 +393,6 @@
                 this.parentNode.submit();
             }
         });
-    }
-    function reviewDel(event){
-        event.preventDefault();
-
     }
 
     for(let star of stars) {
@@ -458,25 +411,25 @@
             }
         })
     }
-    // reviewBtn.addEventListener("click",function(e){
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     let reviewText = document.querySelector('#review_contents');
-    //
-    //     if(score == 0){
-    //         console.log(1);
-    //         document.querySelector('#star_ul').style.border = '1px solid lightblue'
-    //         return;
-    //     }
-    //     document.getElementById("rank").value=score;
-    //     if(reviewText.value==""){
-    //         console.log(2);
-    //         reviewText.focus();
-    //         return;
-    //     }
-    //     document.querySelector('#frmReviewRegist').submit();
-    //
-    // })
+    reviewBtn.addEventListener("click",function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        let reviewText = document.querySelector('#review_contents');
+
+        if(score == 0){
+            document.querySelector('#star_ul').style.border = '1px solid lightblue'
+            alert("평점을 입력해 주세요");
+            return;
+        }
+        document.getElementById("rank").value=score;
+        if(reviewText.value==""){
+            alert("리뷰를 작성해주세요")
+            reviewText.focus();
+            return;
+        }
+        document.querySelector('#frmReviewRegist').submit();
+
+    })
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
