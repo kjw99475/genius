@@ -26,15 +26,10 @@ function nullCheck2(str) {
 
 // 길이 체크용 str => 비교 대상 문자열 / min => 최소 글자 수 (min 값보다 str이 작으면 false로 체크) / max => 최대 글자 수 (max 값 보다 str이 크면 false로 체크)
 function lengthCheck(min, max, str) {
-    if (!str) {
-        let str = str.trim();
-        if(str.length() < min || str.length() > max) {
-            return false;
-        } else {
-            return true;
-        }
-    } else {
+    if($(str).val().length < min || $(str).val().length > max) {
         return false;
+    } else {
+        return true;
     }
 }
 

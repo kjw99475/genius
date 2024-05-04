@@ -11,6 +11,7 @@ import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.service.BannerServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Log4j2
@@ -43,28 +45,38 @@ public class BannerController {
     }
 
     @PostMapping("/bannerRegist")
-    public String POSTBannerRegist(BannerDTO newBannerDTO,
+    public String POSTBannerRegist(@Valid BannerDTO newBannerDTO,
+                                   BindingResult bindingResult,
                                    HttpServletRequest request,
                                    RedirectAttributes redirectAttributes,
                                    @RequestParam("file")MultipartFile file){
-        log.info("====================POSTBannerRegist");
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("bannerDTO", newBannerDTO);
+            return "redirect:/admin/banner/bannerRegist";
+        }
         HttpSession session = request.getSession();
         String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
         newBannerDTO.setMember_id(member_id);
-        String uploadFolder =  CommonUtil.getUploadFolder(request, "banner");
-        FileDTO fileDTO = fileDTO = FileDTO.builder()
-                .file(file)
-                .uploadFolder(uploadFolder)
-                .build();
-        log.info("newBannerDTO : " + newBannerDTO);
-        log.info("fileDTO : " + fileDTO);
-        int result = bannerServiceIf.regist(newBannerDTO, fileDTO);
-        if(result > 0) {
-            log.info("등록 성공");
-            return "redirect:/admin/banner/bannerList";
+        if (file.getSize() > 0) {
+            String uploadFolder =  CommonUtil.getUploadFolder(request, "banner");
+            FileDTO fileDTO = fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+            int result = bannerServiceIf.regist(newBannerDTO, fileDTO);
+            if(result > 0) {
+                redirectAttributes.addFlashAttribute("result", "정상 처리되었습니다.");
+                return "redirect:/admin/banner/bannerList";
+            } else {
+                log.info("등록 실패");
+                redirectAttributes.addFlashAttribute("result", "등록 실패");
+                redirectAttributes.addAttribute("bannerDTO", newBannerDTO);
+                return "redirect:/admin/banner/bannerRegist";
+            }
         } else {
-            log.info("등록 실패");
-            redirectAttributes.addFlashAttribute("err", "등록 실패");
+            redirectAttributes.addFlashAttribute("result", "등록 실패");
+            redirectAttributes.addFlashAttribute("err", "file");
             redirectAttributes.addAttribute("bannerDTO", newBannerDTO);
             return "redirect:/admin/banner/bannerRegist";
         }
@@ -81,11 +93,16 @@ public class BannerController {
     }
 
     @PostMapping("/bannerModify")
-    public String POSTBannerModify(BannerDTO newBannerDTO,
+    public String POSTBannerModify(@Valid BannerDTO newBannerDTO,
+                                 BindingResult bindingResult,
                                  HttpServletRequest request,
                                  RedirectAttributes redirectAttributes,
                                  @RequestParam("file") MultipartFile file){
-        log.info("====================POSTBannerModify");
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("banner_img_idx", newBannerDTO.getBanner_img_idx());
+            return "redirect:/admin/banner/bannerModify";
+        }
         HttpSession session = request.getSession();
         String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
         newBannerDTO.setMember_id(member_id);
@@ -104,12 +121,12 @@ public class BannerController {
         }
         int result = bannerServiceIf.modify(newBannerDTO, fileDTO);
         if(result > 0 ){
-            log.info("정보 수정 성공");
+            redirectAttributes.addFlashAttribute("result", "정상 처리되었습니다.");
         } else {
-            redirectAttributes.addFlashAttribute("err", "정보 수정 실패");
-            log.info("정보 수정 실패");
+            redirectAttributes.addFlashAttribute("result", "수정에 실패하였습니다.");
         }
-        return "redirect:/admin/banner/bannerModify?banner_img_idx="+newBannerDTO.getBanner_img_idx();
+        redirectAttributes.addAttribute("banner_img_idx", newBannerDTO.getBanner_img_idx());
+        return "redirect:/admin/banner/bannerModify";
     }
 
     @PostMapping({"/bannerDelete", "/bannerDeleteAll"})
