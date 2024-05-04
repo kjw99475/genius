@@ -64,12 +64,15 @@
                 <div class="border-gray mb-5 rounded bg-light pt-3 pb-3">
                     <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
-                            <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" name="title" value="${qnaDTO.title}"/>
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" name="title" value="${qnaDTO.title}"/>
+                            <div class="invalid-feedback" id="err_title" style="display: none">
+                                2~60자 사이로 입력해주세요.
+                            </div>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">아이디</label>
-                            <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
+                            <label for="member_id">아이디</label>
+                            <input type="text" class="form-control" id="member_id" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
                     <div class="form-row ml-5">
@@ -98,16 +101,18 @@
                     </div>
                 </div>
                 <textarea id="summernote" name="contents">${qnaDTO.contents}</textarea>
+                <div class="invalid-feedback" id="err_contents" style="display: none">
+                    20자 이상 입력해주세요.
+                </div>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
-                        <button type="button" id="registBtn" class="btn btn-success mt-3">수정</button>
+                        <button type="button" id="modifyBtn" class="btn btn-success mt-3">수정</button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-    ${fileList}
 </main>
 
 <!--================ 본문 END =================-->
@@ -120,9 +125,30 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
-    let registBtn = document.getElementById("registBtn");
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
+    let registBtn = document.getElementById("modifyBtn");
     registBtn.addEventListener("click", function(e){
         e.preventDefault();
+        if(document.getElementById("title").value.trim().length < 2 ||document.getElementById("title").value.trim().length > 60){
+            document.getElementById("err_title").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_title").style.display = "none";
+        }
+        let contentsText = (document.getElementById("summernote").value.replace(/<[^>]+>/g, '')).replaceAll("&nbsp;",'').trim();
+
+        if(contentsText.length <20){
+            document.getElementById("err_contents").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_contents").style.display = "none";
+        }
 
         document.getElementById("modifyFrm").submit();
     });

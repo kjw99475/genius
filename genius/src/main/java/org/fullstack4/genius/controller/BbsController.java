@@ -233,16 +233,17 @@ public class BbsController {
 
     @PostMapping("/qnaRegistQ")
     public String POSTQnaRegistQ(@Valid QnaDTO qnaDTO,
+                                 BindingResult bindingResult,
                                MultipartHttpServletRequest files,
-                               BindingResult bindingResult,
                                HttpServletRequest request,
                                RedirectAttributes redirectAttributes,
                                Model model) {
-//        if(bindingResult.hasErrors()){
-//            log.info("BookController >> list Error");
-//            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
-//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//        }
+        if(bindingResult.hasErrors()){
+            log.info("BookController >> list Error");
+            redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/bbs/qnaRegistQ";
+        }
 
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
@@ -303,9 +304,9 @@ public class BbsController {
 
     @PostMapping("/qnaModifytQ")
     public String POSTQnaModifyQ(@Valid QnaDTO newQnaDTO,
+                                 BindingResult bindingResult,
                                  MultipartHttpServletRequest files,
                                  @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
-                                 BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  HttpServletRequest request,
                                  Model model) {
@@ -313,6 +314,7 @@ public class BbsController {
             log.info("BookController >> list Error");
             redirectAttributes.addFlashAttribute("qnaDTO",newQnaDTO);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/qna/modify?qna_idx="+newQnaDTO.getQna_idx();
         }
         newQnaDTO.setFileYN("N");
         // (지현 추가) 수정 시 파일 업로드 로직
