@@ -1,6 +1,7 @@
 package org.fullstack4.genius.service;
 
 
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.BookDTO;
@@ -21,6 +22,7 @@ public interface BookServiceIf {
     int delete(int idx);
     int BookTotalCount(PageRequestDTO requestDTO);
     int BookInventoryUpdate(BookDTO bookDTO);
+    void testInventoryUpdate(String[] bookCodeList, String[] salesStatusList, String[] salesStartDateList, String[] salesEndDateList,String[] salesQuantityList) throws InsufficientStockException;
     PageResponseDTO<BookDTO> BookListByPage(PageRequestDTO requestDTO);
     List<Map<String, String>> bookSubjectCategoryList();
     List<Map<String, String>> bookClassCategoryList();

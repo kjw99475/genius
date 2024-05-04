@@ -66,12 +66,12 @@
                 <div class="border-gray mb-5 rounded bg-light pt-3 pb-3">
                     <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
-                            <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" value="${bbsDTO.bbs_title}" name="bbs_title">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="최대 60자까지 입력 가능합니다.">
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputZip">아이디</label>
-                            <input type="text" class="form-control" id="inputZip" value="${sessionScope.member_id}" name="member_id" readonly>
+                            <label for="member_id">아이디</label>
+                            <input type="text" class="form-control" id="member_id" value="${sessionScope.member_id}" name="member_id" readonly>
                         </div>
                     </div>
                     <input type="hidden" name="category_code" value="bc01">
@@ -115,6 +115,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
@@ -176,6 +177,50 @@
         fileArray.forEach(file => {dataTransfer.items.add(file);});
         document.querySelector('#file').files = dataTransfer.files;
     }
+
+    /*//유효성 검사
+    document.querySelector('#registFrm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        //공백 체크
+        if (!nullCheck2($('input[name=bbs_title]'))) {
+            alert("제목을 입력해주세요.");
+            $('input[name=bbs_title]').focus();
+            return false;
+        }
+        if (!nullCheck2($('textarea[name=bbs_contents]'))) {
+            alert("내용을 입력해주세요.");
+            $('textarea[name=bbs_contents]').focus();
+            return false;
+        }
+        //길이 체크
+        if ( $('input[name=bbs_title]').val().length > 60 ) {
+            console.log("길이 체크 : "+ $('input[name=bbs_title]').val().length > 100);
+            console.log("길이 : " + $('input[name=bbs_title]').val().length);
+            alert("제목의 최대 길이를 초과하였습니다.");
+            $('input[name=bbs_title]').focus();
+            return false;
+        }
+
+        // //서머노트 공백체크(작동x)
+        // if ($('#summernote').summernote('isEmpty')) {
+        //     alert('editor content is empty');
+        //     $('#summernote').summernote('focus');
+        // }
+
+        document.querySelector('#registFrm').submit();
+    }*/
+
+    //Back단 유효성 검사
+    if(${!empty errors}) {
+        let errArr = [];
+        <c:forEach var="item" items="${err}">
+        if(${item.getField() != null}) {
+            errArr.push('${item.getField()}');
+        }
+    </c:forEach>
+
+    console.log("err: "+ errArr);}
 
 </script>
 

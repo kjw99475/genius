@@ -329,9 +329,16 @@
                     "SalesQuantityList":JSON.stringify(sales_quantity_list),
                 },
                 success : function(data) {
-                    alert("수정에 성공하였습니다.");
-                    console.log("성공");
-                    location.href="/admin/inventory/list${responseDTO.linked_params}&page=${responseDTO.page}"
+                    console.log(data.result);
+                    if(data.result = "success") {
+                        alert(data.msg);
+                        console.log("성공");
+                        location.href="/admin/inventory/list${responseDTO.linked_params}&page=${responseDTO.page}"
+                    }
+                    else if (data.result =="error"){
+                        alert(data.msg);
+                        console.log("실패");
+                    }
                 },
                 fail : function (data){
                     console.log("실패");
