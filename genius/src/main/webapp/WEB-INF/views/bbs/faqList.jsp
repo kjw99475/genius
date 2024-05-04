@@ -90,15 +90,17 @@
                 </tr>
                 </thead>
                 <tbody id="accordionExample">
-                <c:set value="${responseDTO.total_count}" var="total_count" />
-                <c:if test="${responseDTO.total_count eq 0}"> <tr><td colspan="2">검색 결과가 없습니다.</td></tr></c:if>
                 <c:choose>
                     <c:when test="${!empty responseDTO.dtoList}">
-
+                        <c:set value="${responseDTO.total_count}" var="total_count" />
                         <c:forEach items="${responseDTO.dtoList}" var="bbsDTO" varStatus="loop">
                             <tr>
                                 <th scope="row" class=" align-content-center">${total_count -responseDTO.page_skip_count -loop.index}</th>
-                                <td><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${bbsDTO.bbs_idx}" aria-expanded="true" aria-controls="${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</button></td>
+                                <td>
+                                    <button class="btn btn-link text-dark text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse${bbsDTO.bbs_idx}" aria-expanded="true" aria-controls="${bbsDTO.bbs_idx}">
+                                            ${bbsDTO.bbs_title}
+                                    </button>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2" id="collapse${bbsDTO.bbs_idx}" class="collapse" aria-labelledby="heading${bbsDTO.bbs_idx}" data-parent="#accordionExample"><div>${bbsDTO.bbs_contents}</div></td>
@@ -106,7 +108,9 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                    <tr><td colspan="2">결과가 없습니다.</td></tr>
+                        <tr class="bg-white text-center">
+                            <td colspan="5">등록된 글이 없습니다.</td>
+                        </tr>
                     </c:otherwise>
                 </c:choose>
                 </tbody>
