@@ -4,13 +4,11 @@ package org.fullstack4.genius.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
-import org.fullstack4.genius.dto.FileDTO;
-import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.MemberServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Map;
 
 @Log4j2
@@ -52,14 +51,24 @@ public class AdminMemberController {
     }
 
     @PostMapping("/memberModify")
-    public String POSTMemberModify(MemberDTO newMemberDTO,
-                                 RedirectAttributes redirectAttributes,
-                                 HttpServletRequest request,
-                                 @RequestParam("file")MultipartFile file){
+    public String POSTMemberModify(@Valid MemberInfoDTO newMemberDTO,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes,
+                                   HttpServletRequest request,
+                                   @RequestParam("file")MultipartFile file){
         log.info("===========================================");
         log.info("AdminMemberController >>>>>>>>>>>>>>>>> POSTMemberModify");
         MemberDTO orgMemberDTO = memberServiceIf.view(newMemberDTO.getMember_id());
-        log.info("file : " + file);
+        newMemberDTO.setMember_id(newMemberDTO.getMember_id());
+        if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty() && (CommonUtil.parseString(newMemberDTO.getPwdCheck()).isEmpty()))) {
+            newMemberDTO.setPwd(orgMemberDTO.getPwd());
+            newMemberDTO.setPwdCheck(orgMemberDTO.getPwd());
+        }
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("memberDTO", newMemberDTO);
+            return "redirect:/mypage/mypage";
+        }
         FileDTO fileDTO = null;
         if(file.getSize() > 0) {
             String uploadFolder =  CommonUtil.getUploadFolder(request, "profile");
@@ -72,10 +81,9 @@ public class AdminMemberController {
         }
         int result = memberServiceIf.modifyInfo(newMemberDTO, fileDTO);
         if(result > 0 ){
-            log.info("정보 수정 성공");
+            redirectAttributes.addFlashAttribute("result","정상 처리되었습니다.");
         } else {
-            redirectAttributes.addFlashAttribute("err", "정보 수정 실패");
-            log.info("정보 수정 실패");
+            redirectAttributes.addFlashAttribute("result", "정보 수정에 실패하였습니다.");
         }
         redirectAttributes.addAttribute("member_id", newMemberDTO.getMember_id());
         return "redirect:/admin/member/memberView";
