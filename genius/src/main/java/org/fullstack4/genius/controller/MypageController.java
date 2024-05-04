@@ -56,8 +56,7 @@ public class MypageController {
         String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
         MemberDTO orgMemberDTO = memberService.view(member_id);
         newMemberDTO.setMember_id(member_id);
-        log.info("newMemberDTO : "+newMemberDTO);
-        log.info("orgMemberDTO : "+orgMemberDTO);
+        newMemberDTO.setAdmin_YN(orgMemberDTO.getAdmin_YN());
         if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty() && (CommonUtil.parseString(newMemberDTO.getPwdCheck()).isEmpty()))) {
             newMemberDTO.setPwd(orgMemberDTO.getPwd());
             newMemberDTO.setPwdCheck(orgMemberDTO.getPwd());
