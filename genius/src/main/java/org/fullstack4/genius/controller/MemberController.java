@@ -39,9 +39,6 @@ public class MemberController {
     public String POSTJoin(@Valid MemberDTO memberDTO,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes){
-        log.info("============================");
-        log.info("MemberController > POSTJoin");
-        log.info("============================");
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("memberDTO", memberDTO);

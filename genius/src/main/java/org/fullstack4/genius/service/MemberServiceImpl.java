@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.Common.CommonUtil;
 import org.fullstack4.genius.Common.FileUtil;
 import org.fullstack4.genius.domain.MemberVO;
-import org.fullstack4.genius.dto.FileDTO;
-import org.fullstack4.genius.dto.MemberDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.mapper.MemberMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -126,7 +123,7 @@ public class MemberServiceImpl implements MemberServiceIf {
     }
 
     @Override
-    public int modifyInfo(MemberDTO memberDTO, FileDTO fileDTO) {
+    public int modifyInfo(MemberInfoDTO memberDTO, FileDTO fileDTO) {
         int result = 0;
         if(fileDTO != null) {
             Map<String, String> map = FileUtil.FileUpload(fileDTO);
