@@ -63,6 +63,7 @@
                             <li class="common-filter">
                                 <form action="#">
                                     <ul>
+                                        <li class="filter-list"><input class="pixel-radio" type="radio" value="" onclick="categorySubjectSearch(this)" name="subject_code_check" checked><label>전체</label></li>
                                         <c:forEach items="${subjectList}" var="list">
                                             <li class="filter-list"><input class="pixel-radio" type="radio" value="${list.category_code}" onclick="categorySubjectSearch(this)" id="${list.category_code}" name="subject_code_check" <c:if test="${responseDTO.subject_code == list.category_code}"> checked</c:if>><label for="${list.category_code}">${list.name}</label></li>
                                         </c:forEach>
@@ -74,6 +75,7 @@
                     <div class="sidebar-filter">
                         <div class="top-filter-head">카테고리</div>
                         <div class="common-filter">
+                            <div class="filter-list"><input class="pixel-radio" type="radio" value="" onclick="categoryClassSearch(this)" name="class_code_check" checked><label>전체</label></div>
                             <div class="head">초등</div>
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
@@ -178,6 +180,10 @@
                                         <div class="card-body">
                                             <p>${list.class_name} > ${list.subject_name}</p>
                                             <h4 class="card-product__title"><a href="#">${list.book_name}</a></h4>
+                                            <h5><c:if test="${list.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                                                <c:if test="${list.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                                                <c:if test="${list.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                                                <c:if test="${list.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
                                             <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(list.price)}</s> ${CommonUtil.comma(list.discount_price)}</p>
                                             <p class="card-product__rank stars">
                                                 <c:choose>

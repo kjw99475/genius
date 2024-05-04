@@ -77,65 +77,77 @@
                                         <c:otherwise>
                                             <div class="col-md-12 form-group">
                                                 <label for="member_id">아이디</label>
-                                                <input type="text" class="form-control" id="member_id" name="member_id" value="${memberDTO['member_id']}" placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'" disabled>
+                                                <input type="text" class="form-control" id="member_id" name="member_id" value="${memberDTO['member_id']}" placeholder="아이디" data-name="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'" disabled>
                                             </div>
+                                            <small id="err_member_id" class="info text-danger"></small>
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="col-md-12 form-group">
                                         <label for="member_name">이름</label>
-                                        <input type="text" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                                        <input type="text" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" data-name="이름" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'" onkeyup="replaceName(this)">
+                                        <small id="err_member_name" class="info text-danger"></small>
                                     </div>
                                     <c:choose>
                                         <c:when test="${memberDTO['social_type'] eq 'naver'}">
                                             <div class="col-md-12 form-group">
-                                                <input type="hidden" class="form-control" id="pwd" name="pwd" value="" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                                <input type="hidden" class="form-control" id="naver_pwd" name="pwd" value="" placeholder="비밀번호" data-name="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                                             </div>
                                         </c:when>
                                         <c:otherwise>
                                             <div class="col-md-12 form-group">
                                                 <label for="pwd">비밀번호</label>
-                                                <input type="password" class="form-control" id="pwd1" name="pwd" value="" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                                <input type="password" class="form-control" id="pwd" name="pwd" data-name="비밀번호"  value="" placeholder="비밀번호 변경할 시에만 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                                <small id="err_pwd" class="info text-danger"></small>
                                             </div>
                                             <div class="col-md-12 form-group">
                                                 <label for="pwdCheck">비밀번호 확인</label>
-                                                <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" value="${memberDTO.pwd}" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                                <input type="password" class="form-control" id="pwdCheck" name="pwdCheck" value="" data-name="비밀번호 확인" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                                <small id="err_pwdCheck" class="info text-danger"></small>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="col-md-12 form-group">
                                         <label for="birthday">생년월일</label>
-                                        <input type="date" class="form-control" id="birthday" name="birthday" value="${memberDTO.birthday}" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
+                                        <input type="date" class="form-control" id="birthday" name="birthday" data-name="생년월일" value="${memberDTO.birthday}" placeholder="생년월일" onfocus="this.placeholder = ''" onblur="this.placeholder = '생년월일'">
+                                        <small id="err_birthday" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>성별</label>
                                         <div class="d-flex" style="gap: 20px">
-                                            <label for="female"><input type="radio" class="pixel-radio" id="female" name="gender" value="여" <c:if test="${memberDTO.gender eq '여'}">checked</c:if> >여</label>
-                                            <label for="male"><input type="radio" class="pixel-radio" id="male" name="gender" value="남" <c:if test="${memberDTO.gender eq '남'}">checked</c:if> >남</label>
+                                            <label for="female"><input type="radio" class="pixel-radio" data-name="성별" id="female" name="gender" value="여" <c:if test="${memberDTO.gender eq '여'}">checked</c:if> >여</label>
+                                            <label for="male"><input type="radio" class="pixel-radio" data-name="성별" id="male" name="gender" value="남" <c:if test="${memberDTO.gender eq '남'}">checked</c:if> >남</label>
+
                                         </div>
+                                        <small id="err_gender" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">이메일</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'" disabled>
+                                        <input type="email" class="form-control" id="email" name="email" data-name="이메일" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'" disabled>
+                                        <small id="err_email" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label for="phone">연락처</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" value="${memberDTO.phone}" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'">
+                                        <input type="tel" class="form-control" id="phone" data-name="연락처" name="phone" value="${memberDTO.phone}" placeholder="-없이 입력해주세요" onfocus="this.placeholder = ''" onblur="this.placeholder = '-없이 입력해주세요'" onkeyup="replacePhone(this)">
+                                        <small id="err_phone" class="info text-danger"></small>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>주소</label>
                                         <div>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="zip_code" value="${memberDTO['zip_code']}" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                <input type="text" name="zip_code" data-name="우편번호" value="${memberDTO['zip_code']}" class="form-control" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                 </div>
                                             </div>
+                                            <small id="err_zip_code" class="info text-danger"></small>
                                             <div class="form-group">
-                                                <input type="text" name="addr1" value="${memberDTO.addr1}" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <input type="text" name="addr1" data-name="주소" value="${memberDTO.addr1}" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
                                             </div>
+                                            <small id="err_addr1" class="info text-danger"></small>
                                             <div class="form-group">
-                                                <input type="text" name="addr2" value="${memberDTO.addr2}" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
+                                                <input type="text" name="addr2" data-name="상세주소"  value="${memberDTO.addr2}" class="form-control" id="sample4_detailAddress"  placeholder="상세주소">
                                             </div>
+                                            <small id="err_addr2" class="info text-danger"></small>
                                             <span id="guide" style="color:#999;display:none"></span>
                                         </div>
                                     </div>
@@ -178,6 +190,7 @@
         reader.readAsDataURL(files[0]);
     }
 
+    // 탈퇴
     function leave() {
         if(confirm("정말로 탈퇴하실건가요?")) {
             let frm = document.createElement('form');
@@ -187,6 +200,102 @@
             document.body.append(frm);
             document.querySelector('#leaveFrm').submit();
         }
+    }
+</script>
+<script src="/resources/js/commonUtil.js"></script>
+<script>
+    // 유효성 검사
+    let checkTarget = ['member_name', 'pwd', 'pwdCheck', 'birthday', 'gender', 'phone', 'zip_code', 'addr1'];
+    document.querySelector('#frm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if (element == 'gender') {
+                if(!$('input#male').is(":checked") && !$('input#female').is(":checked")) {
+                    $('#err_'+element).text($(target).data('name') + "을 선택해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else if(element == 'pwd' || element == 'pwdCheck') {
+                if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                    if (!nullCheck($(target))) {
+                        $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                        $(target).focus();
+                        return false;
+                    }
+                }
+            }  else if(element == 'addr1') {
+                if (!nullCheck2($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            } else {
+                if (!nullCheck($(target))) {
+                    $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                    $(target).focus();
+                    return false;
+                }
+            }
+        }
+        // 정규식 검사
+        if(!nameRegCheck($('input[name=member_name]'))){
+            $('#err_member_name').text("이름은 한글로 최소 2글자 이상, 20글자 이하로 작성하세요.");
+            $('input[name=member_name]').focus();
+            return false;
+        }
+        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+            if(!passwordRegCheck($('input[name=pwd]'))){
+                $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+                $('input[name=pwd]').focus();
+                return false;
+            }
+        }
+        if(!phoneRegCheck($('input[name=phone]'))){
+            $('#err_phone').text("'-' 없이 올바른 전화번호 형식을 사용해주세요. 예시: 01012345678");
+            $('input[name=phone]').focus();
+            return false;
+        }
+        // 유효한 생년월일 검사
+        if(!dateCheck($('input[name=birthday]'))) {
+            $('#err_birthday').text("생년월일은 오늘보다 미래일 수 없습니다.");
+            $('input[name=birthday]').focus();
+            return false;
+        }
+        // 중복 체크 및 일치 여부 검사
+        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+            if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
+                $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+                $('input[name=pwdCheck]').focus();
+                return false;
+            }
+        }
+        document.querySelector('#frm').submit();
+    }
+
+    // Back단 유효성 검사
+    if(${!empty err}) {
+        let errArr = [];
+        <c:forEach var="item" items="${err}">
+        if(${item.getField() != null}) {
+            errArr.push('${item.getField()}');
+        }
+        </c:forEach>
+        if (errArr.length > 0) {
+            for (let err of errArr) {
+                $('#err_'+err).text("입력 내용을 확인해주세요");
+            }
+            alert("모든 항목을 입력해주세요!");
+        }
+    }
+
+    if(${!empty result}) {
+        alert("${result}");
     }
 </script>
 <!-- 다음 주소 api -->

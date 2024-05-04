@@ -45,7 +45,8 @@ public class MypageController {
     }
 
     @PostMapping("/mypage")
-    public String POSTMypage(MemberDTO newMemberDTO,
+    public String POSTMypage(@Valid MemberInfoDTO newMemberDTO,
+                           BindingResult bindingResult,
                            HttpServletRequest request,
                            RedirectAttributes redirectAttributes,
                            @RequestParam("file") MultipartFile file){
@@ -55,6 +56,17 @@ public class MypageController {
         String member_id = CommonUtil.parseString(session.getAttribute("member_id"));
         MemberDTO orgMemberDTO = memberService.view(member_id);
         newMemberDTO.setMember_id(member_id);
+        log.info("newMemberDTO : "+newMemberDTO);
+        log.info("orgMemberDTO : "+orgMemberDTO);
+        if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty() && (CommonUtil.parseString(newMemberDTO.getPwdCheck()).isEmpty()))) {
+            newMemberDTO.setPwd(orgMemberDTO.getPwd());
+            newMemberDTO.setPwdCheck(orgMemberDTO.getPwd());
+        }
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("memberDTO", newMemberDTO);
+            return "redirect:/mypage/mypage";
+        }
         FileDTO fileDTO = null;
         if(file.getSize() > 0) {
             String uploadFolder =  CommonUtil.getUploadFolder(request, "profile");
@@ -67,10 +79,9 @@ public class MypageController {
         }
         int result = memberService.modifyInfo(newMemberDTO, fileDTO);
         if(result > 0 ){
-            log.info("정보 수정 성공");
+            redirectAttributes.addFlashAttribute("result","정상 처리되었습니다.");
         } else {
-            redirectAttributes.addFlashAttribute("err", "정보 수정 실패");
-            log.info("정보 수정 실패");
+            redirectAttributes.addFlashAttribute("result", "정보 수정에 실패하였습니다.");
         }
         return "redirect:/mypage/mypage";
     }

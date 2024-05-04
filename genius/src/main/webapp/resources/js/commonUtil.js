@@ -100,7 +100,7 @@ function emailRegCheck(element) {
 function dateCheck(element) {
     let today = new Date();
     let target = new Date($(element).val());
-    if ( target.getDate() > today.getDate()) {
+    if ( target > today) {
         return false;
     } else {
         return true;

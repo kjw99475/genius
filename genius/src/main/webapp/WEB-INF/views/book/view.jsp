@@ -78,6 +78,8 @@
                                            <c:if test="${bookDTO.sales_status == '2'}"><span class="badge bg-warning text-white" style="padding:5px;">판매준비중</span></c:if>
                                            <c:if test="${bookDTO.sales_status == '3'}"><span class="badge bg-dark text-white" style="padding:5px;">판매종료</span></c:if>
                                            <c:if test="${bookDTO.sales_status == '4'}"><span class="badge bg-danger text-white" style="padding:5px;">품절</span></c:if></li>
+
+                            <li>판매 기간:${bookDTO.sales_start_date}~${bookDTO.sales_end_date}</li>
                             <li>평점 :
                                 <span class="card-product__rank stars">
                                     <c:choose>
@@ -99,6 +101,7 @@
                                     </c:choose>
                                 </span>
                             </li>
+
                         </ul>
                         <p>${bookDTO.book_info}</p>
                         <div class="product_count pt-2">
