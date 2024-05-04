@@ -24,10 +24,9 @@ public class ReviewDTO {
     @NotBlank
     private String book_code;
     private LocalDate reg_date;
-    @Builder.Default
     @PositiveOrZero
-    @Min(value=1)
-    private int rank=1;
+    private int rank;
+    @NotBlank
     private String review_contents;
 
     private int book_idx;
