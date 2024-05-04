@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -31,7 +32,9 @@ public class BannerController {
     public void GETBannerList(PageRequestDTO pageRequestDTO
                               , Model model){
         PageResponseDTO<BannerDTO> pageResponseDTO = bannerServiceIf.list(pageRequestDTO);
+        List<BannerDTO> orderBannerDTO = bannerServiceIf.orderList();
         model.addAttribute("pageResponseDTO", pageResponseDTO);
+        model.addAttribute("orderBannerDTO", orderBannerDTO);
     }
 
     @GetMapping("/bannerRegist")
@@ -132,6 +135,22 @@ public class BannerController {
             } else {
                 redirectAttributes.addFlashAttribute("result", "삭제 실패 하였습니다.");
             }
+        }
+        return "redirect:/admin/banner/bannerList";
+    }
+
+    @PostMapping("/changeOrder")
+    public String POSTChangeOrder(@RequestParam(name = "banner_img_idx", defaultValue = "") String banner_img_idx,
+                                  RedirectAttributes redirectAttributes) {
+        String[] bannerArr = banner_img_idx.split(",");
+        int result = 0;
+        for(int i = 0; i < bannerArr.length; i++) {
+            result += bannerServiceIf.changeOrder(i+1, bannerArr[i]);
+        }
+        if (result == bannerArr.length) {
+            redirectAttributes.addFlashAttribute("result", "배너 순서 변경이 성공하였습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("result", "배너 순서 변경이 총 "+bannerArr.length+"건 중 "+result+"건 성공 하였습니다.");
         }
         return "redirect:/admin/banner/bannerList";
     }

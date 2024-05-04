@@ -43,6 +43,12 @@ public class BannerServiceImpl implements BannerServiceIf {
     }
 
     @Override
+    public List<BannerDTO> orderList() {
+        List<BannerVO> orderBannerVOList = bannerMapper.orderList();
+        return orderBannerVOList.stream().map(vo -> modelMapper.map(vo, BannerDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public int regist(BannerDTO bannerDTO, FileDTO fileDTO) {
         int result = 0;
         // 파일 업로드
@@ -82,5 +88,10 @@ public class BannerServiceImpl implements BannerServiceIf {
     @Override
     public int delete(String banner_img_idx) {
         return bannerMapper.delete(banner_img_idx);
+    }
+
+    @Override
+    public int changeOrder(int order, String banner_img_idx) {
+        return bannerMapper.changeOrder(order, banner_img_idx);
     }
 }

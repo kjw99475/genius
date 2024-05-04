@@ -1262,12 +1262,14 @@ h6 {
 .w-5 {width:5% !important;} .w-1 {width:1% !important;} .w-10 {width:10% !important;} 
 .w-15 {width:15% !important;} 
 .w-50px {width: 50px !important;} 
+.h-50px {height: 50px !important;} 
 .w-100px {width: 100px !important;} 
 .bg-table {background-color: #f1f6f7;} 
 .img-w100{width: 100px !important;} 
 .targetToOrg {position: absolute;} 
 .h-100px {height: 100px !important;} 
 .flow-hidden {overflow: hidden;} 
+.w-150px {width: 200px !important;}
 .w-200px {width: 200px !important;} 
 .h-200px {height: 200px !important;} 
 .w-300px {width: 300px !important;} 
@@ -1275,5 +1277,7 @@ h6 {
 .icon_geni{position:absolute;height:40px;width:40px;text-align:center;z-index:100 !important}
 .gap-5px {gap: 5px;}
 .gap-10px {gap: 10px;}
-
+#sortable li:hover {background-color: #00b04f !important; color: #fff !important;}
+#sortable li.sortable-list:hover i {color: #fff !important;}
+.h-70vh {height: 70vh !important;}
 

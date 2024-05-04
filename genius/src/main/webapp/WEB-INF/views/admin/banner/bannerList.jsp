@@ -35,7 +35,9 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- jquery 관련 -->
+    <script src="/resources/jquery/jquery-3.7.1.js"></script>
+    <link href="/resources/jquery/jquery-ui.css" rel="stylesheet">
 </head>
 <body>
 <!--================ 헤더 start =================-->
@@ -44,7 +46,6 @@
 
 <!--================ 본문 start =================-->
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>배너 관리</h1>
         <nav>
@@ -109,8 +110,31 @@
                             <div class="col-2 mb-2">
                                 <div class="btn-group d-flex ">
                                     <button class="btn btn-outline-success" onclick="deleteThese()">삭제</button>
-                                    <button class="btn btn-success">순서변경</button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadList()">순서변경</button>
                                 </div>
+                                <!-- 모달 창 시작 -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <form id="changFrm" method="post" action="/admin/banner/changeOrder">
+                                                <div class="modal-header bg-geni text-white">
+                                                    <h5 class="modal-title">배너 순서 변경</h5>
+                                                    <button id="btnChange" type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body overflow-y-scroll h-70vh">
+                                                    <ul id="sortable" class="d-flex flex-column gap-1 pb-0 pt-0 ps-3 pe-3">
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-close-white" data-bs-dismiss="modal" onclick="initList()">닫기</button>
+                                                    <button type="submit" class="btn btn-success">저장</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 모달 창 종료 -->
                             </div>
                         </div>
                         <!-- Table with stripped rows -->
@@ -264,6 +288,40 @@
             alert("선택된 건이 없습니다.")
         }
     }
+</script>
+<script>
+    function loadList() {
+            initList();
+            <c:choose>
+                <c:when test="${!empty orderBannerDTO}">
+                    <c:forEach var="dto" items="${orderBannerDTO}">
+                        let liEl${dto['banner_img_idx']} = document.createElement('li');
+                        liEl${dto['banner_img_idx']}.classList.add('sortable-list', 'shadow-none', 'p-3', 'border', 'border-gray', 'p-0', 'm-0,', 'd-flex', 'flex-row', 'gap-3', 'align-items-center', 'justify-content-between');
+                        liEl${dto['banner_img_idx']}.innerHTML += '<div class="d-flex align-items-center gap-3"><i class="bi bi-chevron-bar-expand text-geni"></i><div><p>${dto.title}</p><small>작성자 : ${dto["member_name"]} / 등록일 : ${dto["reg_date"]} / 게시기간 : ${dto["post_start_date"]} ~ ${dto["post_end_date"]}</small></div></div>';
+                        liEl${dto['banner_img_idx']}.innerHTML += '<img class="w-150px h-50px rounded" src="${dto.path}${dto["save_name"]}" alt=""><input type="hidden" name="banner_img_idx" value="${dto["banner_img_idx"]}">';
+                        $('#sortable').append($(liEl${dto['banner_img_idx']}));
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    let liEl2 = document.createElement('li');
+                    liEl2.innerHTML = '<li class="card shadow-none p-3 border border-gray p-0 m-0 d-flex flex-row gap-1 align-items-center">배너가 없습니다.</li>'
+                    $('#sortable').append($(liEl2));
+            </c:otherwise>
+            </c:choose>
+    }
+
+    function initList() {
+        $('#sortable').html("");
+    }
+    if (${!empty result}) {
+        alert('${result}');
+    }
+</script>
+<script src="/resources/jquery/jquery-ui.js"></script>
+<script>
+    $( function() {
+        $( "#sortable" ).sortable();
+    } );
 </script>
 <!-- Vendor JS Files -->
 <script src="/resources/admin/vendor/apexcharts/apexcharts.min.js"></script>
