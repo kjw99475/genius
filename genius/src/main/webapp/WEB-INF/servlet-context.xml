@@ -35,8 +35,7 @@
 
 
 
-    <beans:bean id="multipartResolver"
-                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="maxUploadSize" value="10240000" />
         <beans:property name="defaultEncoding" value="utf-8" />
     </beans:bean>
@@ -45,8 +44,7 @@
     <interceptors>
         <interceptor>
             <mapping path="/**" />
-            <beans:bean id="autoLoginInterceptor"
-                        class="org.fullstack4.genius.interceptor.AutoLoginInterceptor">
+            <beans:bean id="autoLoginInterceptor" class="org.fullstack4.genius.interceptor.AutoLoginInterceptor">
             </beans:bean>
         </interceptor>
         <interceptor>
@@ -59,20 +57,7 @@
             <mapping path="/bbs/*Regist" />
             <mapping path="/bbs/*Modify" />
             <mapping path="/admin/**" />
-            <beans:bean id="loginCheckInterceptor"
-                        class="org.fullstack4.genius.interceptor.LoginCheckInterceptor">
-            </beans:bean>
-        </interceptor>
-        <interceptor>
-            <mapping path="/**" />
-            <beans:bean id="cartCntInterceptor"
-                        class="org.fullstack4.genius.interceptor.CartCntInterceptor">
-            </beans:bean>
-        </interceptor>
-        <interceptor>
-            <mapping path="/admin/**" />
-            <beans:bean id="adminProfileInterceptor"
-                        class="org.fullstack4.genius.interceptor.AdminProfileInterceptor">
+            <beans:bean id="loginCheckInterceptor" class="org.fullstack4.genius.interceptor.LoginCheckInterceptor">
             </beans:bean>
         </interceptor>
     </interceptors>

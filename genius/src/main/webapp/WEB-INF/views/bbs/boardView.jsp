@@ -62,7 +62,6 @@
             <div>
                 <div class="input-group d-flex justify-content-end mb-2">
                     <c:if test="${sessionScope.member_id == bbsDTO.member_id}">
-<%--                    <c:if test="${sessionScope.member_id ne null}">--%>
                         <form action="/bbs/boardDelete" method="post" id="deleteFrm" name="deleteFrm">
                             <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                             <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/boardModify?bbs_idx=${bbsDTO.bbs_idx}'">수정</button>
@@ -78,15 +77,15 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row">제목</th>
+                    <th class="bg-table text-center align-middle" scope="row">제목</th>
                     <td>${bbsDTO.bbs_title}</td>
                 </tr>
                 <tr>
-                    <th scope="row">작성자</th>
+                    <th class="bg-table text-center align-middle" scope="row">작성자</th>
                     <td> ${bbsDTO.member_name} <span></span> </td>
                 </tr>
                 <tr>
-                    <th scope="row">작성일</th>
+                    <th class="bg-table text-center align-middle" scope="row">작성일</th>
                     <td>${bbsDTO.reg_date}</td>
                 </tr>
                 <tr>
@@ -97,19 +96,21 @@
                 <c:if test="${fileList ne null}">
                     <c:forEach items="${fileList}" var="file">
                         <tr>
-                            <th class="bg-table text-center" scope="row">첨부파일</th>
+                            <th class="bg-table text-center align-middle" scope="row">첨부파일</th>
                             <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/bbsFileDownload?file_idx=${file.file_idx}&bbs_idx=${bbsDTO.bbs_idx}">${file.original_name}</a> </td>
                         </tr>
                     </c:forEach>
                 </c:if>
                 <tr>
-                    <th scope="row">조회수</th>
+                    <th scope="row" class="bg-table text-center align-middle">조회수</th>
                     <td><span>${bbsDTO.read_cnt}</span>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-success" onclick="location.href='/bbs/boardList'">목록</button>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-success" onclick="location.href='/bbs/boardList'">목록</button>
+            </div>
         </div>
         <div class="container mt-3">
             <table class="table border-gray">
@@ -118,9 +119,8 @@
                     <col style="width:auto;"/>
                 </colgroup>
                 <tbody>
-                
                 <tr>
-                    <th scope="row"><strong>다음글</strong><span class="ti-angle-up"></span></th>
+                    <th class="bg-table text-center align-middle" scope="row"><strong class="pr-1">다음글</strong> <span class="ti-angle-up"></span></th>
                     <td class="card-product__title">
                         <c:if test="${postbbsDTO != null}">
                             <a href='/bbs/boardView?bbs_idx=${postbbsDTO.bbs_idx}'>${postbbsDTO.bbs_title}</a>
@@ -131,7 +131,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><strong>이전글</strong><span class="ti-angle-down"></span></th>
+                    <th class="bg-table text-center align-middle" scope="row"><strong class="pr-1">이전글</strong> <span class="ti-angle-down"></span></th>
                     <td class="card-product__title">
                         <c:if test="${prebbsDTO != null}">
                             <a href='/bbs/boardView?bbs_idx=${prebbsDTO.bbs_idx}'>${prebbsDTO.bbs_title}</a>

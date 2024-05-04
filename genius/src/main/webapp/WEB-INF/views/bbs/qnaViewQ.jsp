@@ -79,15 +79,15 @@
 <%--                    <td>${param.no}</td>--%>
 <%--                </tr>--%>
                 <tr>
-                    <th scope="row">제목</th>
+                    <th class="bg-table text-center align-middle" scope="row">제목</th>
                     <td>${qnaDTO.title}</td>
                 </tr>
                 <tr>
-                    <th scope="row">작성자</th>
+                    <th class="bg-table text-center align-middle" scope="row">작성자</th>
                     <td> ${qnaDTO.member_name} <span></span> </td>
                 </tr>
                 <tr>
-                    <th scope="row">작성일</th>
+                    <th class="bg-table text-center align-middle" scope="row">작성일</th>
                     <td>${qnaDTO.reg_date}</td>
                 </tr>
                 <tr>
@@ -98,27 +98,21 @@
                 <c:if test="${fileList ne null}">
                     <c:forEach items="${fileList}" var="file">
                         <tr>
-                            <th class="bg-table text-center" scope="row">첨부파일</th>
+                            <th class="bg-table text-center align-middle" class="bg-table text-center" scope="row">첨부파일</th>
                             <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" >${file.original_name}</a> </td>
                         </tr>
                     </c:forEach>
                 </c:if>
-<%--                <tr>--%>
-<%--                    <th class="bg-table text-center" scope="row">첨부파일</th>--%>
-<%--                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-file"></i></button> <a href="#none" onclick="javascript:alert('파일한개');">초등평가_과학6-2_이상원(15개정)_정답.pdf</a> </td>--%>
-<%--                </tr>--%>
-<%--                <tr>--%>
-<%--                    <th class="bg-table text-center" scope="row">첨부파일</th>--%>
-<%--                    <td><button type="button" class="rounded-circle bg-lightgray btn btn-light"><i class="ti-files"></i></button> <a href="#none" onclick="javascript:alert('파일두개 이상')">파일 두개 이상</a> </td>--%>
-<%--                </tr>--%>
                 <tr>
-                    <th scope="row">조회수</th>
+                    <th class="bg-table text-center align-middle" scope="row">조회수</th>
                     <td><span>${qnaDTO.read_cnt}</span>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaList'">목록</button>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-success" onclick="location.href='/bbs/qnaList'">목록</button>
+            </div>
         </div>
         <div class="container mt-3">
             <table class="table border-gray">
@@ -128,7 +122,7 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row"><strong>다음글</strong><span class="ti-angle-down"></span></th>
+                    <th class="bg-table text-center align-middle" scope="row"><strong class="pr-1">다음글</strong> <span class="ti-angle-down"></span></th>
                     <td class="card-product__title">
                         <c:if test="${nextDTO != null}">
                             <a href="<c:if test="${nextDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${nextDTO.qna_idx}</c:if>
@@ -142,7 +136,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><strong>이전글</strong><span class="ti-angle-up"></span></th>
+                    <th class="bg-table text-center align-middle" scope="row"><strong class="pr-1">이전글</strong> <span class="ti-angle-up"></span></th>
                     <td class="card-product__title">
                         <c:if test="${prevDTO != null}">
                             <a href="<c:if test="${prevDTO.answerYN == 'Y'}">/bbs/qnaViewA?qna_idx=${prevDTO.qna_idx}</c:if>
