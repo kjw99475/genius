@@ -96,7 +96,7 @@
                                         <img class="img-w150" src="/resources/upload/book/${list.book_img}" alt="">
                                     </div>
                                     <div class="media-body">
-                                        <p>${list.book_name}</p>
+                                        <p><a href="/book/view?book_code=${list.book_code}" style="color:black;">${list.book_name}</a></p>
                                     </div>
                                 </div>
                             </td>
