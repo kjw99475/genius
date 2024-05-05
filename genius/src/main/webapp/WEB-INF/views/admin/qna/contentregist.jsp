@@ -52,7 +52,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item"><a href="admin/qna/list">QnA</a></li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
                 <li class="breadcrumb-item active">QnA 등록</li>
             </ol>
         </nav>
@@ -142,8 +142,6 @@
             </div>
         </div>
     </section>
-    ${errors}
-    ${qnaDTO}
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
@@ -164,9 +162,9 @@
 <script>
     let registBtn = document.getElementById("registBtn");
     <c:forEach items="${errors}" var="err">
-    if(document.getElementById("err_${err.getField()}") != null) {
-        document.getElementById("err_${err.getField()}").style.display = "block";
-    }
+        if(document.getElementById("err_${err.getField()}") != null) {
+            document.getElementById("err_${err.getField()}").style.display = "block";
+        }
     </c:forEach>//서머노트
     $('#summernote').summernote({
         placeholder: '20자 이상 입력해주세요',
@@ -205,7 +203,7 @@
     }
     registBtn.addEventListener("click",function(e){
         e.preventDefault();
-        if(document.getElementById("title").value.length < 2 ||document.getElementById("title").value.length > 60){
+        if(document.getElementById("title").value.trim().length < 2 ||document.getElementById("title").value.trim().length > 60){
             document.getElementById("err_title").style.display = "block";
             return;
         }

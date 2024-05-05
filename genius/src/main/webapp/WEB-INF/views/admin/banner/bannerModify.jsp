@@ -63,27 +63,30 @@
                     <div class="card-body pt-3">
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
                             <!-- Edit Form -->
-                            <form enctype="multipart/form-data" method="post" action="/admin/banner/bannerModify">
+                            <form id="modifyFrm" enctype="multipart/form-data" method="post" action="/admin/banner/bannerModify">
                                 <input type="hidden" name="banner_img_idx" value="${bannerDTO['banner_img_idx']}">
                                 <div class="row mb-3">
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label">배너 이름</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="title" type="text" class="form-control" id="title"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="title" type="text" class="form-control" id="title" data-name="제목"
                                                value="${bannerDTO['title']}">
+                                        <small id="err_title" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="banner_start" class="col-md-4 col-lg-2 col-form-label">게시 시작일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="post_start_date" type="date" class="form-control" id="banner_start"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="post_start_date" type="date" class="form-control" id="banner_start" data-name="게시 시작일"
                                                value="${bannerDTO['post_start_date']}">
+                                        <small id="err_post_start_date" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="banner_end" class="col-md-4 col-lg-2 col-form-label">게시 종료일</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="post_end_date" type="date" class="form-control" id="banner_end"
+                                    <div class="col-md-8 col-lg-10 d-flex flex-column gap-1">
+                                        <input name="post_end_date" type="date" class="form-control" id="banner_end" data-name="게시 종료일"
                                                value="${bannerDTO['post_end_date']}">
+                                        <small id="err_post_end_date" class="info text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -96,7 +99,7 @@
                                 <div class="row mb-3">
                                     <label for="file" class="col-md-4 col-lg-2 col-form-label">파일</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="file" type="file" class="form-control" id="file" value="" onchange="changeImg(event)">
+                                        <input name="file" type="file" class="form-control" id="file" value="" onchange="changeImg(event)" accept="image/*">
                                     </div>
                                 </div>
                                 <div class="row m-1">
@@ -143,7 +146,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     // 미리보기 이미지 변경
     function changeImg(e) {
@@ -170,6 +173,35 @@
             document.body.append(frm);
             document.getElementById('deleteFrm').submit();
         }
+    }
+
+    // 유효성 검사
+    let checkTarget = ['title', 'post_start_date', 'post_end_date'];
+    document.querySelector('#modifyFrm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if (!nullCheck2($(target))) {
+                $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                $(target).focus();
+                return false;
+            }
+        }
+        // length 검사
+        if(!lengthCheck(1,20,$('input[name=title]'))){
+            $('#err_title').text("제목은 최소 1글자 이상, 20글자 이하로 작성하세요.");
+            $('input[name=title]').focus();
+            return false;
+        }
+        document.querySelector('#modifyFrm').submit();
+    }
+    if (${!empty result}) {
+        alert('${result}');
     }
 </script>
 

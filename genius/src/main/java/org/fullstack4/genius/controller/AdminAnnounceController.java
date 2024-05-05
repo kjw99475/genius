@@ -60,10 +60,7 @@ public class AdminAnnounceController {
     }
 
     @GetMapping("/contentregist")
-    public void GETContentRegist(BbsDTO bbsDTO
-            , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes){
-
+    public void GETContentRegist(){
 
     }
     @GetMapping("/announceFileDownload")
@@ -105,16 +102,19 @@ public class AdminAnnounceController {
     }
 
     @PostMapping("/contentregist")
-    public String POSTContentRegist(BbsDTO bbsDTO,
-                                    MultipartHttpServletRequest files,
+    public String POSTContentRegist(@Valid BbsDTO bbsDTO,
                                     BindingResult bindingResult,
+                                    MultipartHttpServletRequest files,
                                     HttpServletRequest request,
                                     RedirectAttributes redirectAttributes,
                                     Model model){
         if(bindingResult.hasErrors()){
-            log.info("BbsController >> list Error");
+            log.info("BbsController >> regist Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bbsDTO", bbsDTO);
+            return "redirect:/admin/announce/contentregist";
         }
+        log.info(bbsDTO);
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
         log.info("list size : " + list.size());
@@ -177,9 +177,9 @@ public class AdminAnnounceController {
 
     @PostMapping("/contentmodify")
     public String POSTContentModify(@Valid BbsDTO newBbsDTO,
+                                    BindingResult bindingResult,
                                     MultipartHttpServletRequest files,
                                     @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
-                                    BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes,
                                     HttpServletRequest request,
                                     Model model){
@@ -187,6 +187,7 @@ public class AdminAnnounceController {
             log.info("BookController >> list Error");
             redirectAttributes.addFlashAttribute("bbsDTO",newBbsDTO);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/announce/contentmodify?bbs_idx="+newBbsDTO.getBbs_idx();
         }
         newBbsDTO.setFileYN("N");
         // (지현 추가) 수정 시 파일 업로드 로직

@@ -165,6 +165,10 @@ public class AdminQnaController {
             log.info(fileDTOList);
             model.addAttribute("fileList", fileDTOList);
         }
+        qnaDTO.setContents(qnaDTO.getContents().replace("<p>",""));
+        log.info("contents : " + qnaDTO.getContents());
+        log.info("length : " + qnaDTO.getContents().length());
+        qnaDTO.setContents(qnaDTO.getContents().trim());
 
 
         model.addAttribute("qnaDTO", qnaDTO);
@@ -172,9 +176,9 @@ public class AdminQnaController {
 
     @PostMapping("/contentmodify")
     public String POSTContentModify(@Valid QnaDTO newQnaDTO,
+                                    BindingResult bindingResult,
                                     MultipartHttpServletRequest files,
                                     @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
-                                    BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes,
                                     HttpServletRequest request,
                                     Model mode){
@@ -302,11 +306,17 @@ public class AdminQnaController {
 
     @PostMapping("/answerregist")
     public String PostAnswerRegist(@Valid QnaDTO qnaDTO,
-                                   MultipartHttpServletRequest files,
                                    BindingResult bindingResult,
+                                   @RequestParam(name = "ref_idx")int ref_idx,
+                                   MultipartHttpServletRequest files,
                                    HttpServletRequest request,
                                    RedirectAttributes redirectAttributes,
                                    Model model){
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("newQnaDTO",qnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/qna/answerregist?qna_idx="+ref_idx;
+        }
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
         log.info("list size : " + list.size());

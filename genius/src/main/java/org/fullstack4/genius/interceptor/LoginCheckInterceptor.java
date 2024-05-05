@@ -34,12 +34,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             response.sendRedirect("/login/login");
             return false;
         } else {
+            int cartCnt = cartMapper.CartTotalCount(member_id);
+            session.removeAttribute("cartCnt");
+            session.setAttribute("cartCnt", cartCnt);
             if(admin_YN.equals("Y")) {
                 String profile = memberServiceIf.getProfile(member_id);
                 session.setAttribute("profile", profile);
             } else {
-                int cartCnt = cartMapper.CartTotalCount(member_id);
-                session.setAttribute("cartCnt", cartCnt);
                 String requestURI = CommonUtil.parsingURI(request.getRequestURI());
                 if (requestURI.indexOf("admin") > 0) {
                     response.sendRedirect("/");

@@ -79,7 +79,7 @@ public class PageResponseDTO<E> {
         if(search_word != null) sb.append("&search_word=" + search_word);
         if(search_data1 != null) sb.append("&search_data1=" + search_data1);
         if(search_data2 != null) sb.append("&search_data2=" + search_data2);
-        if(status != null) sb.append("&status=" + status);
+        if(status != null && !status.trim().isEmpty()) sb.append("&status=" + status);
         if(type != null) sb.append("&type=" + type);
         if(type2 != null) sb.append("&type2=" + type2);
         if(search_date1 != null) sb.append("&search_date1=" + search_date1);

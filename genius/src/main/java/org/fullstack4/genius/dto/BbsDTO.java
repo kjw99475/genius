@@ -6,9 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Log4j2
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @Builder
 public class BbsDTO {
     private int bbs_idx;
+    @Size(min=2, max=60)
     @NotBlank
     private String bbs_title;
     private String category_code;
