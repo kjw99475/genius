@@ -442,21 +442,14 @@ public class BbsController {
     }
 
     @GetMapping("/boardRegist")
-    public void GETboardRegist(BbsDTO bbsDTO
-            , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes
+    public void GETboardRegist(
     ) {
-        if(bindingResult.hasErrors()){
-            log.info("BbsController >> list Error");
-            redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-        }
     }
 
     @PostMapping("/boardRegist")
     public String POSTboardRegist(@Valid BbsDTO bbsDTO
-            , MultipartHttpServletRequest files
             , BindingResult bindingResult
+            , MultipartHttpServletRequest files
             , HttpServletRequest request
             , RedirectAttributes redirectAttributes
             , Model model
@@ -620,9 +613,9 @@ public class BbsController {
 
     @PostMapping("/boardModify")
     public String POSTboardModify(@Valid BbsDTO newBbsDTO,
+                                  BindingResult bindingResult,
                                   MultipartHttpServletRequest files,
                                   @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
-                                  BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request,
                                   Model model){
