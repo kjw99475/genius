@@ -145,7 +145,7 @@
 
                                 <div class="text-center mt-5">
                                     <button type="submit" id="modifyBtn" class="btn btn-success me-2">수정 완료</button>
-                                    <button type="button" class="btn btn-light" onclick="history.back()">취소</button>
+                                    <button type="button" class="btn btn-light" onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}'">취소</button>
                                 </div>
                             </form><!-- EndForm -->
 
