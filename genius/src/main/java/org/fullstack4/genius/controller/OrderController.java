@@ -71,7 +71,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "/testpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/payment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String testpayment(@RequestParam HashMap<String, Object> map,HttpServletRequest req) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -146,7 +146,7 @@ public class OrderController {
         return new Gson().toJson(resultMap);
     }
 
-    @RequestMapping(value="testuserpayment.dox" ,method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value="/userpayment.dox" ,method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String testUserpayment(@RequestParam HashMap<String, Object> map,HttpServletRequest req) throws Exception{
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -217,93 +217,93 @@ public class OrderController {
         return new Gson().toJson(resultMap);
     }
 
-    @RequestMapping(value = "/userpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String userpayment(@RequestParam HashMap<String,Object> map,
-                              HttpServletRequest req) throws Exception {
-
-        HashMap<String, Object> resultMap = new HashMap<>();
-
-        String member_id = map.get("member_id").toString();
-        log.info("#####################"+member_id);
-        MemberDTO dto = memberService.view(member_id);
-
-
-        int random = (int) (Math.random()*100000)+1;
-        String order_num=new SimpleDateFormat("yyMMddHmss").format(new Date())+"-"+random;
-
-        //////////////////포인트 빠져나가는 DTO및 포인트 결제정보 등록 테이블//////////////////////
-        PaymentDTO paymentDTO = PaymentDTO.builder()
-                .payment_num(order_num)
-                .member_id(map.get("member_id").toString())
-                .price(Integer.parseInt("-"+map.get("price").toString()))
-                .method("포인트")
-                .company("genius")
-                .use_type("구매")
-                .title("포인트 사용")
-                .build();
-
-        ///////////////////////////////주문정보 테이블/////////////////////
-        OrderDTO orderDTO = OrderDTO.builder()
-                .member_id(member_id)
-                .order_num(order_num)
-                .order_state("배송 전")
-                .total_price(Integer.parseInt(map.get("price").toString()))
-                .order_addr1(req.getParameter("order_addr1"))
-                .order_addr2(req.getParameter("order_addr2"))
-                .delivery_addr1(req.getParameter("order_addr1"))
-                .delivery_addr2(req.getParameter("order_addr2"))
-                .order_name(req.getParameter("name"))
-                .order_phone(req.getParameter("phone"))
-                .order_zipcode(req.getParameter("order_zip_code"))
-                .build();
-
-        ///////////////////////////주문디테일 테이블//////////////////////////////////////////
-        BookDTO bookDTO = bookService.view(map.get("book_code").toString());
-        OrderDTO detailorderDTO = OrderDTO.builder()
-                .member_id(member_id)
-                .order_num(order_num)
-                .book_code(bookDTO.getBook_code())
-                .book_name(bookDTO.getBook_name())
-                .category_class_code(bookDTO.getCategory_class_code())
-                .category_subject_code(bookDTO.getCategory_subject_code())
-                .order_state("배송 전")
-                .price(bookDTO.getDiscount_price())
-                .total_price(Integer.parseInt(map.get("price").toString()))
-                .amount(Integer.parseInt(map.get("quantity").toString()))
-                .build();
-
-        
-        /////////////////////////상품 출고 테이블//////////////////////////
-        /////////////////////////상품 재고 줄이는 테이블////////////////////
-        ////////////////////////장바구니 삭제 테이블///////////////////////////
-        ////////////////////////배송정보 테이블///////////////////////////
-
-        int result = 0;
-        if(dto.getPoint()>Integer.parseInt(map.get("price").toString())){
-            result = paymentServiceIf.memberPay(paymentDTO);
-            if (result > 0) {
-                int regist = orderService.regist(orderDTO);
-                int deliveryregist = orderService.deliveryRegist(orderDTO);
-                int detailregist = orderService.detailregist(detailorderDTO);
-                int result123 = paymentServiceIf.usepoint(paymentDTO);
-                paymentServiceIf.releaseBook(detailorderDTO);
-                paymentServiceIf.salesBook(detailorderDTO);
-                paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
-                resultMap.put("result", "success");
-            }else {
-                resultMap.put("result", "fail");
-                resultMap.put("msg","오류가 발생했습니다.");
-            }
-
-        }else{
-            resultMap.put("result","fail");
-            resultMap.put("msg", "포인트가 모자릅니다.");
-        }
-
-        return new Gson().toJson(resultMap);
-
-    }
+//    @RequestMapping(value = "/userpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+//    @ResponseBody
+//    public String userpayment(@RequestParam HashMap<String,Object> map,
+//                              HttpServletRequest req) throws Exception {
+//
+//        HashMap<String, Object> resultMap = new HashMap<>();
+//
+//        String member_id = map.get("member_id").toString();
+//        log.info("#####################"+member_id);
+//        MemberDTO dto = memberService.view(member_id);
+//
+//
+//        int random = (int) (Math.random()*100000)+1;
+//        String order_num=new SimpleDateFormat("yyMMddHmss").format(new Date())+"-"+random;
+//
+//        //////////////////포인트 빠져나가는 DTO및 포인트 결제정보 등록 테이블//////////////////////
+//        PaymentDTO paymentDTO = PaymentDTO.builder()
+//                .payment_num(order_num)
+//                .member_id(map.get("member_id").toString())
+//                .price(Integer.parseInt("-"+map.get("price").toString()))
+//                .method("포인트")
+//                .company("genius")
+//                .use_type("구매")
+//                .title("포인트 사용")
+//                .build();
+//
+//        ///////////////////////////////주문정보 테이블/////////////////////
+//        OrderDTO orderDTO = OrderDTO.builder()
+//                .member_id(member_id)
+//                .order_num(order_num)
+//                .order_state("배송 전")
+//                .total_price(Integer.parseInt(map.get("price").toString()))
+//                .order_addr1(req.getParameter("order_addr1"))
+//                .order_addr2(req.getParameter("order_addr2"))
+//                .delivery_addr1(req.getParameter("order_addr1"))
+//                .delivery_addr2(req.getParameter("order_addr2"))
+//                .order_name(req.getParameter("name"))
+//                .order_phone(req.getParameter("phone"))
+//                .order_zipcode(req.getParameter("order_zip_code"))
+//                .build();
+//
+//        ///////////////////////////주문디테일 테이블//////////////////////////////////////////
+//        BookDTO bookDTO = bookService.view(map.get("book_code").toString());
+//        OrderDTO detailorderDTO = OrderDTO.builder()
+//                .member_id(member_id)
+//                .order_num(order_num)
+//                .book_code(bookDTO.getBook_code())
+//                .book_name(bookDTO.getBook_name())
+//                .category_class_code(bookDTO.getCategory_class_code())
+//                .category_subject_code(bookDTO.getCategory_subject_code())
+//                .order_state("배송 전")
+//                .price(bookDTO.getDiscount_price())
+//                .total_price(Integer.parseInt(map.get("price").toString()))
+//                .amount(Integer.parseInt(map.get("quantity").toString()))
+//                .build();
+//
+//
+//        /////////////////////////상품 출고 테이블//////////////////////////
+//        /////////////////////////상품 재고 줄이는 테이블////////////////////
+//        ////////////////////////장바구니 삭제 테이블///////////////////////////
+//        ////////////////////////배송정보 테이블///////////////////////////
+//
+//        int result = 0;
+//        if(dto.getPoint()>Integer.parseInt(map.get("price").toString())){
+//            result = paymentServiceIf.memberPay(paymentDTO);
+//            if (result > 0) {
+//                int regist = orderService.regist(orderDTO);
+//                int deliveryregist = orderService.deliveryRegist(orderDTO);
+//                int detailregist = orderService.detailregist(detailorderDTO);
+//                int result123 = paymentServiceIf.usepoint(paymentDTO);
+//                paymentServiceIf.releaseBook(detailorderDTO);
+//                paymentServiceIf.salesBook(detailorderDTO);
+//                paymentServiceIf.revenue(Integer.parseInt(map.get("price").toString()));
+//                resultMap.put("result", "success");
+//            }else {
+//                resultMap.put("result", "fail");
+//                resultMap.put("msg","오류가 발생했습니다.");
+//            }
+//
+//        }else{
+//            resultMap.put("result","fail");
+//            resultMap.put("msg", "포인트가 모자릅니다.");
+//        }
+//
+//        return new Gson().toJson(resultMap);
+//
+//    }
 
 
 //    @RequestMapping(value = "/cartpayment.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

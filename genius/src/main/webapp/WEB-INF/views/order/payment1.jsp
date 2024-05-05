@@ -213,7 +213,7 @@
                 let frmData = $("form[name=userfrm]").serialize();
                 frmData = decodeURIComponent(frmData);
                 $.ajax({
-                    url:"/order/testuserpayment.dox?"+frmData,
+                    url:"/order/userpayment.dox?"+frmData,
                     dataType:"json",
                     type : "POST",
                     data : {
