@@ -36,7 +36,7 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/resources/jquery/jquery-3.7.1.js"></script>
 
 </head>
 <body>
@@ -52,7 +52,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/admin">메인</a></li>
-                <li class="breadcrumb-item">QnA</li>
+                <li class="breadcrumb-item"><a href="/admin/qna/list">QnA</a></li>
                 <li class="breadcrumb-item active">QnA 수정</li>
             </ol>
         </nav>
@@ -125,7 +125,7 @@
                                     <div class="col-md-8 col-lg-9">
                                         <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
                                         <c:forEach items="${fileList}" var="file">
-                                            <li class="card shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                            <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
                                             <input id="file-idx" type="hidden" name="orgFiles" value="${file.file_idx}">
                                         </c:forEach>
                                         </ul>
@@ -245,7 +245,7 @@
         console.log(element.files);
         for (let i=0; i < element.files.length; i++) {
             let list = document.createElement('li');
-            list.classList.add('card','shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.classList.add('card', 'mb-1', 'shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
             list.dataset.idx = i;
             list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
             fileList.append(list);

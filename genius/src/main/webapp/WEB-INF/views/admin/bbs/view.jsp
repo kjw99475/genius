@@ -36,7 +36,7 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/resources/jquery/jquery-3.7.1.js"></script>
 </head>
 <body>
 <!--================ 헤더 start =================-->
