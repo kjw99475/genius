@@ -125,6 +125,11 @@
             , contents = #{contents}
         WHERE qna_idx = #{qna_idx}
     </update>
+    <update id="answerModify">
+        UPDATE tbl_qna SET
+            answerStatus = '0'
+        WHERE qna_idx = #{qna_idx}
+    </update>
 
     <delete id="delete">
         DELETE

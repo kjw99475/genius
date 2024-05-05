@@ -243,15 +243,46 @@ public class AdminQnaController {
     }
 
     @PostMapping("delete")
-    public String GETDelete(HttpServletRequest req){
+    public String POSTDelete(HttpServletRequest req,
+                             Model model){
         String[] del = req.getParameterValues("del_chk");
+        int del_flag=0;
         if(del !=null){
             for(int i=0;i<del.length;i++){
+                QnaDTO qnaDTO = qnaService.view(Integer.parseInt(del[i]));
+                if(qnaDTO.getAnswerYN().equals("Y")){
+                    qnaService.answerModify(qnaDTO.getRef_idx());
+                }
                 qnaService.delete(Integer.parseInt(del[i]));
+                del_flag=1;
             }
         }
-
+        if(del_flag==1){
+            model.addAttribute("deleteOK",1);
+        }
         return "redirect:/admin/qna/list";
+    }
+    @GetMapping("delete")
+    public String GETDelete(@RequestParam("qna_idx") int qna_idx,
+                            Model model){
+
+
+        QnaDTO qnaDTO = qnaService.view(qna_idx);
+        if(qnaDTO.getAnswerYN().equals("Y")){
+            qnaService.answerModify(qnaDTO.getRef_idx());
+        }
+
+        int result = qnaService.delete(qna_idx);
+
+
+        if(result>0) {
+            model.addAttribute("deleteOK", 1);
+            return "redirect:/admin/qna/list";
+        }
+        else {
+            model.addAttribute("deleteOK", 0);
+            return "redirect:/admin/qna/view?qna_idx=" + qna_idx;
+        }
     }
     @GetMapping("/qnaFileDownload")
     public String GETQnaFileDownload(@RequestParam("file_idx") int file_idx,
