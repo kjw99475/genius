@@ -68,14 +68,14 @@
 
                             <!-- Profile Edit Form -->
                             <form id="frm_book_regist" method="post" action="/admin/book/itemRegist" enctype="multipart/form-data">
-                                <div class="row mb-3">
-                                    <label for="book_name" class="col-md-4 col-lg-2 col-form-label">상품 코드</label>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input name="book_code" type="text" class="form-control" id="book_code"
-                                               value="${bookDTO.book_code}">
-                                    </div>
-                                    <div class="invalid-feedback" id="div_err_book_code" style="display: none"></div>
-                                </div>
+<%--                                <div class="row mb-3">--%>
+<%--                                    <label for="book_name" class="col-md-4 col-lg-2 col-form-label">상품 코드</label>--%>
+<%--                                    <div class="col-md-8 col-lg-10">--%>
+<%--                                        <input name="book_code" type="text" class="form-control" id="book_code"--%>
+<%--                                               value="${bookDTO.book_code}">--%>
+<%--                                    </div>--%>
+<%--                                    <div class="invalid-feedback" id="div_err_book_code" style="display: none"></div>--%>
+<%--                                </div>--%>
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
                                     <div class="col-md-8 col-lg-10">
@@ -267,6 +267,7 @@
 
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
 
     let contentsAddBtn = document.getElementById("contentsAddBtn");
@@ -285,7 +286,55 @@
         div.removeChild(element.parentNode.parentNode);
     }
     bookRegistBtn.addEventListener("click", function(e){
+        console.log(1);
         e.preventDefault();
+        // let book_name = document.getElementById("book_name");
+        // if(book_name.value==""){
+        //     document.getElementById("div_err_book_name").style.display= "block";
+        //     console.log(2)
+        //     return;
+        // }
+        // else{
+        //     document.getElementById("div_err_book_name").style.display="none";
+        // }
+        // let price = document.getElementById("price");
+        // if(price.value == 0 || ""){
+        //     document.getElementById("div_err_price").style.display="block";
+        //     return;
+        // }
+        // else{
+        //     document.getElementById("div_err_price").style.display="none";
+        // }
+        // let category_class_code = document.getElementById("category_class_code");
+        // if(category_class_code.value==""){
+        //     document.getElementById("div_err_category_class_code").style.display="block";
+        //     return;
+        // }
+        // else{
+        //     document.getElementById("div_err_category_class_code").style.display="none";
+        // }
+        // let category_subject_code = document.getElementById("category_subject_code");
+        // if(category_subject_code.value==""){
+        //     document.getElementById("div_err_category_subject_code").style.display="block";
+        //     return;
+        // }
+        // else{
+        //     document.getElementById("div_err_category_subject_code").style.display="none";
+        // }
+        //
+        // let isbn = document.getElementById("isbn");
+        // if(isbn.value==""){
+        //     document.getElementById("div_err_isbn").style.display="block";
+        //     return;
+        // }
+        // else{
+        //     document.getElementById("div_err_isbn").style.display="none";
+        // }
+        let publish_date = document.getElementById("publication_date");
+        if(dateCheck(publish_date)){
+            alert("날짜를 확인해주세요");
+            return;
+        }
         let contentsStr = "";
         let contentsList = document.getElementsByClassName("contentsList");
         for(i=0;i<contentsList.length;i++){

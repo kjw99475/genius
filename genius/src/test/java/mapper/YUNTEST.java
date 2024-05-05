@@ -2,10 +2,12 @@ package mapper;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.domain.ReviewVO;
 import org.fullstack4.genius.dto.PageRequestDTO;
+import org.fullstack4.genius.mapper.BbsMapper;
 import org.fullstack4.genius.mapper.BookMapper;
 import org.fullstack4.genius.mapper.QnaMapper;
 import org.fullstack4.genius.mapper.ReviewMapper;
@@ -32,6 +34,22 @@ public class YUNTEST {
 
     @Autowired(required = false)
     private QnaMapper qnaMapper;
+    @Autowired(required = false)
+    private BbsMapper bbsMapper;
+
+    @Test
+    public void testbbs(){
+        QnaVO qnaVO = QnaVO.builder()
+                .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
+                .member_id("dltjdrp123")
+                .fileYN("N")
+                .answerStatus("N")
+                .member_name("이성계")
+                .answerStatus("0")
+                .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
+        qnaMapper.regist(qnaVO);
+    }
+
 
     @Test
     public void testRegistBook(){

@@ -25,9 +25,6 @@
                         <span>Copyright © 2004 By CHUNJAETEXTBOOK Co.,Ltd All Rights Reserved.</span>
                     </div>
                 </div>
-                <div class="col d-grid gap-2">
-                    <button class="btn btn-success" type="button">사이트맵</button>
-                </div>
             </div>
         </div>
     </div>
