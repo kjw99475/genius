@@ -59,7 +59,7 @@
         <div class="container">
             <div>
                 <div class="input-group d-flex justify-content-end mb-2">
-                    <c:if test="${prevDTO.answerYN == 'N' and sessionScope.member_id == qnaDTO.member_id}">
+                    <c:if test="${qnaDTO.answerYN == 'N' and sessionScope.member_id == qnaDTO.member_id}">
                         <form action="/bbs/qnaDelete" method="post" id="deleteFrm" name="deleteFrm">
                             <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
                             <button type="button" class="btn btn-success mt-3 mr-2" onclick="location.href='/bbs/qnaModifytQ?qna_idx=${qnaDTO.qna_idx}'">수정</button>
