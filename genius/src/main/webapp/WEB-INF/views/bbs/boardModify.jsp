@@ -109,13 +109,12 @@
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
-                        <button type="submit" class="btn btn-success mt-3">등록</button>
+                        <button type="submit" id="modifyBtn" class="btn btn-success mt-3">등록</button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-    ${fileList}
 
     <!-- ================ 내용 End ================= -->
 </main>
@@ -128,6 +127,7 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
+<script src="/resources/js/commonUtil.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
@@ -194,31 +194,31 @@
     }
 
     //유효성 검사
-    document.querySelector('#registFrm').addEventListener('submit', checkForm);
-    function checkForm() {
-        event.preventDefault();
-        //공백 체크
-        if (!nullCheck2($('input[name=bbs_title]'))) {
-            alert("제목을 입력해주세요.");
-            $('input[name=bbs_title]').focus();
-            return false;
-        }
-        if (!nullCheck2($('textarea[name=bbs_contents]'))) {
-            alert("내용을 입력해주세요.");
-            $('textarea[name=bbs_contents]').focus();
-            return false;
-        }
-        //길이 체크
-        if ( $('input[name=bbs_title]').val().length > 60 ) {
-            console.log("길이 체크 : "+ $('input[name=bbs_title]').val().length > 100);
-            console.log("길이 : " + $('input[name=bbs_title]').val().length);
-            alert("제목의 최대 길이를 초과하였습니다.");
-            $('input[name=bbs_title]').focus();
-            return false;
-        }
-
-        document.querySelector('#registFrm').submit();
-    }
+    // document.querySelector('#registFrm').addEventListener('submit', checkForm);
+    // function checkForm() {
+    //     event.preventDefault();
+    //     //공백 체크
+    //     if (!nullCheck2($('input[name=bbs_title]'))) {
+    //         alert("제목을 입력해주세요.");
+    //         $('input[name=bbs_title]').focus();
+    //         return false;
+    //     }
+    //     if (!nullCheck2($('textarea[name=bbs_contents]'))) {
+    //         alert("내용을 입력해주세요.");
+    //         $('textarea[name=bbs_contents]').focus();
+    //         return false;
+    //     }
+    //     //길이 체크
+    //     if ( $('input[name=bbs_title]').val().length > 60 ) {
+    //         console.log("길이 체크 : "+ $('input[name=bbs_title]').val().length > 100);
+    //         console.log("길이 : " + $('input[name=bbs_title]').val().length);
+    //         alert("제목의 최대 길이를 초과하였습니다.");
+    //         $('input[name=bbs_title]').focus();
+    //         return false;
+    //     }
+    //
+    //     document.querySelector('#registFrm').submit();
+    // }
 
     //유효성 검사
     document.querySelector('#modifyFrm').addEventListener('submit', checkForm);
@@ -236,14 +236,14 @@
         //내용 체크
         if ($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length < 20
         ) {
-
-            alert($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length);
+            //
+            // alert($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length);
             $("#err_bbs_contents").css("display", "block");
             $("#summernote").focus();
             return false;
         }
 
-        document.querySelector('#registFrm').submit();
+        document.querySelector('#modifyFrm').submit();
     }
 
     //Back단 유효성 검사
