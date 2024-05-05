@@ -29,27 +29,77 @@ public class YUNTEST {
     private ReviewServiceIf reviewServiceIf;
     @Autowired
     private QnaServiceIf qnaServiceIf;
-
     @Test
-    public void testBookRegist(){
-        BookDTO bookDTO= BookDTO.builder()
-                .book_code("test")
-                .book_name("test")
-                .author("test")
-                .price(12)
-                .quantity(13)
-                .category_class_code("c01")
-                .category_subject_code("s01")
-                .publisher("test")
-                .book_info("test")
-                .isbn("123")
-                .contents("1234")
-                .publication_date(LocalDate.now()).build();
-        int result = bookServiceIf.regist(bookDTO);
-        log.info("======================");
-        log.info("BookServiceIfTest >> regist result : " +  result);
-        log.info("======================");
+    public void testbbs(){
+        for (int i = 0;i<10;i++) {
+            QnaDTO qnaDTO = QnaDTO.builder()
+                    .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
+                    .member_id("dltjdrp123")
+                    .fileYN("N")
+                    .answerStatus("N")
+                    .member_name("이성계")
+                    .answerStatus("0")
+                    .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
+            qnaServiceIf.regist(qnaDTO);
+            QnaDTO qnaDTO2 = QnaDTO.builder()
+                    .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
+                    .member_id("wjddirdyd123")
+                    .fileYN("N")
+                    .answerStatus("N")
+                    .member_name("정약용")
+                    .answerStatus("0")
+                    .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
+            qnaServiceIf.regist(qnaDTO2);
+            QnaDTO qnaDTO3 = QnaDTO.builder()
+                    .title("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 질문 있습니다.")
+                    .member_id("wjdwndqn123")
+                    .fileYN("N")
+                    .answerStatus("N")
+                    .member_name("정중부")
+                    .answerStatus("0")
+                    .contents("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 질문 있습니다.").build();
+            qnaServiceIf.regist(qnaDTO3);
+            QnaDTO qnaDTO4 = QnaDTO.builder()
+                    .title("중등 평가문제 국어2 도서 관련 질문 있습니다.")
+                    .member_id("dltjdrP123")
+                    .fileYN("N")
+                    .answerStatus("N")
+                    .member_name("이성계")
+                    .answerStatus("0")
+                    .contents("중등 평가문제 국어2 도서 관련 질문 있습니다.").build();
+            qnaServiceIf.regist(qnaDTO4);
+            QnaDTO qnaDTO5 = QnaDTO.builder()
+                    .title("체크체크 기출심화N제 수학 중2 도서 관련 질문 있습니다.")
+                    .member_id("wjdwndqn123")
+                    .fileYN("N")
+                    .answerStatus("N")
+                    .member_name("정중부")
+                    .answerStatus("0")
+                    .contents("체크체크 기출심화N제 수학 중2 도서 관련 질문 있습니다.").build();
+            qnaServiceIf.regist(qnaDTO5);
+        }
     }
+
+//    @Test
+//    public void testBookRegist(){
+//        BookDTO bookDTO= BookDTO.builder()
+//                .book_code("test")
+//                .book_name("test")
+//                .author("test")
+//                .price(12)
+//                .quantity(13)
+//                .category_class_code("c01")
+//                .category_subject_code("s01")
+//                .publisher("test")
+//                .book_info("test")
+//                .isbn("123")
+//                .contents("1234")
+//                .publication_date(LocalDate.now()).build();
+//        int result = bookServiceIf.regist(bookDTO);
+//        log.info("======================");
+//        log.info("BookServiceIfTest >> regist result : " +  result);
+//        log.info("======================");
+//    }
     @Test
     public void testBookDelete(){
         int result = bookServiceIf.delete(9);

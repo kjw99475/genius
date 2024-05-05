@@ -103,13 +103,13 @@
                                     </div>
                                 </div>--%>
 
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>
-                                    </div>
+<%--                                <div class="row mb-3">--%>
+<%--                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>--%>
+<%--                                    <div class="col-md-8 col-lg-9">--%>
+<%--                                        <i class="bi-file-earmark-arrow-down label"></i><a href="#none" onclick="javascript:alert('file');">파일명.ext</a>--%>
+<%--                                    </div>--%>
 
-                                </div>
+<%--                                </div>--%>
 
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">내용</label>

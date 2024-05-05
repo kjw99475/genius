@@ -130,7 +130,6 @@
                                 <th scope="col" class="bg-geni-dark text-white">제목</th>
                                 <th scope="col" class="bg-geni-dark text-white">작성자</th>
                                 <th scope="col" class="bg-geni-dark text-white">작성일</th>
-                                <th scope="col" class="bg-geni-dark text-white">조회수</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -145,12 +144,11 @@
                                             <td><a href="/admin/faq/view?bbs_idx=${bbsDTO.bbs_idx}">${bbsDTO.bbs_title}</a><c:if test="${bbsDTO.fileYN eq 'Y'}"><span class="bi bi-paperclip"></span></c:if></td>
                                             <td>${bbsDTO.member_name}</td>
                                             <td>${bbsDTO.reg_date}</td>
-                                            <td>${bbsDTO.read_cnt}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    <tr><td colspan="6">결과가 없습니다.</td></tr>
+                                    <tr><td colspan="5">결과가 없습니다.</td></tr>
                                 </c:otherwise>
                             </c:choose>
                             </tbody>
