@@ -138,9 +138,16 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="text-center d-flex justify-content-end">
-                                            <button type="button" class="btn btn-success me-2"
-                                                    onclick="location.href='/admin/qna/contentmodify?qna_idx=${qnaDTO.qna_idx}'">수정
-                                            </button>
+                                            <c:if test="${qnaDTO.answerYN=='N'}">
+                                                <button type="button" class="btn btn-success me-2"
+                                                        onclick="location.href='/admin/qna/contentmodify?qna_idx=${qnaDTO.qna_idx}'">수정
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${qnaDTO.answerYN=='Y'}">
+                                                <button type="button" class="btn btn-success me-2"
+                                                        onclick="location.href='/admin/qna/answermodify?q_idx=${qnaDTO.ref_idx}&a_idx=${qnaDTO.qna_idx}'">수정
+                                                </button>
+                                            </c:if>
                                             <button type="button" class="btn btn-outline-success" onclick="qna_delete()">
                                                 삭제
                                             </button>

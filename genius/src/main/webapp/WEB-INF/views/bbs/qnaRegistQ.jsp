@@ -65,6 +65,9 @@
                         <div class="form-group col-md-5">
                             <label for="title">제목</label>
                             <input type="text" class="form-control" id="title" name="title" value="${qnaDTO.title}"/>
+                            <div class="invalid-feedback" id="err_title" style="display: none">
+                                2~60자 사이로 입력해주세요.
+                            </div>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputZip">아이디</label>
@@ -87,7 +90,10 @@
                         </ul>
                     </div>
                 </div>
-                <textarea id="summernote" name="contents">${qnaDTO.content}</textarea>
+                    <textarea id="summernote" name="contents">${qnaDTO.contents}</textarea>
+                    <div class="invalid-feedback" id="err_contents" style="display: none">
+                        20자 이상 입력해주세요.
+                    </div>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/qnaList'">목록</button>
@@ -108,8 +114,29 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
 <script>
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
     document.getElementById("registBtn").addEventListener("click", function(e){
         e.preventDefault();
+        if(document.getElementById("title").value.trim().length < 2 ||document.getElementById("title").value.trim().length > 60){
+            document.getElementById("err_title").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_title").style.display = "none";
+        }
+        let contentsText = (document.getElementById("summernote").value.replace(/<[^>]+>/g, '')).replaceAll("&nbsp;",'').trim();
+
+        if(contentsText.length <20){
+            document.getElementById("err_contents").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_contents").style.display = "none";
+        }
         document.getElementById("registFrm").submit();
     });
 
