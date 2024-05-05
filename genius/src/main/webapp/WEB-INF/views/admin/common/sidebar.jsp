@@ -33,7 +33,7 @@
             <a class="nav-link <c:if test="${not fn:contains(param.menuGubun, 'bbs_')}">collapsed</c:if>" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>게시판 관리</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse <c:if test="${fn:contains(param.menuGubun, 'bbs_')}">show</c:if> " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content collapse <c:if test="${fn:contains(param.menuGubun, 'bbs_')}">show</c:if>" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/admin/banner/bannerList"<c:if test="${param.menuGubun eq 'bbs_banner'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>배너 관리</span>
@@ -101,4 +101,4 @@
 
 <!-- Template Main JS File -->
 <script src="/resources/admin/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/jquery/jquery-3.7.1.js"></script>

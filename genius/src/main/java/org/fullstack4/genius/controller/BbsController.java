@@ -458,6 +458,8 @@ public class BbsController {
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("bbsDTO", bbsDTO);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+
+            return "redirect:/bbs/boardRegist";
         }
         List<MultipartFile> list = files.getFiles("files");
         log.info("fileupload list >> " + list);
@@ -624,6 +626,7 @@ public class BbsController {
             log.info("BookController >> list Error");
             redirectAttributes.addFlashAttribute("bbsDTO",newBbsDTO);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/bbs/boardModify?bbs_idx="+newBbsDTO.getBbs_idx();
         }
 
         newBbsDTO.setFileYN("N");

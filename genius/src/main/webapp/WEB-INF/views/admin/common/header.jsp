@@ -90,5 +90,5 @@
 <script src="/resources/admin/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
-<script src="/resources/admin/js/main.js"></script><script src="/resources/admin/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/resources/admin/js/main.js"></script>
+<script src="/resources/jquery/jquery-3.7.1.js"></script>
