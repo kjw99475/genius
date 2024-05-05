@@ -41,8 +41,8 @@
         update SET tbl_member point=#{point} where member_id=#{member_id}
     </update>
     <insert id="join">
-        INSERT INTO tbl_member (social_type, member_id, member_name, pwd, birthday, email, phone, gender, zip_code, addr1, addr2, admin_YN, terms1, terms2, terms3, terms4)
-        VALUES (#{social_type}, #{member_id}, #{member_name}, #{pwd}, #{birthday}, #{email}, #{phone}, #{gender}, #{zip_code}, #{addr1}, #{addr2}, 'N', #{terms1}, #{terms2}, #{terms3}, #{terms3})
+        INSERT INTO tbl_member (social_type, member_id, member_name, pwd, birthday, email, phone, gender, zip_code, addr1, addr2, admin_YN, terms1, terms2, terms3, terms4, profile)
+        VALUES (#{social_type}, #{member_id}, #{member_name}, #{pwd}, #{birthday}, #{email}, #{phone}, #{gender}, #{zip_code}, #{addr1}, #{addr2}, 'N', #{terms1}, #{terms2}, #{terms3}, #{terms3}, 'default.png')
     </insert>
     <select id="findId" resultType="string">
         SELECT member_id
