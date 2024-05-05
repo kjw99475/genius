@@ -85,9 +85,9 @@
         book_name = #{book_name},
         author = #{author},
         quantity = #{quantity},
-        sales_start_date = #{sales_start_date},
-        sales_end_date = #{sales_end_date},
-        sales_status = #{sales_status},
+<!--        sales_start_date = #{sales_start_date},-->
+<!--        sales_end_date = #{sales_end_date},-->
+<!--        sales_status = #{sales_status},-->
         publisher = #{publisher},
         book_info = #{book_info},
         price = #{price},

@@ -74,6 +74,7 @@
                                         <input name="book_code" type="text" class="form-control" id="book_code"
                                                value="${bookDTO.book_code}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_book_code" style="display: none"></div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="book_name" class="col-md-4 col-lg-2 col-form-label">책 이름</label>
@@ -81,6 +82,7 @@
                                         <input name="book_name" type="text" class="form-control" id="book_name"
                                                value="${bookDTO.book_name}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_book_name" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -89,6 +91,7 @@
                                         <input name="price" type="text" class="form-control" id="price"
                                                value="${bookDTO.price}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_price" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -96,6 +99,7 @@
                                     <div class="col-md-8 col-lg-10">
                                         <input name="discount_per" type="text" class="form-control" id="discount_per" value="${bookDTO.discount_per}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_discount_per" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -104,6 +108,7 @@
                                         <input name="author" type="text" class="form-control" id="author"
                                                value="${bookDTO.author}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_author" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -112,6 +117,7 @@
                                         <input name="publication_date" type="date" class="form-control" id="publication_date"
                                                value="${bookDTO.publication_date}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_publication_date" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -120,6 +126,7 @@
                                         <input name="publisher" type="text" class="form-control" id="publisher"
                                                value="${bookDTO.publisher}">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_publisher" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -164,6 +171,7 @@
                                             <option value="c12">고3</option>
                                         </select>
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_category_class_code" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -193,6 +201,7 @@
                                             <option value="s20">미술</option>
                                         </select>
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_category_subject_code" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3" id="contentsBox">
@@ -232,6 +241,7 @@
                                         <input name="isbn" type="text" class="form-control" id="isbn" value=""
                                                maxlength="13">
                                     </div>
+                                    <div class="invalid-feedback" id="div_err_isbn" style="display: none"></div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -258,6 +268,7 @@
 </main><!-- End #main -->
 <!--================ 본문 END =================-->
 <script>
+
     let contentsAddBtn = document.getElementById("contentsAddBtn");
     let contentsBox = document.getElementById("contentsBox");
     let contentsDelBtn = document.getElementsByClassName("contentsDelBtn");
@@ -351,6 +362,17 @@
         }
         reader.readAsDataURL(files[0]);
     }
+
+    const serverValiseResult = {};
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("div_err_${err.getField()}") != null) {
+        document.getElementById("div_err_${err.getField()}").innerHTML = "<span style='color: red'>${err.defaultMessage}</span>";
+        document.getElementById("div_err_${err.getField()}").style.display = "block";
+    }
+    serverValiseResult['${err.getField()}'] = '${err.defaultMessage}';
+    </c:forEach>
+
+    console.log(serverValiseResult);
 </script>
 </body>
 </html>

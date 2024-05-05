@@ -10,6 +10,7 @@ import org.fullstack4.genius.service.BookServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -63,6 +64,16 @@ public class AdminBookController {
                                  @RequestParam("videofile") MultipartFile videofile){
 
 
+        if(bindingResult.hasErrors()){
+            log.info("Errors");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.info("Field: " + error.getField() + ", Error: " + error.getDefaultMessage());
+            }
+
+            return "redirect:/admin/book/itemRegist";
+        }
         FileDTO fileDTO = new FileDTO();
         log.info("=================이미지=================="+file.getSize());
         BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
@@ -90,13 +101,6 @@ public class AdminBookController {
             bookDTO.setVideo(OrgBookDTO.getVideo());
         }
 
-        if(bindingResult.hasErrors()){
-            log.info("Errors");
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
-
-            return "redirect:/admin/book/itemRegist";
-        }
         bookDTO.setDiscount_price((int) (bookDTO.getPrice() - bookDTO.getPrice()* bookDTO.getDiscount_per()*0.01));
 
         int result = bookServiceIf.regist(bookDTO,fileDTO,fileDTO1);
@@ -129,15 +133,22 @@ public class AdminBookController {
 
     @PostMapping("/itemModify")
     public String POSTItemModify(@Valid BookDTO bookDTO,
-                                 HttpServletRequest request,
                                  BindingResult bindingResult,
+                                 HttpServletRequest request,
                                  RedirectAttributes redirectAttributes,
                                  @RequestParam("file") MultipartFile file,
                                  @RequestParam("videofile") MultipartFile videofile,
                                  Model model){
         log.info("AdminBookController : POSTItemModify");
-        System.out.println("111");
-        log.info(bookDTO);
+
+        if(bindingResult.hasErrors()){
+            log.info(bookDTO.toString());
+            log.info("AdminBookController >> POSTItemModify >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
+
+            return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
+        }
         BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
         FileDTO fileDTO = new FileDTO();
         log.info("=================이미지=================="+file.getSize());
@@ -165,11 +176,6 @@ public class AdminBookController {
             bookDTO.setVideo(OrgBookDTO.getVideo());
         }
 
-        if(bindingResult.hasErrors()){
-            log.info("AdminBookController >> POSTItemModify >> list Error");
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/admin/book/itemModify?book_code="+bookDTO.getBook_code();
-        }
         bookDTO.setDiscount_price((int) (bookDTO.getPrice() - bookDTO.getPrice()* bookDTO.getDiscount_per()*0.01));
         int result = bookServiceIf.modify(bookDTO,fileDTO,fileDTO1);
         log.info("AdminBookController : POSTItemModify >> result : " + result);
