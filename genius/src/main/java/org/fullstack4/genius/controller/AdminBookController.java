@@ -74,9 +74,12 @@ public class AdminBookController {
 
             return "redirect:/admin/book/itemRegist";
         }
+        int random = (int) (Math.random()*100000)+1;
+        bookDTO.setBook_code(bookDTO.getCategory_class_code()+bookDTO.getCategory_subject_code()+random);
         FileDTO fileDTO = new FileDTO();
         log.info("=================이미지=================="+file.getSize());
         log.info("=========================================="+bookDTO.getBook_code());
+
 
         if(file.getSize() >0) {
             log.info("===================================");

@@ -48,9 +48,9 @@
         </where>
     </sql>
     <insert id="regist">
-        INSERT INTO tbl_book(book_code, book_name, author, price, discount_per, quantity, category_class_code, category_subject_code, publisher
+        INSERT INTO tbl_book(book_code, book_name, author, price, discount_per, discount_price, quantity, category_class_code, category_subject_code, publisher
                             ,book_info, isbn, contents, publication_date,book_img,video)
-        VALUES(#{book_code}, #{book_name}, #{author}, #{price}, #{quantity}, #{category_class_code}, #{category_subject_code}, #{publisher},
+        VALUES(#{book_code}, #{book_name}, #{author}, #{price}, #{discount_per}, #{discount_price}, #{quantity}, #{category_class_code}, #{category_subject_code}, #{publisher},
                             #{book_info}, #{isbn}, #{contents}, #{publication_date},#{book_img},#{video})
     </insert>
 
