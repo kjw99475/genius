@@ -85,13 +85,13 @@
                                         <label class="w-100px">주소 : </label>
                                         <div class="form-control border-0 p-0">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="order_zip_code" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()" value="${memberdto.zip_code}">
+                                                <input type="text" class="form-control" name="order_zip_code" placeholder="우편번호" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()" value="${memberdto.zip_code}" readonly>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-success" type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="order_addr1" value="${memberdto.addr1}">
+                                                <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="order_addr1" value="${memberdto.addr1}" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="sample4_detailAddress"  placeholder="상세주소" name="order_addr2" value="${memberdto.addr2}">
@@ -154,7 +154,6 @@
     <!--================End Checkout Area =================-->
 </main>
 <!--================ 본문 END =================-->
-
 <!-- 사이드바 -->
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp" />
 <!-- 사이드바 끝 -->
@@ -209,37 +208,47 @@
     }
 
     function purchase(){
-        var cart_idx = [];
-        <c:forEach items="${dtolist}" var="list">
-            cart_idx.push(${list.cart_idx});
-        </c:forEach>
-        let frmData = $("form[name=userfrm]").serialize();
-        frmData = decodeURIComponent(frmData);
-        $.ajax({
-            // url:"/order/cartpayment.dox?"+frmData,
-            url:"/order/testpayment.dox?"+frmData,
-            dataType:"json",
-            type : "POST",
-            data : {
-                "member_id":"${sessionScope['member_id']}",
-                "price":"${totalprice}",
-                "cart_idx": JSON.stringify(cart_idx)
-            },
-            success : function(data) {
-                if(data.result == "success"){
-                    alert("결제에 성공하였습니다.");
-                    location.replace("/mypage/payhistory");
-                }else{
-                    alert(data.msg);
-                }
-            },
-            fail : function (data){
-                alert("결제에 실패했습니다.");
-            }, error: function(xhr, status, error) {
-                alert("에러가 발생했습니다. 오류: " + error);
-            }
+        if(${memberdto.point-totalprice >0} ){
+            if(document.querySelector("#agree").checked){
+                var cart_idx = [];
+                <c:forEach items="${dtolist}" var="list">
+                    cart_idx.push(${list.cart_idx});
+                </c:forEach>
+                let frmData = $("form[name=userfrm]").serialize();
+                frmData = decodeURIComponent(frmData);
+                $.ajax({
+                    // url:"/order/cartpayment.dox?"+frmData,
+                    url:"/order/testpayment.dox?"+frmData,
+                    dataType:"json",
+                    type : "POST",
+                    data : {
+                        "member_id":"${sessionScope['member_id']}",
+                        "price":"${totalprice}",
+                        "cart_idx": JSON.stringify(cart_idx)
+                    },
+                    success : function(data) {
+                        if(data.result == "success"){
+                            alert("결제에 성공하였습니다.");
+                            location.replace("/mypage/payhistory");
+                        }else{
+                            alert(data.msg);
+                        }
+                    },
+                    fail : function (data){
+                        alert("결제에 실패했습니다.");
+                    }, error: function(xhr, status, error) {
+                        alert("에러가 발생했습니다. 오류: " + error);
+                    }
 
-        });
+                });
+            }else{
+                alert("개인정보 이용에 동의해주십시오.");
+            }
+        }else{
+            if(confirm("포인트가 부족합니다. 충전하시겠습니까?")){
+                location.href="/mypage/point";
+            }
+        }
     }
 
 
