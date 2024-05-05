@@ -396,13 +396,93 @@ public class AdminQnaController {
     }
 
     @GetMapping("/answermodify")
-    public void GETAnswerModify(){
+    public void GETAnswerModify(@RequestParam(name = "q_idx")int ref_idx,
+                                @RequestParam(name = "a_idx")int qna_idx,
+                                Model model){
+        QnaDTO refQnaDTO = qnaService.view(ref_idx);
+        QnaDTO qnaDTO = qnaService.view(qna_idx);
 
+        if(refQnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(refQnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("qFileList", fileDTOList);
+        }
+        if(qnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> fileDTOList = qnaFileServiceIf.getFileList(qnaDTO.getQna_idx());
+            log.info(fileDTOList);
+            model.addAttribute("fileList", fileDTOList);
+        }
+
+        model.addAttribute("refQnaDTO", refQnaDTO);
+        model.addAttribute("qnaDTO", qnaDTO);
     }
 
     @PostMapping("/answermodify")
-    public void PostAnswerModify(){
+    public String PostAnswerModify(@Valid QnaDTO newQnaDTO,
+                                 BindingResult bindingResult,
+                                 MultipartHttpServletRequest files,
+                                 @RequestParam(name = "orgFiles", defaultValue = "") String orgFiles,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpServletRequest request,
+                                 Model mode){
+        if(bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("qnaDTO",newQnaDTO);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/admin/qna/answermodify?q_idx="+newQnaDTO.getRef_idx()+"&a_idx="+newQnaDTO.getQna_idx();
+        }
+        newQnaDTO.setFileYN("N");
+        QnaDTO orgQnaDTO = qnaService.view(newQnaDTO.getQna_idx());
+        if(orgQnaDTO.getFileYN().equals("Y")){
+            List<QnaFileDTO> OrgfileDTOList = qnaFileServiceIf.getFileList(orgQnaDTO.getQna_idx());
+            if (!orgFiles.isEmpty()) {
+                log.info("orgFiles1 : " + orgFiles);
+                // 기존 파일을 유지하거나 일부만 지웠을 겨우
+                newQnaDTO.setFileYN("Y");
+                for(QnaFileDTO fileDTO : OrgfileDTOList) {
+                    if(!orgFiles.contains( String.valueOf(fileDTO.getFile_idx()))) {
+                        qnaFileServiceIf.deleteFile(String.valueOf(fileDTO.getFile_idx()));
+                    }
+                }
+            } else {
+                log.info("orgFiles2 : " + orgFiles);
+                // 기존 파일 다 지웠을 경우
+                for(QnaFileDTO fileDTO : OrgfileDTOList) {
+                    qnaFileServiceIf.deleteFile(String.valueOf(fileDTO.getFile_idx()));
+                }
+            }
+        }
+        List<MultipartFile> newFileList = files.getFiles("files");
+        String uploadFolder = CommonUtil.getUploadFolder(request,"qna");
+        log.info("newfilelist : " + newFileList);
+        for(MultipartFile file : newFileList) {
+            if(file.getSize() == 0) {
+                break;
+            }
+            newQnaDTO.setFileYN("Y");
+            FileDTO fileDTO = FileDTO.builder()
+                    .file(file)
+                    .uploadFolder(uploadFolder)
+                    .build();
+            Map<String, String> map = FileUtil.FileUpload(fileDTO);
+            if(map.get("result").equals("success")) {
+                QnaFileDTO qnaFileDTO = QnaFileDTO.builder()
+                        .path("/resources/upload/qna/")
+                        .qna_idx(orgQnaDTO.getQna_idx())
+                        .original_name(map.get("orgName"))
+                        .save_name(map.get("newName")).build();
+                qnaFileServiceIf.regist(qnaFileDTO);
+            }
+        }
 
+        int result = qnaService.modify(newQnaDTO);
+        log.info("AdminBookController : POSTItemModify >> result : " + result);
+        if(result >0){
+            return "redirect:/admin/qna/view?qna_idx="+newQnaDTO.getQna_idx();
+        }
+        else{
+            return "redirect:/admin/qna/contentmodify?qna_idx="+newQnaDTO.getQna_idx();
+        }
     }
 
 
