@@ -76,7 +76,8 @@ public class AdminBookController {
         }
         FileDTO fileDTO = new FileDTO();
         log.info("=================이미지=================="+file.getSize());
-        BookDTO OrgBookDTO = bookServiceIf.view(bookDTO.getBook_code());
+        log.info("=========================================="+bookDTO.getBook_code());
+
         if(file.getSize() >0) {
             log.info("===================================");
             String uploadFolder =  CommonUtil.getUploadFolder(request, "book");
@@ -84,8 +85,6 @@ public class AdminBookController {
                     .file(file)
                     .uploadFolder(uploadFolder)
                     .build();
-        }else{
-            bookDTO.setBook_img(OrgBookDTO.getBook_img());
         }
 
         log.info("=================비디오=================="+videofile.getSize());
@@ -97,8 +96,6 @@ public class AdminBookController {
                     .file(videofile)
                     .uploadFolder(uploadFolder1)
                     .build();
-        }else{
-            bookDTO.setVideo(OrgBookDTO.getVideo());
         }
 
         bookDTO.setDiscount_price((int) (bookDTO.getPrice() - bookDTO.getPrice()* bookDTO.getDiscount_per()*0.01));
