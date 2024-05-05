@@ -36,7 +36,7 @@
     <!-- Template Main CSS File -->
     <link href="/resources/admin/css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/resources/jquery/jquery-3.7.1.js"></script>
 
 </head>
 <body>
@@ -228,7 +228,7 @@
         let fileList = document.querySelector('#file-list');
         for (let i=0; i < element.files.length; i++) {
             let list = document.createElement('li');
-            list.classList.add('card', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.classList.add('card', 'mb-1', 'shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
             list.dataset.idx = i;
             list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
             fileList.append(list);
