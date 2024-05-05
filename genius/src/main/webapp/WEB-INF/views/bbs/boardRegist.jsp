@@ -180,7 +180,7 @@
         document.querySelector('#file').files = dataTransfer.files;
     }
 
-   /* //유효성 검사
+    //유효성 검사
     document.querySelector('#registFrm').addEventListener('submit', checkForm);
     function checkForm() {
         event.preventDefault();
@@ -197,14 +197,13 @@
         if ($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length < 20
         ) {
 
-            alert($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length);
             $("#err_bbs_contents").css("display", "block");
             $("#summernote").focus();
             return false;
         }
 
         document.querySelector('#registFrm').submit();
-    }*/
+    }
 
     //Back단 유효성 검사
     <c:forEach items="${errors}" var="err">
