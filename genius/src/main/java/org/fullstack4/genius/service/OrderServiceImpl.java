@@ -176,6 +176,8 @@ public class OrderServiceImpl  implements OrderServiceIf {
         return result;
     }
 
+
+
     @Override
     public int OrderTotalCount(PageRequestDTO requestDTO) {
         return 0;
@@ -187,9 +189,13 @@ public class OrderServiceImpl  implements OrderServiceIf {
     public PageResponseDTO<OrderDTO> OrderListByPage(PageRequestDTO requestDTO)
     {
         List<OrderVO> voList = orderMapper.OrderListByPage(requestDTO);
+        for(int i =0; i<voList.size(); i++){
+            voList.get(i).setAmount(orderMapper.orderDetailTotalCount(voList.get(i).getOrder_num()));
+        }
         List<OrderDTO> dtoList = voList.stream()
                 .map(vo->modelMapper.map(vo, OrderDTO.class))
                 .collect(Collectors.toList());
+
 
         log.info("requsetDTO 테스트 :" + requestDTO );
         int total_count = orderMapper.OrderTotalCount(requestDTO);
