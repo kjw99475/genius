@@ -45,6 +45,11 @@
 
 <!--================ 본문 start =================-->
 <main id="main" class="main">
+    <c:if test="${param.deleteOK == '1'}">
+        <script>
+            alert("삭제 되었습니다.");
+        </script>
+    </c:if>
 
     <div class="pagetitle">
         <h1>QnA 관리</h1>

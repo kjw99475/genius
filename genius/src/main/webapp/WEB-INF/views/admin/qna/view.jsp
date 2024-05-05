@@ -66,7 +66,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" id="frm_qna_delete" action="/admin/qna/delete">
+                            <form id="frm_qna_delete" action="/admin/qna/delete">
                                 <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
 
 
@@ -148,7 +148,7 @@
                                                         onclick="location.href='/admin/qna/answermodify?q_idx=${qnaDTO.ref_idx}&a_idx=${qnaDTO.qna_idx}'">수정
                                                 </button>
                                             </c:if>
-                                            <button type="button" class="btn btn-outline-success" onclick="qna_delete()">
+                                            <button type="button" class="btn btn-outline-success" id="deleteBtn">
                                                 삭제
                                             </button>
                                         </div>
@@ -183,7 +183,16 @@
 
 <script>
     const frm_delete = document.querySelector("#frm_qna_delete");
-    function qna_delete() {
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        let flag_delete = confirm("정말 삭제하시겠습니까?");
+        if (flag_delete) {
+            frm_delete.submit();
+        }
+    });
+    function qna_delete(event) {
+        event.preventDefault();
         let flag_delete = confirm("정말 삭제하시겠습니까?");
         if (flag_delete) {
             frm_delete.submit();
