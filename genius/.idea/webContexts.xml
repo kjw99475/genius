@@ -15,6 +15,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage/cart.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage/mypage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage/point.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage" />
       </map>
     </option>
   </component>

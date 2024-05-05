@@ -189,7 +189,14 @@
                                 </tbody>
                             </table>
 
+
                             <div class="d-flex justify-content-end">
+                                <button class="btn btn-success m-3" onclick="deliveryComplete('${orderDTO.get(0).order_num}')"
+                                        <c:if test="${orderDTO.get(0).order_state ne '배송 중'}">
+                                            disabled
+                                        </c:if>>
+                                    배송 완료
+                                </button>
                                 <button class="btn btn-success m-3" onclick="endDateSave('${orderDTO.get(0).order_num}')"
                                         <c:if test="${orderDTO.get(0).order_state ne '배송 중'}">
                                             disabled
@@ -197,6 +204,8 @@
                                     배송 정보 저장하기
                                 </button>
                             </div>
+
+
 
                         </div>
                     </div>
@@ -362,6 +371,32 @@
                 success : function(data) {
                     if(data.result == "success"){
                         console.log("성공");
+                        location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}";
+                    }else{
+                        alert(data.message);
+                    }
+                },
+                fail : function (data){
+                    console.log("실패");
+                }
+
+            });
+        }
+    }
+
+    function deliveryComplete(item){
+        if(confirm("정말로 배송 완료 처리하시겠습니까?")){
+            $.ajax({
+                url:"/admin/order/completeDelivery.dox",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    "order_num":item,
+                    "order_state" : "배송 완료"
+                },
+                success : function(data) {
+                    if(data.result == "success"){
+                        alert("성공");
                         location.href="/admin/order/view?order_num=${orderDTO.get(0).order_num}";
                     }else{
                         alert(data.message);
