@@ -67,7 +67,8 @@
                     <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
                             <label for="title">제목</label>
-                            <input type="text" class="form-control" id="title" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="최대 60자까지 입력 가능합니다.">
+                            <input type="text" class="form-control" id="title" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="2~60자 사이로 입력해주세요.">
+                            <div id="err_bbs_title" class="invalid-feedback" style="display: none">2~60자 사이로 입력해주세요.</div>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="member_id">아이디</label>
@@ -94,6 +95,7 @@
                 </div>
 
                 <textarea id="summernote" name="bbs_contents">${bbsDTO.bbs_contents}</textarea>
+                <div id="err_bbs_contents" class="invalid-feedback" style="display: none">20자 이상 입력해주세요.</div>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
@@ -178,49 +180,38 @@
         document.querySelector('#file').files = dataTransfer.files;
     }
 
-    /*//유효성 검사
+   /* //유효성 검사
     document.querySelector('#registFrm').addEventListener('submit', checkForm);
     function checkForm() {
         event.preventDefault();
-        //공백 체크
-        if (!nullCheck2($('input[name=bbs_title]'))) {
-            alert("제목을 입력해주세요.");
+        //제목 체크
+        if (!nullCheck2($('input[name=bbs_title]'))
+            || $('input[name=bbs_title]').val().length > 60
+            || $('input[name=bbs_title]').val().length < 2
+        ) {
+            $("#err_bbs_title").css("display", "block");
             $('input[name=bbs_title]').focus();
             return false;
         }
-        if (!nullCheck2($('textarea[name=bbs_contents]'))) {
-            alert("내용을 입력해주세요.");
-            $('textarea[name=bbs_contents]').focus();
-            return false;
-        }
-        //길이 체크
-        if ( $('input[name=bbs_title]').val().length > 60 ) {
-            console.log("길이 체크 : "+ $('input[name=bbs_title]').val().length > 100);
-            console.log("길이 : " + $('input[name=bbs_title]').val().length);
-            alert("제목의 최대 길이를 초과하였습니다.");
-            $('input[name=bbs_title]').focus();
-            return false;
-        }
+        //내용 체크
+        if ($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length < 20
+        ) {
 
-        // //서머노트 공백체크(작동x)
-        // if ($('#summernote').summernote('isEmpty')) {
-        //     alert('editor content is empty');
-        //     $('#summernote').summernote('focus');
-        // }
+            alert($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length);
+            $("#err_bbs_contents").css("display", "block");
+            $("#summernote").focus();
+            return false;
+        }
 
         document.querySelector('#registFrm').submit();
     }*/
 
     //Back단 유효성 검사
-    if(${!empty errors}) {
-        let errArr = [];
-        <c:forEach var="item" items="${err}">
-        if(${item.getField() != null}) {
-            errArr.push('${item.getField()}');
-        }
+    <c:forEach items="${errors}" var="err">
+    if (document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
     </c:forEach>
-
-    console.log("err: "+ errArr);}
 
 </script>
 

@@ -64,8 +64,9 @@
                 <div class="border-gray mb-5 rounded bg-light pt-3 pb-3">
                     <div class="form-row ml-5 mt-3">
                         <div class="form-group col-md-5">
-                            <label for="inputCity">제목</label>
-                            <input type="text" class="form-control" id="inputCity" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="최대 60자까지 입력 가능합니다.">
+                            <label for="bbs_title">제목</label>
+                            <input type="text" class="form-control" id="bbs_title" value="${bbsDTO.bbs_title}" name="bbs_title" placeholder="최대 60자까지 입력 가능합니다.">
+                            <div id="err_bbs_title" class="invalid-feedback" style="display: none">2~60자 사이로 입력해주세요.</div>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputZip">아이디</label>
@@ -104,6 +105,7 @@
                 </div>
 
                 <textarea id="summernote" name="bbs_contents">${bbsDTO.bbs_contents}</textarea>
+                <div id="err_bbs_contents" class="invalid-feedback" style="display: none">20자 이상 입력해주세요.</div>
                 <div>
                     <div class="input-group d-flex justify-content-end mb-2">
                         <button type="button" class="btn btn-outline-success mt-3 mr-2" onclick="location.href='/bbs/boardList'">목록</button>
@@ -217,6 +219,39 @@
 
         document.querySelector('#registFrm').submit();
     }
+
+    //유효성 검사
+    document.querySelector('#modifyFrm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        //제목 체크
+        if (!nullCheck2($('input[name=bbs_title]'))
+            || $('input[name=bbs_title]').val().length > 60
+            || $('input[name=bbs_title]').val().length < 2
+        ) {
+            $("#err_bbs_title").css("display", "block");
+            $('input[name=bbs_title]').focus();
+            return false;
+        }
+        //내용 체크
+        if ($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length < 20
+        ) {
+
+            alert($("#summernote").val().replace(/<[^>]+>/g, '').replaceAll("&nbsp;", '').trim().length);
+            $("#err_bbs_contents").css("display", "block");
+            $("#summernote").focus();
+            return false;
+        }
+
+        document.querySelector('#registFrm').submit();
+    }
+
+    //Back단 유효성 검사
+    <c:forEach items="${errors}" var="err">
+    if (document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
 
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

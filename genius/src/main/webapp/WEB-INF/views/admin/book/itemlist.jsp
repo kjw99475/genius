@@ -136,6 +136,11 @@
                             <option value="100" <c:if test="${responseDTO['page_size'] == '100'}">selected</c:if>>100개씩 보기</option>
                         </select>
                     </div>
+                    <div class="col-2 mb-2">
+                    <button type="button" class="btn btn-success"
+                            onclick="location.href='/admin/book/itemRegist'">등록
+                    </button>
+                    </div>
                 </div>
 
                 <table class="table table-bordered w-100">
