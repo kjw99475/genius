@@ -168,8 +168,8 @@
                             <td>${bookDTO.discount_price}</td>
                             <td>${bookDTO.author}</td>
                             <td>${bookDTO.publisher}</td>
-                            <td>${bookDTO.category_class_code}</td>
-                            <td>${bookDTO.category_subject_code}</td>
+                            <td>${bookDTO.class_name}</td>
+                            <td>${bookDTO.subject_name}</td>
                             <td><span class="badge
                                 <c:choose>
                                     <c:when test="${bookDTO.sales_status == '1'}">
