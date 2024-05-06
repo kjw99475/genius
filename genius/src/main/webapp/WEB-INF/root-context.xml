@@ -36,7 +36,7 @@
         <!--각자 로컬용-->
 <!--                <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius"></property>-->
 <!--        테스트 용-->
-        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius_sample"></property>
+        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/genius"></property>
         <property name="username" value="genius"></property>
         <property name="password" value="1234"></property>
         <property name="dataSourceProperties">

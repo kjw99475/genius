@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -17,7 +18,6 @@ import java.time.LocalDate;
 @Builder
 public class BookDTO {
     private int book_idx;
-    @NotBlank(message = "상품 코드를 입력해주세요.")
     private String book_code;
     @NotBlank(message = "책 이름을 입력해주세요.")
     private String book_name;
@@ -45,8 +45,8 @@ public class BookDTO {
     private String publisher;
     private int discount_price;
 
-    @PositiveOrZero(message = "0보다 작은 수는 입력하실 수 없습니다.")
-    @Min(value=0)
+    @PositiveOrZero(message = "0부터 100사이의 수를 입력해 주세요.")
+    @Range(min=0, max=100)
     private int discount_per;
     private String book_info;
     private double rank_avg;
