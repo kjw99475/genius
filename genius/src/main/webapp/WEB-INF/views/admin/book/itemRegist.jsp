@@ -331,8 +331,9 @@
         //     document.getElementById("div_err_isbn").style.display="none";
         // }
         let publish_date = document.getElementById("publication_date");
-        if(dateCheck(publish_date)){
-            alert("날짜를 확인해주세요");
+        console.log(publish_date.value);
+        if(!dateCheck(publish_date) || publish_date.value == ""){
+            alert("출판일을 확인해주세요");
             return;
         }
         let contentsStr = "";
