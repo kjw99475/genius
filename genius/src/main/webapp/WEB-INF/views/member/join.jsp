@@ -111,7 +111,7 @@
                                         <div>
                                             <div class="mb-3">
                                                 <div class="input-group">
-                                                    <input type="text" name="zip_code" data-name="우편번호" class="form-control" placeholder="우편번호" value="${memberDTO['zip_code']}" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()">
+                                                    <input type="text" name="zip_code" data-name="우편번호" class="form-control" placeholder="우편번호" value="${memberDTO['zip_code']}" id="sample4_postcode" aria-label="Recipient's username" aria-describedby="button-addon2"  onclick="sample4_execDaumPostcode()" readonly>
                                                     <div class="input-group-append">
                                                         <button class="btn btn-outline-success"  type="button" id="button-addon2" onclick="sample4_execDaumPostcode()">우편번호 찾기</button>
                                                     </div>
@@ -119,7 +119,7 @@
                                                 <small id="err_zip_code" class="info text-danger"></small>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="addr1" class="form-control" data-name="주소" value="${memberDTO['addr1']}" id="sample4_roadAddress" placeholder="도로명주소">
+                                                <input type="text" name="addr1" class="form-control" data-name="주소" value="${memberDTO['addr1']}" id="sample4_roadAddress" placeholder="도로명주소" readonly>
                                                 <small id="err_addr1" class="info text-danger"></small>
                                             </div>
                                             <div class="form-group">
