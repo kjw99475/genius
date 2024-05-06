@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pb-2 d-flex justify-content-between">
+                        <div class="pb-2 d-flex justify-content-end mb-4 mt-4">
 
                             <div class="sorting">
                                 <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
@@ -164,6 +164,9 @@
                     <!-- Start Best Seller -->
                     <section class="lattest-product-area pb-40 category-list">
                         <div class="row">
+                            <c:if test="${responseDTO.dtoList == []}">
+                                <div class="mt-3 border-gray-bottom" style="margin:0px auto;">검색 결과가 없습니다.</div>
+                            </c:if>
                             <c:forEach items="${responseDTO.dtoList}" var="list">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card text-center card-product" data-code ="${list.book_code}">
