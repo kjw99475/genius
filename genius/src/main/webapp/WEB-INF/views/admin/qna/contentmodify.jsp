@@ -125,7 +125,7 @@
                                     <div class="col-md-8 col-lg-9">
                                         <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
                                         <c:forEach items="${fileList}" var="file">
-                                            <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                            <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile2(this)">X</a></span></li>
                                             <input id="file-idx" type="hidden" name="orgFiles" value="${file.file_idx}">
                                         </c:forEach>
                                         </ul>
@@ -264,6 +264,11 @@
         fileArray.splice(target, 1);
         fileArray.forEach(file => {dataTransfer.items.add(file);});
         document.querySelector('#file').files = dataTransfer.files;
+    }
+    function deleteThisFile2(element) {
+        event.preventDefault();
+        element.parentElement.parentElement.nextElementSibling.remove();
+        element.parentElement.parentElement.remove();
     }
 
 </script>
