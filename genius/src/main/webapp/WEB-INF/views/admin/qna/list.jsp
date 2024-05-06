@@ -136,8 +136,8 @@
                                     <col class="w-25">
                                     <col class="w-10">
                                     <col class="w-10">
-                                    <col class="w-10">
                                     <col class="w-5">
+                                    <col class="w-10">
                                     <col class="w-10">
                                 </colgroup>
                                 <thead>
@@ -170,20 +170,21 @@
                                         <td>${qnaDTO.read_cnt}</td>
                                         <td>
                                             <c:if test="${qnaDTO.answerYN == 'N'}">
-                                                질문글
+                                                <span class="badge bg-warning text-white" >질문글</span>
                                             </c:if>
                                             <c:if test="${qnaDTO.answerYN == 'Y'}">
-                                                답변글
+                                                <span class="badge bg-success text-white" >답변글</span>
                                             </c:if>
                                         </td>
                                         <td>
                                             <c:if test="${qnaDTO.answerStatus == '0'}">
-                                                답변 대기</c:if>
+                                                <span class="badge bg-secondary text-white" >답변 대기</span>
+                                            </c:if>
                                             <c:if test="${qnaDTO.answerStatus == '1'}">
-                                                답변 완료
+                                                <span class="badge bg-info " >답변 완료</span>
                                             </c:if>
                                             <c:if test="${qnaDTO.answerStatus == '2'}">
-                                                답변
+                                                <span class="badge bg-success-subtle text-black" >답변</span>
                                             </c:if>
                                         </td>
                                     </tr>
