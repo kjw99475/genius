@@ -80,6 +80,19 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
+                                        <label for="admin_YN" class="col-md-4 col-lg-2 col-form-label label">상태</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px ps-3">
+                                            <c:choose>
+                                                <c:when test="${memberDTO.status == 'Y'}">
+                                                    정상
+                                                </c:when>
+                                                <c:otherwise>
+                                                    탈퇴 (${memberDTO['leave_date']})
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <label for="admin_YN" class="col-md-4 col-lg-2 col-form-label label">구분</label>
                                         <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
                                             <select id="admin_YN" name="admin_YN" class="form-select">
@@ -100,8 +113,16 @@
                                     <div class="row">
                                         <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">회원아이디</label>
                                         <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
-                                            <input name="member_id" data-name="아이디"  type="text" class="form-control" id="member_id"
-                                                   value="${memberDTO['member_id']}" disabled>
+                                            <c:choose>
+                                                <c:when test="${memberDTO['social_type'] eq 'naver'}">
+                                                    <div class="col-md-12 form-group">
+                                                        <p class="text-geni">네이버 연동 계정입니다.</p>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input name="member_id" data-name="아이디"  type="text" class="form-control" id="member_id" value="${memberDTO['member_id']}" disabled>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <small id="err_member_id" class="info text-danger"></small>
                                         </div>
                                     </div>
@@ -113,22 +134,24 @@
                                             <small id="err_member_name" class="info text-danger"></small>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <label for="pwd" class="col-md-4 col-lg-2 col-form-label label">비밀번호</label>
-                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
-                                            <input name="pwd" type="password" class="form-control" id="pwd" data-name="비밀번호" placeholder="비밀번호 변경할 시에만 입력해 주세요"
-                                                   value="">
-                                            <small id="err_pwd" class="info text-danger"></small>
+                                    <c:if test="${memberDTO['social_type'] != 'naver'}">
+                                        <div class="row">
+                                            <label for="pwd" class="col-md-4 col-lg-2 col-form-label label">비밀번호</label>
+                                            <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                                <input name="pwd" type="password" class="form-control" id="pwd" data-name="비밀번호" placeholder="비밀번호 변경할 시에만 입력해 주세요"
+                                                       value="">
+                                                <small id="err_pwd" class="info text-danger"></small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <label for="pwdCheck" class="col-md-4 col-lg-2 col-form-label label">비밀번호 확인</label>
-                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
-                                            <input name="pwdCheck" type="password" class="form-control" id="pwdCheck" data-name="비밀번호 확인" placeholder="비밀번호 확인"
-                                                   value="">
-                                            <small id="err_pwdCheck" class="info text-danger"></small>
+                                        <div class="row">
+                                            <label for="pwdCheck" class="col-md-4 col-lg-2 col-form-label label">비밀번호 확인</label>
+                                            <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
+                                                <input name="pwdCheck" type="password" class="form-control" id="pwdCheck" data-name="비밀번호 확인" placeholder="비밀번호 확인"
+                                                       value="">
+                                                <small id="err_pwdCheck" class="info text-danger"></small>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
                                     <div class="row">
                                         <label for="birthday" class="col-md-4 col-lg-2 col-form-label label">생년월일</label>
                                         <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
@@ -197,7 +220,9 @@
                                         </div>
                                         <div>
                                             <button type="submit" class="btn btn-success">수정</button>
-                                            <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
+                                            <c:if test="${memberDTO.status == 'Y'}">
+                                                <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </form>
@@ -320,11 +345,13 @@
                     return false;
                 }
             } else if(element == 'pwd' || element == 'pwdCheck') {
-                if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-                    if (!nullCheck($(target))) {
-                        $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
-                        $(target).focus();
-                        return false;
+                if(${memberDTO['social_type'] != 'naver'}) {
+                    if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                        if (!nullCheck($(target))) {
+                            $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                            $(target).focus();
+                            return false;
+                        }
                     }
                 }
             } else if(element == 'addr1') {
@@ -347,11 +374,13 @@
             $('input[name=member_name]').focus();
             return false;
         }
-        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-            if(!passwordRegCheck($('input[name=pwd]'))){
-                $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
-                $('input[name=pwd]').focus();
-                return false;
+        if(${memberDTO['social_type'] != 'naver'}) {
+            if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                if(!passwordRegCheck($('input[name=pwd]'))){
+                    $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+                    $('input[name=pwd]').focus();
+                    return false;
+                }
             }
         }
         if(!phoneRegCheck($('input[name=phone]'))){
@@ -366,11 +395,13 @@
             return false;
         }
         // 중복 체크 및 일치 여부 검사
-        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-            if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
-                $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
-                $('input[name=pwdCheck]').focus();
-                return false;
+        if(${memberDTO['social_type'] != 'naver'}) {
+            if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
+                    $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+                    $('input[name=pwdCheck]').focus();
+                    return false;
+                }
             }
         }
         document.querySelector('#frmInfo').submit();

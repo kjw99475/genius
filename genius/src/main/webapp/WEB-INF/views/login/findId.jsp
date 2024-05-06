@@ -47,11 +47,13 @@
                         <form class="row login_form mb-5" method="post" action="/login/findId" id="frm" >
                             <div class="col-md-12 form-group text-left">
                                 <label>이름</label>
-                                <input type="text" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                                <input type="text" data-name="이름" class="form-control" id="member_name" name="member_name" value="${memberDTO['member_name']}" placeholder="이름" onfocus="this.placeholder = ''" onblur="this.placeholder = '이름'">
+                                <small id="err_member_name" class="info text-danger"></small>
                             </div>
                             <div class="col-md-12 form-group text-left">
                                 <label>이메일</label>
-                                <input type="email" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                <input type="email" data-name="이메일" class="form-control" id="email" name="email" value="${memberDTO.email}" placeholder="이메일" onfocus="this.placeholder = ''" onblur="this.placeholder = '이메일'">
+                                <small id="err_email" class="info text-danger"></small>
                             </div>
                             <div class="col-md-12 form-group d-flex flex-column" style="gap:50px">
                                 <button type="submit" class="btn btn-success w-100">아이디 찾기</button>
@@ -81,6 +83,28 @@
 <script>
     if(${!empty Err}) {
         alert('${Err}');
+    }
+</script>
+<script src="/resources/js/commonUtil.js"></script>
+<script>
+    // 유효성 검사
+    let checkTarget = ['member_name', 'email'];
+    document.querySelector('#frm').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for (let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name=' + element + ']');
+            if (!nullCheck($(target))) {
+                $('#err_' + element).text($(target).data('name') + "을 입력해주세요");
+                $(target).focus();
+                return false;
+            }
+        }
+        document.querySelector('#frm').submit();
     }
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>

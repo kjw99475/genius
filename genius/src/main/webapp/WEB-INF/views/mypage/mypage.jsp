@@ -221,11 +221,13 @@
                     return false;
                 }
             } else if(element == 'pwd' || element == 'pwdCheck') {
-                if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-                    if (!nullCheck($(target))) {
-                        $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
-                        $(target).focus();
-                        return false;
+                if(${memberDTO['social_type'] != 'naver'}) {
+                    if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                        if (!nullCheck($(target))) {
+                            $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                            $(target).focus();
+                            return false;
+                        }
                     }
                 }
             } else if(element == 'addr1') {
@@ -248,11 +250,13 @@
             $('input[name=member_name]').focus();
             return false;
         }
-        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-            if(!passwordRegCheck($('input[name=pwd]'))){
-                $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
-                $('input[name=pwd]').focus();
-                return false;
+        if(${memberDTO['social_type'] != 'naver'}) {
+            if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                if(!passwordRegCheck($('input[name=pwd]'))){
+                    $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+                    $('input[name=pwd]').focus();
+                    return false;
+                }
             }
         }
         if(!phoneRegCheck($('input[name=phone]'))){
@@ -267,11 +271,13 @@
             return false;
         }
         // 중복 체크 및 일치 여부 검사
-        if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
-            if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
-                $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
-                $('input[name=pwdCheck]').focus();
-                return false;
+        if(${memberDTO['social_type'] != 'naver'}) {
+            if ($('input[name=pwd]').val().length > 0 || $('input[name=pwdCheck]').val().length > 0 ) {
+                if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
+                    $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+                    $('input[name=pwdCheck]').focus();
+                    return false;
+                }
             }
         }
         document.querySelector('#frm').submit();

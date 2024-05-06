@@ -117,7 +117,7 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 label ">이미지</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <img src="/resources/upload/book/${bookDTO.book_img}" alt="이미지">
+                                        <img class=" border-gray" src="/resources/upload/book/${bookDTO.book_img}" alt="이미지">
                                     </div>
                                 </div>
 
@@ -130,7 +130,7 @@
 
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
-                                <button type="button" class="btn btn-outline-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
+<%--                                <button type="button" class="btn btn-outline-success" id="btn_book_delete" onclick="book_delete();">삭제</button>--%>
                             </div>
                         </div>
                     </div><!-- End Bordered Tabs -->

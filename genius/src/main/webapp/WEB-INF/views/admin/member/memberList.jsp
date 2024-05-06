@@ -133,13 +133,33 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
-                                            <td class="align-middle">${dtoList['member_id']}</td>
+                                            <td class="align-middle">
+                                                <c:choose>
+                                                    <c:when test="${dtoList['social_type'] eq 'naver'}">
+                                                            <span class="text-geni">네이버 연동 계정입니다.</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${dtoList['member_id']}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td class="align-middle">${dtoList['member_name']}</td>
                                             <td class="align-middle">${dtoList['reg_date']}</td>
-                                            <td class="align-middle">${dtoList.status}</td>
+                                            <td class="align-middle">
+                                                <c:choose>
+                                                    <c:when test="${dtoList.status == 'Y'}">
+                                                        정상
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        탈퇴 (${dtoList['leave_date']})
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td class="flex justify-content-end">
                                                 <button type="button" class="btn btn-success me-2" onclick="location.href = '/admin/member/memberView${pageResponseDTO['linked_params']}&page=${pageResponseDTO['page']}&member_id=${dtoList['member_id']}'">수정</button>
-                                                <button type="button" class="btn btn-outline-success" onclick="leave('${dtoList['member_id']}')">탈퇴</button>
+                                                <c:if test="${dtoList.status == 'Y'}">
+                                                    <button type="button" class="btn btn-outline-success"  onclick="leave('${dtoList['member_id']}')">탈퇴</button>
+                                                </c:if>
                                             </td>
                                         </tr>
                                         <c:set var="i" value="${i-1}" />

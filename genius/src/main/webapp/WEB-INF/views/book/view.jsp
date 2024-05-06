@@ -68,9 +68,9 @@
         <div class="container">
             <div class="row s_product_inner">
                 <div class="col-lg-6">
-                    <div class="owl-carousel owl-theme s_Product_carousel">
+                    <div class="owl-carousel owl-theme s_Product_carousel border-gray shadow">
                         <div class="single-prd-item">
-                            <img class="img-fluid " src="/resources/upload/book/${bookDTO.book_img}" alt="">
+                            <img class="img-fluid" src="/resources/upload/book/${bookDTO.book_img}" alt="">
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="page-item">
-                                                        <a href="${responseDTO.linked_params}&page=${page_num}&page_flag=1" class="page-link">${page_num}</a>
+                                                        <a href="${responseDTO.linked_params}&page=${page_num}&page_flag=1&book_code=${bookDTO.book_code}" class="page-link">${page_num}</a>
                                                     </li>
                                                 </c:otherwise>
                                             </c:choose>
@@ -429,6 +429,7 @@
             }
         })
     }
+    <c:if test="${!empty sessionScope['member_id']}">
     reviewBtn.addEventListener("click",function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -448,6 +449,7 @@
         document.querySelector('#frmReviewRegist').submit();
 
     })
+    </c:if>
 </script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>

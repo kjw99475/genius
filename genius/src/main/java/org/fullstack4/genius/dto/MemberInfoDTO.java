@@ -21,7 +21,6 @@ public class MemberInfoDTO {
     private int member_idx;
     @Builder.Default
     private String social_type=null;
-    @Pattern(regexp = "^[a-z0-9]{8,20}$")
     private String member_id;
     @Pattern(regexp = "^[ㄱ-ㅎ가-힣]{2,20}$")
     private String member_name;

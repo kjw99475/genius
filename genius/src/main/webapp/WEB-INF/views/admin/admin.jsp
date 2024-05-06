@@ -249,10 +249,10 @@
                                         <i class="bi bi-cart"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${summary.todayOrderCnt}<small>건</small></h6>
+                                        <h6 style="font-size: 24px">${summary.todayOrderCnt}<small>건</small></h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6 class="text-dark">/ ${summary.totalOrderCnt}<small>건</small></h6>
+                                        <h6 class="text-dark" style="font-size: 24px">/ ${summary.totalOrderCnt}<small>건</small></h6>
                                     </div>
                                 </div>
                             </div>
@@ -269,10 +269,10 @@
                                         <i class="bi bi-credit-card-fill"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${CommonUtil.comma(summary.todayOrderPrice)}<small>원</small></h6>
+                                        <h6 style="font-size: 24px">${CommonUtil.comma(summary.todayOrderPrice)}<small>원</small></h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6 class="text-dark">/ ${CommonUtil.comma(summary.totalOrderPrice)}<small>원</small></h6>
+                                        <h6 class="text-dark" style="font-size: 24px">/ ${CommonUtil.comma(summary.totalOrderPrice)}<small>원</small></h6>
                                     </div>
                                 </div>
                             </div>
@@ -289,10 +289,10 @@
                                         <i class="bi bi-people"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>${summary.todayOrderMember}<small>명</small></h6>
+                                        <h6 style="font-size: 24px">${summary.todayOrderMember}<small>명</small></h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6 class="text-dark">/ ${summary.totalOrderMember}<small>명</small></h6>
+                                        <h6 class="text-dark" style="font-size: 24px">/ ${summary.totalOrderMember}<small>명</small></h6>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +368,7 @@
                                                 <c:forEach var="bookDTO" items="${bookDTOList}" varStatus="status">
                                                     <tr>
                                                         <td class="fw-bold text-center">${status.index + 1}</td>
-                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px" src="/resources/upload/book/${bookDTO['book_img']}" alt=""></a></td>
+                                                        <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}"><img class="w-100px border-gray" src="/resources/upload/book/${bookDTO['book_img']}" alt=""></a></td>
                                                         <td><a href="/admin/book/itemview?book_code=${bookDTO['book_code']}" class="text-success fw-bold">${bookDTO['book_name']}</a></td>
                                                         <td class="text-center">${bookDTO['book_code']}</td>
                                                         <td class="fw-bold text-center">${bookDTO['sales_amount']}건</td>

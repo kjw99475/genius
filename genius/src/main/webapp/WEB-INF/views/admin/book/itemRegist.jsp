@@ -231,14 +231,14 @@
                                     <label for="book_info" class="col-md-4 col-lg-2 col-form-label">소개글</label>
                                     <div class="col-md-8 col-lg-10">
                                             <textarea name="book_info" class="form-control" id="book_info"
-                                                      style="height: 100px; resize: none;"></textarea>
+                                                      style="height: 100px; resize: none;">${bookDTO.book_info}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="isbn" class="col-md-4 col-lg-2 col-form-label">ISBN</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="isbn" type="text" class="form-control" id="isbn" value=""
+                                        <input name="isbn" type="text" class="form-control" id="isbn" value="${bookDTO.isbn}"
                                                maxlength="13">
                                     </div>
                                     <div class="invalid-feedback" id="div_err_isbn" style="display: none"></div>
@@ -288,54 +288,49 @@
     bookRegistBtn.addEventListener("click", function(e){
         console.log(1);
         e.preventDefault();
-        // let book_name = document.getElementById("book_name");
-        // if(book_name.value==""){
-        //     document.getElementById("div_err_book_name").style.display= "block";
-        //     console.log(2)
-        //     return;
-        // }
-        // else{
-        //     document.getElementById("div_err_book_name").style.display="none";
-        // }
-        // let price = document.getElementById("price");
-        // if(price.value == 0 || ""){
-        //     document.getElementById("div_err_price").style.display="block";
-        //     return;
-        // }
-        // else{
-        //     document.getElementById("div_err_price").style.display="none";
-        // }
-        // let category_class_code = document.getElementById("category_class_code");
-        // if(category_class_code.value==""){
-        //     document.getElementById("div_err_category_class_code").style.display="block";
-        //     return;
-        // }
-        // else{
-        //     document.getElementById("div_err_category_class_code").style.display="none";
-        // }
-        // let category_subject_code = document.getElementById("category_subject_code");
-        // if(category_subject_code.value==""){
-        //     document.getElementById("div_err_category_subject_code").style.display="block";
-        //     return;
-        // }
-        // else{
-        //     document.getElementById("div_err_category_subject_code").style.display="none";
-        // }
-        //
-        // let isbn = document.getElementById("isbn");
-        // if(isbn.value==""){
-        //     document.getElementById("div_err_isbn").style.display="block";
-        //     return;
-        // }
-        // else{
-        //     document.getElementById("div_err_isbn").style.display="none";
-        // }
+        let book_name = document.getElementById("book_name");
+        if(book_name.value==""){
+            alert("제목을 확인해주세요");
+            return;
+        }
+        let price = document.getElementById("price");
+        if(price.value == 0 || price.value==""){
+            alert("가격을 확인해주세요");
+            return;
+        }
+        let per = document.getElementById("discount_per");
+        if(per.value < 0 || per.value>100 || per.value==""){
+            alert("할인율 확인해주세요");
+            return;
+        }
+        let author = document.getElementById("author");
+        if(author.value.trim()==""){
+            alert("저자를 확인해주세요");
+            return;
+        }
         let publish_date = document.getElementById("publication_date");
         console.log(publish_date.value);
         if(!dateCheck(publish_date) || publish_date.value == ""){
             alert("출판일을 확인해주세요");
             return;
         }
+        let publisher = document.getElementById("publisher");
+        if(publisher.value.trim()==""){
+            alert("출판사를 확인해주세요");
+            return;
+        }
+        let category_class_code = document.getElementById("category_class_code");
+        if(category_class_code.value==""){
+            alert("학년을 설정해주세요");
+            return;
+        }
+        let category_subject_code = document.getElementById("category_subject_code");
+        if(category_subject_code.value==""){
+            alert("과목을 설정해주세요");
+            return;
+        }
+
+
         let contentsStr = "";
         let contentsList = document.getElementsByClassName("contentsList");
         for(i=0;i<contentsList.length;i++){
@@ -347,12 +342,25 @@
         }
         document.getElementById("contents").value = contentsStr.substring(0,contentsStr.length -1);
 
+        let isbn = document.getElementById("isbn");
+        if(isbn.value==""){
+            alert("isbn을 확인해주세요");
+            return;
+        }
+        let book_info = document.getElementById("book_info");
+        if(book_info.value.trim()==""){
+            alert("소개글을 입력해주세요");
+            return;
+        }
+
         console.log(contentsStr);
         console.log(document.getElementById("contents").value);
         document.getElementById("frm_book_regist").submit();
 
 
     });
+
+
     contentsAddBtn.addEventListener("click", function(e){
         e.preventDefault();
         let div = document.createElement("div");

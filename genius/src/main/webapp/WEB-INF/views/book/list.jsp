@@ -169,7 +169,7 @@
                                     <div class="col-md-6 col-lg-4">
                                         <div class="card text-center card-product" data-code ="${list.book_code}">
                                             <div class="card-product__img target" for="ch1">
-                                                <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
+                                                <img class="card-img img-h350 border-gray" src="/resources/upload/book/${list.book_img}" alt="">
                                                 <ul class="card-product__imgOverlay">
                                                     <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-money"></i></button></li>
                                                     <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
