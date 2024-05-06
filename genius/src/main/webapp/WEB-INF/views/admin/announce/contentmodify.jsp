@@ -67,7 +67,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/announce/contentmodify" enctype="multipart/form-data">
+                            <form method="post" id="modifyFrm" action="/admin/announce/contentmodify" enctype="multipart/form-data">
                                 <input type="hidden" name="bbs_idx" value="${bbsDTO.bbs_idx}">
                                 <div class="row mb-3">
                                     <label  class="col-md-4 col-lg-2 col-form-label">카테고리</label>

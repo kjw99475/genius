@@ -68,7 +68,7 @@
 
                         <div class="tab-pane fade show active profile-overview" >
 
-                                <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
+                                <input type="hidden" name="qna_idx" value="${refQnaDTO.qna_idx}">
 
 
                                 <div class="row mb-3">
@@ -83,7 +83,7 @@
                                     <label for="title" class="col-md-4 col-lg-2 col-form-label label">제목</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control"
-                                               value="${qnaDTO.title}" disabled>
+                                               value="${refQnaDTO.title}" disabled>
                                     </div>
                                 </div>
 
@@ -91,7 +91,7 @@
                                     <label for="member_id" class="col-md-4 col-lg-2 col-form-label label">작성자</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="member_id" type="text" class="form-control"
-                                               value="${qnaDTO.member_id}" disabled>
+                                               value="${refQnaDTO.member_id}" disabled>
                                     </div>
                                 </div>
 
@@ -103,18 +103,18 @@
 
                             <div class="row mb-3">
                                 <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
-                                <c:if test="${fileList ne null}">
+                                <c:if test="${qFileList ne null}">
                                     <div class="col-lg-9"></div>
-                                    <c:forEach items="${fileList}" var="file">
+                                    <c:forEach items="${qFileList}" var="file">
                                         <div class="row mb-3">
                                             <div class="col-lg-2"></div>
                                             <div class="col-md-8 col-lg-9 border border-gray rounded p-2" style="margin-left:13px">
-                                                <a href="/admin/qna/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}">${file.original_name}</a>
+                                                <a href="/admin/qna/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${refQnaDTO.qna_idx}">${file.original_name}</a>
                                             </div>
                                         </div>
                                     </c:forEach>
                                 </c:if>
-                                <c:if test="${fileList eq null}">
+                                <c:if test="${qFileList eq null}">
                                     <div class="col-md-8 col-lg-9">
                                         <input type="text" class="form-control" value="등록된 파일이 없습니다." disabled>
                                     </div>
@@ -127,7 +127,7 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-2 col-form-label label">내용</label>
                                     <div class="col-md-8 col-lg-9 overflow-auto mx-2 border border-gray rounded p-2" style="max-height: 500px;">
-                                        ${qnaDTO.contents}
+                                        ${refQnaDTO.contents}
                                     </div>
                                 </div>
                         </div>
@@ -143,7 +143,7 @@
                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                             <!--Form -->
-                            <form method="post" action="/admin/qna/answerregist">
+                            <form method="post" id="modifyFrm" action="/admin/qna/answermodify" enctype="multipart/form-data">
                                 <input type="hidden" name="qna_idx" value="${qnaDTO.qna_idx}">
 
 
@@ -160,6 +160,9 @@
                                     <div class="col-md-8 col-lg-9">
                                         <input name="title" type="text" class="form-control" id="title"
                                                value="${qnaDTO.title}">
+                                        <div class="invalid-feedback" id="err_title" style="display: none">
+                                            2~60자 사이로 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -179,36 +182,44 @@
 <%--                                </div>--%>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-2 col-form-label label">파일</label>
-                                    <c:if test="${fileList ne null}">
-                                        <div class="col-lg-9"></div>
-                                        <c:forEach items="${fileList}" var="file">
-                                            <div class="row mb-3">
-                                                <div class="col-lg-2"></div>
-                                                <div class="col-md-8 col-lg-9 border border-gray rounded p-2" style="margin-left:13px">
-                                                    <a href="/admin/qna/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}">${file.original_name}</a>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <c:if test="${fileList eq null}">
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="text" class="form-control" value="등록된 파일이 없습니다." disabled>
-                                        </div>
-                                    </c:if>
+                                    <label class="col-md-4 col-lg-2 col-form-label">파일</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input class="p-1" type="file" name="files" id="file"  multiple="multiple" onchange="fileList(this)">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="file-list" class="form-group d-flex flex-column m-0 p-0">
+                                        </ul>
+                                    </div>
+                                </div>
 
+                                <div class="row mb-3">
+                                    <label for="file-list" class="col-md-4 col-lg-2 col-form-label">기존 파일 리스트</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
+                                            <c:forEach items="${fileList}" var="file">
+                                                <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span>${file.original_name}</span><span><a id="deleteButton" data-fileIdx="idx" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span></li>
+                                                <input id="file-idx" type="hidden" name="orgFiles" value="${file.file_idx}">
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="summernote" class="col-md-4 col-lg-2 col-form-label">내용</label>
                                     <div class="col-md-8 col-lg-9">
                                         <textarea id="summernote" name="contents" >${qnaDTO.contents}</textarea>
+                                        <div class="invalid-feedback" id="err_contents" style="display: none">
+                                            20자 이상 입력해주세요.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="d-flex text-center mt-5 justify-content-end">
-                                    <button type="submit" class="btn btn-success me-2">수정 완료</button>
-                                    <button type="button" class="btn btn-outline-success" onclick="history.back()">취소</button>
+                                    <button type="submit" id="modifyBtn" class="btn btn-success me-2">수정 완료</button>
+                                    <button type="button" class="btn btn-outline-success" onclick="location.href='/admin/qna/view?qna_idx=${qnaDTO.qna_idx}'">취소</button>
                                 </div>
 
                             </form><!-- EndForm -->
@@ -235,6 +246,35 @@
 <link href="/resources/css/summernote/summernote-lite.css" rel="stylesheet">
 <script src="/resources/js/summernote/summernote-lite.js"></script>
 <script>
+
+    let modifyFrm = document.getElementById("modifyFrm");
+    let modifyBtn = document.getElementById("modifyBtn");
+    modifyBtn.addEventListener("click", function(e){
+        e.preventDefault();
+        if(document.getElementById("title").value.length < 2 ||document.getElementById("title").value.length > 60){
+            document.getElementById("err_title").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_title").style.display = "none";
+        }
+        let contentsText = (document.getElementById("summernote").value.replace(/<[^>]+>/g, '')).replaceAll("&nbsp;",'').trim();
+
+        if(contentsText.length <20){
+            document.getElementById("err_contents").style.display = "block";
+            return;
+        }
+        else{
+            document.getElementById("err_contents").style.display = "none";
+        }
+        modifyFrm.submit();
+    });
+
+    <c:forEach items="${errors}" var="err">
+    if(document.getElementById("err_${err.getField()}") != null) {
+        document.getElementById("err_${err.getField()}").style.display = "block";
+    }
+    </c:forEach>
     //서머노트
     $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
@@ -250,6 +290,7 @@
             ['view', ['codeview', 'help']]
         ]
     });
+
 
     function imageUploader(file, el) {
         var formData = new FormData();
@@ -296,7 +337,33 @@
         fileArray.forEach(file => {dataTransfer.items.add(file);});
         document.querySelector('#file').files = dataTransfer.files;
     }
-
+    // 파일 리스트 조작용(파일 추가)
+    function fileList(element) {
+        document.querySelector('#file-list').innerHTML = "";
+        let fileList = document.querySelector('#file-list');
+        console.log(element.files);
+        for (let i=0; i < element.files.length; i++) {
+            let list = document.createElement('li');
+            list.classList.add('card', 'mb-1', 'shadow-none', 'border', 'border-gray', 'd-flex', 'flex-row', 'justify-content-between', 'p-2', 'fileListNodes');
+            list.dataset.idx = i;
+            list.innerHTML = '<span>' + element.files.item(i).name + '</span><span><a id="deleteButton" class="text-danger font-weight-bold pr-2" href="#" onclick="deleteThisFile(this)">X</a></span>'
+            fileList.append(list);
+        }
+    }
+    // 파일 리스트 개별 삭제용
+    function deleteThisFile(element) {
+        event.preventDefault();
+        element.parentElement.parentElement.remove();
+        let input = document.getElementById("file-"+element.dataset.fileidx);
+        $(input).remove();
+        const dataTransfer = new DataTransfer();
+        let target = element.dataset.idx;
+        let files = document.querySelector('#file').files;
+        let fileArray = Array.from(files);
+        fileArray.splice(target, 1);
+        fileArray.forEach(file => {dataTransfer.items.add(file);});
+        document.querySelector('#file').files = dataTransfer.files;
+    }
 </script>
 
 <!-- Vendor JS Files -->

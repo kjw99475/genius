@@ -31,18 +31,7 @@ public class ReviewController {
         log.info("v : " + reviewDTO.toString());
         log.info("================================");
 
-//        if(bindingResult.hasErrors()){
-//            log.info("Errors");
-//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//            redirectAttributes.addFlashAttribute("reviewDTO",reviewDTO);
-//
-//
-//            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
-//        }
-//        log.info("================================");
-//        log.info("v >> registPOST()");
-//        log.info("v : " + reviewDTO.toString());
-//        log.info("================================");
+
 
         if(bindingResult.hasErrors()){
             log.info("Errors");
@@ -53,6 +42,7 @@ public class ReviewController {
 
             return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
         }
+
 
 
         int result = reviewServiceIf.regist(reviewDTO);

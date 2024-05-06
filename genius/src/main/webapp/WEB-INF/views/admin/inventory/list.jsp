@@ -180,8 +180,8 @@
                             <td>${bookDTO.author}</td>
                             <td>${bookDTO.publisher}</td>
                             <td>${bookDTO.publication_date}</td>
-                            <td>${bookDTO.category_class_code}</td>
-                            <td>${bookDTO.category_subject_code}</td>
+                            <td>${bookDTO.class_name}</td>
+                            <td>${bookDTO.subject_name}</td>
                             <td>
                                 <select name="type" class="form-select sales_status">
                                     <option value="1" <c:if test="${bookDTO.sales_status == '1'}"> selected</c:if>>판매중</option>

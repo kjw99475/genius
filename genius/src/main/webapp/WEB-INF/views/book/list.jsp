@@ -325,7 +325,12 @@
                 "quantity" :1
             },
             success : function(data) {
-                alert("장바구니 성공");///문제가 있을수 있어용
+                if(data.result == "success") {
+                    alert("장바구니 성공");///문제가 있을수 있어용
+                    location.href = "/mypage/cart";
+                }else{
+                    alert("장바구니에 상품이 담기지 못했습니다");
+                }
             },
             fail : function (data){
 

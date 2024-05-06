@@ -18,6 +18,7 @@ public interface OrderMapper {
     int cancelOrder(OrderDTO orderDTO);
     int delete(int order_idx);
     int total_count();
+    int orderDetailTotalCount(String order_num);
     List<OrderVO> AdminOrderdetail(String order_num);
     int updateOrderState(OrderVO orderVO);
     int updateDcompany(OrderVO orderVO);

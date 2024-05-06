@@ -156,7 +156,9 @@ public class PaymentServiceImpl implements PaymentServiceIf{
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
             OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
             OrderVO detailVO = modelMapper.map(detailorderDTO, OrderVO.class);
-
+            if(orderVO.getOrder_addr1().equals("") || orderVO.getOrder_addr2().equals("") || orderVO.getOrder_addr1() == null || orderVO.getOrder_addr2() == null){
+                throw new InsufficientStockException("배송지 정보를 똑바로 입력하세요.");
+            }
             String msg = "";
 
             log.info("======orderVO=======:"+orderVO.toString());
@@ -214,6 +216,9 @@ public class PaymentServiceImpl implements PaymentServiceIf{
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
         OrderVO orderVO = modelMapper.map(orderDTO1, OrderVO.class);
 
+        if(orderVO.getOrder_addr1().equals("") || orderVO.getOrder_addr2().equals("") || orderVO.getOrder_addr1() == null || orderVO.getOrder_addr2() == null){
+            throw new InsufficientStockException("배송지 정보를 똑바로 입력하세요.");
+        }
         int result = paymentMapper.memberPay(paymentVO);
         log.info("======================================텟"+orderVO.toString());
         int result4 = orderMapper.regist(orderVO);
@@ -236,6 +241,7 @@ public class PaymentServiceImpl implements PaymentServiceIf{
                     .build();
             BookVO bookVO = bookMapper.view(detailorderDTO.getBook_code());
             OrderVO detailOrderVO = modelMapper.map(detailorderDTO, OrderVO.class);
+
             if(detailOrderVO.getAmount()>bookVO.getQuantity()){
                 throw new InsufficientStockException("주문하신 도서 수량이 재고보다 많습니다.\n도서명:"+bookVO.getBook_name() +",재고 :"+bookVO.getQuantity());
             }

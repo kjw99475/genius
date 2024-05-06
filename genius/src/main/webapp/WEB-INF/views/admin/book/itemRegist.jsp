@@ -89,7 +89,7 @@
                                     <label for="price" class="col-md-4 col-lg-2 col-form-label">정가</label>
                                     <div class="col-md-8 col-lg-10">
                                         <input name="price" type="text" class="form-control" id="price"
-                                               value="${bookDTO.price}">
+                                               value="${bookDTO.price}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </div>
                                     <div class="invalid-feedback" id="div_err_price" style="display: none"></div>
                                 </div>
@@ -97,7 +97,7 @@
                                 <div class="row mb-3">
                                     <label for="discount_per" class="col-md-4 col-lg-2 col-form-label">할인율</label>
                                     <div class="col-md-8 col-lg-10">
-                                        <input name="discount_per" type="text" class="form-control" id="discount_per" value="${bookDTO.discount_per}">
+                                        <input name="discount_per" type="text" class="form-control" id="discount_per" value="${bookDTO.discount_per}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </div>
                                     <div class="invalid-feedback" id="div_err_discount_per" style="display: none"></div>
                                 </div>
@@ -331,8 +331,9 @@
         //     document.getElementById("div_err_isbn").style.display="none";
         // }
         let publish_date = document.getElementById("publication_date");
-        if(dateCheck(publish_date)){
-            alert("날짜를 확인해주세요");
+        console.log(publish_date.value);
+        if(!dateCheck(publish_date) || publish_date.value == ""){
+            alert("출판일을 확인해주세요");
             return;
         }
         let contentsStr = "";

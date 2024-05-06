@@ -269,11 +269,11 @@
                 <form action="/mypage/point" method="post" name="frmCharge" id="frmCharge">
                     <div class="form-group">
                         <label for="target">충전 금액</label>
-                        <input type="text" class="form-control" id="target" name="point" aria-describedby="emailHelp" value="0">
+                        <input type="text" class="form-control" id="target" name="point" aria-describedby="emailHelp" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                         <small id="emailHelp" class="form-text text-muted">아래의 금액단위를 클릭해 충전금액을 입력해주세요</small>
                     </div>
                     <div class="d-flex justify-content-center pb-2" role="group" style="gap:5px">
-                        <button type="button" class="btn btn-default btn-price" data-price="1">+1</button>
+                        <button type="button" class="btn btn-default btn-price" data-price="1000">+1천</button>
                         <button type="button" class="btn btn-default btn-price" data-price="10000">+1만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="50000">+5만</button>
                         <button type="button" class="btn btn-default btn-price" data-price="100000">+10만</button>
@@ -404,6 +404,22 @@
         document.querySelector("#datebtn").addEventListener('click',()=>{
             document.querySelector("#dateform").submit();
         });
+
+    function allowOnlyNumbers(event) {
+        // 입력된 값 중에서 숫자가 아닌 것들을 필터링하여 제거합니다.
+        var inputChar = String.fromCharCode(event.keyCode);
+        if (/^\d+$/.test(inputChar) || event.keyCode === 8 || event.keyCode === 46) {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    }
+
+    var numericInput = document.getElementById('target');
+
+    // 입력 이벤트를 등록합니다.
+    numericInput.addEventListener('keydown', allowOnlyNumbers)
     //////////////////////////////////////////결제 모듈////////////////////////////////////
 
 </script>

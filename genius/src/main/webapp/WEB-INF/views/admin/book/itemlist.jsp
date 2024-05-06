@@ -81,12 +81,19 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                    <label class="fw-bold p-3" style="margin-right: 80px">학년</label>
-                                    <label class="fw-bold p-3" style="margin-right: 80px">과목</label>
-                                    <label class="fw-bold p-3">키워드 검색</label>
+                                        <label class="fw-bold p-3" style="margin-right: 45px">주문상태</label>
+                                        <label class="fw-bold p-3" style="margin-right: 80px">학년</label>
+                                        <label class="fw-bold p-3" style="margin-right: 80px">과목</label>
+                                        <label class="fw-bold p-3">키워드 검색</label>
                                     </div>
                                     <div class="d-flex align-items-center" style="gap: 10px">
-
+                                        <select name="status" class="form-select sales_status w-200px">
+                                            <option value="0" selected>전체</option>
+                                            <option value="1" >판매중</option>
+                                            <option value="2" >판매준비중</option>
+                                            <option value="3" >판매종료</option>
+                                            <option value="4" >품절</option>
+                                        </select>
                                         <select name="class_code" class="form-select w-200px" id="category_class_code">
                                             <option value="">전체</option>
                                             <c:forEach items="${classList}" var="list">
@@ -168,8 +175,8 @@
                             <td>${bookDTO.discount_price}</td>
                             <td>${bookDTO.author}</td>
                             <td>${bookDTO.publisher}</td>
-                            <td>${bookDTO.category_class_code}</td>
-                            <td>${bookDTO.category_subject_code}</td>
+                            <td>${bookDTO.class_name}</td>
+                            <td>${bookDTO.subject_name}</td>
                             <td><span class="badge
                                 <c:choose>
                                     <c:when test="${bookDTO.sales_status == '1'}">

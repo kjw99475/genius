@@ -204,4 +204,23 @@ public class AdminOrderController {
         return new Gson().toJson(resultMap);
     }
 
+    @RequestMapping(value = "/completeDelivery.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String completeDelivery(@RequestParam HashMap<String,Object> map){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        log.info("map:" + map.toString());
+        OrderDTO orderDTO = OrderDTO.builder().
+                order_num(map.get("order_num").toString()).
+                order_state(map.get("order_state").toString()).
+                build();
+        if(!map.get("order_state").toString().equals("")) {
+            orderService.updateOrderState(orderDTO);
+            resultMap.put("result", "success");
+        }else{
+            resultMap.put("result", "fail");
+            resultMap.put("message", "오류가 발생했습니다.");
+        }
+        return new Gson().toJson(resultMap);
+    }
+
 }

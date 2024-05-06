@@ -189,4 +189,9 @@
         WHERE order_num = #{order_num}
     </update>
 
+    <select id="orderDetailTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_orderdetail
+        WHERE order_num = #{param1}
+    </select>
 </mapper>

@@ -57,8 +57,11 @@ public class MemberController {
     }
 
     @GetMapping("/complete")
-    public void GETComplete(){
-
+    public String GETComplete(@RequestParam(name="member_name", defaultValue = "")String member_name){
+        if(member_name.equals("")) {
+            return "redirect:/main/main";
+        }
+        return "/member/complete";
     }
 
 
