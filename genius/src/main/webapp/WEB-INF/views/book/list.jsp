@@ -75,7 +75,7 @@
                     <div class="sidebar-filter">
                         <div class="top-filter-head">카테고리</div>
                         <div class="common-filter">
-                            <div class="filter-list"><input class="pixel-radio" type="radio" value="" onclick="categoryClassSearch(this)" name="class_code_check" checked><label>전체</label></div>
+                            <div class="filter-list pt-3"><input class="pixel-radio" type="radio" value="" onclick="categoryClassSearch(this)" name="class_code_check" checked><label>전체</label></div>
                             <div class="head">초등</div>
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
@@ -152,9 +152,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pb-2 d-flex justify-content-end mb-4 mt-4">
-
-                            <div class="sorting">
+                        <div class="d-flex justify-content-end mb-3 mt-3 align-items-center">
+                            <div class="sorting m-0">
                                 <button type="button" class="btn btn-success" onclick="cartChoices()">장바구니에 담기</button>
                             </div>
                         </div>
@@ -163,55 +162,61 @@
                     <!-- End Filter Bar -->
                     <!-- Start Best Seller -->
                     <section class="lattest-product-area pb-40 category-list">
-                        <div class="row">
-                            <c:if test="${responseDTO.dtoList == []}">
-                                <div class="mt-3 border-gray-bottom" style="margin:0px auto;">검색 결과가 없습니다.</div>
-                            </c:if>
-                            <c:forEach items="${responseDTO.dtoList}" var="list">
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card text-center card-product" data-code ="${list.book_code}">
-                                        <div class="card-product__img target" for="ch1">
-                                            <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
-                                            <ul class="card-product__imgOverlay">
-                                                <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-money"></i></button></li>
-                                                <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
-                                            </ul>
-                                            <div class="form-check targetTo ">
-                                                <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
+                        <c:choose>
+                            <c:when test="${!empty responseDTO.dtoList}">
+                            <div class="row">
+                                <c:forEach items="${responseDTO.dtoList}" var="list">
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card text-center card-product" data-code ="${list.book_code}">
+                                            <div class="card-product__img target" for="ch1">
+                                                <img class="card-img img-h350" src="/resources/upload/book/${list.book_img}" alt="">
+                                                <ul class="card-product__imgOverlay">
+                                                    <li><button onclick="event.stopPropagation();location.href='/order/payment1?book_code=${list.book_code}'"><i class="ti-money"></i></button></li>
+                                                    <li><button onclick="event.stopPropagation();addcart('${list.book_code}')"><i class="ti-shopping-cart"></i></button></li>
+                                                </ul>
+                                                <div class="form-check targetTo ">
+                                                    <input class="form-check-input lg-checkbox choose" type="checkbox" value="${list.book_code}" id="ch1">
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>${list.class_name} > ${list.subject_name}</p>
+                                                <h4 class="card-product__title"><a href="#">${list.book_name}</a></h4>
+                                                <h5><c:if test="${list.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
+                                                    <c:if test="${list.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
+                                                    <c:if test="${list.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
+                                                    <c:if test="${list.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
+                                                <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(list.price)}</s> ${CommonUtil.comma(list.discount_price)}</p>
+                                                <p class="card-product__rank stars">
+                                                    <c:choose>
+                                                        <c:when test="${list.rank_avg > 0}">
+                                                            <c:forEach begin="1" end="5" step="1" varStatus="status">
+                                                                <c:if test="${status.index <= list.rank_avg}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </c:if>
+                                                                <c:if test="${status.index > list.rank_avg}">
+                                                                    <i class="fa fa-star text-secondary"></i>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:forEach begin="1" end="5" step="1">
+                                                                <i class="fa fa-star text-secondary"></i>
+                                                            </c:forEach>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="card-body">
-                                            <p>${list.class_name} > ${list.subject_name}</p>
-                                            <h4 class="card-product__title"><a href="#">${list.book_name}</a></h4>
-                                            <h5><c:if test="${list.sales_status == '1'}"><span class="badge bg-success text-white">판매중</span></c:if>
-                                                <c:if test="${list.sales_status == '2'}"><span class="badge bg-warning text-white" >판매준비중</span></c:if>
-                                                <c:if test="${list.sales_status == '3'}"><span class="badge bg-dark text-white" >판매종료</span></c:if>
-                                                <c:if test="${list.sales_status == '4'}"><span class="badge bg-danger text-white" >품절</span></c:if></h5>
-                                            <p class="card-product__price text-geni"><s class="text-muted h6">${CommonUtil.comma(list.price)}</s> ${CommonUtil.comma(list.discount_price)}</p>
-                                            <p class="card-product__rank stars">
-                                                <c:choose>
-                                                    <c:when test="${list.rank_avg > 0}">
-                                                        <c:forEach begin="1" end="5" step="1" varStatus="status">
-                                                            <c:if test="${status.index <= list.rank_avg}">
-                                                                <i class="fa fa-star"></i>
-                                                            </c:if>
-                                                            <c:if test="${status.index > list.rank_avg}">
-                                                                <i class="fa fa-star text-secondary"></i>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <c:forEach begin="1" end="5" step="1">
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                        </c:forEach>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </p>
-                                        </div>
                                     </div>
-                                </div>
-                            </c:forEach>
-                        </div>
+                                </c:forEach>
+                            </div>
+                            </c:when>
+                            <c:otherwise>
+                            <div class="row border-gray-bottom border-gray-top justify-content-center align-items-center m-0">
+                                <p class="text-center m-0 p-3">검색 결과가 없습니다.</p>
+                            </div>
+                            </c:otherwise>
+                        </c:choose>
                     </section>
                     <!-- End Best Seller -->
                 </div>
