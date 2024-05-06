@@ -3,12 +3,11 @@ package org.fullstack4.genius.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
+import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.domain.ReviewVO;
-import org.fullstack4.genius.dto.BookDTO;
-import org.fullstack4.genius.dto.PageRequestDTO;
-import org.fullstack4.genius.dto.PageResponseDTO;
-import org.fullstack4.genius.dto.ReviewDTO;
+import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.mapper.BookMapper;
+import org.fullstack4.genius.mapper.OrderMapper;
 import org.fullstack4.genius.mapper.ReviewMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewServiceIf{
     private final ReviewMapper reviewMapper;
+    private final OrderMapper orderMapper;
     private final ModelMapper modelMapper;
     @Override
     @Transactional
@@ -83,5 +83,15 @@ public class ReviewServiceImpl implements ReviewServiceIf{
                 .build();
 
         return responseDTO;
+    }
+
+    @Override
+    public List<OrderDTO> reviewConfirm(String member_id) {
+        List<OrderVO> voList = orderMapper.reviewConfirm(member_id);
+        List<OrderDTO> dtoList = voList.stream()
+                .map(vo->modelMapper.map(vo,OrderDTO.class))
+                .collect(Collectors.toList());
+
+        return dtoList;
     }
 }

@@ -39,6 +39,17 @@
 
 <!--================ 본문 start =================-->
 <main class="site-main">
+
+    <c:if test="${param.reviewNo == '1'}">
+        <script>
+            alert("리뷰는 구매 후 등록 가능합니다.");
+        </script>
+    </c:if>
+    <c:if test="${param.reviewAgain == '1'}">
+        <script>
+            alert("리뷰는 한번만 작성 가능합니다.");
+        </script>
+    </c:if>
     <!-- ================ start banner area ================= -->
     <section class="bg-img1 p-6" id="category">
         <div class="container h-100 p-3">
@@ -106,7 +117,7 @@
                         <p>${bookDTO.book_info}</p>
                         <div class="product_count pt-2">
                             <label for="sst">수량 :</label>
-                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="0" title="Quantity:" class="input-text qty">
+                            <input type="number" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                         </div>
                         <div class="d-grid gap-2">
                             <button id="scrollTarget" class="button primary-outline-btn" type="button" onclick="purchasepage()">바로 구매</button>
@@ -358,7 +369,7 @@
     function purchasepage(){
         let quantity = document.querySelector("#sst").value;
         if(quantity <= 0){
-            alert("수량을 입력해라");
+            alert("수량을 입력해주세요");
         }else{
             location.href='/order/payment1?book_code=${bookDTO.book_code}&quantity='+quantity;
         }

@@ -3,6 +3,7 @@ package org.fullstack4.genius.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PaymentDTO;
 import org.fullstack4.genius.dto.ReviewDTO;
 import org.fullstack4.genius.service.ReviewServiceIf;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -30,6 +32,32 @@ public class ReviewController {
         log.info("v >> registPOST()");
         log.info("v : " + reviewDTO.toString());
         log.info("================================");
+
+        int reviewOkFlag = 0;
+        int reviewOkFlag2 = 0;
+        List<OrderDTO> orderDTOList = reviewServiceIf.reviewConfirm(reviewDTO.getMember_id());
+        List<ReviewDTO> reviewDTOList = reviewServiceIf.listAll(reviewDTO.getBook_code());
+
+        for(OrderDTO ord :  orderDTOList){
+            if(ord.getBook_code().equals(reviewDTO.getBook_code()) && ord.getMember_id().equals(reviewDTO.getMember_id())){
+                reviewOkFlag = 1;
+            }
+        }
+        log.info("flag : " + reviewOkFlag);
+        if(reviewOkFlag==0){
+            redirectAttributes.addAttribute("reviewNo",1);
+            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
+        }
+
+        for(ReviewDTO dto : reviewDTOList){
+            if(dto.getBook_code().equals(reviewDTO.getBook_code()) && dto.getMember_id().equals(reviewDTO.getMember_id())){
+                reviewOkFlag2 = 1;
+            }
+        }
+        if(reviewOkFlag2==1){
+            redirectAttributes.addAttribute("reviewAgain",1);
+            return "redirect:/book/view?book_code="+reviewDTO.getBook_code();
+        }
 
 
 

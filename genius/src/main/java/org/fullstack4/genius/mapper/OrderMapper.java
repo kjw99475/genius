@@ -12,6 +12,7 @@ public interface OrderMapper {
     int detailregist(OrderVO orderVO);
     int deliveryRegist(OrderVO orderVO);
     List<OrderVO> AdminlistAll();
+    List<OrderVO> reviewConfirm(String member_id);
     List<OrderVO> listAll(String user_id);
     List<OrderVO> orderDetail(String order_num);
     OrderVO view(String user_id);

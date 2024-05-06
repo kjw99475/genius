@@ -30,10 +30,10 @@
         </li>
         <!-- End 회원 관리 Page Nav -->
         <li class="nav-item">
-            <a class="nav-link <c:if test="${not fn:contains(param.menuGubun, 'bbs_')}">collapsed</c:if>" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link <c:if test="${not fn:contains(param.menuGubun, 'bbs_')}">collapsed</c:if>" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#" aria-controls="form_nav_bbs" >
                 <i class="bi bi-journal-text"></i><span>게시판 관리</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse <c:if test="${fn:contains(param.menuGubun, 'bbs_')}">show</c:if>" data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content collapse <c:if test="${fn:contains(param.menuGubun, 'bbs_')}">show</c:if>" data-bs-parent="#sidebar-nav" aria-labelledby="form_nav_bbs">
                 <li>
                     <a href="/admin/banner/bannerList"<c:if test="${param.menuGubun eq 'bbs_banner'}">class="active"</c:if>>
                         <i class="bi bi-circle"></i><span>배너 관리</span>

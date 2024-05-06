@@ -1,6 +1,7 @@
 package org.fullstack4.genius.service;
 
 import org.fullstack4.genius.domain.ReviewVO;
+import org.fullstack4.genius.dto.OrderDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.dto.PageResponseDTO;
 import org.fullstack4.genius.dto.ReviewDTO;
@@ -15,5 +16,6 @@ public interface ReviewServiceIf {
     int updateAvg(String book_code);
     int reviewTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<ReviewDTO> reviewListByPage(PageRequestDTO requestDTO);
+    List<OrderDTO> reviewConfirm(String member_id);
 
 }

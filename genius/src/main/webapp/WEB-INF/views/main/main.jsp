@@ -52,10 +52,10 @@
       <div class="pb-4">
         <ul class="nav nav-pills justify-content-end">
           <li class="nav-item">
-            <a class="nav-link active-geni active" aria-current="page" href="#" data-target="yesterday" onclick="showThis(this)">최근 7일 기준</a>
+            <a class="nav-link nav-link_day active-geni active" aria-current="page" href="#" data-target="yesterday" onclick="showThis(this)">최근 7일 기준</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
+            <a class="nav-link nav-link_day text-geni" href="#" data-target="total" onclick="showThis(this)">누적</a>
           </li>
         </ul>
       </div>
@@ -274,7 +274,7 @@
     event.stopPropagation();
     let target = element.dataset.target;
     let rankes = document.querySelectorAll('.rank');
-    let buttons = document.querySelectorAll('.nav-link');
+    let buttons = document.querySelectorAll('.nav-link_day');
     for(let button of buttons) {
       button.classList.remove('active-geni', 'active', 'text-white');
       button.classList.add('text-geni');
