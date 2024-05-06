@@ -81,6 +81,12 @@
         FROM tbl_orderdetail
         where order_num=#{param1}
     </select>
+    <select id="reviewConfirm" resultType="org.fullstack4.genius.domain.OrderVO">
+        select tor.order_idx, tor.order_num, tod.book_code, tor.member_id
+        FROM tbl_order as tor inner join tbl_orderdetail as tod
+            on tor.order_num = tod.order_num
+        WHERE member_id= #{member_id}
+    </select>
 
     <update id="cancelOrder">
         UPDATE tbl_order SET cancel_YN = #{cancel_YN} , cancel_date = NOW(), order_state=#{order_state}
@@ -118,6 +124,7 @@
         )
 
     </insert>
+
 
     <select id="OrderTotalCount" resultType="int">
         SELECT COUNT(*)
