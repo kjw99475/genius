@@ -130,7 +130,7 @@
 
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success" onclick="location.href='/admin/book/itemModify?book_code=${bookDTO.book_code}'">수정</button>
-                                <button type="button" class="btn btn-outline-success" id="btn_book_delete" onclick="book_delete();">삭제</button>
+<%--                                <button type="button" class="btn btn-outline-success" id="btn_book_delete" onclick="book_delete();">삭제</button>--%>
                             </div>
                         </div>
                     </div><!-- End Bordered Tabs -->
