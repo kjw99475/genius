@@ -80,6 +80,19 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
+                                        <label for="admin_YN" class="col-md-4 col-lg-2 col-form-label label">상태</label>
+                                        <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px ps-3">
+                                            <c:choose>
+                                                <c:when test="${memberDTO.status == 'Y'}">
+                                                    정상
+                                                </c:when>
+                                                <c:otherwise>
+                                                    탈퇴 (${memberDTO['leave_date']})
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <label for="admin_YN" class="col-md-4 col-lg-2 col-form-label label">구분</label>
                                         <div class="col-md-8 col-lg-10 d-flex flex-column gap-5px">
                                             <select id="admin_YN" name="admin_YN" class="form-select">
@@ -197,7 +210,9 @@
                                         </div>
                                         <div>
                                             <button type="submit" class="btn btn-success">수정</button>
+                                            <c:if test="${dtoList.status == 'Y'}">
                                             <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </form>
