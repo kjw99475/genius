@@ -49,15 +49,17 @@
                         <div class="p-4 ml-4 mr-4 mb-4 rounded bg-light d-flex justify-content-center align-items-center flex-wrap">
                             <p class="p-0 m-0">확인된 계정 : ${param['member_id']}</p>
                         </div>
-                        <form class="row login_form mb-5" method="post" action="/login/changePwd" id="frm" >
+                        <form class="row login_form mb-5" method="post" action="/login/changePwd" id="frmPwd" >
                             <input type="hidden" name="member_id" value="${param['member_id']}">
                             <div class="col-md-12 form-group text-left">
                                 <label>새 비밀번호</label>
-                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                <input type="password" data-name="새 비밀번호" class="form-control" id="pwd" name="pwd" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
+                                <small id="err_pwd" class="info text-danger"></small>
                             </div>
                             <div class="col-md-12 form-group text-left">
                                 <label>비밀번호 확인</label>
-                                <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                <input type="password" data-name="비밀번호 확인" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호 확인'">
+                                <small id="err_pwdCheck" class="info text-danger"></small>
                             </div>
                             <div class="col-md-12 form-group d-flex flex-column" style="gap:50px">
                                 <button type="submit" class="btn btn-success w-100">비밀번호 변경</button>
@@ -79,7 +81,40 @@
 <!--================ 푸터 Start =================-->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <!--================ 푸터 End =================-->
-
+<script src="/resources/js/commonUtil.js"></script>
+<script>
+    // 유효성 검사
+    let checkTarget = ['pwd', 'pwdCheck'];
+    document.querySelector('#frmPwd').addEventListener('submit', checkForm);
+    function checkForm() {
+        event.preventDefault();
+        for(let info of document.querySelectorAll('.info')) {
+            $(info).text("");
+        }
+        // 공란 검사
+        for (let element of checkTarget) {
+            let target = $('input[name='+element+']');
+            if (!nullCheck($(target))) {
+                $('#err_'+element).text($(target).data('name') + "을 입력해주세요");
+                $(target).focus();
+                return false;
+            }
+        }
+        // 정규식 검사
+        if(!passwordRegCheck($('input[name=pwd]'))){
+            $('#err_pwd').text("비밀번호는 영문 소/대문자 + 숫자 + 특수문자를 조합하여 8글자 이상, 20글자 이하로 입력해주세요. 가능한 특수문자 : !@#$%^*+=-");
+            $('input[name=pwd]').focus();
+            return false;
+        }
+        // 중복 체크 및 일치 여부 검사
+        if (!passwordMatch($('input[name=pwd]'), $('input[name=pwdCheck]'))) {
+            $('#err_pwdCheck').text("비밀번호가 일치하지 않습니다.");
+            $('input[name=pwdCheck]').focus();
+            return false;
+        }
+        document.querySelector('#frmPwd').submit();
+    }
+</script>
 <script src="/resources/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/resources/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/resources/vendors/skrollr.min.js"></script>
