@@ -1,6 +1,8 @@
 package service;
 
+import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.genius.Common.InsufficientStockException;
 import org.fullstack4.genius.domain.OrderVO;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.*;
@@ -13,9 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -252,5 +252,99 @@ public class HyunbeenTest {
         log.info("total_price: " + total_price);
         log.info("result: " + result);
         log.info("==================================");
+    }
+
+    @Test
+    public void gara(){
+//        String[] bookCodeList = new String[]{"c03s0333444","c03s0351542","c03s0333145","c03s0351322"};
+//        String[] memberList = new String[]{"admin","dltjdrp123","wjddirdyd123","wjdwndqn123"};
+//        log.info("bookCodeList : " + Arrays.toString(bookCodeList));
+//
+//        int result = 0;
+//        for(int i = 0 ; i < bookCodeList.length; i++) {
+//            int exist = cart.exist(bookCodeList[i], memberList[i]);
+//
+//            if (exist != 0) {
+//                CartDTO cartDTO = CartDTO.builder()
+//                        .book_code(bookCodeList[i])
+//                        .member_id(memberList[i])
+//                        .quantity(i)
+//                        .build();
+//                result = cart.updateCart(cartDTO);
+//            } else if (exist == 0) {
+//                CartDTO cartDTO = CartDTO.builder()
+//                        .book_code(bookCodeList[i])
+//                        .member_id(memberList[i])
+//                        .quantity(i)
+//                        .build();
+//                result = cart.regist(cartDTO);
+//            }
+//        }
+
+
+        HashMap<String, Object> resultMap = new HashMap<>();
+
+        String member_id = "admin";
+        resultMap.put("result", "fail");
+        MemberDTO dto = member.view(member_id);
+
+        /////////////////주문 번호랑 상세 정보 insert ////////////
+        int random = (int) (Math.random()*100000)+1;
+        String order_num=new SimpleDateFormat("yyMMddHmss").format(new Date())+"-"+random;
+
+        //////////////회원정보 포인트 빠져나가기//////////////////
+        PaymentDTO paymentDTO = PaymentDTO.builder()
+                .payment_num(order_num)
+                .member_id(member_id)
+                .price(Integer.parseInt("-"+40600))
+                .method("포인트")
+                .company("genius")
+                .use_type("구매")
+                .title("포인트 사용")
+                .build();
+
+        log.info("ajax :####"+paymentDTO);
+
+        String[] cartlist = new String[]{"91","83"};
+        log.info("cartlist: " + Arrays.toString(cartlist));
+        List<CartDTO> dtolist = new ArrayList<CartDTO>();
+        for(int i = 0; i<cartlist.length; i++) {
+            CartDTO dto1 = cart.view(Integer.parseInt(cartlist[i]));
+            dtolist.add(dto1);
+        }
+
+        OrderDTO orderDTO1 = OrderDTO.builder()
+                .member_id(member_id)
+                .order_num(order_num)
+                .order_state("배송 전")
+                .total_price(Integer.parseInt("40600"))
+                .order_addr1("경복궁")
+                .order_addr2("서울 종로구 사직로 161")
+                .delivery_addr2("경복궁")
+                .delivery_addr1("서울 종로구 사직로 161")
+                .order_name("관리자")
+                .order_phone("01043734457")
+                .order_zipcode("03045")
+                .build();
+        try {
+            if (dto.getPoint() > 40600) {
+                payment.testPayment(paymentDTO, orderDTO1, dtolist, member_id, order_num, 40600);
+                for (int i = 0; i < dtolist.size(); i++) {
+                    cart.delete(dtolist.get(i));
+                }
+
+                log.info("성공적으로 결제되었습니다.");
+            } else {
+
+                log.info("포인트가 부족합니다.");
+            }
+        }
+        catch(InsufficientStockException e) {
+            log.info(e.getMessage());
+        }
+
+
+
+
     }
 }
