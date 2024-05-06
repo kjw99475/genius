@@ -93,7 +93,7 @@
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img class="img-w150" src="/resources/upload/book/${list.book_img}" alt="">
+                                        <img class="img-w150 border-gray" src="/resources/upload/book/${list.book_img}" alt="">
                                     </div>
                                     <div class="media-body">
                                         <p><a href="/book/view?book_code=${list.book_code}" style="color:black;">${list.book_name}</a></p>
