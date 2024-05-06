@@ -220,8 +220,8 @@
                                         </div>
                                         <div>
                                             <button type="submit" class="btn btn-success">수정</button>
-                                            <c:if test="${dtoList.status == 'Y'}">
-                                            <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
+                                            <c:if test="${memberDTO.status == 'Y'}">
+                                                <button type="button" class="btn btn-outline-success" id="btn_member_delete" onclick="leave('${memberDTO['member_id']}')">탈퇴</button>
                                             </c:if>
                                         </div>
                                     </div>
