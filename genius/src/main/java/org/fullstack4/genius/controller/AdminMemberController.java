@@ -58,12 +58,15 @@ public class AdminMemberController {
                                    @RequestParam("file")MultipartFile file){
         log.info("===========================================");
         log.info("AdminMemberController >>>>>>>>>>>>>>>>> POSTMemberModify");
+        log.info("newMemberDTO : " + newMemberDTO);
         MemberDTO orgMemberDTO = memberServiceIf.view(newMemberDTO.getMember_id());
+        log.info("orgMemberDTO : " + orgMemberDTO);
         if(!CommonUtil.parseString(orgMemberDTO.getSocial_type()).isEmpty() || (CommonUtil.parseString(newMemberDTO.getPwd()).isEmpty())) {
             newMemberDTO.setPwd(orgMemberDTO.getPwd());
             newMemberDTO.setPwdCheck(orgMemberDTO.getPwd());
         }
         if(bindingResult.hasErrors()) {
+            log.info("orgMemberDTO : " + orgMemberDTO);
             redirectAttributes.addFlashAttribute("err", bindingResult.getAllErrors());
             redirectAttributes.addAttribute("member_id", newMemberDTO.getMember_id());
             return "redirect:/admin/member/memberView";

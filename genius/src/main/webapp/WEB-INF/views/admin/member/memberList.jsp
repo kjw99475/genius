@@ -133,7 +133,16 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
-                                            <td class="align-middle">${dtoList['member_id']}</td>
+                                            <td class="align-middle">
+                                                <c:choose>
+                                                    <c:when test="${dtoList['social_type'] eq 'naver'}">
+                                                            <span class="text-geni">네이버 연동 계정입니다.</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${dtoList['member_id']}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td class="align-middle">${dtoList['member_name']}</td>
                                             <td class="align-middle">${dtoList['reg_date']}</td>
                                             <td class="align-middle">
