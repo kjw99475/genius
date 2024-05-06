@@ -75,7 +75,7 @@
                     <div class="sidebar-filter">
                         <div class="top-filter-head">카테고리</div>
                         <div class="common-filter">
-                            <div class="filter-list"><input class="pixel-radio" type="radio" value="" onclick="categoryClassSearch(this)" name="class_code_check" checked><label>전체</label></div>
+                            <div class="filter-list pt-3"><input class="pixel-radio" type="radio" value="" onclick="categoryClassSearch(this)" name="class_code_check" checked><label>전체</label></div>
                             <div class="head">초등</div>
                                 <ul>
                                     <c:forEach items="${classList}" var="list">
