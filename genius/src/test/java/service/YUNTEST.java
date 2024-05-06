@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.dto.*;
+import org.fullstack4.genius.service.BbsServiceIf;
 import org.fullstack4.genius.service.BookServiceIf;
 import org.fullstack4.genius.service.QnaServiceIf;
 import org.fullstack4.genius.service.ReviewServiceIf;
@@ -29,54 +30,51 @@ public class YUNTEST {
     private ReviewServiceIf reviewServiceIf;
     @Autowired
     private QnaServiceIf qnaServiceIf;
+    @Autowired
+    private BbsServiceIf bbsServiceIf;
     @Test
     public void testbbs(){
-        for (int i = 0;i<10;i++) {
-            QnaDTO qnaDTO = QnaDTO.builder()
-                    .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
-                    .member_id("dltjdrp123")
+        for (int i = 0;i<20;i++) {
+            BbsDTO bbsDTO = BbsDTO.builder()
+                    .bbs_title("기적의 계산법 5권 초등 3학년 도서 관련 자료 입니다.")
+                    .member_id("admin")
+                    .category_code("bc01")
                     .fileYN("N")
-                    .answerStatus("N")
-                    .member_name("이성계")
-                    .answerStatus("0")
-                    .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
-            qnaServiceIf.regist(qnaDTO);
-            QnaDTO qnaDTO2 = QnaDTO.builder()
-                    .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
-                    .member_id("wjddirdyd123")
+                    .member_name("관리자")
+                    .bbs_contents("기적의 계산법 5권 초등 3학년 도서 관련 자료 입니다.").build();
+            bbsServiceIf.regist(bbsDTO);
+            BbsDTO bbsDTO1 = BbsDTO.builder()
+                    .bbs_title("기적의 계산법 5권 초등 3학년 도서 관련 자료 입니다.")
+                    .member_id("admin")
+                    .category_code("bc01")
                     .fileYN("N")
-                    .answerStatus("N")
-                    .member_name("정약용")
-                    .answerStatus("0")
-                    .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
-            qnaServiceIf.regist(qnaDTO2);
-            QnaDTO qnaDTO3 = QnaDTO.builder()
-                    .title("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 질문 있습니다.")
-                    .member_id("wjdwndqn123")
+                    .member_name("관리자")
+                    .bbs_contents("기적의 계산법 5권 초등 3학년 도서 관련 자료 입니다.").build();
+            bbsServiceIf.regist(bbsDTO1);
+            BbsDTO bbsDTO2 = BbsDTO.builder()
+                    .bbs_title("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 자료 입니다.")
+                    .member_id("admin")
+                    .category_code("bc01")
                     .fileYN("N")
-                    .answerStatus("N")
-                    .member_name("정중부")
-                    .answerStatus("0")
-                    .contents("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 질문 있습니다.").build();
-            qnaServiceIf.regist(qnaDTO3);
-            QnaDTO qnaDTO4 = QnaDTO.builder()
-                    .title("중등 평가문제 국어2 도서 관련 질문 있습니다.")
-                    .member_id("dltjdrP123")
+                    .member_name("관리자")
+                    .bbs_contents("큰별쌤 최태성의 하루 한장 한국사 1 도서 관련 자료 입니다.").build();
+            bbsServiceIf.regist(bbsDTO2);
+            BbsDTO bbsDTO3 = BbsDTO.builder()
+                    .bbs_title("중등 평가문제 국어2 도서 관련 질문 자료 입니다.")
+                    .member_id("admin")
+                    .category_code("bc01")
                     .fileYN("N")
-                    .answerStatus("N")
-                    .member_name("이성계")
-                    .answerStatus("0")
-                    .contents("중등 평가문제 국어2 도서 관련 질문 있습니다.").build();
-            qnaServiceIf.regist(qnaDTO4);
-            QnaDTO qnaDTO5 = QnaDTO.builder()
-                    .title("체크체크 기출심화N제 수학 중2 도서 관련 질문 있습니다.")
-                    .member_id("wjdwndqn123")
+                    .member_name("관리자")
+                    .bbs_contents("중등 평가문제 국어2 도서 관련 질문 자료 입니다.").build();
+            bbsServiceIf.regist(bbsDTO3);
+            BbsDTO bbsDTO4 = BbsDTO.builder()
+                    .bbs_title("체크체크 기출심화N제 수학 중2 도서 관련 자료 입니다.")
+                    .member_id("admin")
+                    .category_code("bc01")
                     .fileYN("N")
-                    .answerStatus("N")
-                    .member_name("정중부")
-                    .answerStatus("0")
-                    .contents("체크체크 기출심화N제 수학 중2 도서 관련 질문 있습니다.").build();
-            qnaServiceIf.regist(qnaDTO5);
+                    .member_name("관리자")
+                    .bbs_contents("체크체크 기출심화N제 수학 중2 도서 관련 자료 입니다.").build();
+            bbsServiceIf.regist(bbsDTO4);
         }
     }
 

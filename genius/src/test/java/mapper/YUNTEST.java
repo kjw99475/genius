@@ -39,15 +39,8 @@ public class YUNTEST {
 
     @Test
     public void testbbs(){
-        QnaVO qnaVO = QnaVO.builder()
-                .title("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.")
-                .member_id("dltjdrp123")
-                .fileYN("N")
-                .answerStatus("N")
-                .member_name("이성계")
-                .answerStatus("0")
-                .contents("기적의 계산법 5권 초등 3학년 도서 관련 질문 있습니다.").build();
-        qnaMapper.regist(qnaVO);
+        BbsVO bbsVO = BbsVO.builder()
+                .bbs_title("").build();
     }
 
 

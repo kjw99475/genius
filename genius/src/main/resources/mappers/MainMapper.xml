@@ -40,7 +40,7 @@
         LIMIT 0,8;
     </select>
     <select id="review" resultType="org.fullstack4.genius.domain.ReviewVO">
-        SELECT TB.book_idx, TB.book_name
+        SELECT TB.book_idx, TB.book_name, TB.book_code
         , TR.`rank`, TR.review_contents, TR.reg_date
         , TM.member_id, TM.profile
         FROM tbl_book AS TB

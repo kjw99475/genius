@@ -108,7 +108,7 @@
                                     <div class="col-md-8 col-lg-9">
                                         <ul id="org-file-list" class="form-group d-flex flex-column m-0 p-0" style="gap:5px">
                                             <c:forEach items="${fileList}" var="file">
-                                                <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span><a href="/bbs/qnaFileDownload?file_idx=${file.file_idx}&qna_idx=${qnaDTO.qna_idx}" >${file.original_name}</a></span></li>
+                                                <li class="card mb-1 shadow-none border border-gray d-flex flex-row justify-content-between p-2 fileListNodes"><span><a href="/admin/announce/announceFileDownload?file_idx=${file.file_idx}&bbs_idx=${bbsDTO.bbs_idx}" >${file.original_name}</a></span></li>
                                             </c:forEach>
                                         </ul>
                                     </div>
