@@ -3,6 +3,7 @@ package service;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
+import org.fullstack4.genius.domain.ReviewVO;
 import org.fullstack4.genius.dto.*;
 import org.fullstack4.genius.service.BbsServiceIf;
 import org.fullstack4.genius.service.BookServiceIf;
@@ -38,6 +39,22 @@ public class YUNTEST {
         List<OrderDTO> list = reviewServiceIf.reviewConfirm("dltjdrp123");
 
         log.info(list);
+    }
+    @Test
+    public void insertReview(){
+        List<BookDTO> blist = bookServiceIf.listAll();
+        log.info(blist);
+        for(BookDTO vo : blist){
+            if(vo.getSales_status().equals("1")){
+                ReviewDTO rvo = ReviewDTO.builder()
+                        .book_code(vo.getBook_code())
+                        .member_id("whdbs1771438")
+                        .rank(5)
+                        .review_contents("추천합니다.").build();
+                int result = reviewServiceIf.regist(rvo);
+                log.info(result);
+            }
+        }
     }
     @Test
     public void testbbs(){

@@ -6,6 +6,7 @@ import org.fullstack4.genius.domain.BbsVO;
 import org.fullstack4.genius.domain.BookVO;
 import org.fullstack4.genius.domain.QnaVO;
 import org.fullstack4.genius.domain.ReviewVO;
+import org.fullstack4.genius.dto.BookDTO;
 import org.fullstack4.genius.dto.PageRequestDTO;
 import org.fullstack4.genius.mapper.BbsMapper;
 import org.fullstack4.genius.mapper.BookMapper;
@@ -36,6 +37,23 @@ public class YUNTEST {
     private QnaMapper qnaMapper;
     @Autowired(required = false)
     private BbsMapper bbsMapper;
+
+    @Test
+    public void insertReview(){
+        List<BookVO> blist = bookMapper.listAll();
+        log.info(blist);
+        for(BookVO vo : blist){
+            if(vo.getSales_status().equals("1")){
+                ReviewVO rvo = ReviewVO.builder()
+                        .book_code(vo.getBook_code())
+                        .member_id("whdbs1771438")
+                        .rank(5)
+                        .review_contents("추천합니다.").build();
+                int result = reviewMapper.regist(rvo);
+                log.info(result);
+            }
+        }
+    }
 
     @Test
     public void testbbs(){

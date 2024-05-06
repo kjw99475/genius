@@ -262,7 +262,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="page-item">
-                                                        <a href="${responseDTO.linked_params}&page=${page_num}&page_flag=1" class="page-link">${page_num}</a>
+                                                        <a href="${responseDTO.linked_params}&page=${page_num}&page_flag=1&book_code=${bookDTO.book_code}" class="page-link">${page_num}</a>
                                                     </li>
                                                 </c:otherwise>
                                             </c:choose>
