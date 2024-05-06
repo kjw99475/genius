@@ -32,6 +32,13 @@ public class YUNTEST {
     private QnaServiceIf qnaServiceIf;
     @Autowired
     private BbsServiceIf bbsServiceIf;
+
+    @Test
+    public void revirelisttest(){
+        List<OrderDTO> list = reviewServiceIf.reviewConfirm("dltjdrp123");
+
+        log.info(list);
+    }
     @Test
     public void testbbs(){
         for (int i = 0;i<20;i++) {
