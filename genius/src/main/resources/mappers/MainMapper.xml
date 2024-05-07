@@ -9,7 +9,7 @@
         , TB.discount_price, TB.sales_status, TB.rank_avg, TB.publication_date
         , SUM(TR.amount) AS row_rank
         FROM tbl_book AS TB
-        INNER JOIN tbl_release AS TR ON TB.book_code = TR.book_code AND TR.release_date >= DATE(SUBDATE(NOW(),7))
+        INNER JOIN tbl_release AS TR ON TB.book_code = TR.book_code AND (TR.release_date BETWEEN DATE(SUBDATE(NOW(),7)) AND DATE(NOW()))
         INNER JOIN tbl_class_category AS TC ON TB.category_class_code = TC.category_code
         INNER JOIN tbl_subject_category AS TS ON TB.category_subject_code = TS.category_code
         GROUP BY TB.book_idx
@@ -42,7 +42,7 @@
     <select id="review" resultType="org.fullstack4.genius.domain.ReviewVO">
         SELECT TB.book_idx, TB.book_name, TB.book_code
         , TR.`rank`, TR.review_contents, TR.reg_date
-        , TM.member_id, TM.profile
+        , TM.member_id, TM.profile, TM.member_name
         FROM tbl_book AS TB
         INNER JOIN tbl_review AS TR ON TB.book_code = TR.book_code
         INNER JOIN tbl_member AS TM ON TR.member_id = TM.member_id
