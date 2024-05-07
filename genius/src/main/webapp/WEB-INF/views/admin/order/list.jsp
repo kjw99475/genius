@@ -143,7 +143,7 @@
                         <th scope="col" class="bg-geni-dark text-white">주문자 id</th>
                         <th scope="col" class="bg-geni-dark text-white">주문일시</th>
                         <th scope="col" class="bg-geni-dark text-white">총 결제 금액</th>
-                        <th scope="col" class="bg-geni-dark text-white">총 수량</th>
+                        <th scope="col" class="bg-geni-dark text-white">주문 건수</th>
                         <th scope="col" class="bg-geni-dark text-white">배송회사</th>
                         <th scope="col" class="bg-geni-dark text-white">배송시작일</th>
                         <th scope="col" class="bg-geni-dark text-white">배송종료일</th>
