@@ -68,7 +68,8 @@
                         <thead class="bg-geni-ft">
                             <tr>
                                 <th scope="col" >상품명</th>
-                                <th scope="col" >단가</th>
+                                <th scope="col" >정가</th>
+                                <th scope="col" >할인가</th>
                                 <th scope="col" >수량</th>
                                 <th scope="col" >합계</th>
                                 <th scope="col" style="text-align: center;">
@@ -103,11 +104,14 @@
                             <td>
                                 <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.price)}"></h5>
                             </td>
+                                <td>
+                                    <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.discount_price)}"></h5>
+                                </td>
                             <td>
                                 <div class="product_count">
                                     <div class="product_count">
                                         <input type="number" name="qty" id="quantity1" maxlength="12" value="${list.quantity}" title="Quantity:"
-                                               class="input-text qty" onchange="calculateSubTotal(this, ${list.price},'${list.book_code}')" min="0">
+                                               class="input-text qty" onchange="calculateSubTotal(this, ${list.discount_price},'${list.book_code}')" min="0">
                                     </div>
                                 </div>
                             </td>
