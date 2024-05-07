@@ -98,8 +98,8 @@
                                 </tr>
                                 <tr>
                                     <th class="bg-geni-ft">주문자 ID</th>
-                                    <c:if test="${orderDTO.get(0)member_id.length()<=20}">${orderDTO.member_id}</c:if>
-                                    <c:if test="${orderDTO.get(0)member_id.length()>20}">Social</c:if>
+                                    <c:if test="${orderDTO.get(0).member_id.length()<=20}">${orderDTO.member_id}</c:if>
+                                    <c:if test="${orderDTO.get(0).member_id.length()>20}">Social</c:if>
                                 </tr>
                                 <tr>
                                     <th class="bg-geni-ft">주문자 이름</th>
