@@ -117,9 +117,14 @@
 
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
-                <li class="page-item <c:if test="${responseDTO.page_block_start - responseDTO.page_block_size < '1'}"> disabled</c:if>" >
-                    <a href="<c:if test="${responseDTO.page_block_start - responseDTO.page_block_size >= '1'}">${responseDTO.linked_params}&page=${responseDTO.page_block_start - responseDTO.page_block_size}</c:if>"
-                       class="page-link" aria-label="Previous">&laquo;
+                <c:if test="${responseDTO.page<=10}">
+                <li class="page-item disabled">
+                    </c:if>
+                    <c:if test="${responseDTO.page>10}">
+                <li class="page-item">
+                    </c:if>
+                    <a class="page-link" href="/bbs/boardList${responseDTO.linked_params}&page=${responseDTO.page_block_end-10}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
@@ -138,9 +143,15 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <li class="page-item <c:if test="${responseDTO.page_block_start + responseDTO.page_block_size > responseDTO.total_page}"> disabled</c:if>">
-                    <a href="<c:if test="${responseDTO.page_block_start + responseDTO.page_block_size < responseDTO.total_page}">${responseDTO.linked_params}&page=${responseDTO.page_block_start + responseDTO.page_block_size}</c:if>
-                        " class="page-link" aria-label="Next">&raquo;</a>
+                <c:if test="${(responseDTO.page_block_start+10)>=(responseDTO.total_page)}">
+                <li class="page-item disabled">
+                    </c:if>
+                    <c:if test="${(responseDTO.page_block_start+10)<(responseDTO.total_page)}">
+                <li class="page-item">
+                    </c:if>
+                    <a class="page-link" href="/bbs/boardList${responseDTO.linked_params}&page=${responseDTO.page_block_start+10}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>
