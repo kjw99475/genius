@@ -105,7 +105,7 @@
                                 <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.price)}"></h5>
                             </td>
                                 <td>
-                                    <h5><input readonly class="border-0 price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.discount_price)}"></h5>
+                                    <h5><input readonly class="border-0 discount_price p-0 w-50px text-right" data-idx="1" type="text" name="price1" value="${CommonUtil.comma(list.discount_price)}"></h5>
                                 </td>
                             <td>
                                 <div class="product_count">
@@ -222,7 +222,7 @@
         let subTotals = document.querySelectorAll('.subtotal');
         let allTotal = document.querySelector('#total');
         for(let subtotal of subTotals) {
-            let price = subtotal.parentElement.parentElement.parentElement.querySelector('.price').value;
+            let price = subtotal.parentElement.parentElement.parentElement.querySelector('.discount_price').value;
             let qty = subtotal.parentElement.parentElement.parentElement.querySelector('.qty').value;
             let total = parseInt(uncomma(price)) * parseInt(qty);
             subtotal.value = comma(total);
