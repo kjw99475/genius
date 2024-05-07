@@ -143,10 +143,10 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <c:if test="${(responseDTO.page_block_start+10)>=(responseDTO.total_page)}">
+                <c:if test="${(responseDTO.page_block_start+10)>(responseDTO.total_page)}">
                 <li class="page-item disabled">
                     </c:if>
-                    <c:if test="${(responseDTO.page_block_start+10)<(responseDTO.total_page)}">
+                    <c:if test="${(responseDTO.page_block_start+10)<=(responseDTO.total_page)}">
                 <li class="page-item">
                     </c:if>
                     <a class="page-link" href="/bbs/boardList${responseDTO.linked_params}&page=${responseDTO.page_block_start+10}" aria-label="Next">
