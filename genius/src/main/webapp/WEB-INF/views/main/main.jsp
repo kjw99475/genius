@@ -223,7 +223,7 @@
                     </c:forEach>
                   </span>
                     <span>${dto['review_contents']}</span>
-                    <small>작성자 : ${dto['member_id']}</small>
+                    <small>작성자 : ${dto['member_name']}</small>
                     <small>책 이름 : ${dto['book_name']}</small>
                   </div>
                 </a>

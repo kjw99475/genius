@@ -225,8 +225,15 @@
         <!-- 페이징 영역 start -->
         <nav class="blog-pagination justify-content-center d-flex">
             <ul class="pagination">
+                <c:if test="${responseDTO.page<=10}">
+                <li class="page-item disabled">
+                    </c:if>
+                    <c:if test="${responseDTO.page>10}">
                 <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Previous">&lt;</a>
+                    </c:if>
+                    <a class="page-link" href="/book/list${responseDTO.linked_params}&page=${responseDTO.page_block_end-10}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
                 <c:forEach begin="${responseDTO.page_block_start}"
                            end="${responseDTO.page_block_end}"
@@ -244,8 +251,15 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
+                <c:if test="${(responseDTO.page_block_start+10)>=(responseDTO.total_page)}">
+                <li class="page-item disabled">
+                    </c:if>
+                    <c:if test="${(responseDTO.page_block_start+10)<(responseDTO.total_page)}">
                 <li class="page-item">
-                    <a href="#" class="page-link" aria-label="Next">&gt;</a>
+                    </c:if>
+                    <a class="page-link" href="/book/list${responseDTO.linked_params}&page=${responseDTO.page_block_start+10}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>

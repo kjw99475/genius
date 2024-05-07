@@ -143,7 +143,7 @@
                         <th scope="col" class="bg-geni-dark text-white">주문자 id</th>
                         <th scope="col" class="bg-geni-dark text-white">주문일시</th>
                         <th scope="col" class="bg-geni-dark text-white">총 결제 금액</th>
-                        <th scope="col" class="bg-geni-dark text-white">총 수량</th>
+                        <th scope="col" class="bg-geni-dark text-white">주문 건수</th>
                         <th scope="col" class="bg-geni-dark text-white">배송회사</th>
                         <th scope="col" class="bg-geni-dark text-white">배송시작일</th>
                         <th scope="col" class="bg-geni-dark text-white">배송종료일</th>
@@ -157,7 +157,10 @@
                             <tr>
                                 <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1" <c:if test="${(orderDTO.delivery_company != '' and orderDTO.delivery_company != null) or orderDTO.order_state =='주문 취소'}">disabled</c:if>></td>
                                 <th scope="row"><a href='/admin/order/view?order_num=${orderDTO.order_num}'>${orderDTO.order_num}</a></th>
-                                <td>${orderDTO.member_id}</td>
+                                <td>
+                                    <c:if test="${orderDTO.member_id.length()<=20}">${orderDTO.member_id}</c:if>
+                                    <c:if test="${orderDTO.member_id.length()>20}">Social</c:if>
+                                </td>
                                 <td>${orderDTO.order_date}</td>
                                 <td>${orderDTO.total_price}</td>
                                 <td>${orderDTO.amount}</td>

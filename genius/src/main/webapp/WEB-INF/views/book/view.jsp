@@ -211,7 +211,7 @@
                                                 <img src="/resources/upload/profile/${review.profile}" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <h4>${review.member_id}</h4>
+                                                <h4>${review.member_name}</h4>
                                                 <c:choose>
                                                     <c:when test="${review.rank > 0}">
                                                         <c:forEach begin="1" end="5" step="1" varStatus="status">
