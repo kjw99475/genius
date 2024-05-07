@@ -129,8 +129,12 @@
                 <when test="sort == 4">
                     ORDER BY discount_price DESC
                 </when>
+                <otherwise>
+                    ORDER BY book_idx DESC
+                </otherwise>
             </choose>
         </if>
+
         LIMIT #{page_skip_count}, #{page_size}
     </select>
     <select id="bookSubjectCategoryList" resultType="java.util.HashMap">
