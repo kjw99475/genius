@@ -23,5 +23,6 @@ public class ReviewVO {
 
     private int book_idx;
     private String book_name;
+    private String member_name;
     private String profile;
 }
