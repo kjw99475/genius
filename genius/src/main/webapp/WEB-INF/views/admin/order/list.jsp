@@ -158,7 +158,7 @@
                                 <td><input class="form-check-input lg-checkbox choose" type="checkbox" value="${orderDTO.order_num}" id="ch1" <c:if test="${(orderDTO.delivery_company != '' and orderDTO.delivery_company != null) or orderDTO.order_state =='주문 취소'}">disabled</c:if>></td>
                                 <th scope="row"><a href='/admin/order/view?order_num=${orderDTO.order_num}'>${orderDTO.order_num}</a></th>
                                 <td>
-                                    <c:if test="${orderDTO.member_id.length()<20}">${orderDTO.member_id}</c:if>
+                                    <c:if test="${orderDTO.member_id.length()<=20}">${orderDTO.member_id}</c:if>
                                     <c:if test="${orderDTO.member_id.length()>20}">Social</c:if>
                                 </td>
                                 <td>${orderDTO.order_date}</td>
