@@ -28,6 +28,7 @@ public class ReviewDTO {
     private int rank;
     @NotBlank
     private String review_contents;
+    private String member_name;
 
     private int book_idx;
     private String book_name;

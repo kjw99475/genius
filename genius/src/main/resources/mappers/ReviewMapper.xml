@@ -35,7 +35,7 @@
     </select>
 
     <select id="reviewListByPage" resultType="org.fullstack4.genius.domain.ReviewVO">
-        SELECT review_idx, tr.member_id, book_code, tr.reg_date, rank, review_contents, profile
+        SELECT review_idx, tr.member_id, book_code, tr.reg_date, rank, review_contents, profile, tm.member_name
         FROM tbl_review as tr inner join tbl_member as tm
         ON tr.member_id = tm.member_id
         WHERE book_code = #{book_code}
