@@ -85,11 +85,13 @@ FRONT/BACK 별, 메뉴 별 세부 업무 분장 진행
 # 프로젝트 결과
 ### 🟢 로고 이미지 제작 및 컨셉
 
-![image](https://github.com/joyun17/genius/assets/141742542/b82c29c1-1768-47e7-b431-154accb65f5f)
+![image](https://github.com/joyun17/genius/assets/141742542/26852f77-c643-40db-b0de-ec953de50eae)
+
 
 ### 🟢 메뉴구조도
 
-![image](https://github.com/joyun17/genius/assets/141742542/e973f0ba-3373-446f-afec-005b57afac9d)
+![image](https://github.com/joyun17/genius/assets/141742542/89c52d8e-181b-4f6b-b944-75b43cf5061c)
+
 
 ### 🟢 시연영상
 
